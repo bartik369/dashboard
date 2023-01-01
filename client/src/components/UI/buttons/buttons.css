@@ -1,0 +1,46 @@
+/*Submit button*/
+
+.submit-btn {
+    padding: 14px 17px;
+    background-color: #4c4bb1;
+    color: aliceblue;
+    transition: all .5s;
+    margin: 20px 0;
+    font-size: 14px;
+}
+
+.submit-btn:hover {
+    background-color: #d639e1;
+}
+
+
+.submit-btn-small {
+    padding: 10px 14px;
+    background-color: #612097;
+    color: aliceblue;
+    transition: all .5s;
+    margin: 20px 0;
+    font-size: 14px;
+}
+
+.submit-btn-small:hover {
+    background-color: #d639e1;
+}
+
+
+/*Add button*/
+
+.add-todo-btn {
+    padding: 10px 14px;
+    color: #fff;
+    border-radius: 4px;
+    background: #26bea6;
+    font-family: inherit;
+    text-transform: uppercase;
+    font-size: 12px;
+    transition: all .7s ease-out;
+}
+
+.add-todo-btn:hover {
+    background-color: rgb(109, 95, 160);
+}

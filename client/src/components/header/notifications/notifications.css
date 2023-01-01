@@ -1,0 +1,53 @@
+* {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.todo-alert {
+    width: fit-content;
+    height: fit-content;
+}
+
+.todo-alert__items {}
+
+.todo-alert__item {
+    border-bottom: 1px solid #e8e5ed;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.todo-alert__item:last-child {
+    border-bottom: none;
+}
+
+.todo-alert__item .icon {
+    color: rgb(239, 55, 120);
+    font-size: 21px;
+    margin-right: 10px;
+}
+
+.todo-alert__item .title {
+    color: #11243e;
+    font-size: 20px;
+    text-transform: none;
+    font-family: inherit;
+}
+
+.todo-alert__item .time {
+    color: #687489;
+    font-size: 11px;
+    font-family: inherit;
+}
+
+.check-todos {
+    margin-top: 10px;
+    padding: 7px 10px;
+    background-color: #e8e5ed;
+}
+
+.check-todos a {
+    color: #5d687c;
+    font-size: 11px;
+    font-family: inherit;
+}

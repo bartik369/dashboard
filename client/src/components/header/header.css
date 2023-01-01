@@ -1,0 +1,144 @@
+.header {
+    background-color: #faf8fe;
+    height: 65px;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 5px 15px 0px;
+    z-index: 98;
+    position: fixed;
+    top: 0;
+    display: flex;
+    left: 0;
+    justify-content: center;
+}
+
+.header__inner {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 140px;
+    position: relative;
+    transition: .5s ease-in-out;
+}
+
+.header__slided {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 260px;
+    position: relative;
+    transition: .5s ease-in-out;
+}
+
+.header__search {
+    position: relative;
+}
+
+.header__menu {
+    background-color: aquamarine;
+    position: relative;
+}
+
+.header__menu ul {
+    display: flex;
+    align-items: center;
+}
+
+.header__user-panel--notification {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 80px;
+}
+
+.todos-notification {
+    margin-right: 30px;
+    position: relative;
+}
+
+.todos-notification__dropmenu {
+    position: absolute;
+    display: flex;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+    border-radius: 7px;
+    background-color: #ffffff;
+    left: -200px;
+    top: 35px;
+}
+
+.todos-notification__dropmenu::before {
+    content: "";
+    width: 60px;
+    height: 20px;
+    right: 0px;
+    top: -6px;
+    position: absolute;
+    background-color: #ffffff;
+    border-radius: 8px 8px 8px;
+}
+
+.todos-notification__dropmenu-disabled {
+    display: none;
+}
+
+.chat-messagess {
+    margin-right: 30px;
+    position: relative;
+}
+
+.bi-clipboard-check,
+.bi-chat {
+    font-size: 23px;
+    cursor: pointer;
+}
+
+.todos-notification_count {
+    height: 20px;
+    width: 20px;
+    background-color: rgb(255, 35, 112);
+    color: aliceblue;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    position: absolute;
+    top: -14px;
+    right: -14px;
+}
+
+.chat-messagess__count {
+    height: 20px;
+    width: 20px;
+    background-color: #5ec8c9;
+    color: aliceblue;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    position: absolute;
+    top: -14px;
+    right: -14px;
+}
+
+.header__user-panel {
+    position: relative;
+    right: 40px;
+    display: flex;
+}
+
+.drop-menu {
+    top: 43px;
+    position: absolute;
+    right: 0px;
+}
+
+.header__user-panel .user-avatar {
+    width: 33px;
+    height: auto;
+    cursor: pointer;
+    border-radius: 50%;
+}
