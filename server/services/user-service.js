@@ -68,6 +68,26 @@ class UserService {
         }
     }
 
+    async setNewUserPassword(link, password) {
+        try {
+            const user = await ResetPasswordModel.findOne({ link })
+
+            if (!user) {
+                throw ApiError.WrongLink("Ссылка подделана");
+            }
+            const data = await UserModel.findById(user.userId);
+
+            if (!data) {
+                throw ApiError.WrongLink("Ссылка подделана");
+            }
+            const hashPassword = await bcrypt.hash(password, 7);
+            data.password = hashPassword
+            await data.save()
+        } catch (error) {
+
+        }
+    }
+
     async activate(activationLink) {
         const user = await UserModel.findOne({ activationLink });
 

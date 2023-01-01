@@ -7,7 +7,7 @@ import {
     CREATE_USER,
     LOGIN_USER,
     LOGOUT_USER,
-    UPDATE_USER_PASSWORD,
+    UPDATE_PASSWORD_LINK,
 } from "../types/typesUsers.js";
 
 const getUsers = (users) => ({
@@ -34,8 +34,9 @@ const addUser = () => ({
     type: CREATE_USER,
 });
 
-const userUpdatePassword = () => ({
-    type: UPDATE_USER_PASSWORD,
+const setPasswordLink = (link) => ({
+    type: UPDATE_PASSWORD_LINK,
+    payload: link,
 });
 
 export const createUser = (user, animationSignup, setError) => {
@@ -146,6 +147,7 @@ export const comparePasswordLink = (link, navigate) => {
         try {
             await axios.get(`${ENV.HOSTNAME}api/setpassword/${link}`)
                 .then((response) => {
+                    dispatch(setPasswordLink(response.data.link))
                     if (!response.data) {
                         navigate("/reset-password")
                     }
@@ -159,10 +161,10 @@ export const comparePasswordLink = (link, navigate) => {
 export const setNewUserPassword = (data) => {
     return async function(dispatch) {
         try {
-            await axios.post(`${ENV.HOSTNAME}api/setpassword/:link`, data)
+            await axios.put(`${ENV.HOSTNAME}api/setpassword/:link`, data)
                 .then((response) => {
-
-                })
+                    console.log(response.data)
+                });
         } catch (error) {
             console.log(error)
         }

@@ -1,6 +1,6 @@
 import React, {useRef, useState}from 'react';
-import { comparePasswordLink } from '../../../store/actions/usersActions';
-import { useDispatch } from 'react-redux';
+import { comparePasswordLink, setNewUserPassword } from '../../../store/actions/usersActions';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import {useForm} from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,6 +14,12 @@ function SetNewPassword() {
 
   const [passwordType, setPasswordType] = useState(false);
   const [repeatPasswordType, setRepeatPasswordType] = useState(false);
+  const [newPassword, setNewPassword] = useState({
+    link: "",
+    password: "",
+  });
+
+  const resetPasswordLink = useSelector((state) => state.users.resetPasswordLink);
 
   const {
     register,
@@ -29,6 +35,7 @@ function SetNewPassword() {
   const navigate = useNavigate()
 
   useEffect(() => {
+    console.log(resetPasswordLink)
     dispatch(comparePasswordLink(params.link, navigate))
   }, [params.link])
 
@@ -45,8 +52,15 @@ function SetNewPassword() {
     setRepeatPasswordType(repeatPasswordType ? false : true);
   };
 
-  const onSubmit = () => {
-    
+  const onSubmit = (data) => {
+    dispatch(setNewUserPassword(data.password))
+    const newUserPassword = {
+      ...newPassword,
+      link: resetPasswordLink,
+      password: data.password,
+    }
+    dispatch(setNewUserPassword(newUserPassword))
+
   };
 
   return (

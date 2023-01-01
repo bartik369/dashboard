@@ -12,6 +12,6 @@ router.get('/user/:id', userController.getUser);
 router.get('/auth', userController.authUser);
 router.post('/reset', userController.resetPassword);
 router.get('/setpassword/:link', userController.checkResetLink)
-router.post('/setpassword/:link', userController.setNewPassword);
+router.put('/setpassword/:link', userController.setNewPassword);
 
 export default router;
