@@ -1,6 +1,7 @@
 import React, {useRef, useState}from 'react';
 import { comparePasswordLink, setNewUserPassword } from '../../../store/actions/usersActions';
-import { useDispatch, useSelector } from 'react-redux';
+import { addModal } from '../../../store/actions/modalActions';
+import { useDispatch } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import {useForm} from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,6 +10,7 @@ import SubmitButton from '../../UI/buttons/SubmitButton';
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as formConstants from "../../../utils/constants/form.constants";
 import { useEffect } from 'react';
+import Modal from '../../UI/modal/Modal';
 
 function SetNewPassword() {
 
@@ -18,8 +20,6 @@ function SetNewPassword() {
     link: "",
     password: "",
   });
-
-  const resetPasswordLink = useSelector((state) => state.users.resetPasswordLink);
 
   const {
     register,
@@ -35,7 +35,6 @@ function SetNewPassword() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    console.log(resetPasswordLink)
     dispatch(comparePasswordLink(params.link, navigate))
   }, [params.link])
 
@@ -56,15 +55,18 @@ function SetNewPassword() {
     dispatch(setNewUserPassword(data.password))
     const newUserPassword = {
       ...newPassword,
-      link: resetPasswordLink,
+      link: params.link,
       password: data.password,
     }
-    dispatch(setNewUserPassword(newUserPassword))
+    dispatch(setNewUserPassword(newUserPassword));
+    dispatch(addModal(true))
+    // navigate("/")
 
   };
 
   return (
     <div className="main">
+      <Modal>dsdsdsd</Modal>
       <div className="auth">
         <div className="auth-sidebar">
           <div className="auth-sidebar__info">

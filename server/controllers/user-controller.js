@@ -78,7 +78,7 @@ class UserController {
             const userData = await userService.resetPassword(email)
             return res.json(userData);
         } catch (error) {
-
+            next(error)
         }
     }
 

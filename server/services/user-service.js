@@ -43,7 +43,7 @@ class UserService {
         const candidate = await UserModel.findOne({ email });
 
         if (!candidate) {
-            throw ApiError.EmailError("Пользователь с таким email не найден");
+            throw ApiError.EmailError("Данный почтовый ящик недействителен");
         }
         const resetPasswordLink = uuidv4();
         await mailService.sendResetPasswordMail(
@@ -59,7 +59,7 @@ class UserService {
             const user = await ResetPasswordModel.findOne({ link })
 
             if (!user) {
-                throw ApiError.WrongLink("Ссылка подделана");
+                throw ApiError.BadRequest("Непредвиденная ошибка");
             }
             return user
 
@@ -73,12 +73,12 @@ class UserService {
             const user = await ResetPasswordModel.findOne({ link })
 
             if (!user) {
-                throw ApiError.WrongLink("Ссылка подделана");
+                throw ApiError.BadRequest("Непредвиденная ошибка");
             }
             const data = await UserModel.findById(user.userId);
 
             if (!data) {
-                throw ApiError.WrongLink("Ссылка подделана");
+                throw ApiError.BadRequest("Непредвиденная ошибка");
             }
             const hashPassword = await bcrypt.hash(password, 7);
             data.password = hashPassword

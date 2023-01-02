@@ -10,10 +10,8 @@
 }
 
 .modal-content {
-    background: rgb(255, 255, 255);
-    max-width: 400px;
+    width: fit-content;
     position: relative;
-    border-radius: 8px;
 }
 
 .modal.active {

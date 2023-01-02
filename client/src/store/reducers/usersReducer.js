@@ -4,7 +4,6 @@ import {
     LOGOUT_USER,
     GET_USER,
     GET_USERS,
-    UPDATE_PASSWORD_LINK,
 
 } from "../types/typesUsers";
 
@@ -14,7 +13,6 @@ const initialState = {
     isAuth: false,
     accessToken: null,
     loading: true,
-    resetPasswordLink: ""
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -49,11 +47,6 @@ const usersReducer = (state = initialState, action) => {
                 user: null,
                 isAuth: false,
             }
-        case UPDATE_PASSWORD_LINK:
-            return {
-                ...state,
-                resetPasswordLink: action.payload,
-            };
         default:
             return state;
     }

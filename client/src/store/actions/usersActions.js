@@ -1,5 +1,6 @@
 import axios from "axios";
 import ENV from "../../env.config";
+import { updateModal } from "./modalActions";
 
 import {
     GET_USER,
@@ -7,8 +8,8 @@ import {
     CREATE_USER,
     LOGIN_USER,
     LOGOUT_USER,
-    UPDATE_PASSWORD_LINK,
 } from "../types/typesUsers.js";
+
 
 const getUsers = (users) => ({
     type: GET_USERS,
@@ -34,10 +35,6 @@ const addUser = () => ({
     type: CREATE_USER,
 });
 
-const setPasswordLink = (link) => ({
-    type: UPDATE_PASSWORD_LINK,
-    payload: link,
-});
 
 export const createUser = (user, animationSignup, setError) => {
     return async function(dispatch) {
@@ -127,17 +124,25 @@ export const loadUsers = () => {
     };
 };
 
-export const updateUserPassword = (data) => {
+export const updateUserPassword = (data, setError, showModal) => {
     console.log(data)
     return async function(dispatch) {
         try {
             await axios.post(`${ENV.HOSTNAME}api/reset`, data)
                 .then((response) => {
-                    // dispatch(userUpdatePassword(response.data));
-                    // dispatch(loadUsers());
+                    showModal(true)
                 });
         } catch (error) {
             console.log(error);
+            const messagesErrors = error.response.data.errors;
+            messagesErrors.map((item) => {
+
+                if (item.email) {
+                    setError("email", { type: "email", message: item.email });
+                    showModal(false)
+                }
+            });
+
         }
     };
 };
@@ -147,7 +152,6 @@ export const comparePasswordLink = (link, navigate) => {
         try {
             await axios.get(`${ENV.HOSTNAME}api/setpassword/${link}`)
                 .then((response) => {
-                    dispatch(setPasswordLink(response.data.link))
                     if (!response.data) {
                         navigate("/reset-password")
                     }

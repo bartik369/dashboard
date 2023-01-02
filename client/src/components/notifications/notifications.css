@@ -1,0 +1,17 @@
+.auth-notification {
+    background-color: cadetblue;
+    width: 600px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-notification__title {
+    font-size: 25px;
+    font-weight: bold;
+    color: blueviolet;
+}
+
+.auth-notification__content {
+    color: darkmagenta;
+}

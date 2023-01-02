@@ -52,10 +52,6 @@ const DeviceSearch = () => {
 
   // Create device
 
-  function createNewDevice(newDevice) {
-    dispatch(addDevice(newDevice));
-  };
-
 
   return (
     <div className="content-container__inner">

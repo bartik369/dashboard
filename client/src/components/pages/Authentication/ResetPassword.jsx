@@ -1,14 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateUserPassword } from "../../../store/actions/usersActions";
+import { updateModal } from "../../../store/actions/modalActions";
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as formConstants from "../../../utils/constants/form.constants";
+import * as informationConstants from "../../../utils/constants/information.constants"
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SubmitButton from "../../UI/buttons/SubmitButton";
+import AuthNotification from "../../notifications/AuthNotification";
 import "../Authentication/Authentication.css"
+import Modal from "../../UI/modal/Modal";
 
 function ResetPassword() {
   const {
@@ -20,18 +24,32 @@ function ResetPassword() {
     mode: "onBlur",
   });
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const modal = useSelector(state => state.modal);
+  const navigate = useNavigate()
+
+  const showModal = (data) => {
+    console.log(data)
+    dispatch(updateModal(data))
+  }
 
   const onSubmit = (data) => {
     console.log("chick chick")
     const resetPasswordData = {
         email: data.email,
     }
-    dispatch(updateUserPassword(resetPasswordData, setError))
+    dispatch(updateUserPassword(resetPasswordData, setError, showModal));
+    // navigate("/")
   }
 
   return (
     <div className="main">
+      <Modal active={modal.update}>
+      <AuthNotification 
+      title={informationConstants.titleResetPasswordLink} 
+      text={informationConstants.textResetPasswordLink} 
+      />
+      </Modal>
       <div className="auth">
         <div className="auth-sidebar"></div>
         <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
