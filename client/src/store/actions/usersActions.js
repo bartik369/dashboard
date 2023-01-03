@@ -124,13 +124,14 @@ export const loadUsers = () => {
     };
 };
 
-export const updateUserPassword = (data, setError, showModal) => {
+export const updateUserPassword = (data, setError, setNotificationStatus, setFormStatus) => {
     console.log(data)
     return async function(dispatch) {
         try {
             await axios.post(`${ENV.HOSTNAME}api/reset`, data)
                 .then((response) => {
-                    showModal(true)
+                    setNotificationStatus(true);
+                    setFormStatus(false);
                 });
         } catch (error) {
             console.log(error);
@@ -139,7 +140,8 @@ export const updateUserPassword = (data, setError, showModal) => {
 
                 if (item.email) {
                     setError("email", { type: "email", message: item.email });
-                    showModal(false)
+                    setNotificationStatus(false);
+                    setFormStatus(true);
                 }
             });
 

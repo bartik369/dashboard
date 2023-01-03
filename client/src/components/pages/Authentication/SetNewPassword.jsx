@@ -1,7 +1,7 @@
 import React, {useRef, useState}from 'react';
 import { comparePasswordLink, setNewUserPassword } from '../../../store/actions/usersActions';
-import { addModal } from '../../../store/actions/modalActions';
-import { useDispatch } from 'react-redux';
+import { updateModal } from '../../../store/actions/modalActions';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import {useForm} from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,7 +10,6 @@ import SubmitButton from '../../UI/buttons/SubmitButton';
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as formConstants from "../../../utils/constants/form.constants";
 import { useEffect } from 'react';
-import Modal from '../../UI/modal/Modal';
 
 function SetNewPassword() {
 
@@ -26,6 +25,7 @@ function SetNewPassword() {
     formState: {errors},
     handleSubmit,
     watch,
+    reset,
     setError,
   } = useForm({
     mode: "onBlur",
@@ -33,6 +33,7 @@ function SetNewPassword() {
 
   const params = useParams()
   const navigate = useNavigate()
+  const modal = useSelector(state => state.modal);
 
   useEffect(() => {
     dispatch(comparePasswordLink(params.link, navigate))
@@ -59,14 +60,14 @@ function SetNewPassword() {
       password: data.password,
     }
     dispatch(setNewUserPassword(newUserPassword));
-    dispatch(addModal(true))
+    reset()
+    dispatch(updateModal(true))
     // navigate("/")
 
   };
 
   return (
     <div className="main">
-      <Modal>dsdsdsd</Modal>
       <div className="auth">
         <div className="auth-sidebar">
           <div className="auth-sidebar__info">

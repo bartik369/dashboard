@@ -7,6 +7,22 @@
     justify-content: center;
 }
 
+.auth {
+    display: block;
+}
+
+.auth-disabled {
+    display: none;
+}
+
+.auth .notification {
+    display: none;
+}
+
+.auth .notification-active {
+    display: block;
+}
+
 .main .auth {
     background: #252339;
     display: flex;
@@ -84,7 +100,6 @@
     -moz-transform: translate(2000px, -2000px);
 }
 
-
 .back-notification {
     animation: fill .87s ease-in-out;
     bottom: 0;
@@ -133,7 +148,7 @@
     margin-bottom: 15px;
 }
 
-.completed > span {
+.completed>span {
     color: rgb(247, 247, 247);
     font-size: 14px;
     font-weight: 300;
