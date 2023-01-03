@@ -1,20 +1,23 @@
 import React, {useRef, useState}from 'react';
 import { comparePasswordLink, setNewUserPassword } from '../../../store/actions/usersActions';
-import { updateModal } from '../../../store/actions/modalActions';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import {useForm} from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock} from "@fortawesome/free-solid-svg-icons";
 import SubmitButton from '../../UI/buttons/SubmitButton';
+import SetUserPassword from '../../notifications/SetUserPassword';
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as formConstants from "../../../utils/constants/form.constants";
 import { useEffect } from 'react';
+import "../Authentication/Authentication.css"
 
 function SetNewPassword() {
 
   const [passwordType, setPasswordType] = useState(false);
   const [repeatPasswordType, setRepeatPasswordType] = useState(false);
+  const [notificationStatus, setNotificationStatus] = useState(false)
+  const [formStatus, setFormStatus] = useState(true)
   const [newPassword, setNewPassword] = useState({
     link: "",
     password: "",
@@ -33,7 +36,6 @@ function SetNewPassword() {
 
   const params = useParams()
   const navigate = useNavigate()
-  const modal = useSelector(state => state.modal);
 
   useEffect(() => {
     dispatch(comparePasswordLink(params.link, navigate))
@@ -53,22 +55,25 @@ function SetNewPassword() {
   };
 
   const onSubmit = (data) => {
-    dispatch(setNewUserPassword(data.password))
+    // dispatch(setNewUserPassword(data.password))
     const newUserPassword = {
       ...newPassword,
       link: params.link,
       password: data.password,
     }
     dispatch(setNewUserPassword(newUserPassword));
-    reset()
-    dispatch(updateModal(true))
-    // navigate("/")
-
+    setFormStatus(false);
+    setNotificationStatus(true);
+    reset();
   };
 
   return (
     <div className="main">
       <div className="auth">
+      <div className={notificationStatus ? "notification-active" : "notification"}>
+        <SetUserPassword />
+      </div>
+      <div className={formStatus ? "auth" : "auth-disabled"}>
         <div className="auth-sidebar">
           <div className="auth-sidebar__info">
             <div className="auth__notification">
@@ -158,6 +163,7 @@ function SetNewPassword() {
           </Link>
           </div>
         </form>
+        </div>
       </div>
     </div>
   )

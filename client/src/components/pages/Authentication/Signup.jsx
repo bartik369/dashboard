@@ -11,13 +11,15 @@ import { CSSTransition } from "react-transition-group";
 import SubmitButton from "../../UI/buttons/SubmitButton";
 import "../Authentication/Authentication.css"
 import paperAirplane from "../../../assets/portal/paper_airplane.png";
+import SuccessRegister from "../../notifications/SuccessRegister";
 
 export default function Signup() {
 
   const [passwordType, setPasswordType] = useState(false);
   const [repeatPasswordType, setRepeatPasswordType] = useState(false);
   const [animationPaperAirplane, setAnimationPaperAirplane] = useState(false);
-  const [showInfo, setShowInfo] = useState(false);
+  const [notificationStatus, setNotificationStatus] = useState(false)
+  const [formStatus, setFormStatus] = useState(true)
 
   const [userInfo, setUserInfo] = useState({
     displayname: "",
@@ -43,8 +45,10 @@ export default function Signup() {
 
   const animationSignup = () => {
      setAnimationPaperAirplane(true);
-     setShowInfo(true);
-     setTimeout(() => navigate("/"), 9000);
+     setTimeout(() => {
+      setNotificationStatus(true);
+      setFormStatus(false);
+     }, 1400);
      reset()
   }
 
@@ -74,6 +78,10 @@ export default function Signup() {
   return (
     <div className="main">
       <div className="auth">
+      <div className={notificationStatus ? "notification-active" : "notification"}>
+        <SuccessRegister />
+      </div>
+      <div className={formStatus ? "auth" : "auth-disabled"}>
         <div className="auth-sidebar">
           <div className="auth-sidebar__info">
             <div className="auth__notification">
@@ -86,16 +94,6 @@ export default function Signup() {
                   <img src={paperAirplane} alt="" />
                 </div>
               </CSSTransition>
-              <div
-                className={animationPaperAirplane ? "back-notification" : ""}
-              >
-                <div
-                  className={showInfo ? "completed" : "completion-registration"}
-                >
-                  <div className="title">{formConstants.confirmRegistration}</div>
-                  <span>{formConstants.registrationInfo}</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -229,6 +227,7 @@ export default function Signup() {
           </div>
         </form>
       </div>
+    </div>
     </div>
   );
 }

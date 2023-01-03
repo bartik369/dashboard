@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { updateUserPassword } from "../../../store/actions/usersActions";
-import { updateModal } from "../../../store/actions/modalActions";
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as formConstants from "../../../utils/constants/form.constants";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
@@ -26,7 +25,6 @@ function ResetPassword() {
   const [formStatus, setFormStatus] = useState(true)
 
   const dispatch = useDispatch();
-  const navigate = useNavigate()
 
   const onSubmit = (data) => {
     console.log("chick chick")
@@ -34,7 +32,6 @@ function ResetPassword() {
         email: data.email,
     }
     dispatch(updateUserPassword(resetPasswordData, setError, setNotificationStatus, setFormStatus));
-    // navigate("/")
   }
 
   return (

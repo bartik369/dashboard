@@ -43,7 +43,6 @@ export const createUser = (user, animationSignup, setError) => {
                 .post(`${ENV.HOSTNAME}api/registration`, user)
                 .then((response) => {
                     dispatch(addUser(response.data));
-                    console.log(response.data);
                     animationSignup();
                 });
         } catch (error) {
@@ -168,11 +167,9 @@ export const setNewUserPassword = (data) => {
     return async function(dispatch) {
         try {
             await axios.put(`${ENV.HOSTNAME}api/setpassword/:link`, data)
-                .then((response) => {
-                    console.log(response.data)
-                });
+                .then((response) => {});
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
 }
