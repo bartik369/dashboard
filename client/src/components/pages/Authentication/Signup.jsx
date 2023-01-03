@@ -77,8 +77,7 @@ export default function Signup() {
 
   return (
     <div className="main">
-      <div className="auth">
-      <div className={notificationStatus ? "notification-active" : "notification"}>
+       <div className={notificationStatus ? "notification-active" : "notification"}>
         <SuccessRegister />
       </div>
       <div className={formStatus ? "auth" : "auth-disabled"}>
@@ -227,7 +226,6 @@ export default function Signup() {
           </div>
         </form>
       </div>
-    </div>
     </div>
   );
 }

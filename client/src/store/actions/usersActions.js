@@ -1,6 +1,5 @@
 import axios from "axios";
 import ENV from "../../env.config";
-import { updateModal } from "./modalActions";
 
 import {
     GET_USER,
@@ -62,7 +61,6 @@ export const loginUser = (data, setError, navigate) => {
     return async function(dispatch) {
         try {
             await axios.post(`${ENV.HOSTNAME}api/login`, data).then((response) => {
-                console.log("from user acti", response.data);
                 dispatch(login(response.data));
                 localStorage.setItem(
                     "token",

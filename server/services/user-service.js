@@ -89,19 +89,6 @@ class UserService {
         }
     }
 
-    // async deleteResetPasswordLink(link) {
-    //     try {
-    //         const link = await ResetPasswordModel({ link })
-
-    //         if (!link) {
-    //             throw ApiError.BadRequest("Непредвиденная ошибка");
-    //         }
-    //         await ResetPasswordModel.deleteOne({ link })
-    //     } catch (error) {
-
-    //     }
-    // }
-
     async activate(activationLink) {
         const user = await UserModel.findOne({ activationLink });
 

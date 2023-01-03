@@ -29,7 +29,6 @@ function SetNewPassword() {
     handleSubmit,
     watch,
     reset,
-    setError,
   } = useForm({
     mode: "onBlur",
   });
@@ -69,7 +68,6 @@ function SetNewPassword() {
 
   return (
     <div className="main">
-      <div className="auth">
       <div className={notificationStatus ? "notification-active" : "notification"}>
         <SetUserPassword />
       </div>
@@ -164,7 +162,6 @@ function SetNewPassword() {
           </div>
         </form>
         </div>
-      </div>
     </div>
   )
 }

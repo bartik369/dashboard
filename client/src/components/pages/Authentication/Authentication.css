@@ -15,11 +15,11 @@
     display: none;
 }
 
-.auth .notification {
+.notification {
     display: none;
 }
 
-.auth .notification-active {
+.notification-active {
     display: block;
 }
 
