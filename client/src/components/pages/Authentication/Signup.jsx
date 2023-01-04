@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { createUser } from "../../../store/actions/usersActions";
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as formConstants from "../../../utils/constants/form.constants";
+import * as infoConstants from "../../../utils/constants/information.constants"
 import { Link, useNavigate} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
@@ -78,7 +79,10 @@ export default function Signup() {
   return (
     <div className="main">
        <div className={notificationStatus ? "notification-active" : "notification"}>
-        <SuccessRegister />
+        <SuccessRegister 
+        title={infoConstants.titleRigistration} 
+        text={infoConstants.textRigistration}
+        />
       </div>
       <div className={formStatus ? "auth" : "auth-disabled"}>
         <div className="auth-sidebar">

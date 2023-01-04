@@ -13,14 +13,13 @@
     background-color: #d639e1;
 }
 
-
 .submit-btn-small {
-    padding: 10px 14px;
-    background-color: #612097;
+    padding: 8px 14px;
+    background-color: #4c4bb1;
     color: aliceblue;
     transition: all .5s;
     margin: 20px 0;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .submit-btn-small:hover {

@@ -9,6 +9,7 @@ import SubmitButton from '../../UI/buttons/SubmitButton';
 import SetUserPassword from '../../notifications/SetUserPassword';
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as formConstants from "../../../utils/constants/form.constants";
+import * as infoConstants from "../../../utils/constants/information.constants";
 import { useEffect } from 'react';
 import "../Authentication/Authentication.css"
 
@@ -69,7 +70,10 @@ function SetNewPassword() {
   return (
     <div className="main">
       <div className={notificationStatus ? "notification-active" : "notification"}>
-        <SetUserPassword />
+        <SetUserPassword 
+        title={infoConstants.titleSetPassword} 
+        text={infoConstants.textSetPassword}
+        />
       </div>
       <div className={formStatus ? "auth" : "auth-disabled"}>
         <div className="auth-sidebar">

@@ -13,7 +13,7 @@ export const minLengthOfDisplayName = "Имя должно состоять ми
 //password
 
 export const yourPassword = "Пароль"
-export const minSymbolsOfPassword  = "Пароль должен быть минимум 3 символов";
+export const minSymbolsOfPassword = "Пароль должен быть минимум 3 символов";
 export const passwordsDoNotMatch = "Пароли не совпадают";
 export const fillPassword = "Укажите, пожалуйста, пароль";
 export const repeatPassword = "Повторите пароль";
@@ -24,6 +24,7 @@ export const hidePassword = "Скрыть пароль";
 
 export const enter = "Войти";
 export const send = "Отправить";
+export const go = "Перейти";
 export const register = "Зарегистрироваться";
 export const forgotPassword = "Забыли пароль?";
 export const accountNotExist = "Нет аккауна?";
@@ -36,7 +37,7 @@ export const titleRegistrationForm = "Регистрация";
 export const titleResetPasswordForm = "Восстановление пароля";
 export const titleSetNewPasswordForm = "Введите новый пароль";
 export const confirmRegistration = "Подтверждние регистрации";
-export const registrationInfo = "На Вашу почту было отправлено письмо с ссылкой для активации аккаунта";
+export const registrationInfo = "На Вашу почту было отправлено письмо с ссылкой для активации аккаунта. Также Вы можете перейти на страницу авторизации.";
 export const titleLogin = "Войти в систему";
 export const unknownError = "Непредвиденная ошибка";
 

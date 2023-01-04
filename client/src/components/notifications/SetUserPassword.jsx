@@ -16,7 +16,7 @@ export default function SetUserPassword(props) {
               {props.text}
           </div>
           <Link to="/" >
-            <SubmitButton className={"submit-btn"} title={formConstants.enter} />
+            <SubmitButton className={"submit-btn-small"} title={formConstants.enter} />
           </Link>
       </div>
   )
