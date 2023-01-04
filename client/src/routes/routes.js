@@ -4,7 +4,7 @@ import EditDevice from "../components/pages/EditDevice";
 import DeviceSearch from "../components/pages/DeviceSearch";
 import Statistics from "../components/pages/Statistic";
 import Users from "../components/pages/Users";
-import Todos from "../components/pages/Todos";
+import Todos from "../components/pages/Todos/Todos";
 import Calendar from "../components/pages/Calendar";
 import Settings from "../components/pages/Settings";
 import NotFoundPage from "../components/pages/NotFoundPage/NotFoundPage";

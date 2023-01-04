@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
-import FormInput from "../FormInput";
+import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ru from 'date-fns/locale/ru';
+import "../forms.css"
+import SubmitButton from "../../UI/buttons/SubmitButton";
+import * as formConstants from "../../../utils/constants/form.constants"
 
 
 const AddTodoForm = ({ create }) => {
@@ -91,7 +94,7 @@ const AddTodoForm = ({ create }) => {
   return (
     <div className="add-todo-form">
       {errors.title && <div className="form-error">{errors.title}</div>}
-      <FormInput
+      <input
         placeholder="Название задачи"
         value={todo.title}
         name="title"
@@ -144,6 +147,7 @@ const AddTodoForm = ({ create }) => {
       <button disabled={!validForm} type='submit' className="add-btn" onClick={() => addTodoHandler()}>
         Добавить
       </button>
+      <SubmitButton disabled={!validForm} className={"submit-btn"} title={formConstants.send}/>
     </div>
   );
 };

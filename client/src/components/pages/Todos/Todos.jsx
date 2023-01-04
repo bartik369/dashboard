@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
-import AddTodoForm from "../form/add-todo/AddTodoForm";
-import moment from "moment";
-import Modal from "../UI/modal/Modal";
-import UpdateTodoForm from "../form/update-todo/UpdateTodoForm";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteTodo, getSingleTodo, loadTodos, updateTodo, addTodo } from "../../store/actions/todosActions";
-import { addModal, updateModal } from "../../store/actions/modalActions";
-import TodoButton from "../UI/buttons/TodoButton";
-import * as uiConstants from "../../utils/constants/ui.constants";
-import AddButton from "../UI/buttons/AddButton";
-import "./Todos.css";
-import "../../styles/App.css";
+import { deleteTodo, getSingleTodo, loadTodos, updateTodo, addTodo } from "../../../store/actions/todosActions";
+import AddTodoForm from "../../form/add-todo/AddTodoForm";
+import moment from "moment";
+import Modal from "../../UI/modal/Modal";
+import UpdateTodoForm from "../../form/update-todo/UpdateTodoForm";
+import { addModal, updateModal } from "../../../store/actions/modalActions";
+import TodoButton from "../../UI/buttons/TodoButton";
+import * as uiConstants from "../../../utils/constants/ui.constants";
+import AddButton from "../../UI/buttons/AddButton";
+import "../Todos/Todos.css";
+import "../../../styles/App.css";
 import Masonry from "react-masonry-css";
 
 const Todos = () => {

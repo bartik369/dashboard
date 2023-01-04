@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Modal from "../UI/modal/Modal";
 import UpdateDeviceForm from "../form/update-device/UpdateDeviceForm";
 import AddDevice from "../form/add-device/AddDevice";
 import Pagination from "../UI/pagination/Pagination";
 import * as deviceConstants from "../../utils/constants/devices.constants";
 import { useDispatch, useSelector } from "react-redux";
-import { addDevice, deleteDevice, getsingleDevice} from "../../store/actions/devicesActions";
+import { deleteDevice, getsingleDevice} from "../../store/actions/devicesActions";
 import { updateModal } from "../../store/actions/modalActions";
 import '../../styles/App.css'
 

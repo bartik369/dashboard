@@ -9,20 +9,6 @@
     margin: 7px 0px;
 }
 
-.add-todo-form,
-.update-todo-form {
-    padding: 30px 20px;
-}
-
-.form-error {
-    color: #c44661;
-    position: relative;
-    font-family: inherit;
-    font-size: 13px;
-    padding: 5px;
-    width: fit-content
-}
-
 .date-input {
     border: 1px solid rgba(0, 0, 0, .125);
     padding: 12px;
@@ -41,6 +27,7 @@
 .my-masonry-grid_column {
     background-clip: padding-box;
 }
+
 
 /* .my-masonry-grid_column > .todo-item {
 } */
@@ -282,6 +269,7 @@
 .todo-item.done .todoreopen-btn {
     display: block;
 }
+
 .sometextclass {
     font-size: 40px;
     color: #19b158;
