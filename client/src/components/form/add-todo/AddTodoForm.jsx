@@ -19,9 +19,11 @@ const AddTodoForm = ({ create }) => {
     endTime: "",
   });
 
+  const [startTimeTodo, setStartTimeTodo] = useState("");
+  const [endTimeTodo, setEndTimeTodo] = useState("");
+
   const {
     register,
-    control,
     reset,
     formState: { errors },
     handleSubmit,
@@ -35,15 +37,23 @@ const AddTodoForm = ({ create }) => {
       title: data.title,
       description: data.description,
       status: "inprocess",
-      startTime: data.starttime,
-      endTime: data.endtime,
+      startTime: startTimeTodo,
+      endTime: endTimeTodo,
     };
     create(newTodo);
     reset();
   };
 
+  const handleAddStartTime = (date) => {
+    setStartTimeTodo(date);
+  };
+
+  const handleAddEndTime = (date) => {
+    setEndTimeTodo(date);
+  };
+
   return (
-    <form className="add-todo-form" onSubmit={handleSubmit(onSubmit)}>
+    <form className="todo-form" onSubmit={handleSubmit(onSubmit)}>
       <div className="form-error">
         {errors.title && <p>{errors.title.message || "Error"}</p>}
       </div>
@@ -80,61 +90,55 @@ const AddTodoForm = ({ create }) => {
           },
         })}
       />
-      <div className="form-error">
-        {errors.starttime && <p>{errors.starttime.message || "Error"}</p>}
+      <div className="todo-form__date">
+        <div className="start">
+          <i className="bi bi-clock"></i>
+          <div className="date">
+            <DatePicker
+              name="starttime"
+              required={true}
+              value={Date.parse(startTimeTodo)}
+              selected={startTimeTodo}
+              onChange={(date) => handleAddStartTime(date)}
+              selectsStart
+              startDate={startTimeTodo}
+              endDate={endTimeTodo}
+              className="date-input"
+              placeholderText="Дата начала"
+              showTimeSelect
+              timeFormat="p"
+              timeIntervals={15}
+              dateFormat="Pp"
+              timeCaption="time"
+              locale={ru}
+            />
+          </div>
+        </div>
+        <div className="end">
+          <i className="bi bi-clock"></i>
+          <div className="date">
+            <DatePicker
+              name="endtime"
+              required={true}
+              value={endTimeTodo}
+              selected={endTimeTodo}
+              onChange={(date) => handleAddEndTime(date)}
+              selectsEnd
+              startDate={startTimeTodo}
+              endDate={endTimeTodo}
+              minDate={startTimeTodo}
+              className="date-input"
+              placeholderText="Дата завершения"
+              showTimeSelect
+              timeFormat="p"
+              timeIntervals={15}
+              dateFormat="Pp"
+              timeCaption="time"
+              locale={ru}
+            />
+          </div>
+        </div>
       </div>
-      <Controller
-        control={control}
-        name="starttime"
-        {...register("starttime", {
-          required: "start time is requied",
-        })}
-        render={({ field: { onChange, value } }) => (
-          <DatePicker
-            value={Date.parse(todo.startTime)}
-            selected={value}
-            onChange={onChange}
-            selectsStart
-            startDate={Date.parse(todo.startTime)}
-            endDate={Date.parse(todo.endTime)}
-            className="date-input"
-            placeholderText="Дата начала"
-            showTimeSelect
-            timeFormat="p"
-            timeIntervals={15}
-            dateFormat="Pp"
-            timeCaption="time"
-            locale={ru}
-          />
-        )}
-      />
-      <div className="form-error">
-        {errors.endtime && <p>{errors.endtime.message || "Error"}</p>}
-      </div>
-
-      <Controller
-        control={control}
-        name="endtime"
-        render={({ field: { onChange, value } }) => (
-          <DatePicker
-            value={Date.parse(todo.endTime)}
-            selected={value}
-            onChange={onChange}
-            selectsEnd
-            startDate={Date.parse(todo.startTime)}
-            endDate={Date.parse(todo.endTime)}
-            minDate={Date.parse(todo.startTime)}
-            className="date-input"
-            placeholderText="Дата завершения"
-            showTimeSelect
-            timeFormat="p"
-            timeIntervals={15}
-            dateFormat="Pp"
-            timeCaption="time"
-            locale={ru}
-          />
-        )}
-      />
       {/* {errors.title && <div className="form-error">{errors.title}</div>}
       <input
         placeholder="Название задачи"
