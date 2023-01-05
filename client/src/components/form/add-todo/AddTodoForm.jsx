@@ -1,99 +1,200 @@
 import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import ru from 'date-fns/locale/ru';
-import "../forms.css"
+import ru from "date-fns/locale/ru";
+import "../forms.css";
 import SubmitButton from "../../UI/buttons/SubmitButton";
-import * as formConstants from "../../../utils/constants/form.constants"
+import * as formConstants from "../../../utils/constants/form.constants";
+import * as REGEX from "../../../utils/constants/regex.constants";
 
 
 const AddTodoForm = ({ create }) => {
-  const [todo, setTodo] = useState(
-    {
-      id: "",
-      title: "",
-      description: "",
-      status: "",
-      startTime: "",
-      endTime: "",
-    }
-  );
+  const [todo, setTodo] = useState({
+    id: "",
+    title: "",
+    description: "",
+    status: "",
+    startTime: "",
+    endTime: "",
+  });
 
-  const [errors, setErrors] = useState(
-    {
-      title: "",
-      starttime: "",
-      endtime: "",
-    }
-  );
-  const [validForm, setValidForm] = useState(false);
+  const {
+    register,
+    control,
+    reset,
+    formState: { errors },
+    handleSubmit,
+    watch,
+    setError,
+  } = useForm({
+    mode: "onBlur",
+  });
 
-  useEffect(() => {
-    if (todo.title !== "" 
-    && todo.description !== "" 
-    && todo.startTime !== "" 
-    && todo.endTime !== "") {
-      setValidForm(true)
-    } else {
-      setValidForm(false)
-    }
-  }, [todo.title, todo.description, todo.startTime, todo.endTime]);
+  // const [errors, setErrors] = useState(
+  //   {
+  //     title: "",
+  //     starttime: "",
+  //     endtime: "",
+  //   }
+  // );
+  // const [validForm, setValidForm] = useState(false);
 
-  const validate = (name, value) => {
-    const checkRegExp = new RegExp(/^[a-zа-яё]+$|\s/i).test(value);
-    switch (name) {
-      case "title":
-        !checkRegExp
-          ? setErrors({...errors, title: "Укажите корректный заголовок"})
-          : setErrors({...errors, title: ""})
-        break;
-      case "description":
-        !checkRegExp
-          ? setErrors({...errors, description: "Укажите корректное описание"})
-          : setErrors({...errors, description: ""})
-        break;
-      default:
-        break;
-    }
-  }
+  // useEffect(() => {
+  //   if (todo.title !== ""
+  //   && todo.description !== ""
+  //   && todo.startTime !== ""
+  //   && todo.endTime !== "") {
+  //     setValidForm(true)
+  //   } else {
+  //     setValidForm(false)
+  //   }
+  // }, [todo.title, todo.description, todo.startTime, todo.endTime]);
 
-  const handleChange = (e) => {
-    const {name, value} = e.target;
-    validate(name, value)
-    setTodo({...todo, [name]: value})
-  }
+  // const validate = (name, value) => {
+  //   const checkRegExp = new RegExp(/^[a-zа-яё]+$|\s/i).test(value);
+  //   switch (name) {
+  //     case "title":
+  //       !checkRegExp
+  //         ? setErrors({...errors, title: "Укажите корректный заголовок"})
+  //         : setErrors({...errors, title: ""})
+  //       break;
+  //     case "description":
+  //       !checkRegExp
+  //         ? setErrors({...errors, description: "Укажите корректное описание"})
+  //         : setErrors({...errors, description: ""})
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // }
 
-  const handleStartTime = (date) => {
-    setTodo({...todo, startTime: date})
-  }
+  // const handleChange = (e) => {
+  //   const {name, value} = e.target;
+  //   validate(name, value)
+  //   setTodo({...todo, [name]: value})
+  // }
 
-  const handleEndTime = (date) => {
-    setTodo({...todo, endTime: date})
-  }
+  // const handleStartTime = (date) => {
+  //   setTodo({...todo, startTime: date})
+  // }
 
-  const addTodoHandler = () => {
-     const newTodo = {
-      title: todo.title,
-      description: todo.description,
+  // const handleEndTime = (date) => {
+  //   setTodo({...todo, endTime: date})
+  // }
+
+  // const addTodoHandler = () => {
+  //    const newTodo = {
+  //     title: todo.title,
+  //     description: todo.description,
+  //     status: "inprocess",
+  //     startTime: todo.startTime,
+  //     endTime: todo.endTime,
+  //   };
+  //   create(newTodo);
+  //   setTodo({
+  //     id: "",
+  //     title: "",
+  //     description: "",
+  //     status: "",
+  //     startTime: "",
+  //     endTime: "",
+  //   })
+  // };
+
+  const onSubmit = (data) => {
+    const newTodo = {
+      ...todo,
+      title: data.title,
+      description: data.description,
       status: "inprocess",
-      startTime: todo.startTime,
-      endTime: todo.endTime,
-    };
-    create(newTodo);
-    setTodo({
-      id: "",
-      title: "",
-      description: "",
-      status: "",
-      startTime: "",
-      endTime: "",
-    })
+      startTime: data.startTime,
+      endTime: data.endTime,
+    }
+    console.log(newTodo)
   };
 
   return (
-    <div className="add-todo-form">
-      {errors.title && <div className="form-error">{errors.title}</div>}
+    <form className="add-todo-form" onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <input
+          placeholder="name of task"
+          type="text"
+          name="title"
+          {...register("title", {
+            required: formConstants.fillName,
+            pattern: {
+              value: REGEX.isValidDisplayName,
+              message: formConstants.wrongNameFormat,
+            },
+            minLength: {
+              value: 3,
+              message: formConstants.minLengthOfDisplayName,
+            },
+          })}
+        />
+      </div>
+      <div className="form-error">
+        {errors.title && <p>{errors.title.message || "Error"}</p>}
+      </div>
+      <textarea
+          placeholder="todo description"
+          type="text"
+          name="description"
+          {...register("description", {
+            required: "required ares",
+            minLength: {
+              value: 3,
+              message: formConstants.minLengthOfDisplayName,
+            },
+          })}
+        />
+        <DatePicker
+        name="starttime"
+        control={control}
+        {...register("starttime", {
+          required: "requireddd!"
+        })}
+        value={todo.startTime}
+        selected={todo.startTime}
+        // onChange={(date) => handleStartTime(date)}
+        selectsStart
+        startDate={todo.startTime}
+        endDate={todo.endTime}
+        className="date-input"
+        placeholderText="Дата начала"
+        showTimeSelect
+        timeFormat="p"
+        timeIntervals={15}
+        dateFormat="Pp"
+        timeCaption="time"
+        locale={ru}
+      />
+      <DatePicker
+        control={control}
+        name="endtime"
+        value={todo.endTime}
+        selected={todo.endTime}
+        // onChange={(date) => handleEndTime(date)}
+        selectsEnd
+        startDate={todo.startTime}
+        endDate={todo.endTime}
+        minDate={todo.startTime}
+        className="date-input"
+        placeholderText="Дата завершения"
+        showTimeSelect
+        timeFormat="p"
+        timeIntervals={15}
+        dateFormat="Pp"
+        timeCaption="time"
+        locale={ru}
+        {...register("endtime", {
+        })}
+      />
+      
+
+      
+      {/* {errors.title && <div className="form-error">{errors.title}</div>}
       <input
         placeholder="Название задачи"
         value={todo.title}
@@ -147,8 +248,9 @@ const AddTodoForm = ({ create }) => {
       <button disabled={!validForm} type='submit' className="add-btn" onClick={() => addTodoHandler()}>
         Добавить
       </button>
-      <SubmitButton disabled={!validForm} className={"submit-btn"} title={formConstants.send}/>
-    </div>
+      <SubmitButton disabled={!validForm} className={"submit-btn"} title={formConstants.send}/> */}
+      <SubmitButton className={"submit-btn"} title={formConstants.send} />
+    </form>
   );
 };
 
