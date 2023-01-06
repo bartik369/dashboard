@@ -20,10 +20,6 @@
     background-clip: padding-box;
 }
 
-
-/* .my-masonry-grid_column > .todo-item {
-} */
-
 .todo-item {
     background-color: #fbfafe;
     box-shadow: -8px 14px 19px rgb(127, 120, 167, .5);
@@ -69,7 +65,7 @@
 }
 
 .todo-item.overdue .end-time {
-    color: #ff866e;
+    color: #bd4550;
     font-size: 18px;
 }
 
@@ -89,7 +85,7 @@
 
 .time-text {
     font-size: 11px;
-    color: #e3e3f7;
+    color: #ededfe;
     padding: 3px 0;
     font-family: inherit;
 }
@@ -239,22 +235,52 @@
     color: #c7c4e2;
 }
 
-.todoend-btn {}
-
-.todoend-btn:hover {
-    color: #19b158;
+.todo-item.overdue .todoend-btn {
+    color: #c56262;
 }
 
-.todoupdate-btn {}
-
-.todoupdate-btn:hover {
-    color: #675fc8;
+.todo-item.overdue .todoend-btn:hover {
+    color: #ffdada;
 }
 
+.todo-item.overdue .todoupdate-btn {
+    color: #c56262;
+}
+
+.todo-item.overdue .todoupdate-btn:hover {
+    color: #ffdada;
+}
+
+.todo-item.overdue .tododel-btn {
+    color: #c56262;
+}
+
+.todo-item.overdue .tododel-btn:hover {
+    color: #ffdada;
+}
+
+.todo-item.overdue .todoreopen-btn {
+    color: #c56262;
+}
+
+.todo-item.overdue .todoreopen-btn:hover {
+    color: #88e9f3;
+}
+
+.todoend-btn,
+.todoupdate-btn,
 .tododel-btn {}
 
+.todoend-btn:hover {
+    color: #88e9f3;
+}
+
+.todoupdate-btn:hover {
+    color: #b294ff;
+}
+
 .tododel-btn:hover {
-    color: #f16d75;
+    color: #fa92a7;
 }
 
 .todoreopen-btn {
