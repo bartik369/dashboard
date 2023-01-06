@@ -31,9 +31,9 @@
 
 .add-todo-btn {
     padding: 10px 14px;
-    color: #fff;
+    color: #ffffff;
     border-radius: 4px;
-    background: #26bea6;
+    background: #25d8e7;
     font-family: inherit;
     text-transform: uppercase;
     font-size: 12px;
@@ -41,5 +41,5 @@
 }
 
 .add-todo-btn:hover {
-    background-color: rgb(109, 95, 160);
+    background: #51489d;
 }

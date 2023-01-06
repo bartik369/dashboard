@@ -64,8 +64,8 @@ const UpdateTodoForm = ({ update }) => {
       <div className="form-error">
         {errors.title && <p>{errors.title.message || "Error"}</p>}
       </div>
-      <div className="todo-form__inner">
         <input
+          className="todo-form__input"
           placeholder={formConstants.todoTitlePlaceholder}
           type="text"
           name="title"
@@ -78,11 +78,11 @@ const UpdateTodoForm = ({ update }) => {
             },
           })}
         />
-      </div>
       <div className="form-error">
         {errors.description && <p>{errors.description.message || "Error"}</p>}
       </div>
       <textarea
+        className="todo-form__input"
         placeholder={formConstants.todoDescriptionPlaceholder}
         type="text"
         name="description"
@@ -120,7 +120,7 @@ const UpdateTodoForm = ({ update }) => {
           </div>
         </div>
         <div className="end">
-          <i className="bi bi-clock"></i>
+          <i className="bi bi-clock-history"></i>
           <div className="date">
             <DatePicker
               name="endtime"
