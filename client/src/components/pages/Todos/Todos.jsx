@@ -83,7 +83,7 @@ const Todos = () => {
         <UpdateTodoForm update={updateTodoData} />
       </Modal>
       <div className="add-todo">
-        <AddButton action={() => newTodoHandler()} title={uiConstants.newTask}/>
+        <AddButton className={"add-todo-btn"} icon={"bi bi-plus"} action={() => newTodoHandler()} title={uiConstants.newTask}/>
       </div>
       <Masonry
         breakpointCols={breakpoints}

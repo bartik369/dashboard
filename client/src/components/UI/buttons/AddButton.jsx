@@ -1,11 +1,11 @@
-
-import React from 'react';
+import React from "react";
 import "./buttons.css";
 
-export default function AddButton({action, ...props}) {
+export default function AddButton({ action, ...props }) {
   return (
-    <button className="add-todo-btn" onClick={action}>
-    {props.title}
-  </button>
-  )
+    <button className={props.className} onClick={action}>
+      <i class={props.icon}></i>
+      {props.title}
+    </button>
+  );
 }

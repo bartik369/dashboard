@@ -85,13 +85,13 @@
 
 .time-text {
     font-size: 11px;
-    color: #ededfe;
+    color: #f2f2ff;
     padding: 3px 0;
     font-family: inherit;
 }
 
 .start-time {
-    color: #1b1922;
+    color: #e9e7f3;
 }
 
 .end-time {

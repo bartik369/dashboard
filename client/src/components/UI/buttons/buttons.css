@@ -30,16 +30,22 @@
 /*Add button*/
 
 .add-todo-btn {
-    padding: 10px 14px;
-    color: #ffffff;
-    border-radius: 4px;
-    background: #9e78e8;
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;
+    background: #4c4bb1;
+    color: #f6feff;
     font-family: inherit;
     text-transform: uppercase;
-    font-size: 12px;
+    font-size: 10px;
     transition: all .7s ease-out;
 }
 
 .add-todo-btn:hover {
-    background: #51489d;
+    background: #f8fafb;
+    color: #51489d;
+}
+
+.bi-plus {
+    font-size: 20px;
 }
