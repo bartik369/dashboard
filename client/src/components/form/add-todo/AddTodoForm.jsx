@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import ru from "date-fns/locale/ru";
 import SubmitButton from "../../UI/buttons/SubmitButton";
 import * as formConstants from "../../../utils/constants/form.constants";
-import * as REGEX from "../../../utils/constants/regex.constants";
 import "react-datepicker/dist/react-datepicker.css";
 import "../forms.css";
 
@@ -18,9 +16,6 @@ const AddTodoForm = ({ create }) => {
     startTime: "",
     endTime: "",
   });
-
-  const [startTimeTodo, setStartTimeTodo] = useState("");
-  const [endTimeTodo, setEndTimeTodo] = useState("");
 
   const {
     register,
@@ -37,19 +32,19 @@ const AddTodoForm = ({ create }) => {
       title: data.title,
       description: data.description,
       status: "inprocess",
-      startTime: startTimeTodo,
-      endTime: endTimeTodo,
+      startTime: todo.startTime,
+      endTime: todo.endTime,
     };
     create(newTodo);
     reset();
   };
 
   const handleAddStartTime = (date) => {
-    setStartTimeTodo(date);
+    setTodo({...todo, startTime: date})
   };
 
   const handleAddEndTime = (date) => {
-    setEndTimeTodo(date);
+    setTodo({...todo, endTime: date})
   };
 
   return (
@@ -63,14 +58,10 @@ const AddTodoForm = ({ create }) => {
           type="text"
           name="title"
           {...register("title", {
-            required: formConstants.fillName,
-            pattern: {
-              value: REGEX.isValidDisplayName,
-              message: formConstants.wrongNameFormat,
-            },
+            required: formConstants.requiredTodoTitle,
             minLength: {
-              value: 3,
-              message: formConstants.minLengthOfDisplayName,
+              value: 7,
+              message: formConstants.minTodoTitle,
             },
           })}
         />
@@ -83,10 +74,10 @@ const AddTodoForm = ({ create }) => {
         type="text"
         name="description"
         {...register("description", {
-          required: "required ares",
+          required: formConstants.requiredTodoDescription,
           minLength: {
-            value: 3,
-            message: formConstants.minLengthOfDisplayName,
+            value: 10,
+            message: formConstants.minTodoDescription,
           },
         })}
       />
@@ -97,12 +88,12 @@ const AddTodoForm = ({ create }) => {
             <DatePicker
               name="starttime"
               required={true}
-              value={Date.parse(startTimeTodo)}
-              selected={startTimeTodo}
+              value={Date.parse(todo.startTime)}
+              selected={todo.startTime}
               onChange={(date) => handleAddStartTime(date)}
               selectsStart
-              startDate={startTimeTodo}
-              endDate={endTimeTodo}
+              startDate={todo.startTime}
+              endDate={todo.endTime}
               className="date-input"
               placeholderText="Дата начала"
               showTimeSelect
@@ -120,13 +111,13 @@ const AddTodoForm = ({ create }) => {
             <DatePicker
               name="endtime"
               required={true}
-              value={endTimeTodo}
-              selected={endTimeTodo}
+              value={todo.endTime}
+              selected={todo.endTime}
               onChange={(date) => handleAddEndTime(date)}
               selectsEnd
-              startDate={startTimeTodo}
-              endDate={endTimeTodo}
-              minDate={startTimeTodo}
+              startDate={todo.startTime}
+              endDate={todo.endTime}
+              minDate={todo.startTime}
               className="date-input"
               placeholderText="Дата завершения"
               showTimeSelect
@@ -139,61 +130,6 @@ const AddTodoForm = ({ create }) => {
           </div>
         </div>
       </div>
-      {/* {errors.title && <div className="form-error">{errors.title}</div>}
-      <input
-        placeholder="Название задачи"
-        value={todo.title}
-        name="title"
-        onChange={(e) => handleChange(e)}
-      />
-      {errors.description && <div className="form-error">{errors.description}</div>}
-      <textarea
-        value={todo.description}
-        name="description"
-        onChange={(e) => handleChange(e)}
-        cols="20"
-        rows="10"
-      />
-      <DatePicker
-        name="starttime"
-        value={todo.startTime}
-        selected={todo.startTime}
-        onChange={(date) => handleStartTime(date)}
-        selectsStart
-        startDate={todo.startTime}
-        endDate={todo.endTime}
-        className="date-input"
-        placeholderText="Дата начала"
-        showTimeSelect
-        timeFormat="p"
-        timeIntervals={15}
-        dateFormat="Pp"
-        timeCaption="time"
-        locale={ru}
-      />
-      <DatePicker
-        name="endtime"
-        value={todo.endTime}
-        selected={todo.endTime}
-        onChange={(date) => handleEndTime(date)}
-        selectsEnd
-        startDate={todo.startTime}
-        endDate={todo.endTime}
-        minDate={todo.startTime}
-        className="date-input"
-        placeholderText="Дата завершения"
-        showTimeSelect
-        timeFormat="p"
-        timeIntervals={15}
-        dateFormat="Pp"
-        timeCaption="time"
-        locale={ru}
-      />
-      
-      <button disabled={!validForm} type='submit' className="add-btn" onClick={() => addTodoHandler()}>
-        Добавить
-      </button>
-      <SubmitButton disabled={!validForm} className={"submit-btn"} title={formConstants.send}/> */}
       <SubmitButton className={"submit-btn"} title={formConstants.send} />
     </form>
   );

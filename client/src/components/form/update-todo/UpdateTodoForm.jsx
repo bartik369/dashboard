@@ -1,118 +1,108 @@
-import React, { useEffect, useState } from 'react'
-import FormInput from '../FormInput';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loadTodos } from "../../../store/actions/todosActions";
+import { useForm } from "react-hook-form";
+import SubmitButton from "../../UI/buttons/SubmitButton";
+import * as formConstants from "../../../utils/constants/form.constants";
 import DatePicker from "react-datepicker";
+import ru from "date-fns/locale/ru";
+import "../../form/forms.css";
 import "react-datepicker/dist/react-datepicker.css";
-import ru from 'date-fns/locale/ru';
-import { useDispatch, useSelector } from 'react-redux';
-import { loadTodos } from '../../../store/actions/todosActions';
-import "../../form/forms.css"
 
-const UpdateTodoForm = ({update}) => {
-
-const [updatedTodo, setUpdatedTodo] = useState(
-  {
+const UpdateTodoForm = ({ update }) => {
+  const [updatedTodo, setUpdatedTodo] = useState({
     id: "",
     title: "",
     description: "",
     status: "",
     startTime: "",
     endTime: "",
-  }
-);
+  });
 
-const [errors, setErrors] = useState(
-  {
-    errors: "",
-    title: "",
-    starttime: "",
-    endtime: "",
-  }
-);
-const [validForm, setValidForm] = useState(false);
+  let dispatch = useDispatch();
+  const { todo } = useSelector((state) => state.todo);
 
-let dispatch = useDispatch();
-const {todo} = useSelector(state => state.todo);
+  useEffect(() => {
+    dispatch(loadTodos());
+    setUpdatedTodo({ ...todo });
+  }, [todo]);
 
 
-useEffect(() => {
-  dispatch(loadTodos())
-  setUpdatedTodo({...todo})
-}, [todo]);
+  const {
+    register,
+    reset,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({
+    mode: "onBlur",
+  });
 
-useEffect(() => {
-  if (updatedTodo.title !== "" 
-  && updatedTodo.description !== "" 
-  && updatedTodo.startTime !== "" 
-  && updatedTodo.endTime !== "") {
-    setValidForm(true)
-  } else {
-    setValidForm(false)
-  }
-}, [updatedTodo.title, updatedTodo.description, updatedTodo.startTime, updatedTodo.endTime]);
+  const onSubmit = (data) => {
+    const updateTodoData = {
+      ...updatedTodo,
+      id: updatedTodo._id,
+      title: data.title,
+      description: data.description,
+      status: updatedTodo.status,
+      startTime: updatedTodo.startTime,
+      endTime: updatedTodo.endTime,
+    };
+    update(updateTodoData);
+    reset()
+  };
 
-const validate = (name, value) => {
-  const checkRegExp = new RegExp(/^[a-zа-яё]+$|\s/i).test(value);
-  switch (name) {
-    case "title":
-      !checkRegExp
-        ? setErrors({...errors, title: "Укажите корректный заголовок"})
-        : setErrors({...errors, title: ""})
-      break;
-    case "description":
-      !checkRegExp
-        ? setErrors({...errors, description: "Укажите корректное описание"})
-        : setErrors({...errors, description: ""})
-      break;
-    default:
-      break;
-  }
-}
+  const handleStartTime = (date) => {
+    setUpdatedTodo({ ...updatedTodo, startTime: date });
+  };
 
-const handleTodoUpdate = () => {
-  const updateTodoData = {
-    id: updatedTodo._id,
-    title: updatedTodo.title,
-    description: updatedTodo.description,
-    status: updatedTodo.status,
-    startTime: updatedTodo.startTime,
-    endTime: updatedTodo.endTime,
-  }
-  update(updateTodoData);                                                                                                                                                                                        
-  
-}
-
-const handleChange = (e) => {
-  const {name, value} = e.target;
-  validate(name, value)
-  setUpdatedTodo({...updatedTodo, [name]: value})
-}
-
-const handleStartTime = (date) => {
-  setUpdatedTodo({...updatedTodo, startTime: date})
-}
-
-const handleEndTime = (date) => {
-  setUpdatedTodo({...updatedTodo, endTime: date})
-}
+  const handleEndTime = (date) => {
+    setUpdatedTodo({ ...updatedTodo, endTime: date });
+  };
 
   return (
-        <div className="update-todo-form">
-           {errors.title && <div className="form-error">{errors.title}</div>}
-            <FormInput
-            value={updatedTodo.title || ""}
-            name="title"
-            onChange={(e) => handleChange(e)}
-            />
-            {errors.description && <div className="form-error">{errors.description}</div>}
-            <textarea
-            rows="10"
-            name="description"
-            value={updatedTodo.description || ""}
-            onChange={(e) => handleChange(e)}
-            />
-             <DatePicker
+    <form className="todo-form" onSubmit={handleSubmit(onSubmit)}>
+      <div className="form-error">
+        {errors.title && <p>{errors.title.message || "Error"}</p>}
+      </div>
+      <div className="someforicin">
+        <input
+          placeholder="name of task"
+          type="text"
+          name="title"
+          defaultValue={updatedTodo.title || ""}
+          {...register("title", {
+            required: formConstants.requiredTodoTitle,
+            minLength: {
+              value: 7,
+              message: formConstants.minTodoTitle,
+            },
+          })}
+        />
+      </div>
+      <div className="form-error">
+        {errors.description && <p>{errors.description.message || "Error"}</p>}
+      </div>
+      <textarea
+        placeholder="todo description"
+        type="text"
+        name="description"
+        defaultValue={updatedTodo.description || ""}
+        {...register("description", {
+          required: formConstants.requiredTodoDescription,
+          minLength: {
+            value: 10,
+            message: formConstants.minTodoDescription,
+          },
+        })}
+      />
+      <div className="todo-form__date">
+        <div className="start">
+          <i className="bi bi-clock"></i>
+          <div className="date">
+            <DatePicker
               name="starttime"
-              // value={updatedTodo.startTime}
+              required={true}
+              value={Date.parse(updatedTodo.startTime)}
               selected={Date.parse(updatedTodo.startTime)}
               onChange={(date) => handleStartTime(date)}
               selectsStart
@@ -126,28 +116,37 @@ const handleEndTime = (date) => {
               dateFormat="Pp"
               timeCaption="time"
               locale={ru}
-              />
-              <DatePicker 
-                name="endtime"
-                // value={updatedTodo.endTime}
-                selected={Date.parse(updatedTodo.endTime)}
-                onChange={(date) => handleEndTime(date)}
-                selectsEnd
-                startDate={Date.parse(updatedTodo.startTime)}
-                endDate={Date.parse(updatedTodo.endTime)}
-                minDate={Date.parse(updatedTodo.startTime)}
-                className="date-input"
-                placeholderText="Дата завершения"
-                showTimeSelect
-                timeFormat="p"
-                timeIntervals={15}
-                dateFormat="Pp"
-                timeCaption="time"
-                locale={ru}
-              />
-            <button disabled={!validForm} type='submit' className="add-btn" onClick={() => handleTodoUpdate()}>Обновить</button>
+            />
+          </div>
         </div>
-  )
-}
+        <div className="end">
+          <i className="bi bi-clock"></i>
+          <div className="date">
+            <DatePicker
+              name="endtime"
+              required={true}
+              value={Date.parse(updatedTodo.endTime)}
+              selected={Date.parse(updatedTodo.endTime)}
+              onChange={(date) => handleEndTime(date)}
+              selectsEnd
+              startDate={Date.parse(updatedTodo.startTime)}
+              endDate={Date.parse(updatedTodo.endTime)}
+              minDate={Date.parse(updatedTodo.startTime)}
+              className="date-input"
+              placeholderText="Дата завершения"
+              showTimeSelect
+              timeFormat="p"
+              timeIntervals={15}
+              dateFormat="Pp"
+              timeCaption="time"
+              locale={ru}
+            />
+          </div>
+        </div>
+      </div>
+      <SubmitButton className={"submit-btn"} title={formConstants.send} />
+    </form>
+  );
+};
 
 export default UpdateTodoForm;

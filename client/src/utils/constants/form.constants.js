@@ -52,3 +52,10 @@ export const typeDevices = "Тип устройства";
 export const fillDeviceName = "Имя устройства";
 export const fillDeviceNumber = "Серийный номер";
 export const fillUserName = "Имя пользователя";
+
+// todos
+
+export const requiredTodoTitle = "Укажите имя задачи";
+export const requiredTodoDescription = "Опишите задачу";
+export const minTodoTitle = "Заголовок не меньше 7 символов";
+export const minTodoDescription = "Описание не меньше 10 символов";
