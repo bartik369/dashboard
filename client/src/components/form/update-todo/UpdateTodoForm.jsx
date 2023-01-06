@@ -64,9 +64,9 @@ const UpdateTodoForm = ({ update }) => {
       <div className="form-error">
         {errors.title && <p>{errors.title.message || "Error"}</p>}
       </div>
-      <div className="someforicin">
+      <div className="todo-form__inner">
         <input
-          placeholder="name of task"
+          placeholder={formConstants.todoTitlePlaceholder}
           type="text"
           name="title"
           defaultValue={updatedTodo.title || ""}
@@ -83,7 +83,7 @@ const UpdateTodoForm = ({ update }) => {
         {errors.description && <p>{errors.description.message || "Error"}</p>}
       </div>
       <textarea
-        placeholder="todo description"
+        placeholder={formConstants.todoDescriptionPlaceholder}
         type="text"
         name="description"
         defaultValue={updatedTodo.description || ""}

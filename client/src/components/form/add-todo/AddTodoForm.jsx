@@ -54,7 +54,7 @@ const AddTodoForm = ({ create }) => {
       </div>
       <div className="someforicin">
         <input
-          placeholder="name of task"
+          placeholder={formConstants.todoTitlePlaceholder}
           type="text"
           name="title"
           {...register("title", {
@@ -70,7 +70,7 @@ const AddTodoForm = ({ create }) => {
         {errors.description && <p>{errors.description.message || "Error"}</p>}
       </div>
       <textarea
-        placeholder="todo description"
+        placeholder={formConstants.todoDescriptionPlaceholder}
         type="text"
         name="description"
         {...register("description", {
