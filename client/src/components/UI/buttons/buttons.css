@@ -21,12 +21,12 @@
     background-color: #8173e7;
     color: aliceblue;
     transition: all .5s;
-    width: 40%;
-    font-size: 13px;
+    width: 34%;
+    font-size: 12px;
 }
 
 .submit-btn-medium:hover {
-    background-color: #d639e1;
+    background: #26bea6;
 }
 
 .submit-btn-small {
@@ -58,8 +58,8 @@
 }
 
 .add-todo-btn:hover {
-    background: #f8fafb;
-    color: #51489d;
+    background: #26bea6;
+    color: #f6feff;
 }
 
 .bi-plus {

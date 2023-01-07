@@ -32,14 +32,14 @@
     top: -33px;
     transition: all 1s ease-out;
     cursor: pointer;
-    color: #73f5e1;
-    border: 2px solid #73f5e1;
+    color: #3c3e54;
+    border: 2px solid #3c3e54;
     border-radius: 30px;
     transition: all .5s;
 }
 
 .close-modal:hover {
-    color: #aaa6ff;
-    border: 2px solid #aaa6ff;
+    color: #bd4550;
+    border: 2px solid #bd4550;
     transform: rotate(180deg);
 }

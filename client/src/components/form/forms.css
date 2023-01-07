@@ -321,6 +321,18 @@
     background-color: #f8f9fa;
     box-shadow: 0 3px 3px 0 rgba(190, 193, 195, .5), 0 6px 6px 0 rgba(190, 193, 195, .5), 0 12px 12px 0 rgba(190, 193, 195, .5), 0 24px 24px 0 rgba(190, 193, 195, .5), 0 48px 48px 0 rgba(190, 193, 195, .5), 0 96px 96px 0 rgba(190, 193, 195, .5);
     width: 400px;
+    border-radius: 8px;
+}
+
+.todo-form__title {
+    font-family: inherit;
+    letter-spacing: -.3px;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    color: #2a2c46;
+    margin-bottom: 10px;
 }
 
 .form-error {
@@ -334,10 +346,10 @@
 
 .todo-form textarea {
     border-radius: 20px;
-    border: 1px solid #d7d7e4;
+    border: 1px solid #ebedf0;
     padding: 15px;
-    background: #f8fafc;
-    font-size: 13px;
+    background: #f1f4f7;
+    font-size: 12px;
     outline: none;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -350,10 +362,10 @@
     width: 100%;
     height: 55px;
     border-radius: 10px;
-    border: 1px solid #d7d7e4;
+    border: 1px solid #ebedf0;
     padding: 15px;
     background: #f1f4f7;
-    font-size: 13px;
+    font-size: 12px;
     outline: none;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -361,8 +373,10 @@
     transition: all .6s;
 }
 
+.todo-form text:hover,
 .todo-form__input:hover {
-    border: 1px solid #652be2;
+    background: #f7f9fa;
+    border: 1px solid #c0c8de;
 }
 
 .todo-form__date {
@@ -387,9 +401,11 @@
 .start input,
 .end input {
     padding: 10px;
-    border: 1px solid #d7d7e4;
+    border: 1px solid #ebedf0;
     border-radius: 10px;
-    background-color: transparent;
+    font-size: 12px;
+    background: #f1f4f7;
+    color: #546274;
     width: 100%;
     max-width: 120px;
     transition: all .6s;
@@ -398,24 +414,13 @@
 
 .start input:hover,
 .end input:hover {
-    border: 1px solid #652be2;
+    border: 1px solid #c0c8de;
+    background: #f7f9fa;
 }
 
-.bi-clock {
-    color: darkcyan;
-}
-
-.bi-clock-history {
-    color: #c83e2e;
-}
-
-.bi-clock,
 .bi-calendar3,
-.bi-clock-history {
+.bi-calendar-check {
     font-size: 21px;
-    margin: 0 5px;
-}
-
-.todo-calendar-icon {
-    font-size: 20px;
+    margin: 0 7px;
+    color: #858585;
 }

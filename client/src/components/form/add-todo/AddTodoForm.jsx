@@ -3,8 +3,6 @@ import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import ru from "date-fns/locale/ru";
 import SubmitButton from "../../UI/buttons/SubmitButton";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import * as formConstants from "../../../utils/constants/form.constants";
 import "react-datepicker/dist/react-datepicker.css";
 import "../forms.css";
@@ -51,6 +49,7 @@ const AddTodoForm = ({ create }) => {
 
   return (
     <form className="todo-form" onSubmit={handleSubmit(onSubmit)}>
+      <div className="todo-form__title">{formConstants.newTodoTitle}</div>
       <div className="form-error">
         {errors.title && <p>{errors.title.message || "Error"}</p>}
       </div>
@@ -85,9 +84,7 @@ const AddTodoForm = ({ create }) => {
       />
       <div className="todo-form__date">
         <div className="start">
-          {/* <i className="bi bi-calendar3"></i> */}
-          <FontAwesomeIcon icon={faCalendar} className="todo-calendar-icon" />
-          <FontAwesomeIcon icon="fa-light fa-calendar" />
+          <i className="bi bi-calendar3"></i>
           <div className="date">
             <DatePicker
               name="starttime"
@@ -110,7 +107,7 @@ const AddTodoForm = ({ create }) => {
           </div>
         </div>
         <div className="end">
-          <i className="bi bi-clock-history"></i>
+        <i class="bi bi-calendar-check"></i>
           <div className="date">
             <DatePicker
               name="endtime"

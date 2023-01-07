@@ -61,3 +61,5 @@ export const minTodoTitle = "Заголовок не меньше 7 символ
 export const minTodoDescription = "Описание не меньше 10 символов";
 export const todoTitlePlaceholder = "Заголовок задачи";
 export const todoDescriptionPlaceholder = "Описание задачи";
+export const newTodoTitle = "Создать новую задачу";
+export const updateTodoTitle = "Обновление задачи";
