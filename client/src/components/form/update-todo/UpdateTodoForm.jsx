@@ -61,6 +61,7 @@ const UpdateTodoForm = ({ update }) => {
 
   return (
     <form className="todo-form" onSubmit={handleSubmit(onSubmit)}>
+      <div className="todo-form__title">{formConstants.updateTodoTitle}</div>
       <div className="form-error">
         {errors.title && <p>{errors.title.message || "Error"}</p>}
       </div>
@@ -97,7 +98,7 @@ const UpdateTodoForm = ({ update }) => {
       />
       <div className="todo-form__date">
         <div className="start">
-          <i className="bi bi-clock"></i>
+          <i className="bi bi-calendar3"></i>
           <div className="date">
             <DatePicker
               name="starttime"
@@ -120,7 +121,7 @@ const UpdateTodoForm = ({ update }) => {
           </div>
         </div>
         <div className="end">
-          <i className="bi bi-clock-history"></i>
+          <i className="bi bi-calendar-check"></i>
           <div className="date">
             <DatePicker
               name="endtime"
@@ -144,7 +145,9 @@ const UpdateTodoForm = ({ update }) => {
           </div>
         </div>
       </div>
-      <SubmitButton className={"submit-btn"} title={formConstants.send} />
+      <div className="todo-action-btn">
+      <SubmitButton className={"submit-btn-medium"} title={formConstants.update} />
+      </div>
     </form>
   );
 };

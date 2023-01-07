@@ -25,6 +25,7 @@ export const hidePassword = "Скрыть пароль";
 export const enter = "Войти";
 export const send = "Отправить";
 export const go = "Перейти";
+export const update = "Обновить";
 export const register = "Зарегистрироваться";
 export const forgotPassword = "Забыли пароль?";
 export const accountNotExist = "Нет аккауна?";
