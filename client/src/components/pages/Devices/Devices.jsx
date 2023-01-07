@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import Modal from "../UI/modal/Modal";
-import UpdateDeviceForm from "../form/update-device/UpdateDeviceForm";
-import AddDevice from "../form/add-device/AddDevice";
-import Pagination from "../UI/pagination/Pagination";
-import * as deviceConstants from "../../utils/constants/devices.constants";
+import Modal from "../../UI/modal/Modal";
+import UpdateDeviceForm from "../../form/update-device/UpdateDeviceForm";
+import AddDevice from "../../form/add-device/AddDevice";
+import Pagination from "../../UI/pagination/Pagination";
+import * as deviceConstants from "../../../utils/constants/devices.constants";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteDevice, getsingleDevice} from "../../store/actions/devicesActions";
-import { updateModal } from "../../store/actions/modalActions";
-import '../../styles/App.css'
+import { deleteDevice, getsingleDevice} from "../../../store/actions/devicesActions";
+import { updateModal } from "../../../store/actions/modalActions";
+import "../../../styles/App.css"
 
-const DeviceSearch = () => {
+const Devices = () => {
 
   let dispatch = useDispatch();
   const {devices} = useSelector(state => state.devices);
@@ -114,4 +114,4 @@ const DeviceSearch = () => {
   );
 };
 
-export default DeviceSearch;
+export default Devices;

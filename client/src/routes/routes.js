@@ -1,7 +1,6 @@
 import { Navigate } from "react-router-dom";
 import Homepage from "../components/pages/Homepage";
-import EditDevice from "../components/pages/EditDevice";
-import DeviceSearch from "../components/pages/DeviceSearch";
+import Devices from "../components/pages/Devices/Devices";
 import Statistics from "../components/pages/Statistic";
 import Users from "../components/pages/Users";
 import Todos from "../components/pages/Todos/Todos";
@@ -16,8 +15,7 @@ import SetNewPassword from "../components/pages/Authentication/SetNewPassword";
 export const routes = [
     { path: "/", element: < Navigate to = "/dashboard" / > },
     { path: "/dashboard", element: < Homepage / > },
-    { path: "/edit_device", element: < EditDevice / > },
-    { path: "/search", element: < DeviceSearch / > },
+    { path: "/devices", element: < Devices / > },
     { path: "/statistic", element: < Statistics / > },
     { path: "/users", element: < Users / > },
     { path: "/todos", element: < Todos / > },

@@ -60,13 +60,13 @@ const UpdateTodoForm = ({ update }) => {
   };
 
   return (
-    <form className="todo-form" onSubmit={handleSubmit(onSubmit)}>
-      <div className="todo-form__title">{formConstants.updateTodoTitle}</div>
+    <form className="content-form" onSubmit={handleSubmit(onSubmit)}>
+      <div className="content-form__title">{formConstants.updateTodoTitle}</div>
       <div className="form-error">
         {errors.title && <p>{errors.title.message || "Error"}</p>}
       </div>
         <input
-          className="todo-form__input"
+          className="content-form__input"
           placeholder={formConstants.todoTitlePlaceholder}
           type="text"
           name="title"
@@ -83,7 +83,7 @@ const UpdateTodoForm = ({ update }) => {
         {errors.description && <p>{errors.description.message || "Error"}</p>}
       </div>
       <textarea
-        className="todo-form__input"
+        className="content-form__input"
         placeholder={formConstants.todoDescriptionPlaceholder}
         type="text"
         name="description"
@@ -96,7 +96,7 @@ const UpdateTodoForm = ({ update }) => {
           },
         })}
       />
-      <div className="todo-form__date">
+      <div className="content-form__date">
         <div className="start">
           <i className="bi bi-calendar3"></i>
           <div className="date">
@@ -145,7 +145,7 @@ const UpdateTodoForm = ({ update }) => {
           </div>
         </div>
       </div>
-      <div className="todo-action-btn">
+      <div className="content-action-btn">
       <SubmitButton className={"submit-btn-medium"} title={formConstants.update} />
       </div>
     </form>

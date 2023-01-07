@@ -314,9 +314,9 @@
 }
 
 
-/* todo form */
+/* content form */
 
-.todo-form {
+.content-form {
     padding: 30px 20px;
     background-color: #f8f9fa;
     box-shadow: 0 3px 3px 0 rgba(190, 193, 195, .5), 0 6px 6px 0 rgba(190, 193, 195, .5), 0 12px 12px 0 rgba(190, 193, 195, .5), 0 24px 24px 0 rgba(190, 193, 195, .5), 0 48px 48px 0 rgba(190, 193, 195, .5), 0 96px 96px 0 rgba(190, 193, 195, .5);
@@ -324,7 +324,7 @@
     border-radius: 8px;
 }
 
-.todo-form__title {
+.content-form__title {
     font-family: inherit;
     letter-spacing: -.3px;
     font-size: 16px;
@@ -344,7 +344,7 @@
     width: fit-content
 }
 
-.todo-form textarea {
+.content-form textarea {
     border-radius: 20px;
     border: 1px solid #ebedf0;
     padding: 15px;
@@ -354,11 +354,10 @@
     -webkit-box-shadow: none;
     box-shadow: none;
     color: #546274;
-    margin-top: 10px;
     min-height: 200px;
 }
 
-.todo-form__input {
+.content-form__input {
     width: 100%;
     height: 55px;
     border-radius: 10px;
@@ -371,21 +370,22 @@
     box-shadow: none;
     color: #546274;
     transition: all .6s;
+    margin-bottom: 15px;
 }
 
-.todo-form text:hover,
-.todo-form__input:hover {
+.content-form text:hover,
+.content-form__input:hover {
     background: #f7f9fa;
     border: 1px solid #c0c8de;
 }
 
-.todo-form__date {
+.content-form__date {
     display: flex;
     align-items: center;
     justify-content: left;
 }
 
-.todo-action-btn {
+.content-action-btn {
     margin-top: 25px;
     display: flex;
     justify-content: center;

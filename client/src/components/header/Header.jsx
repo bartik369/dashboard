@@ -54,7 +54,7 @@ const Header = ({ moveHeader }) => {
     <div className="header">
       <div className={!moveHeader ? "header__inner" : "header__slided"}>
         <div className="header__search">
-          {location.pathname === "/search" && (
+          {location.pathname === "/devices" && (
             <SearchData
               placeholder="Поиск..."
               value={searchData}
