@@ -8,9 +8,12 @@ import SubmitButton from "../../UI/buttons/SubmitButton";
 import * as formConstants from "../../../utils/constants/form.constants";
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as uiConstants from "../../../utils/constants/ui.constants";
-import "../../form/forms.css"
+import "../../form/forms.css";
 
 const UpdateDeviceForm = ({ modal, update }) => {
+  let dispatch = useDispatch();
+  const { device } = useSelector((state) => state.device);
+
   const [editDevice, setEditDevice] = useState({
     id: "",
     type: "",
@@ -20,23 +23,119 @@ const UpdateDeviceForm = ({ modal, update }) => {
     addTime: "",
   });
 
+  useEffect(() => {
+    dispatch(loadDevices());
+    setEditDevice(device);
+  }, [device, dispatch]);
+
   const {
     register,
-    formState: {errors},
+    formState: { errors },
     handleSubmit,
     reset,
   } = useForm({
-    mode: "onBlur"
-  })
+    defaultValues: device,
+  });
 
 
-  let dispatch = useDispatch();
-  const {device} = useSelector(state => state.device);
+  const onSubmit = (data) => {
+    console.log(data);
+    const date = new Date();
+    const deviceTime =
+      date.toLocaleDateString() + " " + date.toLocaleTimeString("en-GB");
 
-  useEffect(() => {
-    dispatch(loadDevices());
-    setEditDevice({...device})
-  }, [device, dispatch]);
+    const updateDeviceData = {
+      ...editDevice,
+      id: editDevice._id,
+      type: data.type,
+      name: data.name,
+      number: data.number,
+      user: data.user,
+      addTime: deviceTime,
+    };
+    dispatch(updateDevice(updateDeviceData, updateDevice.id));
+    dispatch(updateModal(false));
+  };
+
+  return (
+    <form className="content-form" onSubmit={handleSubmit(onSubmit)}>
+      <select className="content-form__input" {...register("type")}>
+        <option>{formConstants.typeDevices}</option>
+        {deviceTypes.map((item, index) => (
+          <option key={index} name={item.name} value={item.name}>
+            {item.name}
+          </option>
+        ))}
+      </select>
+      <div className="form-error">
+        {errors.name && (
+          <p>{errors.name.message || formConstants.unknownError}</p>
+        )}
+      </div>
+
+      <input
+        className="content-form__input"
+        placeholder={formConstants.fillDeviceName}
+        type="text"
+        name="name"
+        {...register("name", {
+          required: formConstants.requiredText,
+          pattern: {
+            value: REGEX.isValidDisplayName,
+            message: formConstants.wrongDeviceName,
+          },
+        })}
+      />
+      <div className="form-error">
+        {errors.number && (
+          <p>{errors.number.message || formConstants.unknownError}</p>
+        )}
+      </div>
+
+      <input
+        className="content-form__input"
+        placeholder={formConstants.fillDeviceNumber}
+        type="text"
+        name="number"
+        {...register("number", {
+          required: formConstants.requiredText,
+          pattern: {
+            value: REGEX.isValidDisplayName,
+            message: formConstants.wrongDeviceNumber,
+          },
+        })}
+      />
+      <div className="form-error">
+        {errors.user && (
+          <p>{errors.user.message || formConstants.unknownError}</p>
+        )}
+      </div>
+
+      <input
+        className="content-form__input"
+        placeholder={formConstants.fillUserName}
+        type="text"
+        name="user"
+        {...register("user", {
+          required: formConstants.requiredText,
+          pattern: {
+            value: REGEX.isValidDisplayName,
+            message: formConstants.wrongUserName,
+          },
+        })}
+      />
+      <div className="content-action-btn">
+        <SubmitButton
+          className={"submit-btn-medium"}
+          title={uiConstants.titleAdd}
+        />
+      </div>
+    </form>
+  );
+};
+
+export default UpdateDeviceForm;
+
 
   // const handleUpdateDevice = (e) => {
   //   e.preventDefault();
@@ -52,94 +151,8 @@ const UpdateDeviceForm = ({ modal, update }) => {
   //   dispatch(updateModal(false));
   // };
 
-  const onSubmit = (data) => {
-    const date = new Date();
-    const deviceTime =
-    date.toLocaleDateString() + " " + date.toLocaleTimeString("en-GB");
-
-    const updateDeviceData = {
-      ...editDevice,
-      id: editDevice._id,
-      type: data.type,
-      name: data.name,
-      number: data.number,
-      user: data.user,
-      addTime: deviceTime,
-    };
-    dispatch(updateDevice(updateDeviceData, updateDevice.id));
-    dispatch(updateModal(false));
-
-  }
-  // const handleChange = (e) => {
+    // const handleChange = (e) => {
   //   const {name, value} = e.target;
   //   validate(name, value)
   //   setEditDevice({...editDevice, [name]: value});
   // }
-
-  return (
-    <form className="content-form" onSubmit={handleSubmit(onSubmit)} >
-     <select className="content-form__input" defaultValue=""{...register("type")}>
-        <option defaultValue={editDevice.type}>{formConstants.typeDevices}</option>
-        {deviceTypes.map((item, index) => <option key={index} name={item.name} value={item.value}>{item.name}</option>)}
-      </select>
-          <input
-          className="content-form__input"
-            placeholder={formConstants.fillDeviceName}
-            type="text"
-            name="name"
-            defaultValue={editDevice.name}
-            {...register("name", {
-              required: formConstants.requiredText,
-              pattern: {
-                value: REGEX.isValidDisplayName,
-                message: formConstants.wrongDeviceName,
-              },
-            })}
-          />
-          <div className="form-error">
-            {errors.name && <p>{errors.name.message || formConstants.unknownError}</p>}
-          </div>
-
-          <input
-          className="content-form__input"
-            placeholder={formConstants.fillDeviceNumber}
-            type="text"
-            name="number"
-            defaultValue={editDevice.number}
-            {...register("number", {
-              required: formConstants.requiredText,
-              pattern: {
-                value: REGEX.isValidDisplayName,
-                message: formConstants.wrongDeviceNumber,
-              },
-            })}
-          />
-          <div className="form-error">
-            {errors.number && <p>{errors.number.message || formConstants.unknownError}</p>}
-          </div>
-
-          <input
-          className="content-form__input"
-            placeholder={formConstants.fillUserName}
-            type="text"
-            name="user"
-            defaultValue={editDevice.user}
-            {...register("user", {
-              required: formConstants.requiredText,
-              pattern: {
-                value: REGEX.isValidDisplayName,
-                message: formConstants.wrongUserName,
-              },
-            })}
-          />
-          <div className="form-error">
-            {errors.user && <p>{errors.user.message || formConstants.unknownError}</p>}
-          </div>
-          <div className="content-action-btn">
-        <SubmitButton className={"submit-btn-medium"} title={uiConstants.titleAdd} />
-        </div>
-    </form>
-  );
-};
-
-export default UpdateDeviceForm;

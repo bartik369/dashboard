@@ -53,6 +53,8 @@ export const typeDevices = "Тип устройства";
 export const fillDeviceName = "Имя устройства";
 export const fillDeviceNumber = "Серийный номер";
 export const fillUserName = "Имя пользователя";
+export const newDeviceTitle = "Добавить устройство";
+export const updateDeviceTitle = "Обновить запись";
 
 // todos
 

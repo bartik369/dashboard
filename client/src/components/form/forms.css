@@ -1,7 +1,6 @@
 .main-form {
-    background-color: aquamarine;
     width: 100%;
-    padding: 10px;
+    padding: 20px 10px;
     text-align: center;
 }
 
@@ -9,12 +8,34 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #ebedf0;
+    padding: 15px;
+    background: #f1f4f7;
+    font-size: 12px;
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: #546274;
+    transition: all .6s;
+    margin-bottom: 5px;
 }
 
 .main-form__select {
     width: 100%;
     background-color: teal;
     padding: 5px 10px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #ebedf0;
+    background: #f1f4f7;
+    font-size: 12px;
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: #546274;
+    transition: all .6s;
     margin-bottom: 10px;
 }
 

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteDevice, getsingleDevice} from "../../../store/actions/devicesActions";
 import { updateModal } from "../../../store/actions/modalActions";
 import "../../../styles/App.css"
+import "./devices.css"
 
 const Devices = () => {
 
@@ -55,6 +56,9 @@ const Devices = () => {
 
   return (
     <div className="content-container__inner">
+      <div className="devices-category">
+        dsds
+      </div>
       <Modal active={modal.update}>
         <UpdateDeviceForm />
       </Modal>
