@@ -9,6 +9,7 @@ import { deleteDevice, getsingleDevice} from "../../../store/actions/devicesActi
 import { updateModal } from "../../../store/actions/modalActions";
 import "../../../styles/App.css"
 import "./devices.css"
+import CategoryMenu from "./CategoryMenu";
 
 const Devices = () => {
 
@@ -57,7 +58,7 @@ const Devices = () => {
   return (
     <div className="content-container__inner">
       <div className="devices-category">
-        dsds
+        <CategoryMenu />
       </div>
       <Modal active={modal.update}>
         <UpdateDeviceForm />
