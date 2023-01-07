@@ -52,7 +52,8 @@
 }
 
 .todo-item__bottom {
-    background-color: #7074bf;
+    /* background-color: #7074bf; */
+    background-color: #6b6eb6;
     -webkit-box-shadow: inset -1px 10px 6px -10px rgba(171, 171, 208, 0.75);
     -moz-box-shadow: inset -1px 10px 6px -10px rgba(171, 171, 208, 0.75);
     box-shadow: inset -1px 10px 6px -10px rgba(171, 171, 208, 0.75);
@@ -91,7 +92,7 @@
 }
 
 .start-time {
-    color: #e9e7f3;
+    color: #f5f4fc;
 }
 
 .end-time {
@@ -102,7 +103,7 @@
 .end-time {
     font-family: inherit;
     font-size: 15px;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: -.5px;
     margin-bottom: 3px;
     z-index: 9;

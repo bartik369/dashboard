@@ -334,9 +334,9 @@
 
 .todo-form textarea {
     border-radius: 20px;
-    border: 2px solid #f1f4f7;
+    border: 1px solid #d7d7e4;
     padding: 15px;
-    background: #f1f4f7;
+    background: #f8fafc;
     font-size: 13px;
     outline: none;
     -webkit-box-shadow: none;
@@ -350,7 +350,7 @@
     width: 100%;
     height: 55px;
     border-radius: 10px;
-    border: 2px solid #f1f4f7;
+    border: 1px solid #d7d7e4;
     padding: 15px;
     background: #f1f4f7;
     font-size: 13px;
@@ -358,6 +358,11 @@
     -webkit-box-shadow: none;
     box-shadow: none;
     color: #546274;
+    transition: all .6s;
+}
+
+.todo-form__input:hover {
+    border: 1px solid #652be2;
 }
 
 .todo-form__date {
@@ -366,21 +371,51 @@
     justify-content: left;
 }
 
+.todo-action-btn {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+}
+
 .start,
 .end {
     display: flex;
     margin-top: 15px;
     align-items: center;
-    background-color: #c44661;
 }
 
 .start input,
 .end input {
-    background-color: aqua;
+    padding: 10px;
+    border: 1px solid #d7d7e4;
+    border-radius: 10px;
+    background-color: transparent;
+    width: 100%;
+    max-width: 120px;
+    transition: all .6s;
+    margin-right: 10px;
+}
+
+.start input:hover,
+.end input:hover {
+    border: 1px solid #652be2;
+}
+
+.bi-clock {
+    color: darkcyan;
+}
+
+.bi-clock-history {
+    color: #c83e2e;
 }
 
 .bi-clock,
+.bi-calendar3,
 .bi-clock-history {
     font-size: 21px;
     margin: 0 5px;
+}
+
+.todo-calendar-icon {
+    font-size: 20px;
 }

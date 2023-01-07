@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import ru from "date-fns/locale/ru";
 import SubmitButton from "../../UI/buttons/SubmitButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import * as formConstants from "../../../utils/constants/form.constants";
 import "react-datepicker/dist/react-datepicker.css";
 import "../forms.css";
@@ -83,7 +85,9 @@ const AddTodoForm = ({ create }) => {
       />
       <div className="todo-form__date">
         <div className="start">
-          <i className="bi bi-clock"></i>
+          {/* <i className="bi bi-calendar3"></i> */}
+          <FontAwesomeIcon icon={faCalendar} className="todo-calendar-icon" />
+          <FontAwesomeIcon icon="fa-light fa-calendar" />
           <div className="date">
             <DatePicker
               name="starttime"
@@ -130,7 +134,9 @@ const AddTodoForm = ({ create }) => {
           </div>
         </div>
       </div>
-      <SubmitButton className={"submit-btn"} title={formConstants.send} />
+      <div className="todo-action-btn">
+      <SubmitButton className={"submit-btn-medium"} title={formConstants.send} />
+      </div>
     </form>
   );
 };

@@ -13,6 +13,22 @@
     background-color: #d639e1;
 }
 
+.submit-btn-medium {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 22px;
+    background-color: #8173e7;
+    color: aliceblue;
+    transition: all .5s;
+    width: 40%;
+    font-size: 13px;
+}
+
+.submit-btn-medium:hover {
+    background-color: #d639e1;
+}
+
 .submit-btn-small {
     padding: 8px 14px;
     background-color: #4c4bb1;
