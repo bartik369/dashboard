@@ -180,7 +180,6 @@ export const compareAccessToken = () => {
                 })
                 .then((response) => {
                     dispatch(login(response.data));
-                    console.log(response.data)
                 });
         } catch (error) {
             console.log(error);

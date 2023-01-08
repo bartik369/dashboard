@@ -5,7 +5,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addModal, updateModal } from "../../../store/actions/modalActions";
+import { addModal, updateModal, resetInputFill } from "../../../store/actions/modalActions";
 
 const Modal = ({ children, active}) => {
 
@@ -19,6 +19,7 @@ const Modal = ({ children, active}) => {
   const refreshModalState = () => {
     dispatch(addModal(false));
     dispatch(updateModal(false));
+    dispatch(resetInputFill());
   }
 
   const mainModalVisibleClass = ["modal"];

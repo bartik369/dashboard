@@ -1,16 +1,16 @@
-import {MODAL_ADD, MODAL_UPDATE, MODALS_GET } from "../types/typesModal";
+import { MODAL_ADD, MODAL_UPDATE, MODALS_GET, RESET_INPUT } from "../types/typesModal";
 
 const initialState = {
-    modal: 
-        { 
-         update: false,
-         add: false,
-        }
+    modal: {
+        update: false,
+        add: false,
+        reset: false,
+    }
 
 };
 
 const modalReducer = (state = initialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case MODALS_GET:
             return {
                 ...state,
@@ -20,12 +20,17 @@ const modalReducer = (state = initialState, action) => {
         case MODAL_ADD:
             return {
                 ...state,
-               add: action.payload,
+                add: action.payload,
             }
         case MODAL_UPDATE:
             return {
                 ...state,
                 update: action.payload,
+            }
+        case RESET_INPUT:
+            return {
+                ...state,
+                reset: true,
             }
         default:
             return {
