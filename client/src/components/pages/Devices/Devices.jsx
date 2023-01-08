@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "../../UI/modal/Modal";
 import UpdateDeviceForm from "../../form/update-device/UpdateDeviceForm";
 import AddDevice from "../../form/add-device/AddDevice";
 import Pagination from "../../UI/pagination/Pagination";
 import * as deviceConstants from "../../../utils/constants/devices.constants";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteDevice, getsingleDevice} from "../../../store/actions/devicesActions";
+import { deleteDevice, getsingleDevice, loadDevices} from "../../../store/actions/devicesActions";
 import { updateModal } from "../../../store/actions/modalActions";
 import "../../../styles/App.css"
 import "./devices.css"
@@ -17,6 +17,10 @@ const Devices = () => {
   const {devices} = useSelector(state => state.devices);
   const searchQuery = useSelector(state => state.seqrchQuery.query)
   const modal = useSelector(state => state.modal);
+
+  useEffect(() => {
+    dispatch(loadDevices());
+  }, [dispatch]);
 
   // const [updateDeviceId, setUpdateDeviceId] = useState("");
   const [currentPage, setCurrentPage] = useState(1);

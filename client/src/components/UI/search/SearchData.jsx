@@ -30,7 +30,7 @@ const SearchData = ({...props}) => {
             <button className="btn-search" onClick={setStatusSearch}>
                 <FontAwesomeIcon icon={faMagnifyingGlass}/>
             </button>
-            <input {...props} value={searchQuery} className={`input-search active-search${activeSearch 
+            <input {...props} value={searchQuery || ""} className={`input-search active-search${activeSearch 
                 ? "active-search" 
                 : "" && "delSearchQuery"}`}/>
             <FontAwesomeIcon 

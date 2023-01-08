@@ -28,10 +28,6 @@ export default function AddDevice() {
     addTime: "",
   });
 
-  useEffect(() => {
-    console.log("device ==>", device);
-  }, [device]);
-
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
@@ -47,9 +43,6 @@ export default function AddDevice() {
       user: data.user,
       addTime: deviceTime,
     };
-
-    console.log(newDevice);
-
     dispatch(addDevice(newDevice));
     reset();
   };

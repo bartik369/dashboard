@@ -14,9 +14,7 @@ import "../../../styles/App.css";
 import Masonry from "react-masonry-css";
 
 const Todos = () => {
-  console.log("check memory");
   const [deleteId, setDeleteId] = useState();
-
   const dispatch = useDispatch();
   const { todos } = useSelector((state) => state.todos);
   const modal = useSelector((state) => state.modal);

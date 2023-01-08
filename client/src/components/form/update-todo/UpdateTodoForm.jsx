@@ -35,6 +35,7 @@ const UpdateTodoForm = ({ update }) => {
     handleSubmit,
   } = useForm({
     mode: "onBlur",
+    defaultValues: todo,
   });
 
   const onSubmit = (data) => {
@@ -70,7 +71,6 @@ const UpdateTodoForm = ({ update }) => {
           placeholder={formConstants.todoTitlePlaceholder}
           type="text"
           name="title"
-          defaultValue={updatedTodo.title || ""}
           {...register("title", {
             required: formConstants.requiredTodoTitle,
             minLength: {
@@ -87,7 +87,6 @@ const UpdateTodoForm = ({ update }) => {
         placeholder={formConstants.todoDescriptionPlaceholder}
         type="text"
         name="description"
-        defaultValue={updatedTodo.description || ""}
         {...register("description", {
           required: formConstants.requiredTodoDescription,
           minLength: {
@@ -103,7 +102,6 @@ const UpdateTodoForm = ({ update }) => {
             <DatePicker
               name="starttime"
               required={true}
-              value={Date.parse(updatedTodo.startTime)}
               selected={Date.parse(updatedTodo.startTime)}
               onChange={(date) => handleStartTime(date)}
               selectsStart
@@ -126,7 +124,6 @@ const UpdateTodoForm = ({ update }) => {
             <DatePicker
               name="endtime"
               required={true}
-              value={Date.parse(updatedTodo.endTime)}
               selected={Date.parse(updatedTodo.endTime)}
               onChange={(date) => handleEndTime(date)}
               selectsEnd

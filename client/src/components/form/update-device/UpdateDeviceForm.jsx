@@ -10,27 +10,15 @@ import * as REGEX from "../../../utils/constants/regex.constants";
 import * as uiConstants from "../../../utils/constants/ui.constants";
 import "../../form/forms.css";
 
-const UpdateDeviceForm = ({update }) => {
+const UpdateDeviceForm = ({ }) => {
+  const device = useSelector((state) => state.device.device);
   let dispatch = useDispatch();
-  const {device} = useSelector((state) => state.device);
-  const modal = useSelector((state) => state.modal.update);
-
-  console.log("device from doc", device)
-
-  const [editDevice, setEditDevice] = useState({
-    id: "",
-    type: "",
-    name: "",
-    number: "",
-    user: "",
-    addTime: "",
-  });
+  const [editDevice, setEditDevice] = useState();
 
   useEffect(() => {
-    setEditDevice(device);
     dispatch(loadDevices());
+  }, [dispatch]);
 
-  }, [device, dispatch]);
 
   const {
     register,
@@ -38,12 +26,11 @@ const UpdateDeviceForm = ({update }) => {
     handleSubmit,
     reset,
   } = useForm({
-    mode: "onSubmit",
+    mode: "all",
     defaultValues: device,
   });
 
   const onSubmit = (data) => {
-    console.log(data);
     const date = new Date();
     const deviceTime =
     date.toLocaleDateString() + " " + date.toLocaleTimeString("en-GB");
@@ -67,7 +54,7 @@ const UpdateDeviceForm = ({update }) => {
       <select className="content-form__input" {...register("type")}>
         <option>{formConstants.typeDevices}</option>
         {deviceTypes.map((item, index) => (
-          <option defaultValue={device.type} key={index} name={item.name} value={item.name}>
+          <option key={index} name={item.name} value={item.name}>
             {item.name}
           </option>
         ))}
