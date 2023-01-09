@@ -50,6 +50,7 @@ const Devices = () => {
   }
 
   // Update device
+
   
   const handleUpdateDeviceInfo = (id) => {
     dispatch(updateModal(true))

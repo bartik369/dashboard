@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { loadDevices, updateDevice } from "../../../store/actions/devicesActions";
+import { loadDevices, updateDevice} from "../../../store/actions/devicesActions";
 import { updateModal } from "../../../store/actions/modalActions";
 import { deviceTypes } from "../../../utils/data-arrays/arrays";
 import SubmitButton from "../../UI/buttons/SubmitButton";
@@ -10,15 +10,27 @@ import * as REGEX from "../../../utils/constants/regex.constants";
 import * as uiConstants from "../../../utils/constants/ui.constants";
 import "../../form/forms.css";
 
-const UpdateDeviceForm = ({ }) => {
-  const device = useSelector((state) => state.device.device);
+const UpdateDeviceForm = () => {
+
   let dispatch = useDispatch();
-  const [editDevice, setEditDevice] = useState();
+  const device = useSelector((state) => state.device.device);
+
+  const [updateDev, setUpdateDev] = useState({
+    id: "",
+    type: "",
+    name: "",
+    number: "",
+    user: "",
+    addTime: "",
+  })
+
+  useEffect(() => {
+    reset(device)
+  }, [device])
 
   useEffect(() => {
     dispatch(loadDevices());
   }, [dispatch]);
-
 
   const {
     register,
@@ -26,18 +38,19 @@ const UpdateDeviceForm = ({ }) => {
     handleSubmit,
     reset,
   } = useForm({
-    mode: "all",
+    mode: "onChange",
     defaultValues: device,
   });
 
   const onSubmit = (data) => {
+    console.log(data)
     const date = new Date();
     const deviceTime =
     date.toLocaleDateString() + " " + date.toLocaleTimeString("en-GB");
 
     const updateDeviceData = {
-      ...editDevice,
-      id: editDevice._id,
+      ...updateDev,
+      id: data._id,
       type: data.type,
       name: data.name,
       number: data.number,
