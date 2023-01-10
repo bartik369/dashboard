@@ -10,7 +10,7 @@ import * as REGEX from "../../../utils/constants/regex.constants";
 import * as uiConstants from "../../../utils/constants/ui.constants";
 import "../../form/forms.css";
 
-const UpdateDeviceForm = () => {
+const UpdateDeviceForm = ({update}) => {
 
   let dispatch = useDispatch();
   const device = useSelector((state) => state.device.device);
@@ -51,9 +51,7 @@ const UpdateDeviceForm = () => {
       user: data.user,
       addTime: deviceTime,
     };
-
-    dispatch(updateDevice(updateDeviceData, updateDeviceData.id));
-    dispatch(updateModal(false));
+    update(updateDeviceData)
     reset();
   };
 

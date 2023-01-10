@@ -37,6 +37,8 @@ const Todos = () => {
     setDeleteId(id);
   };
 
+  // Update todo
+
   const handleTodoUpdate = (id) => {
     dispatch(updateModal(true));
     dispatch(getSingleTodo(id));

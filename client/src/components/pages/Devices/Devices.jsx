@@ -6,7 +6,7 @@ import Pagination from "../../UI/pagination/Pagination";
 import CategoryMenu from "./CategoryMenu";
 import * as deviceConstants from "../../../utils/constants/devices.constants";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteDevice, getsingleDevice, loadDevices} from "../../../store/actions/devicesActions";
+import { deleteDevice, getsingleDevice, loadDevices, addDevice, updateDevice} from "../../../store/actions/devicesActions";
 import { updateModal } from "../../../store/actions/modalActions";
 import "../../../styles/App.css"
 import "./devices.css"
@@ -44,6 +44,10 @@ const Devices = () => {
     setCurrentPage(pageNumber);
   }
 
+  const createDevice = (newDevice) => {
+    dispatch(addDevice(newDevice));
+  }
+
   // Delete device
 
   function removeDevice(id) {
@@ -58,6 +62,11 @@ const Devices = () => {
     dispatch(getsingleDevice(id));
   };
 
+  const updateDeviceData = (updateData) => {
+    dispatch(updateDevice(updateData, updateData.id));
+    dispatch(updateModal(false));
+  }
+
   // Create device
 
 
@@ -67,7 +76,7 @@ const Devices = () => {
         <CategoryMenu />
       </div>
       <Modal active={modal.update}>
-        <UpdateDeviceForm />
+        <UpdateDeviceForm update={updateDeviceData}/>
       </Modal>
       <div className="devices-list">
       <div className="title">Список устройств</div>
@@ -119,7 +128,7 @@ const Devices = () => {
       />
       </div>
       <div className="add-device-block">
-        <AddDevice/>
+        <AddDevice create={createDevice}/>
       </div>
     </div>
   );

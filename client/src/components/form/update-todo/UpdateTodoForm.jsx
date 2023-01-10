@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { loadTodos } from "../../../store/actions/todosActions";
 import { useForm } from "react-hook-form";
 import SubmitButton from "../../UI/buttons/SubmitButton";
@@ -10,6 +10,8 @@ import "../../form/forms.css";
 import "react-datepicker/dist/react-datepicker.css";
 
 const UpdateTodoForm = ({ update }) => {
+  
+  const todo = useSelector((state) => state.todo.todo);
   const [updatedTodo, setUpdatedTodo] = useState({
     id: "",
     title: "",
@@ -19,14 +21,14 @@ const UpdateTodoForm = ({ update }) => {
     endTime: "",
   });
 
-  let dispatch = useDispatch();
-  const { todo } = useSelector((state) => state.todo);
+  // useEffect(() => {
+  //   dispatch(loadTodos());
+  // }, [todo]);
 
   useEffect(() => {
-    dispatch(loadTodos());
-    setUpdatedTodo({ ...todo });
-  }, [todo]);
-
+    setUpdatedTodo(todo)
+    reset(todo);
+  }, [todo])
 
   const {
     register,
@@ -35,7 +37,7 @@ const UpdateTodoForm = ({ update }) => {
     handleSubmit,
   } = useForm({
     mode: "onBlur",
-    defaultValues: todo,
+    defaultValues: updatedTodo,
   });
 
   const onSubmit = (data) => {
@@ -49,7 +51,7 @@ const UpdateTodoForm = ({ update }) => {
       endTime: updatedTodo.endTime,
     };
     update(updateTodoData);
-    reset()
+    reset();
   };
 
   const handleStartTime = (date) => {

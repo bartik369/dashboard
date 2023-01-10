@@ -9,7 +9,7 @@ import * as REGEX from "../../../utils/constants/regex.constants";
 import { deviceTypes } from "../../../utils/data-arrays/arrays";
 import "../forms.css";
 
-export default function AddDevice() {
+export default function AddDevice({create}) {
   const {
     register,
     formState: { errors },
@@ -43,7 +43,8 @@ export default function AddDevice() {
       user: data.user,
       addTime: deviceTime,
     };
-    dispatch(addDevice(newDevice));
+    create(newDevice)
+    // dispatch(addDevice(newDevice));
     reset();
   };
 

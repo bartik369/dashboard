@@ -26,9 +26,19 @@ const AddTodoForm = ({ create }) => {
     mode: "onBlur",
   });
 
+
+  const handleAddStartTime = (date) => {
+    setTodo({...todo, startTime: date})
+  };
+
+  const handleAddEndTime = (date) => {
+    setTodo({...todo, endTime: date})
+  };
+  
   const onSubmit = (data) => {
     const newTodo = {
       ...todo,
+      id: Date.now(),
       title: data.title,
       description: data.description,
       status: "inprocess",
@@ -37,14 +47,6 @@ const AddTodoForm = ({ create }) => {
     };
     create(newTodo);
     reset();
-  };
-
-  const handleAddStartTime = (date) => {
-    setTodo({...todo, startTime: date})
-  };
-
-  const handleAddEndTime = (date) => {
-    setTodo({...todo, endTime: date})
   };
 
   return (
