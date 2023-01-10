@@ -3,13 +3,13 @@ import Modal from "../../UI/modal/Modal";
 import UpdateDeviceForm from "../../form/update-device/UpdateDeviceForm";
 import AddDevice from "../../form/add-device/AddDevice";
 import Pagination from "../../UI/pagination/Pagination";
+import CategoryMenu from "./CategoryMenu";
 import * as deviceConstants from "../../../utils/constants/devices.constants";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteDevice, getsingleDevice, loadDevices} from "../../../store/actions/devicesActions";
 import { updateModal } from "../../../store/actions/modalActions";
 import "../../../styles/App.css"
 import "./devices.css"
-import CategoryMenu from "./CategoryMenu";
 
 const Devices = () => {
 
@@ -21,6 +21,7 @@ const Devices = () => {
   useEffect(() => {
     dispatch(loadDevices());
   }, [dispatch]);
+
 
   // const [updateDeviceId, setUpdateDeviceId] = useState("");
   const [currentPage, setCurrentPage] = useState(1);

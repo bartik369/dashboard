@@ -22,15 +22,11 @@ const UpdateDeviceForm = () => {
     number: "",
     user: "",
     addTime: "",
-  })
+  });
 
   useEffect(() => {
     reset(device)
-  }, [device])
-
-  useEffect(() => {
-    dispatch(loadDevices());
-  }, [dispatch]);
+  }, [device]);
 
   const {
     register,
@@ -38,16 +34,14 @@ const UpdateDeviceForm = () => {
     handleSubmit,
     reset,
   } = useForm({
-    mode: "onChange",
+    mode: "onBlur",
     defaultValues: device,
   });
 
   const onSubmit = (data) => {
     console.log(data)
     const date = new Date();
-    const deviceTime =
-    date.toLocaleDateString() + " " + date.toLocaleTimeString("en-GB");
-
+    const deviceTime = date.toLocaleDateString() + " " + date.toLocaleTimeString("en-GB");
     const updateDeviceData = {
       ...updateDev,
       id: data._id,
@@ -57,7 +51,8 @@ const UpdateDeviceForm = () => {
       user: data.user,
       addTime: deviceTime,
     };
-    dispatch(updateDevice(updateDeviceData, updateDevice.id));
+
+    dispatch(updateDevice(updateDeviceData, updateDeviceData.id));
     dispatch(updateModal(false));
     reset();
   };
@@ -140,24 +135,3 @@ const UpdateDeviceForm = () => {
 };
 
 export default UpdateDeviceForm;
-
-
-  // const handleUpdateDevice = (e) => {
-  //   e.preventDefault();
-  //   const updateDeviceData = {
-  //     id: editDevice._id,
-  //     type: editDevice.type,
-  //     name: editDevice.name,
-  //     number: editDevice.number,
-  //     user: editDevice.user,
-  //     addTime: deviceTime,
-  //   };
-  //   dispatch(updateDevice(updateDeviceData, updateDeviceData.id));
-  //   dispatch(updateModal(false));
-  // };
-
-    // const handleChange = (e) => {
-  //   const {name, value} = e.target;
-  //   validate(name, value)
-  //   setEditDevice({...editDevice, [name]: value});
-  // }
