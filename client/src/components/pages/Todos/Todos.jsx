@@ -4,8 +4,9 @@ import { deleteTodo, getSingleTodo, loadTodos, updateTodo, addTodo } from "../..
 import AddTodoForm from "../../form/add-todo/AddTodoForm";
 import moment from "moment";
 import Modal from "../../UI/modal/Modal";
+import ModalSpare from "../../UI/modal/ModalSpare";
 import UpdateTodoForm from "../../form/update-todo/UpdateTodoForm";
-import { addModal, updateModal } from "../../../store/actions/modalActions";
+import { commonModal, spareModal } from "../../../store/actions/modalActions";
 import TodoButton from "../../UI/buttons/TodoButton";
 import * as uiConstants from "../../../utils/constants/ui.constants";
 import AddButton from "../../UI/buttons/AddButton";
@@ -17,19 +18,26 @@ const Todos = () => {
   const [deleteId, setDeleteId] = useState();
   const dispatch = useDispatch();
   const { todos } = useSelector((state) => state.todos);
-  const modal = useSelector((state) => state.modal);
+  const modal = useSelector((state) => state.modal.common);
+  const modalSpare = useSelector((state) => state.modal.spare);
 
   useEffect(() => {
     dispatch(loadTodos());
   }, [dispatch]);
 
+  useEffect(() => {
+    console.log("modal", modal)
+    console.log("modalSpare", modalSpare)
+  }, [modal, modalSpare])
+
   const createTodo = (newTodo) => {
     dispatch(addTodo(newTodo));
-    dispatch(addModal(false));
+    dispatch(commonModal(false));
   };
 
   const newTodoHandler = () => {
-    dispatch(addModal(true));
+    dispatch(spareModal(false))
+    dispatch(commonModal(true));
   };
 
   const handleTodoDelete = (id) => {
@@ -40,13 +48,13 @@ const Todos = () => {
   // Update todo
 
   const handleTodoUpdate = (id) => {
-    dispatch(updateModal(true));
+    dispatch(spareModal(true));
     dispatch(getSingleTodo(id));
   };
 
   const updateTodoData = (updatedData) => {
     dispatch(updateTodo(updatedData, updatedData.id));
-    dispatch(updateModal(false));
+    dispatch(spareModal(false));
   };
 
   const handleTodoComplete = (id) => {
@@ -76,12 +84,12 @@ const Todos = () => {
 
   return (
     <div className="todos">
-      <Modal active={modal.add}>
+      <Modal active={modal}>
         <AddTodoForm create={createTodo} />
       </Modal>
-      <Modal active={modal.update}>
+      <ModalSpare active={modalSpare}>
         <UpdateTodoForm update={updateTodoData} />
-      </Modal>
+      </ModalSpare>
       <div className="add-todo">
         <AddButton className={"add-todo-btn"} icon={"bi bi-plus"} action={() => newTodoHandler()} title={uiConstants.newTask}/>
       </div>

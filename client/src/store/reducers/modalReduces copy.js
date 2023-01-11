@@ -1,15 +1,12 @@
-import {
-    MODAL_COMMON,
-    MODAL_SPARE,
-    MODALS_GET,
-} from "../types/typesModal";
+import { MODAL_ADD, MODAL_UPDATE, MODALS_GET, RESET_INPUT } from "../types/typesModal";
 
 const initialState = {
 
     modal: {
-        common: false,
-        spare: false,
-    },
+        update: false,
+        add: false,
+        reset: false,
+    }
 };
 
 const modalReducer = (state = initialState, action) => {
@@ -19,22 +16,27 @@ const modalReducer = (state = initialState, action) => {
                 ...state,
                 modal: action.payload,
                 loading: true,
-            };
-        case MODAL_COMMON:
+            }
+        case MODAL_ADD:
             return {
                 ...state,
-                common: action.payload,
-            };
-        case MODAL_SPARE:
+                add: action.payload,
+            }
+        case MODAL_UPDATE:
             return {
                 ...state,
-                spare: action.payload,
-            };
+                update: action.payload,
+            }
+        case RESET_INPUT:
+            return {
+                ...state,
+                reset: true,
+            }
         default:
             return {
                 ...state,
-            };
+            }
     }
-};
+}
 
 export default modalReducer;

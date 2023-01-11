@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Modal from "../../UI/modal/Modal";
+import ModalSpare from "../../UI/modal/Modal";
 import UpdateDeviceForm from "../../form/update-device/UpdateDeviceForm";
 import AddDevice from "../../form/add-device/AddDevice";
 import Pagination from "../../UI/pagination/Pagination";
@@ -7,7 +7,7 @@ import CategoryMenu from "./CategoryMenu";
 import * as deviceConstants from "../../../utils/constants/devices.constants";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteDevice, getsingleDevice, loadDevices, addDevice, updateDevice} from "../../../store/actions/devicesActions";
-import { updateModal } from "../../../store/actions/modalActions";
+import { spareModal } from "../../../store/actions/modalActions";
 import "../../../styles/App.css"
 import "./devices.css"
 
@@ -58,13 +58,13 @@ const Devices = () => {
 
   
   const handleUpdateDeviceInfo = (id) => {
-    dispatch(updateModal(true))
+    dispatch(spareModal(true))
     dispatch(getsingleDevice(id));
   };
 
   const updateDeviceData = (updateData) => {
     dispatch(updateDevice(updateData, updateData.id));
-    dispatch(updateModal(false));
+    dispatch(spareModal(false));
   }
 
   // Create device
@@ -75,9 +75,9 @@ const Devices = () => {
       <div className="devices-category">
         <CategoryMenu />
       </div>
-      <Modal active={modal.update}>
+      <ModalSpare active={modal.update}>
         <UpdateDeviceForm update={updateDeviceData}/>
-      </Modal>
+      </ModalSpare>
       <div className="devices-list">
       <div className="title">Список устройств</div>
       <table className="devices-table">

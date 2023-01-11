@@ -30,6 +30,7 @@ const UpdateTodoForm = ({ update }) => {
     reset(todo);
   }, [todo])
 
+  console.log("up")
   const {
     register,
     reset,

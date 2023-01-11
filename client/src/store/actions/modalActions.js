@@ -1,23 +1,18 @@
-import { MODAL_ADD, MODAL_UPDATE, MODALS_GET, RESET_INPUT } from "../types/typesModal";
+import { MODAL_COMMON, MODAL_SPARE, MODALS_GET } from "../types/typesModal";
 
 const modalsGet = () => ({
     type: MODALS_GET,
     loading: true,
 });
 
-const modalAdding = (status) => ({
-    type: MODAL_ADD,
-    payload: status,
-})
-
-
-const modalUpdating = (status) => ({
-    type: MODAL_UPDATE,
+const common = (status) => ({
+    type: MODAL_COMMON,
     payload: status,
 });
 
-const resetInput = () => ({
-    type: RESET_INPUT,
+const spare = (status) => ({
+    type: MODAL_SPARE,
+    payload: status,
 });
 
 export const loadModalStatus = () => {
@@ -30,10 +25,10 @@ export const loadModalStatus = () => {
     }
 };
 
-export const addModal = (status) => {
+export const commonModal = (status) => {
     return function(dispatch) {
         try {
-            dispatch(modalAdding(status));
+            dispatch(common(status));
             dispatch(modalsGet());
         } catch (error) {
             console.log(error)
@@ -41,20 +36,11 @@ export const addModal = (status) => {
     }
 }
 
-export const updateModal = (status) => {
+export const spareModal = (status) => {
     return function(dispatch) {
         try {
-            dispatch(modalUpdating(status));
+            dispatch(spare(status));
             dispatch(modalsGet());
-        } catch (error) {
-
-        }
-    }
-}
-export const resetInputFill = () => {
-    return function(dispatch) {
-        try {
-            dispatch(resetInput());
         } catch (error) {
 
         }

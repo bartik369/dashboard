@@ -26,7 +26,6 @@ const AddTodoForm = ({ create }) => {
     mode: "onBlur",
   });
 
-
   const handleAddStartTime = (date) => {
     setTodo({...todo, startTime: date})
   };

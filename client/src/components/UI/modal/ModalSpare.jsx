@@ -1,13 +1,11 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import "../modal/modal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { commonModal } from "../../../store/actions/modalActions";
+import { spareModal } from "../../../store/actions/modalActions";
 
-const Modal = ({ children, active}) => {
+const ModalSpare = ({ children, active}) => {
 
   const [visible, setVisible] = useState();
   const dispatch = useDispatch();
@@ -17,15 +15,15 @@ const Modal = ({ children, active}) => {
   }, [active]);
 
   const refreshModalState = () => {
-    dispatch(commonModal(false));
+    dispatch(spareModal(false));
   }
 
-  const mainModalVisibleClass = ["modal"];
+  const mainModalVisibleClass = ["modal2"];
 
   if (visible) {
     mainModalVisibleClass.push("active");
   } else {
-    mainModalVisibleClass.push("modal");
+    mainModalVisibleClass.push("modal2");
   }
 
   return (
@@ -43,4 +41,4 @@ const Modal = ({ children, active}) => {
   );
 };
 
-export default Modal;
+export default ModalSpare;
