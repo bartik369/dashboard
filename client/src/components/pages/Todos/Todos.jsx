@@ -82,11 +82,20 @@ const Todos = () => {
     500: 1,
   };
 
+  // { isOpenModal ? 
+  //   <Modal>
+  //      {(modal
+  //      ? <AddTodoForm create={createTodo} active={modal} /> 
+  //      : <UpdateTodoForm update={updateTodoData} active={modalStatus} />)}
+  //   </Modal> : null
+  // }
+
   return (
     <div className="todos">
       <Modal active={modal}>
         <AddTodoForm create={createTodo} />
       </Modal>
+      <div></div>
       <ModalSpare active={modalSpare}>
         <UpdateTodoForm update={updateTodoData} />
       </ModalSpare>
