@@ -81,3 +81,17 @@
     border-radius: 12px;
     top: 78px;
 }
+
+.category-menu {
+    background-color: burlywood;
+    padding: 10px;
+}
+
+.category-menu__item {
+    background-color: #7c7fd7;
+    padding: 20px 0;
+}
+
+.category-menu__item:hover {
+    background-color: #7cd7c6;
+}

@@ -17,6 +17,7 @@ const Devices = () => {
   let dispatch = useDispatch();
   const {devices} = useSelector(state => state.devices);
   const searchQuery = useSelector(state => state.seqrchQuery.query);
+  const [category, setCategoty] = useState([])
 
   useEffect(() => {
     dispatch(loadDevices());
@@ -25,6 +26,16 @@ const Devices = () => {
   const closeModalHandler = () => {
     setActiveModal(false);
   }
+  useEffect(() => {
+    const filter = devices.filter((item) => {
+      return Object.keys(item).some((key) =>
+        String(item[key]).toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }).slice(indefOfFirstDevice, indexOfLastDevice)
+    setCategoty(filter)
+  }, [devices, searchQuery])
+
+
 
 
   // const [updateDeviceId, setUpdateDeviceId] = useState("");
@@ -37,12 +48,6 @@ const Devices = () => {
   const indefOfFirstDevice = indexOfLastDevice - devicesPerPage;
 
   // Search device
-
-  const filterData = devices.filter((item) => {
-      return Object.keys(item).some((key) =>
-        String(item[key]).toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }).slice(indefOfFirstDevice, indexOfLastDevice)
 
   const pageNumberHandler = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -72,12 +77,21 @@ const Devices = () => {
   }
 
   // Create device
+  
+  const findNow = (category) => {
+    const myTestArray = devices.filter((item) => {
 
+      if (item.type === category) {
+        return item.type
+      }
+    }).slice(indefOfFirstDevice, indexOfLastDevice);
+    setCategoty(myTestArray)
+  }
 
   return (
     <div className="content-container__inner">
       <div className="devices-category">
-        <CategoryMenu />
+        <CategoryMenu sortCategory={findNow}/>
       </div>
       <Modal active={activeModal}>
         <UpdateDeviceForm update={updateDeviceData} close={closeModalHandler}/>
@@ -97,7 +111,7 @@ const Devices = () => {
                   </tr>
               </thead>
               <tbody>
-                  {filterData.map((device, index) => (
+                  {category.map((device, index) => (
                       <tr key={index}>
                           <td>{device.type}</td>
                           <td>{device.name}</td>

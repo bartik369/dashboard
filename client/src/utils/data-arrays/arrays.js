@@ -28,3 +28,11 @@ export const menuItem = [
     { name: 'Календарь', to: '/calendar', iconClassName: 'bi bi-calendar-date' },
     { name: 'Настройки', to: '/settings', iconClassName: 'bi bi-gear' },
 ]
+
+export const categoryDevice = [
+    { name: 'Компьютеры', value: 'pc' },
+    { name: 'Сетевое оборудование', value: 'network' },
+    { name: 'Принтеры', value: 'printers' },
+    { name: 'Телефоны', value: 'phones' },
+    { name: 'Аксессуары', value: 'accessories' },
+]

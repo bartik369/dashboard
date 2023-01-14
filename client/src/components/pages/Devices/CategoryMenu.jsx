@@ -1,13 +1,22 @@
-import React from 'react'
+import React from 'react';
+import "./devices.css"
+import { categoryDevice } from '../../../utils/data-arrays/arrays';
 
-export default function CategoryMenu() {
+export default function CategoryMenu({sortCategory}) {
+
+  const sortDevice = (value) => {
+    sortCategory(value)
+  }
+
   return (
-      <ul>
-          <li>1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-          <li>5</li>
+    <nav className="category-menu">
+        <ul>
+          {categoryDevice.map((item) => (
+            <li className="category-menu__item" onClick={() => sortDevice(item.value)}>{item.name}</li>
+          )
+          )}
       </ul>
+    </nav>
   )
 }
+
