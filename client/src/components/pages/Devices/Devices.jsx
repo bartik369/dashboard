@@ -17,35 +17,35 @@ const Devices = () => {
   let dispatch = useDispatch();
   const {devices} = useSelector(state => state.devices);
   const searchQuery = useSelector(state => state.seqrchQuery.query);
-  const [category, setCategoty] = useState([])
+  const [category, setCategory] = useState([])
 
   useEffect(() => {
     dispatch(loadDevices());
   }, [dispatch])
 
-  const closeModalHandler = () => {
-    setActiveModal(false);
-  }
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [devicesPerPage] = useState(25);
+  
+      // Pagination
+
+      const indexOfLastDevice = currentPage * devicesPerPage;
+      const indefOfFirstDevice = indexOfLastDevice - devicesPerPage;
+        // const [updateDeviceId, setUpdateDeviceId] = useState("");
+
   useEffect(() => {
     const filter = devices.filter((item) => {
       return Object.keys(item).some((key) =>
         String(item[key]).toLowerCase().includes(searchQuery.toLowerCase())
       );
     }).slice(indefOfFirstDevice, indexOfLastDevice)
-    setCategoty(filter)
-  }, [devices, searchQuery])
+    setCategory(filter)
+  }, [devices, searchQuery, indexOfLastDevice, indefOfFirstDevice]);
 
+  const closeModalHandler = () => {
+    setActiveModal(false);
+  }
 
-
-
-  // const [updateDeviceId, setUpdateDeviceId] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [devicesPerPage] = useState(25);
-
-  // Pagination
-
-  const indexOfLastDevice = currentPage * devicesPerPage;
-  const indefOfFirstDevice = indexOfLastDevice - devicesPerPage;
 
   // Search device
 
@@ -85,13 +85,16 @@ const Devices = () => {
         return item.type
       }
     }).slice(indefOfFirstDevice, indexOfLastDevice);
-    setCategoty(myTestArray)
+    setCategory(myTestArray)
+  }
+  const resetHandler = () => {
+    setCategory(devices)
   }
 
   return (
     <div className="content-container__inner">
       <div className="devices-category">
-        <CategoryMenu sortCategory={findNow}/>
+        <CategoryMenu sortCategory={findNow} reset={resetHandler}/>
       </div>
       <Modal active={activeModal}>
         <UpdateDeviceForm update={updateDeviceData} close={closeModalHandler}/>

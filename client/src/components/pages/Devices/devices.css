@@ -95,3 +95,7 @@
 .category-menu__item:hover {
     background-color: #7cd7c6;
 }
+
+.item-active {
+    background-color: #cc0f5e;
+}
