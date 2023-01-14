@@ -48,13 +48,6 @@
     transition: all 1s ease-in-out;
 }
 
-.bi-laptop {
-    font-size: 30px;
-    color: #fff;
-    text-transform: uppercase;
-    margin-right: 15px;
-}
-
 .sidebar .top-section .toggle-menu-btn {
     position: absolute;
     background-color: transparent;

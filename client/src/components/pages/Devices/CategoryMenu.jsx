@@ -21,10 +21,10 @@ export default function CategoryMenu({sortCategory, reset}) {
         <ul>
           {categoryDevice.map((item, index) => (
             <li
-            className={`category-menu__item ${activeLi === item.value ? 'item-active' : ""}`}
+            className={`category-menu__item ${activeLi === item.value ? 'active' : ""}`}
             key={index}
             icon={item.iconClassName}
-            onClick={() => sortDevice(item.value)}>{item.name}</li>
+            onClick={() => sortDevice(item.value)}>{item.name}<i className={item.iconClassName}></i></li>
           )
           )}
       </ul>

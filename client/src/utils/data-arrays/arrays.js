@@ -21,7 +21,7 @@ export const breakpoints = {
 
 export const menuItem = [
     { name: 'Главная', to: '/dashboard', iconClassName: 'bi bi-speedometer' },
-    { name: 'Устройства', to: '/devices', iconClassName: 'bi bi-binoculars' },
+    { name: 'Устройства', to: '/devices', iconClassName: 'bi bi-hdd' },
     { name: 'Статистика', to: '/statistic', iconClassName: 'bi bi-bar-chart' },
     { name: 'Пользователи', to: '/users', iconClassName: 'bi bi-people' },
     { name: 'Задачи', to: '/todos', iconClassName: 'bi bi-check2-square' },
@@ -30,10 +30,10 @@ export const menuItem = [
 ]
 
 export const categoryDevice = [
-    { name: 'Весь список', value: '', iconClassName: 'bi bi-speedometer' },
-    { name: 'Компьютеры', value: 'Компьютеры', iconClassName: 'bi bi-speedometer' },
-    { name: 'Сетевое оборудование', value: 'Сетевое оборудование', iconClassName: 'bi bi-speedometer' },
-    { name: 'Принтеры', value: 'Принтеры', iconClassName: 'bi bi-speedometer' },
-    { name: 'Телефоны', value: 'Телефоны', iconClassName: 'bi bi-speedometer' },
-    { name: 'Аксессуары', value: 'Аксессуары', iconClassName: 'bi bi-speedometer' },
+    { name: 'Весь список', value: '', iconClassName: 'bi bi-list-check' },
+    { name: 'Компьютеры', value: 'Компьютеры', iconClassName: 'bi bi-laptop' },
+    { name: 'Сеть', iconClassName: 'bi bi-hdd-network' },
+    { name: 'Принтеры', value: 'Принтеры', iconClassName: 'bi bi-printer' },
+    { name: 'Телефоны', value: 'Телефоны', iconClassName: 'bi bi-phone' },
+    { name: 'Аксессуары', value: 'Аксессуары', iconClassName: 'bi bi-usb-drive' },
 ]
