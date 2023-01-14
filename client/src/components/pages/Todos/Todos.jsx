@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteTodo, getSingleTodo, loadTodos, updateTodo, addTodo } from "../../../store/actions/todosActions";
+import {
+  deleteTodo,
+  getSingleTodo,
+  loadTodos,
+  updateTodo,
+  addTodo,
+} from "../../../store/actions/todosActions";
 import AddTodoForm from "../../form/add-todo/AddTodoForm";
 import moment from "moment";
 import Modal from "../../UI/modal/Modal";
-import ModalSpare from "../../UI/modal/ModalSpare";
 import UpdateTodoForm from "../../form/update-todo/UpdateTodoForm";
-import { commonModal, spareModal } from "../../../store/actions/modalActions";
 import TodoButton from "../../UI/buttons/TodoButton";
+import { breakpoints } from "../../../utils/data-arrays/arrays";
 import * as uiConstants from "../../../utils/constants/ui.constants";
 import AddButton from "../../UI/buttons/AddButton";
 import "../Todos/Todos.css";
@@ -18,89 +23,75 @@ const Todos = () => {
   const [deleteId, setDeleteId] = useState();
   const dispatch = useDispatch();
   const { todos } = useSelector((state) => state.todos);
-  const modal = useSelector((state) => state.modal.common);
-  const modalSpare = useSelector((state) => state.modal.spare);
+  const [activeModal, setActiveModal] = useState(null);
 
   useEffect(() => {
     dispatch(loadTodos());
   }, [dispatch]);
 
-  useEffect(() => {
-    console.log("modal", modal)
-    console.log("modalSpare", modalSpare)
-  }, [modal, modalSpare])
+  const newTodoHandler = () => {
+    setActiveModal("create");
+  }
 
   const createTodo = (newTodo) => {
     dispatch(addTodo(newTodo));
-    dispatch(commonModal(false));
-  };
-
-  const newTodoHandler = () => {
-    dispatch(spareModal(false))
-    dispatch(commonModal(true));
-  };
+    setActiveModal(null);
+  }
 
   const handleTodoDelete = (id) => {
     dispatch(deleteTodo(id));
     setDeleteId(id);
-  };
+  }
 
   // Update todo
 
   const handleTodoUpdate = (id) => {
-    dispatch(spareModal(true));
     dispatch(getSingleTodo(id));
-  };
+    setActiveModal("update");
+  }
 
   const updateTodoData = (updatedData) => {
     dispatch(updateTodo(updatedData, updatedData.id));
-    dispatch(spareModal(false));
-  };
+    setActiveModal(null);
+  }
 
   const handleTodoComplete = (id) => {
     const indexOfDoneItem = todos.find((item) => item._id === id);
     indexOfDoneItem.status = "done";
     dispatch(updateTodo(indexOfDoneItem, indexOfDoneItem._id));
-  };
+  }
 
   const handleTodoReopen = (id) => {
     const indexOfReopenItem = todos.find((item) => item._id === id);
     indexOfReopenItem.status = "inprocess";
     dispatch(updateTodo(indexOfReopenItem, indexOfReopenItem._id));
-  };
-  const dateNow = Date.now();
-  const breakpoints = {
-    2560: 8,
-    1920: 6,
-    1800: 5,
-    1600: 5,
-    1400: 4,
-    1201: 4,
-    1100: 3,
-    900: 2,
-    700: 2,
-    500: 1,
-  };
+  }
 
-  // { isOpenModal ? 
-  //   <Modal>
-  //      {(modal
-  //      ? <AddTodoForm create={createTodo} active={modal} /> 
-  //      : <UpdateTodoForm update={updateTodoData} active={modalStatus} />)}
-  //   </Modal> : null
-  // }
+  const closeModal = () => {
+    setActiveModal(null);
+  }
+
+  const dateNow = Date.now();
 
   return (
     <div className="todos">
-      <Modal active={modal}>
-        <AddTodoForm create={createTodo} />
-      </Modal>
-      <div></div>
-      <ModalSpare active={modalSpare}>
-        <UpdateTodoForm update={updateTodoData} />
-      </ModalSpare>
+      {activeModal && 
+        <Modal active={activeModal} close={closeModal}>
+          {activeModal === "create" ? 
+            <AddTodoForm create={createTodo} /> : null
+          } 
+          {activeModal === "update" ? 
+           <UpdateTodoForm update={updateTodoData} /> : null
+          }
+        </Modal>
+      }
       <div className="add-todo">
-        <AddButton className={"add-todo-btn"} icon={"bi bi-plus"} action={() => newTodoHandler()} title={uiConstants.newTask}/>
+        <AddButton
+          className={"add-todo-btn"}
+          icon={"bi bi-plus"}
+          action={() => newTodoHandler()}
+          title={uiConstants.newTask}
+        />
       </div>
       <Masonry
         breakpointCols={breakpoints}
@@ -151,7 +142,7 @@ const Todos = () => {
                       />
                     </li>
                     <li className="todo-btns__item">
-                    <TodoButton
+                      <TodoButton
                         action={() => handleTodoUpdate(todo._id)}
                         classNameBtn={"todoupdate-btn"}
                         classNameIcon={"bi bi-arrow-clockwise"}
@@ -167,7 +158,7 @@ const Todos = () => {
                       />
                     </li>
                     <li className="todo-btns__item">
-                    <TodoButton
+                      <TodoButton
                         action={() => handleTodoReopen(todo._id)}
                         classNameBtn={"todoreopen-btn"}
                         classNameIcon={"bi bi-arrow-counterclockwise"}

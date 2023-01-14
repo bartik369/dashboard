@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import SubmitButton from "../../UI/buttons/SubmitButton";
+import SendPasswordLink from "../../notifications/SendPasswordLink";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
@@ -8,9 +10,7 @@ import * as formConstants from "../../../utils/constants/form.constants";
 import * as infoConstants from "../../../utils/constants/information.constants";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import SubmitButton from "../../UI/buttons/SubmitButton";
 import "../Authentication/Authentication.css";
-import SendPasswordLink from "../../notifications/SendPasswordLink";
 
 function ResetPassword() {
   const {
@@ -40,7 +40,7 @@ function ResetPassword() {
         setFormStatus
       )
     );
-  };
+  }
 
   return (
     <div className="main">

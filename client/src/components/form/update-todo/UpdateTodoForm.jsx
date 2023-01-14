@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { loadTodos } from "../../../store/actions/todosActions";
 import { useForm } from "react-hook-form";
 import SubmitButton from "../../UI/buttons/SubmitButton";
@@ -20,15 +20,18 @@ const UpdateTodoForm = ({ update }) => {
     startTime: "",
     endTime: "",
   });
-
-  // useEffect(() => {
-  //   dispatch(loadTodos());
-  // }, [todo]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(loadTodos());
     setUpdatedTodo(todo)
     reset(todo);
-  }, [todo])
+  }, [todo]);
+
+  // useEffect(() => {
+  //   setUpdatedTodo(todo)
+  //   reset(todo);
+  // }, [todo])
 
   console.log("up")
   const {
@@ -38,16 +41,16 @@ const UpdateTodoForm = ({ update }) => {
     handleSubmit,
   } = useForm({
     mode: "onBlur",
-    defaultValues: updatedTodo,
+    defaultValues: todo,
   });
 
   const onSubmit = (data) => {
     const updateTodoData = {
       ...updatedTodo,
-      id: updatedTodo._id,
+      id: todo._id,
       title: data.title,
       description: data.description,
-      status: updatedTodo.status,
+      status: todo.status,
       startTime: updatedTodo.startTime,
       endTime: updatedTodo.endTime,
     };
@@ -57,11 +60,11 @@ const UpdateTodoForm = ({ update }) => {
 
   const handleStartTime = (date) => {
     setUpdatedTodo({ ...updatedTodo, startTime: date });
-  };
+  }
 
   const handleEndTime = (date) => {
     setUpdatedTodo({ ...updatedTodo, endTime: date });
-  };
+  }
 
   return (
     <form className="content-form" onSubmit={handleSubmit(onSubmit)}>

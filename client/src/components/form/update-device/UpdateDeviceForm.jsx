@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { loadDevices, updateDevice} from "../../../store/actions/devicesActions";
-import { updateModal } from "../../../store/actions/modalActions";
+import { useSelector } from "react-redux";
 import { deviceTypes } from "../../../utils/data-arrays/arrays";
 import SubmitButton from "../../UI/buttons/SubmitButton";
 import * as formConstants from "../../../utils/constants/form.constants";
@@ -12,7 +10,6 @@ import "../../form/forms.css";
 
 const UpdateDeviceForm = ({update}) => {
 
-  let dispatch = useDispatch();
   const device = useSelector((state) => state.device.device);
 
   const [updateDev, setUpdateDev] = useState({
@@ -51,7 +48,7 @@ const UpdateDeviceForm = ({update}) => {
       user: data.user,
       addTime: deviceTime,
     };
-    update(updateDeviceData)
+    update(updateDeviceData);
     reset();
   };
 

@@ -14,7 +14,7 @@ export const setSearchQuery = (query) => {
         try {
             dispatch(setQuery(query))
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
 }
@@ -25,7 +25,7 @@ export const deleteSearchQuery = () => {
         try {
             dispatch(deleteQuery())
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
 }

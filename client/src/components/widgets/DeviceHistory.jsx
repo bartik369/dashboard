@@ -1,14 +1,15 @@
 import React from "react";
-import "../widgets/widgets.css";
-import CanvasJSReact from "../../lib/canvas/canvasjs.react";
 import { useSelector } from "react-redux";
-const CanvasJSChart = CanvasJSReact.CanvasJSChart;
+import CanvasJSReact from "../../lib/canvas/canvasjs.react";
+import * as uiConstants from "../../utils/constants/ui.constants"
+import "../widgets/widgets.css";
 
 const DeviceHistory = () => {
+    const CanvasJSChart = CanvasJSReact.CanvasJSChart;
     const {devices} = useSelector(state => state.devices)
     const nameArray = [];
-    let newArray = []
-    let count = []
+    let newArray = [];
+    let count = [];
 
     const getDevicesCount = () => {
         devices.map((item) => {
@@ -31,7 +32,7 @@ const DeviceHistory = () => {
             titleFontColor: "#555a6b",
 			lineColor: "#6D78AD",
 			labelFontColor: "#4c926b",
-            title: "Дата выдачи",
+            title: uiConstants.moveDate,
             fontFamily: "calibri",
             titleFontSize: 15,
         },
@@ -39,7 +40,7 @@ const DeviceHistory = () => {
             titleFontColor: "#555a6b",
 			lineColor: "#6D78AD",
 			labelFontColor: "#555a6b",
-            title: "Количество",
+            title: uiConstants.amount,
             fontFamily: "calibri",
             titleFontSize: 15,
         },
@@ -56,12 +57,11 @@ const DeviceHistory = () => {
         <div className="widget-item">
              <div className="wrapper-title">
              <div className="icon-title"><i className="bi bi-graph-up"></i></div>
-             <div className="widget-item__title">Статиcтика выданного оборудования</div>
+             <div className="widget-item__title">{uiConstants.titleMoveChart}</div>
              </div>
             <CanvasJSChart options = {options} />
         </div>
     )
 }
-
 
 export default DeviceHistory;

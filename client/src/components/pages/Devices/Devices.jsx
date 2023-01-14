@@ -1,26 +1,30 @@
 import React, { useEffect, useState } from "react";
-import ModalSpare from "../../UI/modal/Modal";
+import Modal from "../../UI/modal/Modal";
 import UpdateDeviceForm from "../../form/update-device/UpdateDeviceForm";
 import AddDevice from "../../form/add-device/AddDevice";
 import Pagination from "../../UI/pagination/Pagination";
 import CategoryMenu from "./CategoryMenu";
-import * as deviceConstants from "../../../utils/constants/devices.constants";
+import * as deviceConstants from "../../../utils/constants/content.constants";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteDevice, getsingleDevice, loadDevices, addDevice, updateDevice} from "../../../store/actions/devicesActions";
-import { spareModal } from "../../../store/actions/modalActions";
-import "../../../styles/App.css"
-import "./devices.css"
+import "../../../styles/App.css";
+import "./devices.css";
 
 const Devices = () => {
 
+
+  const [activeModal, setActiveModal] = useState(null);
   let dispatch = useDispatch();
   const {devices} = useSelector(state => state.devices);
-  const searchQuery = useSelector(state => state.seqrchQuery.query)
-  const modal = useSelector(state => state.modal);
+  const searchQuery = useSelector(state => state.seqrchQuery.query);
 
   useEffect(() => {
     dispatch(loadDevices());
-  }, [dispatch]);
+  }, [dispatch])
+
+  const closeModalHandler = () => {
+    setActiveModal(false);
+  }
 
 
   // const [updateDeviceId, setUpdateDeviceId] = useState("");
@@ -38,7 +42,7 @@ const Devices = () => {
       return Object.keys(item).some((key) =>
         String(item[key]).toLowerCase().includes(searchQuery.toLowerCase())
       );
-    }).slice(indefOfFirstDevice, indexOfLastDevice);
+    }).slice(indefOfFirstDevice, indexOfLastDevice)
 
   const pageNumberHandler = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -58,13 +62,13 @@ const Devices = () => {
 
   
   const handleUpdateDeviceInfo = (id) => {
-    dispatch(spareModal(true))
+    setActiveModal(true);
     dispatch(getsingleDevice(id));
-  };
+  }
 
   const updateDeviceData = (updateData) => {
     dispatch(updateDevice(updateData, updateData.id));
-    dispatch(spareModal(false));
+    setActiveModal(false);
   }
 
   // Create device
@@ -75,9 +79,9 @@ const Devices = () => {
       <div className="devices-category">
         <CategoryMenu />
       </div>
-      <ModalSpare active={modal.update}>
-        <UpdateDeviceForm update={updateDeviceData}/>
-      </ModalSpare>
+      <Modal active={activeModal}>
+        <UpdateDeviceForm update={updateDeviceData} close={closeModalHandler}/>
+      </Modal>
       <div className="devices-list">
       <div className="title">Список устройств</div>
       <table className="devices-table">

@@ -1,6 +1,7 @@
 import React from "react";
-import "../widgets/widgets.css";
+import * as contentConstants from "../../utils/constants/content.constants";
 import { useSelector } from "react-redux";
+import "../widgets/widgets.css";
 
 
 const LastDevices = () => {
@@ -13,16 +14,16 @@ const LastDevices = () => {
         <div className="widget-item">
           <div className="wrapper-title">
           <div className="icon-title"><i className="bi bi-collection"></i></div>
-          <div className="widget-item__title">Последние выданные</div>
+          <div className="widget-item__title">{contentConstants.lastDevicesTitle}</div>
           </div>
           <table className="widget-table">
               <thead>
                   <tr>
-                      <th>Тип</th>
-                      <th>Модель устройства</th>
-                      <th>Номер</th>
-                      <th>Пользователь</th>
-                      <th>Дата</th>
+                      <th>{contentConstants.deviceType}</th>
+                      <th>{contentConstants.deviceName}</th>
+                      <th>{contentConstants.deviceNumber}</th>
+                      <th>{contentConstants.deviceUser}</th>
+                      <th>{contentConstants.deviceDateAdded}</th>
                   </tr>
               </thead>
               <tbody>

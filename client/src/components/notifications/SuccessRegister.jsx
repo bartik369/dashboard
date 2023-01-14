@@ -1,7 +1,5 @@
 import React from 'react';
 import SubmitButton from '../UI/buttons/SubmitButton';
-// import { useDispatch } from 'react-redux';
-// import { updateModal } from '../../store/actions/modalActions';
 import * as formConstants from "../../utils/constants/form.constants"
 import { Link } from 'react-router-dom';
 import "../notifications/notifications.css";

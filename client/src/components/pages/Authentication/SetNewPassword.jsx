@@ -1,24 +1,23 @@
-import React, {useRef, useState}from 'react';
+import React, {useRef, useState, useEffect}from 'react';
+import SubmitButton from '../../UI/buttons/SubmitButton';
+import SetUserPassword from '../../notifications/SetUserPassword';
 import { comparePasswordLink, setNewUserPassword } from '../../../store/actions/usersActions';
 import { useDispatch} from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import {useForm} from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock} from "@fortawesome/free-solid-svg-icons";
-import SubmitButton from '../../UI/buttons/SubmitButton';
-import SetUserPassword from '../../notifications/SetUserPassword';
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as formConstants from "../../../utils/constants/form.constants";
 import * as infoConstants from "../../../utils/constants/information.constants";
-import { useEffect } from 'react';
 import "../Authentication/Authentication.css"
 
 function SetNewPassword() {
 
   const [passwordType, setPasswordType] = useState(false);
   const [repeatPasswordType, setRepeatPasswordType] = useState(false);
-  const [notificationStatus, setNotificationStatus] = useState(false)
-  const [formStatus, setFormStatus] = useState(true)
+  const [notificationStatus, setNotificationStatus] = useState(false);
+  const [formStatus, setFormStatus] = useState(true);
   const [newPassword, setNewPassword] = useState({
     link: "",
     password: "",
@@ -34,25 +33,26 @@ function SetNewPassword() {
     mode: "onBlur",
   });
 
-  const params = useParams()
-  const navigate = useNavigate()
+  const params = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(comparePasswordLink(params.link, navigate))
-  }, [params.link])
+  }, [params.link]);
 
   const password = useRef({});
   password.current = watch("password", "");
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const showPassword = (e) => {
     e.preventDefault();
     setPasswordType(passwordType ? false : true);
-  };
+  }
+
   const showConfirmPassword = (e) => {
     e.preventDefault();
     setRepeatPasswordType(repeatPasswordType ? false : true);
-  };
+  }
 
   const onSubmit = (data) => {
     // dispatch(setNewUserPassword(data.password))
@@ -65,7 +65,7 @@ function SetNewPassword() {
     setFormStatus(false);
     setNotificationStatus(true);
     reset();
-  };
+  }
 
   return (
     <div className="main">

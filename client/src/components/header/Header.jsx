@@ -13,31 +13,32 @@ const Header = ({ moveHeader }) => {
   
   const [searchData, setSearchData] = useState("");
   const [userMenu, setUserMenu] = useState(false);
-  const [todosDropMenu, setTodosDropMenu] = useState(false)
+  const [todosDropMenu, setTodosDropMenu] = useState(false);
   const [countMessages, setCountMessages] = useState(5);
-  const [countTodos, setCountTodos] = useState(0)
+  const [countTodos, setCountTodos] = useState(0);
   const {todos} = useSelector(state => state.todos);
-  const overTodos = []
+  const overTodos = [];
   const location = useLocation();
   const dispatch = useDispatch();
   
   useEffect(() => {
     todos.map((todo) => {
+
       if (Date.parse(todo.endTime) <= Date.now() && todo.status !== "done") {
         overTodos.push(todo)
       }
       setCountTodos(overTodos.length)
     }, []); 
-  }, [todos])
+  }, [todos]);
 
   useEffect(() => {
-    dispatch(setSearchQuery(searchData))
-  }, [searchData])
+    dispatch(setSearchQuery(searchData));
+  }, [searchData]);
 
   const userMenuHandler = () => 
   userMenu 
   ? setUserMenu(false) 
-  : setUserMenu(true);
+  : setUserMenu(true)
 
   const todosNotificationHandler = () => 
   todosDropMenu 

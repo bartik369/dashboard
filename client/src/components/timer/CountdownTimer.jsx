@@ -1,12 +1,13 @@
 import React from "react";
 import DateTimeDisplay from "./DateTimeDisplay";
+import * as uiConstants from "../../utils/constants/ui.constants"
 import { useCountdown } from "../../hooks/useCountdown";
 
 
 const ExpiredNotice = () => {
     return (
         <div className="expired-notice">
-            <span>Просрочен!</span>
+            <h5>{uiConstants.expired}</h5>
         </div>
     )
 }
@@ -15,13 +16,13 @@ const ShowCounter = ({days, hours, minutes, seconds}) => {
     return (
         <div className="show-counter">
           <div className="countdown-link">
-            <DateTimeDisplay value={days} type={'дн'} isDanger={false} />
+            <DateTimeDisplay value={days} type={uiConstants.days} isDanger={false} />
             <p>:</p>
-            <DateTimeDisplay value={hours} type={'час'} isDanger={false} />
+            <DateTimeDisplay value={hours} type={uiConstants.hours} isDanger={false} />
             <p>:</p>
-            <DateTimeDisplay value={minutes} type={'мин'} isDanger={false} />
+            <DateTimeDisplay value={minutes} type={uiConstants.minutes} isDanger={false} />
             <p>:</p>
-            <DateTimeDisplay value={seconds} type={'сек'} isDanger={false} />
+            <DateTimeDisplay value={seconds} type={uiConstants.seconds} isDanger={false} />
           </div>
         </div>
       );

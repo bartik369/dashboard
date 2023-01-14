@@ -5,9 +5,11 @@ import moment from "moment";
 import emtyImageDanger from "../../assets/portal/empty-danger.jpg";
 import emtyImageAttention from "../../assets/portal/empty-attention.jpg";
 import CountdownTimer from "../../components/timer/CountdownTimer";
-import "../timer/timer.css";
+import * as contentConstants from "../../utils/constants/content.constants";
+import * as uiConstants from "../../utils/constants/ui.constants";
 import { loadTodos } from "../../store/actions/todosActions";
 import { useDispatch, useSelector } from "react-redux";
+import "../timer/timer.css";
 
 const OverdueTodo = () => {
 
@@ -15,7 +17,6 @@ const OverdueTodo = () => {
   let dispatch = useDispatch();
   const overdueTodos = [];
   const attentionTodos = [];
-  // let endTodoDate;
 
   useEffect(() => {
     dispatch(loadTodos());
@@ -28,7 +29,6 @@ const OverdueTodo = () => {
     const passedTime = diffDate - (endD - new Date());
     const eighty = (diffDate / 100) * 80;
     const ninetyNine = (diffDate / 100) * 99.9;
-    // endTodoDate = moment(todo.endTime).format("DD.MM.YYYY HH:mm");
 
     if (
       passedTime >= eighty &&
@@ -49,7 +49,7 @@ const OverdueTodo = () => {
         <div className="icon-title">
           <i className="bi bi-exclamation-circle"></i>
         </div>
-        <div className="widget-item__title">Обратить внимание</div>
+        <div className="widget-item__title">{contentConstants.todosWarningTitle}</div>
       </div>
       {attentionTodos.length > 0 ? (
         <div className="todos_info">
@@ -58,7 +58,7 @@ const OverdueTodo = () => {
               <Link to="/todos">
               <div className="todos_info__title">{todo.title}</div>
               </Link>
-              <span className="time-text">Закончить до:</span>
+              <span className="time-text">{uiConstants.endTime}</span>
               <div className="todos_info__endtime">
                 {moment(todo.endTime).format("DD.MM.YYYY HH:mm")}
               </div>
@@ -69,7 +69,7 @@ const OverdueTodo = () => {
       ) : (
         <div className="expire-soon__item-empty">
           <img src={emtyImageAttention} />
-          <div className="todo-info">Срочных задач нет</div>
+          <div className="todo-info">{contentConstants.overdueTodosTitle}</div>
         </div>
       )}
       <div className="widget-separate"></div>
@@ -77,7 +77,7 @@ const OverdueTodo = () => {
         <div className="icon-title">
           <i className="bi bi-alarm"></i>
         </div>
-        <div className="widget-item__title">Просроченные задачи</div>
+        <div className="widget-item__title">{contentConstants.overdueTodosTitle}</div>
       </div>
       {overdueTodos.length > 0 ? (
         <div className="todos_info">
@@ -86,7 +86,7 @@ const OverdueTodo = () => {
                 <Link to="/todos">
                 <div className="todos_info__title">{todo.title}</div>
                 </Link>
-                <span className="time-text">Закончить до:</span>
+                <span className="time-text">{uiConstants.endTime}</span>
                 <div className="todos_info__endtime-danger">
                   {moment(todo.endTime).format("DD.MM.YYYY HH:mm")}
                 </div>
@@ -96,7 +96,7 @@ const OverdueTodo = () => {
        ) : (
         <div className="overdue__item-empty">
           <img src={emtyImageDanger} />
-          <div className="todo-info">Просроченных задач нет</div>
+          <div className="todo-info">{contentConstants.overdueTodosNone}</div>
         </div>
       )}
       <div className="button-wrap">

@@ -1,26 +1,26 @@
 import React, { useRef, useState } from "react";
+import SuccessRegister from "../../notifications/SuccessRegister";
+import SubmitButton from "../../UI/buttons/SubmitButton";
 import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
 import { createUser } from "../../../store/actions/usersActions";
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as formConstants from "../../../utils/constants/form.constants";
 import * as infoConstants from "../../../utils/constants/information.constants"
-import { Link, useNavigate} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
-import { useForm } from "react-hook-form";
-import { CSSTransition } from "react-transition-group";
-import SubmitButton from "../../UI/buttons/SubmitButton";
-import "../Authentication/Authentication.css"
 import paperAirplane from "../../../assets/portal/paper_airplane.png";
-import SuccessRegister from "../../notifications/SuccessRegister";
+import { CSSTransition } from "react-transition-group";
+import "../Authentication/Authentication.css"
 
 export default function Signup() {
 
   const [passwordType, setPasswordType] = useState(false);
   const [repeatPasswordType, setRepeatPasswordType] = useState(false);
   const [animationPaperAirplane, setAnimationPaperAirplane] = useState(false);
-  const [notificationStatus, setNotificationStatus] = useState(false)
-  const [formStatus, setFormStatus] = useState(true)
+  const [notificationStatus, setNotificationStatus] = useState(false);
+  const [formStatus, setFormStatus] = useState(true);
 
   const [userInfo, setUserInfo] = useState({
     displayname: "",
@@ -39,7 +39,7 @@ export default function Signup() {
     mode: "onBlur",
   });
 
-  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const password = useRef({});
   password.current = watch("password", "");
@@ -63,16 +63,17 @@ export default function Signup() {
     };
     setUserInfo(newUser);
     dispatch(createUser(newUser, animationSignup, setError));
-  };
+  }
 
   const showPassword = (e) => {
     e.preventDefault();
     setPasswordType(passwordType ? false : true);
-  };
+  }
+
   const showConfirmPassword = (e) => {
     e.preventDefault();
     setRepeatPasswordType(repeatPasswordType ? false : true);
-  };
+  }
 
   console.log("check memmory");
 

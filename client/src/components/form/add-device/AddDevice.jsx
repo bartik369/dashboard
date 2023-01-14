@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { addDevice } from "../../../store/actions/devicesActions";
-import { useDispatch } from "react-redux";
 import SubmitButton from "../../UI/buttons/SubmitButton";
 import * as uiConstants from "../../../utils/constants/ui.constants";
 import * as formConstants from "../../../utils/constants/form.constants";
@@ -28,8 +26,6 @@ export default function AddDevice({create}) {
     addTime: "",
   });
 
-  const dispatch = useDispatch();
-
   const onSubmit = (data) => {
     const date = new Date();
     const deviceTime =
@@ -43,10 +39,10 @@ export default function AddDevice({create}) {
       user: data.user,
       addTime: deviceTime,
     };
-    create(newDevice)
+    create(newDevice);
     // dispatch(addDevice(newDevice));
     reset();
-  };
+  }
 
   console.log("check memory");
 

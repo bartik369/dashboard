@@ -1,6 +1,5 @@
 import { combineReducers } from "redux";
 import devicesReducer from "./devicesReducer";
-import modalReducer from "./modalReduces";
 import todosReducer from "./todosReducer";
 import usersReducer from "./usersReducer";
 import searchDataReducer from "./searchDataReducer";
@@ -13,7 +12,6 @@ const rootReducer = combineReducers({
     device: devicesReducer,
     todos: todosReducer,
     todo: todosReducer,
-    modal: modalReducer,
     seqrchQuery: searchDataReducer,
 
 });

@@ -1,22 +1,21 @@
 import React, {useEffect} from "react";
 import { loadDevices } from "../../store/actions/devicesActions";
 import { useDispatch, useSelector } from "react-redux";
+import * as uiConstants from "../../utils/constants/ui.constants";
+import CanvasJSReact from "../../lib/canvas/canvasjs.react";
 import "../widgets/widgets.css";
-import CanvasJSReact from "../../lib/canvas/canvasjs.react"
-const CanvasJSChart = CanvasJSReact.CanvasJSChart;
-
 const Chart = () => {
 
     useEffect(() => {
         dispatch(loadDevices());
-    }, [])
+    }, []);
 
-
+    const CanvasJSChart = CanvasJSReact.CanvasJSChart;
     let dispatch = useDispatch();
     const {devices} = useSelector(state => state.devices)
     const nameArray = [];
-    let newArray = []
-    let count = []
+    let newArray = [];
+    let count = [];
 
     const getDevicesCount = () => {
         devices.map((item) => {
@@ -38,7 +37,7 @@ const Chart = () => {
             titleFontColor: "#555a6b",
 			lineColor: "#6D78AD",
 			labelFontColor: "#555a6b",
-            title: "Категории",
+            title: uiConstants.category,
             fontFamily: "calibri",
             titleFontSize: 15,
         },
@@ -46,7 +45,7 @@ const Chart = () => {
 			titleFontColor: "#555a6b",
 			lineColor: "#6D78AD",
 			labelFontColor: "#555a6b",
-            title: "Количество",
+            title: uiConstants.amount,
             fontFamily: "calibri",
             titleFontSize: 15,
         },
@@ -63,7 +62,7 @@ const Chart = () => {
         <div className="widget-item">
           <div className="wrapper-title">
           <div className="icon-title"><i className="bi bi-list-columns"></i></div>
-          <div className="widget-item__title">Статиcтика по оборудованию</div>
+          <div className="widget-item__title">{uiConstants.titleDeviceChart}</div>
           </div>
             <CanvasJSChart options = {options} />
         </div>

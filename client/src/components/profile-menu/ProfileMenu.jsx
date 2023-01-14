@@ -9,7 +9,7 @@ import { useEffect } from "react";
 export default function ProfileMenu() {
 
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
 

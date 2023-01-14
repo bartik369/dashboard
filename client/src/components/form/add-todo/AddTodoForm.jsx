@@ -15,7 +15,7 @@ const AddTodoForm = ({ create }) => {
     status: "",
     startTime: "",
     endTime: "",
-  });
+  })
 
   const {
     register,
@@ -24,7 +24,7 @@ const AddTodoForm = ({ create }) => {
     handleSubmit,
   } = useForm({
     mode: "onBlur",
-  });
+  })
 
   const handleAddStartTime = (date) => {
     setTodo({...todo, startTime: date})

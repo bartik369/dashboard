@@ -14,25 +14,25 @@ const getUsers = (users) => ({
     type: GET_USERS,
     payload: users,
     loading: true,
-});
+})
 
 const getUser = (user) => ({
     type: GET_USER,
     payload: user,
-});
+})
 
 const login = (user) => ({
     type: LOGIN_USER,
     payload: user,
-});
+})
 
 const logout = () => ({
     type: LOGOUT_USER,
-});
+})
 
 const addUser = () => ({
     type: CREATE_USER,
-});
+})
 
 
 export const createUser = (user, animationSignup, setError) => {
@@ -55,7 +55,7 @@ export const createUser = (user, animationSignup, setError) => {
             });
         }
     };
-};
+}
 
 export const loginUser = (data, setError, navigate) => {
     return async function(dispatch) {
@@ -81,7 +81,7 @@ export const loginUser = (data, setError, navigate) => {
             });
         }
     };
-};
+}
 
 export const logoutUser = (navigate) => {
     return async function(dispatch) {
@@ -95,7 +95,7 @@ export const logoutUser = (navigate) => {
             console.log(error);
         }
     };
-};
+}
 
 export const loadUser = (id) => {
     return async function(dispatch) {
@@ -107,7 +107,7 @@ export const loadUser = (id) => {
             console.log(error);
         }
     };
-};
+}
 
 export const loadUsers = () => {
     return async function(dispatch) {
@@ -119,7 +119,7 @@ export const loadUsers = () => {
             console.log(error);
         }
     };
-};
+}
 
 export const updateUserPassword = (data, setError, setNotificationStatus, setFormStatus) => {
     console.log(data)
@@ -144,7 +144,7 @@ export const updateUserPassword = (data, setError, setNotificationStatus, setFor
 
         }
     };
-};
+}
 
 export const comparePasswordLink = (link, navigate) => {
     return async function(dispatch) {
@@ -156,7 +156,7 @@ export const comparePasswordLink = (link, navigate) => {
                     }
                 })
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
 }
@@ -187,4 +187,4 @@ export const compareAccessToken = () => {
             dispatch(logout());
         }
     };
-};
+}

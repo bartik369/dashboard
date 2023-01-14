@@ -1,15 +1,14 @@
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../../store/actions/usersActions";
+import { useForm } from "react-hook-form";
+import SubmitButton from "../../UI/buttons/SubmitButton";
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as formConstants from "../../../utils/constants/form.constants";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import "../Authentication/Authentication.css"
-import SubmitButton from "../../UI/buttons/SubmitButton";
 
 export default function Login() {
   const [passwordType, setPasswordType] = useState(false);
@@ -35,12 +34,12 @@ export default function Login() {
       password: data.password,
     };
     dispatch(loginUser(userLoginData, setError, navigate));
-  };
+  }
 
   const showPassword = (e) => {
     e.preventDefault();
     setPasswordType(passwordType ? false : true);
-  };
+  }
 
   console.log("check memory");
 
