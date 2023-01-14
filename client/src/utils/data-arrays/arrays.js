@@ -30,9 +30,10 @@ export const menuItem = [
 ]
 
 export const categoryDevice = [
-    { name: 'Компьютеры', value: 'pc' },
-    { name: 'Сетевое оборудование', value: 'network' },
-    { name: 'Принтеры', value: 'printers' },
-    { name: 'Телефоны', value: 'phones' },
-    { name: 'Аксессуары', value: 'accessories' },
+    { name: 'Весь список', value: '', iconClassName: 'bi bi-speedometer' },
+    { name: 'Компьютеры', value: 'Компьютеры', iconClassName: 'bi bi-speedometer' },
+    { name: 'Сетевое оборудование', value: 'Сетевое оборудование', iconClassName: 'bi bi-speedometer' },
+    { name: 'Принтеры', value: 'Принтеры', iconClassName: 'bi bi-speedometer' },
+    { name: 'Телефоны', value: 'Телефоны', iconClassName: 'bi bi-speedometer' },
+    { name: 'Аксессуары', value: 'Аксессуары', iconClassName: 'bi bi-speedometer' },
 ]

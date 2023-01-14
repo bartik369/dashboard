@@ -52,7 +52,7 @@ const Header = ({ moveHeader }) => {
   });
 
   return (
-    <div className="header">
+    <header className="header">
       <div className={!moveHeader ? "header__inner" : "header__slided"}>
         <div className="header__search">
           {location.pathname === "/devices" && (
@@ -95,7 +95,7 @@ const Header = ({ moveHeader }) => {
             </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 }
 
