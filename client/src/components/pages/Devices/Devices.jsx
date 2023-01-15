@@ -78,14 +78,14 @@ const Devices = () => {
 
   // Create device
   
-  const findNow = (category) => {
-    const myTestArray = devices.filter((item) => {
+  const sortCategoryHandler = (category) => {
+    const sortedCategoryArray = devices.filter((item) => {
 
       if (item.type === category) {
         return item.type
       }
     }).slice(indefOfFirstDevice, indexOfLastDevice);
-    setCategory(myTestArray)
+    setCategory(sortedCategoryArray)
   }
   const resetHandler = () => {
     setCategory(devices)
@@ -94,7 +94,7 @@ const Devices = () => {
   return (
     <div className="content-container__inner">
       <div className="devices-category">
-        <CategoryMenu sortCategory={findNow} reset={resetHandler}/>
+        <CategoryMenu sortCategory={sortCategoryHandler} reset={resetHandler}/>
       </div>
       <Modal active={activeModal}>
         <UpdateDeviceForm update={updateDeviceData} close={closeModalHandler}/>

@@ -17,12 +17,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px 22px;
-    background-color: #8173e7;
-    border-radius: 6px;
-    color: aliceblue;
+    padding: 9px 21px;
+    /* background: rgb(172, 68, 134);
+    background: linear-gradient(146deg, rgba(172, 68, 134, 1) 0%, rgba(84, 72, 153, 1) 100%); */
+    background: #544899;
+    border-radius: 4px;
+    color: #f0eaf0;
     transition: all .5s;
-    width: 34%;
     font-size: 12px;
 }
 

@@ -50,6 +50,74 @@
 }
 
 
+/* Add device form */
+
+.device-form {
+    width: 100%;
+    padding: 20px 10px;
+    text-align: center;
+}
+
+.device-form__title {
+    font-family: inherit;
+    letter-spacing: -.3px;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    color: #292e48;
+    padding-bottom: 20px;
+}
+
+.device-form__input::placeholder {
+    color: #908f9c;
+}
+
+.device-form__input {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #d6d1e9;
+    padding: 15px;
+    background: #ded9f0;
+    font-size: 12px;
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: #20283d;
+    transition: all .6s;
+    margin-bottom: 5px;
+}
+
+.device-form__select {
+    width: 100%;
+    background: #ded9f0;
+    padding: 5px 10px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #d6d1e9;
+    font-size: 12px;
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: #20283d;
+    transition: all .6s;
+    margin-bottom: 10px;
+}
+
+.device-form__input input {
+    background-color: rgb(255, 0, 55);
+    padding: 5px 10px;
+}
+
+.device-form__input input:focus {
+    background-color: rgb(0, 17, 255);
+    padding: 5px 10px;
+}
+
+
 /* Auth form*/
 
 * {

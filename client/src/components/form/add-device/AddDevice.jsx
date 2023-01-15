@@ -48,10 +48,10 @@ export default function AddDevice({create}) {
 
   return (
     <div className="main">
-      <form className="main-form" onSubmit={handleSubmit(onSubmit)}>
-      <div className="content-form__title">{formConstants.newDeviceTitle}</div>
+      <form className="device-form" onSubmit={handleSubmit(onSubmit)}>
+      <div className="device-form__title">{formConstants.newDeviceTitle}</div>
         <select
-          className="main-form__select"
+          className="device-form__select"
           defaultValue=""
           {...register("type")}
         >
@@ -65,7 +65,7 @@ export default function AddDevice({create}) {
           ))}
         </select>
         <input
-          className="main-form__input"
+          className="device-form__input"
           placeholder={formConstants.fillDeviceName}
           type="text"
           name="name"
@@ -84,7 +84,7 @@ export default function AddDevice({create}) {
         </div>
 
         <input
-          className="main-form__input"
+          className="device-form__input"
           placeholder={formConstants.fillDeviceNumber}
           type="text"
           name="number"
@@ -103,7 +103,7 @@ export default function AddDevice({create}) {
         </div>
 
         <input
-          className="main-form__input"
+          className="device-form__input"
           placeholder={formConstants.fillUserName}
           type="text"
           name="user"
