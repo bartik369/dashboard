@@ -7,8 +7,11 @@ export const deviceTypes = [
 ]
 
 export const breakpoints = {
-    2560: 8,
-    1920: 6,
+    3500: 8,
+    3200: 8,
+    2560: 7,
+    2300: 7,
+    1920: 5,
     1800: 5,
     1600: 5,
     1400: 4,
