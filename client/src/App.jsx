@@ -12,6 +12,7 @@ function App() {
   const isAuth = useSelector((state) => state.users.isAuth);
   const token = localStorage.getItem("token");
   const [slideStateContainer, setSlideStateContainer] = useState(false);
+
   console.log("check memory");
 
   useEffect(() => {

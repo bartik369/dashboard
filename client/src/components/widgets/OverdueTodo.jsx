@@ -14,6 +14,7 @@ import "../timer/timer.css";
 const OverdueTodo = () => {
 
   const {todos} = useSelector(state => state.todos);
+  const user = useSelector(state => state.user.user)
   let dispatch = useDispatch();
   const overdueTodos = [];
   const attentionTodos = [];
@@ -23,6 +24,9 @@ const OverdueTodo = () => {
   }, [dispatch]);
 
   todos.map((todo) => {
+
+    if ((todo.user === user.id)) {
+
     const startD = moment(todo.startTime);
     const endD = moment(todo.endTime);
     const diffDate = endD.diff(startD);
@@ -41,7 +45,8 @@ const OverdueTodo = () => {
     if (Date.parse(todo.endTime) <= Date.now() && todo.status !== "done") {
       overdueTodos.push(todo);
     }
-  });
+    }
+  })
 
   return (
     <div className="widget-item">
