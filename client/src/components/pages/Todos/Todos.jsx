@@ -21,14 +21,18 @@ import Masonry from "react-masonry-css";
 
 const Todos = () => {
   const [deleteId, setDeleteId] = useState();
+  const [activeModal, setActiveModal] = useState(null);
   const dispatch = useDispatch();
   const { todos } = useSelector((state) => state.todos);
-  const [activeModal, setActiveModal] = useState(null);
+  const user = useSelector(state => state.user.user);
+  const userTodos = [];
+  const dateNow = Date.now();
 
   useEffect(() => {
     dispatch(loadTodos());
-  }, [dispatch]);
+  }, [dispatch])
 
+  
   const newTodoHandler = () => {
     setActiveModal("create");
   }
@@ -71,8 +75,6 @@ const Todos = () => {
     setActiveModal(null);
   }
 
-  const dateNow = Date.now();
-
   return (
     <div className="todos">
       {activeModal && 
@@ -99,14 +101,14 @@ const Todos = () => {
         columnClassName="my-masonry-grid_column"
       >
         {todos.map((todo, index) => {
-          const startTodoDate = moment(todo.startTime).format(
-            "DD.MM.YYYY HH:mm"
-          );
+
+          if ((todo.user === user.id)) {
+
+          const startTodoDate = moment(todo.startTime).format("DD.MM.YYYY HH:mm");
           const endTodoDate = Date.parse(todo.endTime);
 
           return (
-            <div
-              className={`todo-item 
+            <div className={`todo-item 
             ${endTodoDate <= dateNow && todo.status !== "done" ? "overdue" : ""}
             ${todo.status === "done" ? "done" : ""}
             ${deleteId === todo._id ? "delete-animation" : ""}`}
@@ -170,6 +172,7 @@ const Todos = () => {
               </div>
             </div>
           );
+          }
         })}
       </Masonry>
     </div>

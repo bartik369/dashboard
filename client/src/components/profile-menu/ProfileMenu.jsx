@@ -6,13 +6,13 @@ import "./profilemenu.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-export default function ProfileMenu() {
+export default function ProfileMenu({user}) {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-
+    console.log(user.email)
   }, [])
 
   const logoutHandler = () => {
@@ -22,7 +22,7 @@ export default function ProfileMenu() {
   return (
     <div className="profile-menu">
       <div className="profile__userinfo">
-        <div className="username">Fergus Roderic</div>
+        <div className="username">{user.email}</div>
         <div className="description">web designer</div>
       </div>
       <ul className="profile__items">

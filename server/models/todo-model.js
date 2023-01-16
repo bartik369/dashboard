@@ -16,6 +16,9 @@ const ToDoScheme = new mongoose.Schema({
     endTime: {
         type: String,
     },
+    user: {
+        type: String,
+    }
 });
 
 const ToDo = mongoose.model("TodoData", ToDoScheme);

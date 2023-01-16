@@ -28,6 +28,7 @@ export const createTodo = async(req, res) => {
     const status = req.body.status;
     const startTime = req.body.startTime;
     const endTime = req.body.endTime;
+    const user = req.body.user;
 
     const todo = new ToDoModel({
         title: title,
@@ -35,6 +36,7 @@ export const createTodo = async(req, res) => {
         status: status,
         startTime: startTime,
         endTime: endTime,
+        user: user,
     });
 
     try {

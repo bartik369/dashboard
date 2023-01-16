@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import ru from "date-fns/locale/ru";
@@ -15,7 +16,10 @@ const AddTodoForm = ({ create }) => {
     status: "",
     startTime: "",
     endTime: "",
+    user: "",
   })
+
+  const user = useSelector(state => state.user.user)
 
   const {
     register,
@@ -43,6 +47,7 @@ const AddTodoForm = ({ create }) => {
       status: "inprocess",
       startTime: todo.startTime,
       endTime: todo.endTime,
+      user: user.id,
     };
     create(newTodo);
     reset();
