@@ -19,6 +19,7 @@ const UpdateTodoForm = ({ update }) => {
     status: "",
     startTime: "",
     endTime: "",
+    user: "",
   });
   const dispatch = useDispatch();
 
@@ -53,6 +54,7 @@ const UpdateTodoForm = ({ update }) => {
       status: todo.status,
       startTime: updatedTodo.startTime,
       endTime: updatedTodo.endTime,
+      user: updatedTodo.user,
     };
     update(updateTodoData);
     reset();

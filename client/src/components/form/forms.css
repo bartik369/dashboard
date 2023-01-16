@@ -79,9 +79,9 @@
     flex-direction: column;
     height: 40px;
     border-radius: 10px;
-    border: 1px solid #d6d1e9;
+    border: 1px solid #e0dbef;
     padding: 15px;
-    background: #ded9f0;
+    background: #f0f3f7;
     font-size: 12px;
     outline: none;
     -webkit-box-shadow: none;
@@ -93,11 +93,11 @@
 
 .device-form__select {
     width: 100%;
-    background: #ded9f0;
+    background: #f0f3f7;
     padding: 5px 10px;
     height: 40px;
     border-radius: 10px;
-    border: 1px solid #d6d1e9;
+    border: 1px solid #e0dbef;
     font-size: 12px;
     outline: none;
     -webkit-box-shadow: none;

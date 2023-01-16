@@ -122,7 +122,7 @@ const UpdateDeviceForm = ({update}) => {
       <div className="content-action-btn">
         <SubmitButton
           className={"submit-btn-medium"}
-          title={uiConstants.titleAdd}
+          title={uiConstants.titleUpdate}
         />
       </div>
     </form>

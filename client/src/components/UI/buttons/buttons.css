@@ -18,13 +18,13 @@
     align-items: center;
     justify-content: center;
     padding: 9px 21px;
-    /* background: rgb(172, 68, 134);
-    background: linear-gradient(146deg, rgba(172, 68, 134, 1) 0%, rgba(84, 72, 153, 1) 100%); */
-    background: #544899;
+    /* background: #524899;
+    background: linear-gradient(146deg, rgb(71, 63, 136) 0%, rgb(102, 63, 139) 100%); */
+    background: #7a4b97;
     border-radius: 4px;
     color: #f0eaf0;
     transition: all .5s;
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .submit-btn-medium:hover {

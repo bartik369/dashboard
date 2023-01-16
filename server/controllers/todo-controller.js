@@ -69,6 +69,7 @@ export const updateTodo = async(req, res) => {
     const status = req.body.status;
     const startTime = req.body.startTime;
     const endTime = req.body.endTime;
+    const user = req.body.user;
 
     const rewriteUpdateData = await ToDoModel.findByIdAndUpdate(id, {
         title: title,
@@ -76,6 +77,7 @@ export const updateTodo = async(req, res) => {
         status: status,
         startTime: startTime,
         endTime: endTime,
+        user: user,
     })
     try {
         await rewriteUpdateData.save();

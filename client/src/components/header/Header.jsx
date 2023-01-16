@@ -23,12 +23,13 @@ const Header = ({ moveHeader }) => {
 
   useEffect(() => {
     todos.map((todo) => {
-      if (Date.parse(todo.endTime) <= Date.now() && todo.status !== "done") {
+      if (Date.parse(todo.endTime) <= Date.now() && todo.status !== "done" && todo.user === user.id) {
         overTodos.push(todo);
       }
       setCountTodos(overTodos.length);
     })
-  }, [])
+    console.log("check memory")
+  }, [todos])
 
   useEffect(() => {
     dispatch(setSearchQuery(searchData));
@@ -85,6 +86,7 @@ const Header = ({ moveHeader }) => {
               >
                 <TodosAlert
                   todos={todos}
+                  user={user}
                   className={
                     todosDropMenu
                       ? "todos-notification__dropmenu"

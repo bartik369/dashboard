@@ -1,3 +1,5 @@
+// Device form SELECT
+
 export const deviceTypes = [
     { name: 'Компьютеры', value: 'pc' },
     { name: 'Сетевое оборудование', value: 'network' },
@@ -5,6 +7,8 @@ export const deviceTypes = [
     { name: 'Телефоны', value: 'phones' },
     { name: 'Аксессуары', value: 'accessories' },
 ]
+
+//  Mansory grid
 
 export const breakpoints = {
     3500: 8,
@@ -22,6 +26,8 @@ export const breakpoints = {
     500: 1,
 };
 
+// Sidebar menu
+
 export const menuItem = [
     { name: 'Главная', to: '/dashboard', iconClassName: 'bi bi-speedometer' },
     { name: 'Устройства', to: '/devices', iconClassName: 'bi bi-hdd' },
@@ -31,6 +37,8 @@ export const menuItem = [
     { name: 'Календарь', to: '/calendar', iconClassName: 'bi bi-calendar-date' },
     { name: 'Настройки', to: '/settings', iconClassName: 'bi bi-gear' },
 ]
+
+// Category menu
 
 export const categoryDevice = [
     { name: 'Весь список', value: '', iconClassName: 'bi bi-list-check' },

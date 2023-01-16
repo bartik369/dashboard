@@ -25,7 +25,6 @@ const Todos = () => {
   const dispatch = useDispatch();
   const { todos } = useSelector((state) => state.todos);
   const user = useSelector(state => state.user.user);
-  const userTodos = [];
   const dateNow = Date.now();
 
   useEffect(() => {
@@ -36,6 +35,10 @@ const Todos = () => {
   const newTodoHandler = () => {
     setActiveModal("create");
   }
+
+  useEffect(() => {
+    console.log(todos)
+  }, [todos])
 
   const createTodo = (newTodo) => {
     dispatch(addTodo(newTodo));

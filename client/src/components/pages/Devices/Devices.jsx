@@ -91,13 +91,18 @@ const Devices = () => {
     setCategory(devices)
   }
 
+  const closeModal = () => {
+    setActiveModal(null);
+  }
+
+
   return (
     <div className="content-container__inner">
       <div className="devices-category">
         <CategoryMenu sortCategory={sortCategoryHandler} reset={resetHandler}/>
       </div>
-      <Modal active={activeModal}>
-        <UpdateDeviceForm update={updateDeviceData} close={closeModalHandler}/>
+      <Modal active={activeModal} close={closeModal}>
+        <UpdateDeviceForm update={updateDeviceData} />
       </Modal>
       <div className="devices-list">
       <div className="title">Список устройств</div>
