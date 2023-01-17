@@ -1,4 +1,5 @@
 import UserModel from "../models/user-model.js";
+import Roles from "../models/roles-model.js"
 import ResetPasswordModel from "../models/reset-password-model.js";
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
@@ -17,11 +18,14 @@ class UserService {
 
         const hashPassword = await bcrypt.hash(password, 7);
         const activationLink = uuidv4();
+        const userRoles = await Roles.findOne({ value: "User" })
+
         const user = await UserModel.create({
             displayname,
             email,
             password: hashPassword,
             activationLink,
+            roles: [userRoles.value]
         });
 
         await mailService.sendActivationMail(

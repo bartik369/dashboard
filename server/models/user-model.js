@@ -24,6 +24,10 @@ const UserScheme = new Schema({
     activationLink: {
         type: String,
     },
+    roles: [{
+        type: String,
+        ref: 'Roles',
+    }],
 });
 
 const User = mongoose.model('User', UserScheme);
