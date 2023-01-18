@@ -64,9 +64,9 @@ export default function AddDevice({create}) {
             </option>
           ))}
         </select>
+
+        <div className="device-form__input">
         <input
-          className="device-form__input"
-          placeholder={formConstants.fillDeviceName}
           type="text"
           name="name"
           {...register("name", {
@@ -77,15 +77,16 @@ export default function AddDevice({create}) {
             },
           })}
         />
+        <span>{formConstants.fillDeviceName}</span>
+        </div>
+
         <div className="form-error">
           {errors.name && (
             <p>{errors.name.message || formConstants.unknownError}</p>
           )}
         </div>
-
+        <div className="device-form__input">
         <input
-          className="device-form__input"
-          placeholder={formConstants.fillDeviceNumber}
           type="text"
           name="number"
           {...register("number", {
@@ -96,15 +97,15 @@ export default function AddDevice({create}) {
             },
           })}
         />
+        <span>{formConstants.fillDeviceNumber}</span>
+        </div>
         <div className="form-error">
           {errors.number && (
             <p>{errors.number.message || formConstants.unknownError}</p>
           )}
         </div>
-
+        <div className="device-form__input">
         <input
-          className="device-form__input"
-          placeholder={formConstants.fillUserName}
           type="text"
           name="user"
           {...register("user", {
@@ -115,6 +116,8 @@ export default function AddDevice({create}) {
             },
           })}
         />
+        <span>{formConstants.fillUserName}</span>
+        </div>
         <div className="form-error">
           {errors.user && (
             <p>{errors.user.message || formConstants.unknownError}</p>

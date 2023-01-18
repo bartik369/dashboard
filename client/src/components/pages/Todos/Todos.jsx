@@ -38,6 +38,7 @@ const Todos = () => {
 
   useEffect(() => {
     console.log(todos)
+    console.log(user)
   }, [todos])
 
   const createTodo = (newTodo) => {

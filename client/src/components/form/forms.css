@@ -69,27 +69,45 @@
     padding-bottom: 20px;
 }
 
-.device-form__input::placeholder {
-    color: #908f9c;
+.device-form__input {
+    position: relative;
+    margin-bottom: 45px;
+    background-color: gainsboro;
 }
 
-.device-form__input {
+.device-form__input input {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    height: 40px;
     border-radius: 10px;
     border: 1px solid #e0dbef;
-    padding: 15px;
-    background: #f0f3f7;
-    font-size: 12px;
-    outline: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
+    background-color: transparent;
     color: #20283d;
-    transition: all .6s;
-    margin-bottom: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    outline: none;
+    padding: 10px;
 }
+
+.device-form__input span {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    padding: 10px;
+    display: inline-block;
+    transition: .7s;
+    pointer-events: none;
+}
+
+.device-form__input input:focus~span,
+.device-form__input input:valid~span {
+    transform: translateX(-10px) translateY(-25px);
+}
+
+
+/* .device-form__input input:focus~span {
+    transform: translateX(-10px) translateY(-25px);
+} */
 
 .device-form__select {
     width: 100%;
@@ -105,16 +123,6 @@
     color: #20283d;
     transition: all .6s;
     margin-bottom: 10px;
-}
-
-.device-form__input input {
-    background-color: rgb(255, 0, 55);
-    padding: 5px 10px;
-}
-
-.device-form__input input:focus {
-    background-color: rgb(0, 17, 255);
-    padding: 5px 10px;
 }
 
 

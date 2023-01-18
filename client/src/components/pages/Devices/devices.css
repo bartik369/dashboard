@@ -53,8 +53,8 @@
     width: 330px;
     height: fit-content;
     padding: 5px;
-    background: rgb(236, 238, 253);
-    background: linear-gradient(180deg, rgba(225, 227, 246, 1) 0%, rgba(225, 227, 246, 1) 35%, rgba(236, 238, 253, 1) 100%);
+    background: rgb(251, 252, 255);
+    /* background: linear-gradient(180deg, rgba(225, 227, 246, 1) 0%, rgba(225, 227, 246, 1) 35%, rgba(236, 238, 253, 1) 100%); */
     box-shadow: 0 5px 5px 0 rgba(196, 190, 221, 0.4), 0 10px 10px 0 rgba(196, 190, 221, .4), 0 20px 20px 0 rgba(196, 190, 221, .4), 0 40px 40px 0 rgba(196, 190, 221, .4), 0 80px 80px 0 rgba(196, 190, 221, .4), 0 160px 160px 0 rgba(196, 190, 221, .4);
     position: -webkit-sticky;
     position: sticky;
