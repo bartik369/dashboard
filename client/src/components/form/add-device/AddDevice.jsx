@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import React, { useState } from "react";
+import { useForm, useWatch } from "react-hook-form";
 import SubmitButton from "../../UI/buttons/SubmitButton";
 import * as uiConstants from "../../../utils/constants/ui.constants";
 import * as formConstants from "../../../utils/constants/form.constants";
@@ -8,14 +8,6 @@ import { deviceTypes } from "../../../utils/data-arrays/arrays";
 import "../forms.css";
 
 export default function AddDevice({create}) {
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    reset,
-  } = useForm({
-    mode: "onBlur",
-  });
 
   const [device, setDevice] = useState({
     id: "",
@@ -26,7 +18,31 @@ export default function AddDevice({create}) {
     addTime: "",
   });
 
+  const {
+    register,
+    control,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useForm({
+    mode: "all",
+  });
+
+  let childRender = "";
+
+  function FirstNameWatched({ control }) {
+    useWatch({
+      control,
+      name: "name" // without supply name will watch the entire form, or ['firstName', 'lastName'] to watch both
+    });
+  
+    childRender++;
+  }
+  
+
   const onSubmit = (data) => {
+
+    console.log(data)
     const date = new Date();
     const deviceTime =
       date.toLocaleDateString() + " " + date.toLocaleTimeString("ru-RU");
@@ -77,7 +93,7 @@ export default function AddDevice({create}) {
             },
           })}
         />
-        <span>{formConstants.fillDeviceName}</span>
+        <span className={childRender !== "" ? "lable-span" : ""}>{formConstants.fillDeviceName}</span>
         </div>
 
         <div className="form-error">
@@ -126,6 +142,7 @@ export default function AddDevice({create}) {
         <div className="content-action-btn">
         <SubmitButton className={"submit-btn-medium"} title={uiConstants.titleAdd} />
         </div>
+        <FirstNameWatched control={control} />
       </form>
     </div>
   );

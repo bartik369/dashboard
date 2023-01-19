@@ -91,18 +91,28 @@
 
 .device-form__input span {
     position: absolute;
-    top: 1px;
-    left: 1px;
-    padding: 10px;
+    top: 10px;
+    left: 8px;
+    padding: 4px;
+   background: rgb(251, 252, 255);
     display: inline-block;
     transition: .7s;
     pointer-events: none;
+    font-size: 11px;
 }
 
-.device-form__input input:focus~span,
-.device-form__input input:valid~span {
-    transform: translateX(-10px) translateY(-25px);
+/* .device-form__input input:focus~span {
+    transform: translateY(-19px);
+} */
+
+.device-form__input input:focus~span {
+    transform: translateY(-19px);
 }
+
+.lable-span {
+    transform: translateY(-19px);
+}
+
 
 
 /* .device-form__input input:focus~span {
@@ -438,7 +448,7 @@
     font-family: inherit;
     font-size: 13px;
     padding: 5px;
-    width: fit-content
+    width: fit-content;
 }
 
 .content-form textarea {
