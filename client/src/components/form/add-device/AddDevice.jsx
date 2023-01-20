@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import SubmitButton from "../../UI/buttons/SubmitButton";
 import * as uiConstants from "../../../utils/constants/ui.constants";
 import * as formConstants from "../../../utils/constants/form.constants";
@@ -24,21 +24,12 @@ export default function AddDevice({create}) {
     formState: { errors },
     handleSubmit,
     reset,
+    watch,
   } = useForm({
     mode: "all",
-  });
+  })
 
-  let childRender = "";
-
-  function FirstNameWatched({ control }) {
-    useWatch({
-      control,
-      name: "name" // without supply name will watch the entire form, or ['firstName', 'lastName'] to watch both
-    });
-  
-    childRender++;
-  }
-  
+  const watchFields = watch({name: "name", number: "number", user: "user"});
 
   const onSubmit = (data) => {
 
@@ -60,7 +51,7 @@ export default function AddDevice({create}) {
     reset();
   }
 
-  console.log("check memory");
+  console.log(watchFields.name);
 
   return (
     <div className="main">
@@ -93,7 +84,7 @@ export default function AddDevice({create}) {
             },
           })}
         />
-        <span className={childRender !== "" ? "lable-span" : ""}>{formConstants.fillDeviceName}</span>
+        <span className={watchFields.name ? "lable-span" : ""}>{formConstants.fillDeviceName}</span>
         </div>
 
         <div className="form-error">
@@ -113,7 +104,7 @@ export default function AddDevice({create}) {
             },
           })}
         />
-        <span>{formConstants.fillDeviceNumber}</span>
+       <span className={watchFields.number ? "lable-span" : ""}>{formConstants.fillDeviceNumber}</span>
         </div>
         <div className="form-error">
           {errors.number && (
@@ -132,7 +123,7 @@ export default function AddDevice({create}) {
             },
           })}
         />
-        <span>{formConstants.fillUserName}</span>
+        <span className={watchFields.user ? "lable-span" : ""}>{formConstants.fillUserName}</span>
         </div>
         <div className="form-error">
           {errors.user && (
@@ -142,7 +133,6 @@ export default function AddDevice({create}) {
         <div className="content-action-btn">
         <SubmitButton className={"submit-btn-medium"} title={uiConstants.titleAdd} />
         </div>
-        <FirstNameWatched control={control} />
       </form>
     </div>
   );
