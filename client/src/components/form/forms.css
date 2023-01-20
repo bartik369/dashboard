@@ -77,10 +77,10 @@
 
 .device-form__input input {
     width: 100%;
-    border-radius: 10px;
-    border: 1px solid #e0dbef;
-    background-color: transparent;
-    color: #20283d;
+    border-radius: 5px;
+    /* border: 1px solid #e0dbef; */
+    background-color: #ffffff;
+    color: #0b1a21;
     position: absolute;
     top: 0;
     left: 0;
@@ -89,50 +89,41 @@
     padding: 10px;
 }
 
+.device-form__select {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 5px 10px;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 12px;
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: #0b1a21;
+    transition: all .6s;
+    margin-bottom: 10px;
+}
+
 .device-form__input span {
     position: absolute;
+    color: #8087a9;
+    background: #fff;
+    border-radius: 4px;
     top: 10px;
     left: 8px;
     padding: 4px;
-   background: rgb(251, 252, 255);
     display: inline-block;
     transition: .7s;
     pointer-events: none;
     font-size: 11px;
 }
 
-/* .device-form__input input:focus~span {
-    transform: translateY(-19px);
-} */
-
 .device-form__input input:focus~span {
-    transform: translateY(-19px);
+    transform: translateX(-8px) translateY(-19px);
 }
 
 .lable-span {
-    transform: translateY(-19px);
-}
-
-
-
-/* .device-form__input input:focus~span {
-    transform: translateX(-10px) translateY(-25px);
-} */
-
-.device-form__select {
-    width: 100%;
-    background: #f0f3f7;
-    padding: 5px 10px;
-    height: 40px;
-    border-radius: 10px;
-    border: 1px solid #e0dbef;
-    font-size: 12px;
-    outline: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    color: #20283d;
-    transition: all .6s;
-    margin-bottom: 10px;
+    transform: translateX(-8px) translateY(-19px);
 }
 
 
