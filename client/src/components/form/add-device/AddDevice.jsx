@@ -51,7 +51,7 @@ export default function AddDevice({create}) {
     reset();
   }
 
-  console.log(watchFields.name);
+  console.log("check memory");
 
   return (
     <div className="main">
@@ -60,7 +60,9 @@ export default function AddDevice({create}) {
         <select
           className="device-form__select"
           defaultValue=""
-          {...register("type")}
+          {...register("type", {
+            required: formConstants.requiredText,
+          })}
         >
           <option value="" disabled>
             {formConstants.typeDevices}
@@ -71,6 +73,11 @@ export default function AddDevice({create}) {
             </option>
           ))}
         </select>
+         <div className="form-error">
+          {errors.type && (
+            <p>{errors.type.message || formConstants.unknownError}</p>
+          )}
+        </div>
 
         <div className="device-form__input">
         <input

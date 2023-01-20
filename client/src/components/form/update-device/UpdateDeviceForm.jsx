@@ -54,8 +54,13 @@ const UpdateDeviceForm = ({update}) => {
 
   return (
     <form className="content-form" onSubmit={handleSubmit(onSubmit)}>
-      <select className="content-form__input" {...register("type")}>
-        <option>{formConstants.typeDevices}</option>
+      <select 
+      className="content-form__input"
+      defaultValue=""
+       {...register("type", {
+         required: formConstants.requiredText,
+      })}>
+        <option value="" disabled>{formConstants.typeDevices}</option>
         {deviceTypes.map((item, index) => (
           <option key={index} name={item.name} value={item.name}>
             {item.name}
@@ -63,8 +68,8 @@ const UpdateDeviceForm = ({update}) => {
         ))}
       </select>
       <div className="form-error">
-        {errors.name && (
-          <p>{errors.name.message || formConstants.unknownError}</p>
+        {errors.type && (
+          <p>{errors.type.message || formConstants.unknownError}</p>
         )}
       </div>
 
@@ -81,12 +86,11 @@ const UpdateDeviceForm = ({update}) => {
           },
         })}
       />
-      <div className="form-error">
-        {errors.number && (
-          <p>{errors.number.message || formConstants.unknownError}</p>
+       <div className="form-error">
+        {errors.name && (
+          <p>{errors.name.message || formConstants.unknownError}</p>
         )}
       </div>
-
       <input
         className="content-form__input"
         placeholder={formConstants.fillDeviceNumber}
@@ -101,11 +105,11 @@ const UpdateDeviceForm = ({update}) => {
         })}
       />
       <div className="form-error">
-        {errors.user && (
-          <p>{errors.user.message || formConstants.unknownError}</p>
+        {errors.number && (
+          <p>{errors.number.message || formConstants.unknownError}</p>
         )}
       </div>
-
+     
       <input
         className="content-form__input"
         placeholder={formConstants.fillUserName}
@@ -119,6 +123,12 @@ const UpdateDeviceForm = ({update}) => {
           },
         })}
       />
+     <div className="form-error">
+        {errors.user && (
+          <p>{errors.user.message || formConstants.unknownError}</p>
+        )}
+      </div>
+
       <div className="content-action-btn">
         <SubmitButton
           className={"submit-btn-medium"}

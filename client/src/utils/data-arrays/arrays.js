@@ -43,7 +43,7 @@ export const menuItem = [
 export const categoryDevice = [
     { name: 'Весь список', value: '', iconClassName: 'bi bi-list-check' },
     { name: 'Компьютеры', value: 'Компьютеры', iconClassName: 'bi bi-laptop' },
-    { name: 'Сеть', iconClassName: 'bi bi-hdd-network' },
+    { name: 'Сеть', value: 'Сетевое оборудование', iconClassName: 'bi bi-hdd-network' },
     { name: 'Принтеры', value: 'Принтеры', iconClassName: 'bi bi-printer' },
     { name: 'Телефоны', value: 'Телефоны', iconClassName: 'bi bi-phone' },
     { name: 'Аксессуары', value: 'Аксессуары', iconClassName: 'bi bi-usb-drive' },

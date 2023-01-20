@@ -23,7 +23,6 @@ const Devices = () => {
     dispatch(loadDevices());
   }, [dispatch])
 
-
   const [currentPage, setCurrentPage] = useState(1);
   const [devicesPerPage] = useState(25);
   
@@ -40,11 +39,7 @@ const Devices = () => {
       );
     }).slice(indefOfFirstDevice, indexOfLastDevice)
     setCategory(filter)
-  }, [devices, searchQuery, indexOfLastDevice, indefOfFirstDevice]);
-
-  const closeModalHandler = () => {
-    setActiveModal(false);
-  }
+  }, [devices, searchQuery]);
 
 
   // Search device
@@ -148,7 +143,7 @@ const Devices = () => {
           </table>
        <Pagination
         devicesPerPage={devicesPerPage}
-        totalDevices={devices.length}
+        totalDevices={category.length}
         paginate={pageNumberHandler}
         currentPage={currentPage}
       />
