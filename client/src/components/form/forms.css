@@ -78,7 +78,6 @@
 .device-form__input input {
     width: 100%;
     border-radius: 5px;
-    /* border: 1px solid #e0dbef; */
     background-color: #ffffff;
     color: #0b1a21;
     position: absolute;
@@ -139,14 +138,14 @@
 }
 
 .main .auth {
-    background: #252339;
     display: flex;
     min-height: 600px;
-    box-shadow: 0 3px 3px 0 rgba(18, 17, 27, .5), 0 6px 6px 0 rgba(18, 17, 27, .5), 0 12px 12px 0 rgba(18, 17, 27, .5), 0 24px 24px 0 rgba(18, 17, 27, .5), 0 48px 48px 0 rgba(18, 17, 27, .5), 0 96px 96px 0 rgba(18, 17, 27, .5);
+    background: rgb(255, 255, 255);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(242, 244, 250, 1) 35%, rgba(242, 244, 250, 1) 100%);
 }
 
 .auth-form__title {
-    color: rgb(255, 255, 255);
+    color: #0b1a21;
     text-align: center;
     font-size: 22px;
     font-weight: 700;
@@ -330,17 +329,14 @@
 
 .main .auth-form input {
     background-color: transparent;
-    border-bottom: 1px solid #273141;
     padding: 12px 40px 12px 8px;
     transition: all .5s;
     font-size: 15px;
-    color: #fff;
+    color: #0b1a21;
     width: 100%;
 }
 
-.main .auth-form input:hover {
-    border-bottom: 1px solid #4687e2;
-}
+.main .auth-form input:hover {}
 
 .main .auth-form__input {
     display: flex;

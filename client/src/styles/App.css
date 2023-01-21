@@ -169,6 +169,7 @@ h6 {
     width: 100%;
     background: #252339;
     background-image: url("../assets/portal/bg-login.jpg");
+    background-size: cover;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -177,7 +178,9 @@ h6 {
 
 .afterlogin {
     width: 100%;
-    background: #e5e7f1;
+    /* background: #e5e7f1; */
+    background-image: url("../assets/portal/bg-auth.jpg");
+    background-size: cover;
     display: flex;
 }
 
