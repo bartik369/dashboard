@@ -44,17 +44,7 @@
 }
 
 .main .auth-sidebar {
-    background-image: url("../../../assets/portal/login.jpg");
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    min-width: 450px;
-    max-width: 450px;
-    width: 100%;
-}
-
-.main .auth-sidebar {
-    background-image: url("../../../assets/portal/login.jpg");
+    background-image: url("../../../assets/portal/login.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -179,16 +169,17 @@
     height: 100%;
 }
 
-.main .auth-form {
+
+/* .main .auth-form {
     padding: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     min-width: 450px;
-}
+} */
 
 .input-icon {
-    color: #90959e;
+    color: #7f86aa;
     font-size: 16px;
 }
 
@@ -223,9 +214,7 @@
     width: 100%;
 }
 
-.main .auth-form input:hover {
-    border-bottom: 1px solid #4687e2;
-}
+.main .auth-form input:hover {}
 
 .main .auth-form__input {
     display: flex;
@@ -244,14 +233,16 @@
     padding: 15px 0;
 }
 
-.restore-password a {
-    color: #4687e2;
-    transition: all .8s;
-}
 
-.restore-password a:hover {
-    color: #dc4760;
-}
+/* .restore-password a {
+    color: #0a1a21;
+    transition: all .8s;
+} */
+
+
+/* .restore-password a:hover {
+    color: #6b67e9;
+} */
 
 .main .auth-form__error {
     color: #dc4760;
