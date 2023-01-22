@@ -36,8 +36,7 @@
     display: flex;
     flex-direction: column;
     background-color: #f9e580;
-    border: 1px solid #fae160;
-    border-radius: 3px;
+    border-bottom: 2px solid #ea7508;
     margin: 3px;
 }
 

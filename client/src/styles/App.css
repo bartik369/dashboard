@@ -125,31 +125,6 @@ h6 {
     background: #2acab2;
 }
 
-.delete-btn {
-    padding: 9px 12px;
-    background-color: transparent;
-    border-radius: 2px;
-    font-size: 18px;
-    font-weight: 800;
-    color: #5b626b;
-    transition: all .7s;
-}
-
-.delete-btn:hover {}
-
-.update-btn {
-    padding: 9px 12px;
-    background-color: transparent;
-    font-size: 18px;
-    font-weight: 800;
-    color: #5b626b;
-    margin-left: 5px;
-    border-radius: 2px;
-    transition: all .7s;
-}
-
-.update-btn:hover {}
-
 
 /*--------------------*/
 

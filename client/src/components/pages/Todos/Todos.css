@@ -59,16 +59,9 @@
 
 .todo-item__inner.overdue:hover {}
 
-.todo-item__inner.overdue .end-time {
-    color: #121010;
-    font-size: 18px;
-}
-
-.todo-item__inner.overdue .todo-item__inner__bottom {
-    background-color: #eaadbf;
-    -webkit-box-shadow: inset -1px 10px 6px -10px rgba(197, 156, 164, 0.75);
-    -moz-box-shadow: inset -1px 10px 6px -10px rgba(197, 156, 164, 0.75);
-    box-shadow: inset -1px 10px 6px -10px rgba(197, 156, 164, 0.75);
+.todo-item.overdue .end-time {
+    color: #da4057;
+    font-size: 16px;
 }
 
 .time-info {
@@ -90,7 +83,8 @@
 }
 
 .end-time {
-    color: #6b67e9;
+    /* color: #6b67e9; */
+    color: #0a1a21;
 }
 
 .start-time,

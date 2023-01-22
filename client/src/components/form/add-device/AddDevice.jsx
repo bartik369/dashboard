@@ -64,7 +64,7 @@ export default function AddDevice({create}) {
             required: formConstants.requiredText,
           })}
         >
-          <option value="" disabled>
+          <option className="disabled-option" value="" disabled>
             {formConstants.typeDevices}
           </option>
           {deviceTypes.map((item, index) => (

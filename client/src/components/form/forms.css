@@ -79,7 +79,7 @@
     width: 100%;
     border-radius: 5px;
     background-color: #ffffff;
-    color: #0b1a21;
+    color: #0a1a21;
     position: absolute;
     top: 0;
     left: 0;
@@ -103,9 +103,13 @@
     margin-bottom: 10px;
 }
 
+.disabled-option {
+    color: #7f86aa;
+}
+
 .device-form__input span {
     position: absolute;
-    color: #8087a9;
+    color: #7f86aa;
     background: #fff;
     border-radius: 4px;
     top: 10px;
@@ -537,10 +541,10 @@
     flex-direction: column;
     justify-content: center;
     min-width: 400px;
-    background: rgb(255, 255, 255, .3);
+    background: rgb(255, 255, 255, .4);
     background-position: bottom;
     background-repeat: no-repeat;
-    background-image: url("../../assets/portal/form-wave.png"), linear-gradient(180deg, rgba(255, 255, 255, .3) 0%, rgba(242, 244, 250, .3) 100%);
+    background-image: url("../../assets/portal/form-wave.png"), linear-gradient(180deg, rgba(255, 255, 255, .4) 0%, rgba(242, 244, 250, .4) 100%);
     border-radius: 12px;
 }
 
@@ -641,7 +645,7 @@
 /* content form */
 
 .content-form {
-    padding: 30px 20px;
+    padding: 50px 20px 30px 20px;
     background-color: #f8f9fa;
     box-shadow: 0 3px 3px 0 rgba(190, 193, 195, .5), 0 6px 6px 0 rgba(190, 193, 195, .5), 0 12px 12px 0 rgba(190, 193, 195, .5), 0 24px 24px 0 rgba(190, 193, 195, .5), 0 48px 48px 0 rgba(190, 193, 195, .5), 0 96px 96px 0 rgba(190, 193, 195, .5);
     width: 400px;
@@ -677,7 +681,7 @@
     outline: none;
     -webkit-box-shadow: none;
     box-shadow: none;
-    color: #546274;
+    color: #0a1a21;
     min-height: 200px;
 }
 
@@ -685,22 +689,23 @@
     width: 100%;
     height: 55px;
     border-radius: 10px;
-    border: 1px solid #ebedf0;
+    border: 1px solid #e5e7ef;
     padding: 15px;
-    background: #f1f4f7;
+    background: #fafbff;
     font-size: 12px;
     outline: none;
     -webkit-box-shadow: none;
     box-shadow: none;
-    color: #546274;
+    color: #0a1a21;
     transition: all .6s;
     margin-bottom: 15px;
 }
 
 .content-form text:hover,
 .content-form__input:hover {
-    background: #f7f9fa;
-    border: 1px solid #c0c8de;
+    background: #ffffff;
+    border: 1px solid #e2e2ff;
+    box-shadow: 0 0 10px 5px rgba(204, 204, 240, .15);
 }
 
 .content-form__date {
@@ -725,7 +730,7 @@
 .start input,
 .end input {
     padding: 10px;
-    border: 1px solid #ebedf0;
+    border: 1px solid #e5e7ef;
     border-radius: 10px;
     font-size: 12px;
     background: #f1f4f7;
@@ -738,8 +743,9 @@
 
 .start input:hover,
 .end input:hover {
-    border: 1px solid #c0c8de;
-    background: #f7f9fa;
+    background: #ffffff;
+    border: 1px solid #e2e2ff;
+    box-shadow: 0 0 10px 5px rgba(204, 204, 240, .15);
 }
 
 .bi-calendar3,
