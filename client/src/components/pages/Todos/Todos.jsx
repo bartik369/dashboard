@@ -112,17 +112,14 @@ const Todos = () => {
           const endTodoDate = Date.parse(todo.endTime);
 
           return (
-            <div className={`todo-item 
+            <div className={`todo-item
             ${endTodoDate <= dateNow && todo.status !== "done" ? "overdue" : ""}
             ${todo.status === "done" ? "done" : ""}
             ${deleteId === todo._id ? "delete-animation" : ""}`}
               key={index}
             >
-              <div
-                className={`icon-done ${
-                  todo.status === "done" ? "completed" : ""
-                }`}
-              >
+              <div className="todo-item__inner">
+              <div className={`icon-done ${todo.status === "done" ? "completed" : ""}`}>
                 <i className="bi bi-check-all"></i>
               </div>
               <div className="todo-item__title">{todo.title}</div>
@@ -136,8 +133,8 @@ const Todos = () => {
                   {moment(endTodoDate).format("DD.MM.YYYY HH:mm")}
                 </span>
               </div>
-              <div className="todo-item__bottom">
-                <div className="todo-btns">
+            </div>
+            <div className="todo-btns">
                   <ul className="todo-btns__inner">
                     <li className="todo-btns__item">
                       <TodoButton
@@ -173,8 +170,8 @@ const Todos = () => {
                     </li>
                   </ul>
                 </div>
-              </div>
-            </div>
+
+          </div>
           );
           }
         })}

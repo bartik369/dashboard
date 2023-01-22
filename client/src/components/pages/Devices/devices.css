@@ -1,3 +1,22 @@
+.device-list {}
+
+.device {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+    background-color: #fff;
+    padding: 10px;
+    box-shadow: 0 5px 5px -5px rgba(99, 108, 126, 0.3);
+}
+
+.device>span {
+    width: 100%;
+    text-align: center;
+    color: #626284;
+}
+
 .devices-table {
     border-collapse: collapse;
     font-family: sans-serif;
@@ -41,11 +60,11 @@
 }
 
 .devices-list {
-    background-color: #fff;
+    /* background-color: #fff;
     box-shadow: 0 5px 5px -5px rgba(157 162 169 / 55%);
-    border: 1px solid #f3f5f6;
+    border: 1px solid #f3f5f6; */
     padding: 15px 30px 30px;
-    border-radius: 6px;
+    /* border-radius: 6px; */
     width: 100%;
 }
 

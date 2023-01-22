@@ -101,46 +101,31 @@ const Devices = () => {
       </Modal>
       <div className="devices-list">
       <div className="title">Список устройств</div>
-      <table className="devices-table">
-              <thead>
-                  <tr>
-                      <th>{deviceConstants.deviceType}</th>
-                      <th>{deviceConstants.deviceName}</th>
-                      <th>{deviceConstants.deviceNumber}</th>
-                      <th>{deviceConstants.deviceUser}</th>
-                      <th>{deviceConstants.deviceDateAdded}</th>
-                      <th></th>
-                      <th></th>
-                  </tr>
-              </thead>
-              <tbody>
                   {category.map((device, index) => (
-                      <tr key={index}>
-                          <td>{device.type}</td>
-                          <td>{device.name}</td>
-                          <td>{device.number}</td>
-                          <td>{device.user}</td>
-                          <td>{device.addTime}</td>
-                          <td>
+                      <div className="device" key={index}>
+                          <span>{device.type}</span>
+                          <span>{device.name}</span>
+                          <span>{device.number}</span>
+                          <span>{device.user}</span>
+                          <span>{device.addTime}</span>
+                          <div>
                             <button 
                             className="delete-btn" 
                             title="Удалить" 
                             onClick={() => removeDevice(device._id)}>
                             <i className="bi bi-trash3"></i>
                             </button>
-                          </td>
-                          <td>
+                            </div>
+                          <div>
                             <button 
                             className="update-btn" 
                             title="Обновить" 
                             onClick={() => handleUpdateDeviceInfo(device._id)}>
                             <i className="bi bi-arrow-repeat"></i>
                             </button>
-                          </td>
-                      </tr>
+                           </div>
+                      </div>
                   ))}
-              </tbody>
-          </table>
        <Pagination
         devicesPerPage={devicesPerPage}
         totalDevices={category.length}

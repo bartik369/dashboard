@@ -179,7 +179,7 @@ h6 {
 .afterlogin {
     width: 100%;
     /* background: #e5e7f1; */
-    background-image: url("../assets/portal/bg-auth.jpg");
+    background-image: url("../assets/portal/bg-in.jpg");
     background-size: cover;
     display: flex;
 }
