@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import "../Authentication/Authentication.css"
+import "../../form/forms.css"
 
 export default function Login() {
   const [passwordType, setPasswordType] = useState(false);
@@ -27,6 +28,7 @@ export default function Login() {
   const navigate = useNavigate();
   const password = useRef({});
   password.current = watch("password", "");
+  const watchFields = watch({password: "email", password: "password"});
 
   const onSubmit = (data) => {
     const userLoginData = {
@@ -53,7 +55,6 @@ export default function Login() {
             <div className="auth-form__input">
               <FontAwesomeIcon icon={faEnvelope} className="input-icon" />
               <input
-                placeholder={formConstants.yourEmail}
                 type="text"
                 name="email"
                 {...register("email", {
@@ -64,6 +65,7 @@ export default function Login() {
                   },
                 })}
               />
+              <span className={watchFields.email ? "lable-span" : ""}>{formConstants.yourEmail}</span>
             </div>
             <div className="form-error">
               {errors.email && <p>{errors.email.message || "Error"}</p>}
@@ -74,7 +76,6 @@ export default function Login() {
             <div className="auth-form__input">
               <FontAwesomeIcon icon={faLock} className="input-icon" />
               <input
-                placeholder={formConstants.yourPassword}
                 type={passwordType ? "text" : "password"}
                 {...register("password", {
                   required: formConstants.fillPassword,
@@ -84,6 +85,7 @@ export default function Login() {
                   },
                 })}
               />
+              <span className={watchFields.password ? "lable-span" : ""}>{formConstants.yourPassword}</span>
               <button className="show-password" onClick={showPassword}>
                 {passwordType ? (
                   <i

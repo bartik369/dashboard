@@ -128,20 +128,6 @@
 
 /* Auth form*/
 
-* {
-    font-family: 'Roboto Condensed', sans-serif;
-}
-
-.main {
-    display: flex;
-    justify-content: center;
-}
-
-.main .auth {
-    display: flex;
-    min-height: 600px;
-}
-
 .auth-form__title {
     color: #0b1a21;
     text-align: center;
@@ -153,15 +139,7 @@
 }
 
 .main .auth-sidebar {
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    min-width: 550px;
-    max-width: 550px;
-    width: 100%;
-}
-
-.main .auth-sidebar {
+    background-image: url("../../assets/portal/login.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -286,15 +264,290 @@
     height: 100%;
 }
 
+.input-icon {
+    color: #7f86aa;
+    font-size: 16px;
+}
+
+.main .auth-form label {
+    padding: 5px 0;
+    color: #90959e;
+    font-size: 13px;
+}
+
+.show-password {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.bi-eye,
+.bi-eye-slash {
+    color: #90959e;
+    font-size: 18px;
+}
+
+.input-layer {
+    margin: 5px 0;
+    position: relative;
+}
+
+.main .auth-form input {
+    padding: 12px 40px 12px 8px;
+    transition: all .5s;
+    font-size: 15px;
+    width: 100%;
+}
+
+.main .auth-form input:hover {}
+
+.main .auth-form__input {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    padding: 5px 12px;
+    background-color: #ffffff;
+    color: #0b1a21;
+}
+
+.auth-form__input span {
+    position: absolute;
+    color: #8087a9;
+    background: #fff;
+    border-radius: 4px;
+    top: 17px;
+    left: 35px;
+    padding: 4px;
+    display: inline-block;
+    transition: .7s;
+    pointer-events: none;
+    font-size: 12px;
+}
+
+.auth-form__input input:focus~span {
+    transform: translateX(1px) translateY(-25px);
+}
+
+.lable-span {
+    transform: translateX(1px) translateY(-25px);
+}
+
+.main .validation-error {
+    border-bottom: 1px solid #dc4760 !important;
+}
+
+.restore-password {
+    padding: 15px 0;
+}
+
+.main .auth-form__error {
+    color: #dc4760;
+    font-size: 11px;
+    font-style: inherit;
+    padding: 6px 0;
+}
+
+.main .form-link {
+    text-align: center;
+    color: #90959e;
+    font-size: 14px;
+}
+
+.main .form-link a {
+    color: #4687e2;
+    transition: all .8s;
+    padding-left: 3px;
+}
+
+.main .signin {
+    display: flex;
+    justify-content: center;
+    color: #90959e;
+}
+
+.main .signin a {
+    color: #4687e2;
+    margin-left: 7px;
+    transition: all .8s;
+}
+
+.main .signin a:hover {
+    color: #dc4760;
+}
+
+@media (max-width: 1100px) {
+    .main .auth-sidebar {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .main .auth-sidebar {
+        display: none;
+    }
+}
+
+* {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+}
+
+.main .auth {
+    display: flex;
+    min-height: 600px;
+}
+
+.auth-form__title {
+    color: #0b1a21;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    font-family: inherit;
+}
+
+.main .auth-sidebar {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-width: 550px;
+    max-width: 550px;
+    width: 100%;
+}
+
+.main .auth-sidebar {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-width: 550px;
+    max-width: 550px;
+    width: 100%;
+}
+
+.main .auth-sidebar__info {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth__notification {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth__notification .paperAirplane {
+    width: 150px;
+    position: absolute;
+    left: 20px;
+    bottom: 0px;
+    z-index: 1;
+}
+
+.auth__notification .paperAirplane img {
+    width: 100%
+}
+
+.paperAirplane-animation-enter {
+    position: absolute;
+}
+
+.paperAirplane-animation-enter-active {
+    transition: all 2000ms ease-in-out;
+    position: absolute;
+    transform: translate(2000px, -2000px);
+    -webkit-transform: translate(2000px, -2000px);
+    -o-transform: translate(2000px, -2000px);
+    -moz-transform: translate(2000px, -2000px);
+}
+
+@keyframes fill {
+    0% {
+        transform: translateY(150%) translateX(-150%) scale(1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.auth__notification .completion-registration {
+    display: none;
+}
+
+.completed {
+    display: flex;
+    z-index: 3;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.completed .title {
+    color: rgb(247, 247, 247);
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.completed>span {
+    color: rgb(247, 247, 247);
+    font-size: 14px;
+    font-weight: 300;
+    margin-bottom: 10px;
+}
+
+.auth-notification {
+    display: block;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+.bi-envelope-check {
+    color: aliceblue;
+    font-size: 95px;
+    margin-bottom: 20px;
+}
+
+.main .auth-sidebar img {
+    width: 100%;
+    height: 100%;
+}
+
 .main .auth-form {
     padding: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-width: 450px;
-    background-color: rgb(255, 255, 255, .5);
+    min-width: 400px;
+    background: rgb(255, 255, 255, .3);
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-image: url("../../assets/portal/form-wave.png"), linear-gradient(180deg, rgba(255, 255, 255, .3) 0%, rgba(242, 244, 250, .3) 100%);
     border-radius: 12px;
 }
+
+
+/* background: #eb01a5;
+background-image: url("IMAGE_URL");
+background-image: url("IMAGE_URL"), linear-gradient(#eb01a5, #d13531); */
 
 .input-icon {
     color: #90959e;
@@ -325,22 +578,6 @@
     position: relative;
 }
 
-.main .auth-form input {
-    background-color: transparent;
-    padding: 12px 40px 12px 8px;
-    transition: all .5s;
-    font-size: 15px;
-    color: #0b1a21;
-    width: 100%;
-}
-
-.main .auth-form input:hover {}
-
-.main .auth-form__input {
-    display: flex;
-    align-items: center;
-}
-
 .main .validation-error {
     border-bottom: 1px solid #dc4760 !important;
 }
@@ -355,7 +592,7 @@
 }
 
 .restore-password a:hover {
-    color: #dc4760;
+    color: #4687e2;
 }
 
 .main .auth-form__error {
