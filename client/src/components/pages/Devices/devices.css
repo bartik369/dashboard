@@ -11,6 +11,18 @@
     box-shadow: 0 5px 5px -5px rgba(99, 108, 126, 0.3);
 }
 
+.devices-title {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #d77cbc;
+}
+
+.devices-title>span {
+    width: 20%;
+}
+
 .device>span {
     width: 100%;
     text-align: center;

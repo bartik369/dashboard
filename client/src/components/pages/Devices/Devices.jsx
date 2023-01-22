@@ -101,6 +101,13 @@ const Devices = () => {
       </Modal>
       <div className="devices-list">
       <div className="title">Список устройств</div>
+      {/* <div className="devices-title">
+                      <span>{deviceConstants.deviceType}</span>
+                      <span>{deviceConstants.deviceName}</span>
+                      <span>{deviceConstants.deviceNumber}</span>
+                      <span>{deviceConstants.deviceUser}</span>
+                      <span>{deviceConstants.deviceDateAdded}</span>
+      </div> */}
                   {category.map((device, index) => (
                       <div className="device" key={index}>
                           <span>{device.type}</span>
