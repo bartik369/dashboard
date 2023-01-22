@@ -10,7 +10,6 @@ import * as formConstants from "../../../utils/constants/form.constants";
 import * as infoConstants from "../../../utils/constants/information.constants";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "../Authentication/Authentication.css";
 
 function ResetPassword() {
   const {
@@ -18,6 +17,7 @@ function ResetPassword() {
     formState: { errors },
     handleSubmit,
     setError,
+    watch,
   } = useForm({
     mode: "onBlur",
   });
@@ -26,6 +26,7 @@ function ResetPassword() {
   const [formStatus, setFormStatus] = useState(true);
 
   const dispatch = useDispatch();
+  const watchFields = watch({email: "email"});
 
   const onSubmit = (data) => {
     console.log("chick chick");
@@ -60,7 +61,6 @@ function ResetPassword() {
               <div className="auth-form__input">
                 <FontAwesomeIcon icon={faEnvelope} className="input-icon" />
                 <input
-                  placeholder={formConstants.yourEmail}
                   type="text"
                   name="email"
                   {...register("email", {
@@ -71,6 +71,7 @@ function ResetPassword() {
                     },
                   })}
                 />
+                <span className={watchFields.email ? "lable-span" : ""}>{formConstants.yourEmail}</span>
               </div>
               <div className="form-error">
                 {errors.email && <p>{errors.email.message || "Error"}</p>}

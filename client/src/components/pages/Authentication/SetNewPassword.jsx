@@ -43,6 +43,7 @@ function SetNewPassword() {
   const password = useRef({});
   password.current = watch("password", "");
   const dispatch = useDispatch();
+  const watchFields = watch({password: "password", confirmPassword: "confirmPassword"});
 
   const showPassword = (e) => {
     e.preventDefault();
@@ -84,12 +85,10 @@ function SetNewPassword() {
         </div>
         <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="auth-form__title">{formConstants.titleSetNewPasswordForm}</div>
-
           <div className="input-layer">
             <div className="auth-form__input">
               <FontAwesomeIcon icon={faLock} className="input-icon" />
               <input
-                placeholder={formConstants.yourPassword}
                 type={passwordType ? "text" : "password"}
                 {...register("password", {
                   required: formConstants.fillPassword,
@@ -103,6 +102,7 @@ function SetNewPassword() {
                   },
                 })}
               />
+              <span className={watchFields.password ? "lable-span" : ""}>{formConstants.yourPassword}</span>
               <button className="show-password" onClick={showPassword}>
                 {passwordType ? (
                   <i
@@ -126,7 +126,6 @@ function SetNewPassword() {
             <div className="auth-form__input">
               <FontAwesomeIcon icon={faLock} className="input-icon" />
               <input
-                placeholder={formConstants.repeatPassword}
                 type={repeatPasswordType ? "text" : "password"}
                 {...register("confirmPassword", {
                   required: formConstants.fillPassword,
@@ -135,6 +134,7 @@ function SetNewPassword() {
                     formConstants.passwordsDoNotMatch,
                 })}
               />
+              <span className={watchFields.confirmPassword ? "lable-span" : ""}>{formConstants.repeatPassword}</span>
               <button className="show-password" onClick={showConfirmPassword}>
                 {repeatPasswordType ? (
                   <i

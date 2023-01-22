@@ -12,7 +12,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import paperAirplane from "../../../assets/portal/paper_airplane.png";
 import { CSSTransition } from "react-transition-group";
-import "../Authentication/Authentication.css"
 
 export default function Signup() {
 
@@ -43,6 +42,12 @@ export default function Signup() {
   const dispatch = useDispatch();
   const password = useRef({});
   password.current = watch("password", "");
+  const watchFields = watch({
+    displayname: "displayname", 
+    email: "email", 
+    password: "password",
+    confirmPassword: "confirmPassword",
+  });
 
   const animationSignup = () => {
      setAnimationPaperAirplane(true);
@@ -103,12 +108,10 @@ export default function Signup() {
         </div>
         <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
           <div className="auth-form__title">{formConstants.titleRegistrationForm}</div>
-
           <div className="input-layer">
             <div className="auth-form__input">
               <FontAwesomeIcon icon={faUser} className="input-icon" />
               <input
-                placeholder={formConstants.yourName}
                 type="text"
                 name="displayname"
                 {...register("displayname", {
@@ -123,6 +126,7 @@ export default function Signup() {
                   }
                 })}
               />
+               <span className={watchFields.displayname ? "lable-span" : ""}>{formConstants.yourName}</span>
             </div>
             <div className="form-error">
               {errors.displayname && (
@@ -135,7 +139,6 @@ export default function Signup() {
             <div className="auth-form__input">
               <FontAwesomeIcon icon={faEnvelope} className="input-icon" />
               <input
-                placeholder={formConstants.yourEmail}
                 type="email"
                 name="email"
                 {...register("email", {
@@ -146,6 +149,7 @@ export default function Signup() {
                   },
                 })}
               />
+            <span className={watchFields.email ? "lable-span" : ""}>{formConstants.yourEmail}</span>
             </div>
             <div className="form-error">
               {errors.email && <p>{errors.email.message || "Error"}</p>}
@@ -156,7 +160,6 @@ export default function Signup() {
             <div className="auth-form__input">
               <FontAwesomeIcon icon={faLock} className="input-icon" />
               <input
-                placeholder={formConstants.yourPassword}
                 type={passwordType ? "text" : "password"}
                 {...register("password", {
                   required: formConstants.fillPassword,
@@ -170,6 +173,7 @@ export default function Signup() {
                   },
                 })}
               />
+              <span className={watchFields.password ? "lable-span" : ""}>{formConstants.yourPassword}</span>
               <button className="show-password" onClick={showPassword}>
                 {passwordType ? (
                   <i
@@ -193,7 +197,6 @@ export default function Signup() {
             <div className="auth-form__input">
               <FontAwesomeIcon icon={faLock} className="input-icon" />
               <input
-                placeholder={formConstants.repeatPassword}
                 type={repeatPasswordType ? "text" : "password"}
                 {...register("confirmPassword", {
                   required: formConstants.fillPassword,
@@ -202,6 +205,7 @@ export default function Signup() {
                     formConstants.passwordsDoNotMatch,
                 })}
               />
+              <span className={watchFields.confirmPassword ? "lable-span" : ""}>{formConstants.repeatPassword}</span>
               <button className="show-password" onClick={showConfirmPassword}>
                 {repeatPasswordType ? (
                   <i

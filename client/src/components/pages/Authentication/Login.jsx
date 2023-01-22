@@ -8,7 +8,6 @@ import * as formConstants from "../../../utils/constants/form.constants";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
-import "../Authentication/Authentication.css"
 import "../../form/forms.css"
 
 export default function Login() {
@@ -28,7 +27,7 @@ export default function Login() {
   const navigate = useNavigate();
   const password = useRef({});
   password.current = watch("password", "");
-  const watchFields = watch({password: "email", password: "password"});
+  const watchFields = watch({email: "email", password: "password"});
 
   const onSubmit = (data) => {
     const userLoginData = {

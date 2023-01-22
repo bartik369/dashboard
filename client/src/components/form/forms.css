@@ -322,7 +322,7 @@
     display: inline-block;
     transition: .7s;
     pointer-events: none;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .auth-form__input input:focus~span {
@@ -543,11 +543,6 @@
     background-image: url("../../assets/portal/form-wave.png"), linear-gradient(180deg, rgba(255, 255, 255, .3) 0%, rgba(242, 244, 250, .3) 100%);
     border-radius: 12px;
 }
-
-
-/* background: #eb01a5;
-background-image: url("IMAGE_URL");
-background-image: url("IMAGE_URL"), linear-gradient(#eb01a5, #d13531); */
 
 .input-icon {
     color: #90959e;
