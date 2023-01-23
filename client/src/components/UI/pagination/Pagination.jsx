@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import './pagination.css'
 
 const Pagination = ({ 
@@ -13,10 +13,7 @@ const Pagination = ({
     pageNumbers.push(i);
   }
 
-  useEffect(() => {
-    console.log("currentPage", currentPage)
-  }, [currentPage])
-
+  
   return (
     <nav className="pagination">
       <ul className="page-switcher">

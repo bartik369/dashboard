@@ -21,10 +21,13 @@ const Devices = () => {
 
   useEffect(() => {
     dispatch(loadDevices());
-  }, [dispatch])
+  }, [dispatch]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [devicesPerPage] = useState(25);
+
+
+  console.log(category)
   
   
       // Pagination
@@ -39,7 +42,7 @@ const Devices = () => {
       );
     }).slice(indefOfFirstDevice, indexOfLastDevice)
     setCategory(filter)
-  }, [devices, searchQuery, indefOfFirstDevice, indexOfLastDevice, setCategory, devicesPerPage])
+  }, [devices, searchQuery, indefOfFirstDevice, indexOfLastDevice, setCategory])
 
   // Search device
 
@@ -51,7 +54,7 @@ const Devices = () => {
     dispatch(addDevice(newDevice));
   }
 
-  // Delete device-
+  // Delete device
 
   function removeDevice(id) {
     dispatch(deleteDevice(id));
@@ -129,7 +132,7 @@ const Devices = () => {
                   ))}
        <Pagination
         devicesPerPage={devicesPerPage}
-        totalDevices={devices.length}
+        totalDevices={category.length}
         paginate={pageNumberHandler}
         currentPage={currentPage}
       />
