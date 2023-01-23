@@ -18,31 +18,33 @@ const Devices = () => {
   const {devices} = useSelector(state => state.devices);
   const searchQuery = useSelector(state => state.seqrchQuery.query);
   const [category, setCategory] = useState([])
+  let filter = []
 
   useEffect(() => {
     dispatch(loadDevices());
   }, [dispatch]);
 
+  useEffect(() => {
+    setCategory(devices);
+  }, [devices])
+
   const [currentPage, setCurrentPage] = useState(1);
   const [devicesPerPage] = useState(25);
 
 
-  console.log(category)
+  console.log("check memory")
   
-  
-      // Pagination
-
   const indexOfLastDevice = currentPage * devicesPerPage;
   const indefOfFirstDevice = indexOfLastDevice - devicesPerPage;
 
   useEffect(() => {
-    const filter = devices.filter((item) => {
-      return Object.keys(item).some((key) =>
-        String(item[key]).toLowerCase().includes(searchQuery.toLowerCase())
+    filter = devices.filter((item) => {
+      return Object.keys(item).some((request) =>
+        String(item[request]).toLowerCase().includes(searchQuery.toLowerCase())
       );
-    }).slice(indefOfFirstDevice, indexOfLastDevice)
+    })
     setCategory(filter)
-  }, [devices, searchQuery, indefOfFirstDevice, indexOfLastDevice, setCategory])
+  }, [devices, searchQuery, indefOfFirstDevice, indexOfLastDevice])
 
   // Search device
 
@@ -82,7 +84,8 @@ const Devices = () => {
       if (item.type === category) {
         return item.type
       }
-    }).slice(indefOfFirstDevice, indexOfLastDevice);
+    })
+  // }).slice(indefOfFirstDevice, indexOfLastDevice);
     setCategory(sortedCategoryArray)
   }
   
@@ -105,7 +108,7 @@ const Devices = () => {
       </Modal>
       <div className="devices-list">
       <div className="title">Список устройств</div>
-                  {category.map((device, index) => (
+                  {category.slice(indefOfFirstDevice, indexOfLastDevice).map((device, index) => (
                       <div className="device" key={index}>
                           <span>{device.type}</span>
                           <span>{device.name}</span>
