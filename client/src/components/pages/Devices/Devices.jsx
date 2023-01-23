@@ -26,11 +26,11 @@ const Devices = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [devicesPerPage] = useState(25);
   
+  
       // Pagination
 
-      const indexOfLastDevice = currentPage * devicesPerPage;
-      const indefOfFirstDevice = indexOfLastDevice - devicesPerPage;
-        // const [updateDeviceId, setUpdateDeviceId] = useState("");
+  const indexOfLastDevice = currentPage * devicesPerPage;
+  const indefOfFirstDevice = indexOfLastDevice - devicesPerPage;
 
   useEffect(() => {
     const filter = devices.filter((item) => {
@@ -39,8 +39,7 @@ const Devices = () => {
       );
     }).slice(indefOfFirstDevice, indexOfLastDevice)
     setCategory(filter)
-  }, [devices, searchQuery]);
-
+  }, [devices, searchQuery, indefOfFirstDevice, indexOfLastDevice, setCategory, devicesPerPage])
 
   // Search device
 
@@ -52,7 +51,7 @@ const Devices = () => {
     dispatch(addDevice(newDevice));
   }
 
-  // Delete device
+  // Delete device-
 
   function removeDevice(id) {
     dispatch(deleteDevice(id));
@@ -73,6 +72,7 @@ const Devices = () => {
 
   // Create device
   
+
   const sortCategoryHandler = (category) => {
     const sortedCategoryArray = devices.filter((item) => {
 
@@ -82,6 +82,7 @@ const Devices = () => {
     }).slice(indefOfFirstDevice, indexOfLastDevice);
     setCategory(sortedCategoryArray)
   }
+  
   const resetHandler = () => {
     setCategory(devices)
   }
@@ -101,13 +102,6 @@ const Devices = () => {
       </Modal>
       <div className="devices-list">
       <div className="title">Список устройств</div>
-      {/* <div className="devices-title">
-                      <span>{deviceConstants.deviceType}</span>
-                      <span>{deviceConstants.deviceName}</span>
-                      <span>{deviceConstants.deviceNumber}</span>
-                      <span>{deviceConstants.deviceUser}</span>
-                      <span>{deviceConstants.deviceDateAdded}</span>
-      </div> */}
                   {category.map((device, index) => (
                       <div className="device" key={index}>
                           <span>{device.type}</span>
@@ -135,7 +129,7 @@ const Devices = () => {
                   ))}
        <Pagination
         devicesPerPage={devicesPerPage}
-        totalDevices={category.length}
+        totalDevices={devices.length}
         paginate={pageNumberHandler}
         currentPage={currentPage}
       />

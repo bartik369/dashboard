@@ -541,10 +541,10 @@
     flex-direction: column;
     justify-content: center;
     min-width: 400px;
-    background: rgb(255, 255, 255, .4);
+    background: rgb(255, 255, 255, .8);
     background-position: bottom;
     background-repeat: no-repeat;
-    background-image: url("../../assets/portal/form-wave.png"), linear-gradient(180deg, rgba(255, 255, 255, .4) 0%, rgba(242, 244, 250, .4) 100%);
+    background-image: url("../../assets/portal/form-wave.png"), linear-gradient(180deg, rgba(255, 255, 255, .8) 0%, rgba(242, 244, 250, .5) 100%);
     border-radius: 12px;
 }
 

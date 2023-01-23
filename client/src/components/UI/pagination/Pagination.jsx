@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './pagination.css'
 
 const Pagination = ({ 
@@ -12,6 +12,11 @@ const Pagination = ({
   for (let i = 1; i <= Math.ceil(totalDevices / devicesPerPage); i++) {
     pageNumbers.push(i);
   }
+
+  useEffect(() => {
+    console.log("currentPage", currentPage)
+  }, [currentPage])
+
   return (
     <nav className="pagination">
       <ul className="page-switcher">
