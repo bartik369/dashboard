@@ -22,21 +22,24 @@
 
 .todo-item {
     background: rgb(255, 255, 255);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 1) 4%, rgba(255, 255, 255, 1) 91%);
     box-shadow: -8px 14px 19px rgb(127, 120, 167, .5);
     border-radius: 20px;
     margin: 10px 10px 20px 10px;
-    padding-bottom: 48px;
+    padding-bottom: 43px;
     position: relative;
 }
 
 .todo-item.overdue {
     background: rgb(255, 255, 255);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 1) 4%, rgba(107, 103, 233, 1) 91%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 1) 4%, rgba(255, 255, 255, 1) 91%);
 }
 
 .todo-item__inner {
-    background: rgb(255, 255, 255);
-    background: linear-gradient(180deg, rgb(255, 255, 255) 4%, rgba(242, 244, 250, 1) 91%);
+    background: rgb(255, 255, 255, .8);
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-image: url("../../../assets/portal/todo-bg.png"), linear-gradient(180deg, rgba(255, 255, 255, 1) 4%, rgba(255, 255, 255, 1) 91%);
     padding: 10px 30px 25px 40px;
     height: fit-content;
     max-width: 300px;
@@ -221,11 +224,11 @@
     transition: all .9s ease-in;
     background-color: transparent;
     cursor: pointer;
-    color: #0a1a21;
+    color: #8087a9;
 }
 
 .todo-item.overdue .todoend-btn {
-    color: #ffffff;
+    color: #8087a9;
 }
 
 .todo-item.overdue .todoend-btn:hover {
@@ -233,7 +236,7 @@
 }
 
 .todo-item.overdue .todoupdate-btn {
-    color: #ffffff;
+    color: #8087a9;
 }
 
 .todo-item.overdue .todoupdate-btn:hover {
@@ -241,7 +244,7 @@
 }
 
 .todo-item.overdue .tododel-btn {
-    color: #ffffff;
+    color: #8087a9;
 }
 
 .todo-item.overdue .tododel-btn:hover {

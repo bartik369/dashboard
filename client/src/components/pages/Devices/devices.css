@@ -117,19 +117,19 @@
     align-items: center;
     color: #545475;
     font-size: 11px;
-    margin-bottom: 10px;
-    border-radius: 8px;
+    margin-bottom: 11px;
+    border-radius: 13px;
 }
 
 .category-menu__item:hover,
 .category-menu__item.active {
-    background-color: #4765ed;
-    box-shadow: 0 0 10px 5px rgba(71, 101, 237, .3);
+    background-color: #6c6be6;
+    box-shadow: 0 0 10px 5px rgba(71, 85, 237, 0.3);
     color: #ffffff;
 }
 
 .category-menu__item i {
-    color: #366edf;
+    color: #6c6be6;
     font-size: 20px;
     padding-top: 7px;
 }

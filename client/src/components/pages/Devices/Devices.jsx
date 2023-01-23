@@ -24,10 +24,6 @@ const Devices = () => {
     dispatch(loadDevices());
   }, [dispatch]);
 
-  useEffect(() => {
-    setCategory(devices);
-  }, [devices])
-
   const [currentPage, setCurrentPage] = useState(1);
   const [devicesPerPage] = useState(25);
 
