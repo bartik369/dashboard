@@ -71,27 +71,34 @@
 
 .device-form__input {
     position: relative;
-    margin-bottom: 45px;
+    height: 40px;
+    margin-bottom: 15px;
     background-color: gainsboro;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    padding: 5px 14px;
+    background-color: #ffffff;
+    color: #0b1a21;
 }
 
 .device-form__input input {
     width: 100%;
     border-radius: 5px;
-    background-color: #ffffff;
+    background-color: transparent;
     color: #0a1a21;
     position: absolute;
     top: 0;
     left: 0;
     box-sizing: border-box;
     outline: none;
-    padding: 10px;
+    padding: 10px 40px;
 }
 
 .device-form__select {
     width: 100%;
     background-color: #ffffff;
-    padding: 5px 10px;
+    padding: 3px 4px;
     height: 40px;
     border-radius: 5px;
     font-size: 12px;
@@ -100,7 +107,6 @@
     box-shadow: none;
     color: #0b1a21;
     transition: all .6s;
-    margin-bottom: 10px;
 }
 
 .disabled-option {
@@ -113,7 +119,7 @@
     background: #fff;
     border-radius: 4px;
     top: 10px;
-    left: 8px;
+    left: 34px;
     padding: 4px;
     display: inline-block;
     transition: .7s;
@@ -127,6 +133,14 @@
 
 .lable-span {
     transform: translateX(-8px) translateY(-19px);
+}
+
+.bi-hdd-stack,
+.bi-card-text,
+.bi-123,
+.bi-person {
+    font-size: 17px;
+    color: #7f86aa;
 }
 
 
@@ -715,7 +729,6 @@
 }
 
 .content-action-btn {
-    margin-top: 25px;
     display: flex;
     justify-content: center;
 }

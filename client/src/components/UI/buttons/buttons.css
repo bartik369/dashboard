@@ -20,15 +20,15 @@
     padding: 9px 21px;
     /* background: #524899;
     background: linear-gradient(146deg, rgb(71, 63, 136) 0%, rgb(102, 63, 139) 100%); */
-    background: #6c6be6;
+    background: #43d294;
     border-radius: 4px;
-    color: #f0eaf0;
+    color: #ffffff;
     transition: all .5s;
     font-size: 11px;
 }
 
 .submit-btn-medium:hover {
-    background: #26bea6;
+    background: #3f88f8;
 }
 
 .submit-btn-small {

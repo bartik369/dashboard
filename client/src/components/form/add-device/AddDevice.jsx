@@ -57,6 +57,8 @@ export default function AddDevice({create}) {
     <div className="main">
       <form className="device-form" onSubmit={handleSubmit(onSubmit)}>
       <div className="device-form__title">{formConstants.newDeviceTitle}</div>
+      <div className="device-form__input">
+      <i className="bi bi-hdd-stack"/>
         <select
           className="device-form__select"
           defaultValue=""
@@ -73,6 +75,7 @@ export default function AddDevice({create}) {
             </option>
           ))}
         </select>
+        </div>
          <div className="form-error">
           {errors.type && (
             <p>{errors.type.message || formConstants.unknownError}</p>
@@ -80,6 +83,7 @@ export default function AddDevice({create}) {
         </div>
 
         <div className="device-form__input">
+        <i className="bi bi-card-text"/>
         <input
           type="text"
           name="name"
@@ -100,6 +104,7 @@ export default function AddDevice({create}) {
           )}
         </div>
         <div className="device-form__input">
+        <i className="bi bi-123"/>
         <input
           type="text"
           name="number"
@@ -119,6 +124,7 @@ export default function AddDevice({create}) {
           )}
         </div>
         <div className="device-form__input">
+        <i className="bi bi-person" />
         <input
           type="text"
           name="user"
