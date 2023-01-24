@@ -28,7 +28,7 @@ export default function ProfileMenu({user}) {
       <ul className="profile__items">
         <li className="profile__item">
         <i className="bi bi-person-check"></i>
-          <Link className="profile__link" to="">Мой профиль</Link>
+          <Link className="profile__link" to="/profile">Мой профиль</Link>
         </li>
         <li className="profile__item">
         <i className="bi bi-chat-square"></i>
