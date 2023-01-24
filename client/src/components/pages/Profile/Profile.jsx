@@ -33,11 +33,8 @@ export default function Profile() {
         <div className="name">{user.displayname}</div>
         <div className="email">{user.email}</div>
         <div className="change-password">
-        <Link to="#" onClick={changePassword}>Выйти</Link>
+        <Link to="#" onClick={changePassword}>Изменить пароль</Link>
         </div>
-        <Modal>
-           
-        </Modal>
         </div>
     </div>
   )

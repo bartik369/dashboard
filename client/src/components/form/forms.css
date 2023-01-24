@@ -124,7 +124,7 @@
     display: inline-block;
     transition: .7s;
     pointer-events: none;
-    font-size: 11px;
+    font-size: 12px;
 }
 
 .device-form__input input:focus~span {
