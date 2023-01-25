@@ -9,9 +9,7 @@ export default function Profile() {
     const [activeModal, setActiveModal] = useState(null);
     const user = useSelector(state => state.user.user)
 
-    useEffect(() => {
-        console.log(user)
-    }, [user]);
+    console.log(user)
 
     const changePassword = () => {
         setActiveModal(true);
@@ -26,7 +24,7 @@ export default function Profile() {
   return (
     <div className="profile">
         <Modal active={activeModal} close={closeModal}>
-            <ChangePassword />
+            <ChangePassword email={user.email} />
         </Modal>
         <div className="user-info">
         <h1>User Info</h1>

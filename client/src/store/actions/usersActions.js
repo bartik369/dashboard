@@ -172,6 +172,17 @@ export const setNewUserPassword = (data) => {
     }
 }
 
+export const assignNewPassword = (data) => {
+    return async function(dispatch) {
+        try {
+            await axios.put(`${ENV.HOSTNAME}api/assign-password`, data)
+                .then((response) => {});
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
 export const compareAccessToken = () => {
     return async function(dispatch) {
         try {

@@ -1,5 +1,7 @@
 import React, {useState, useRef} from "react";
 import {useForm} from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { assignNewPassword } from "../../../store/actions/usersActions";
 import SubmitButton from "../../UI/buttons/SubmitButton";
 import * as formConstants from "../../../utils/constants/form.constants";
 import * as REGEX from "../../../utils/constants/regex.constants"
@@ -10,10 +12,16 @@ import "../../../styles/App.css"
 
 
 
-export default function ChangePassword() {
+export default function ChangePassword({email}) {
 
     const [passwordType, setPasswordType] = useState(false);
     const [repeatPasswordType, setRepeatPasswordType] = useState(false);
+    const [newPassword, setNewPassword] = useState({
+      email: "",
+      password: "",
+    })
+
+    const dispatch = useDispatch()
 
     const {
         register,
@@ -39,7 +47,13 @@ export default function ChangePassword() {
       }
 
     const onSubmit = (data) => {
-
+      const newUserPassword = {
+        ...newPassword,
+        email: email,
+        password: data.password,
+      };
+      reset()
+      dispatch(assignNewPassword(newUserPassword));
     }
 
     const watchFields = watch({password: "password", confirmPassword: "confirmPassword"});

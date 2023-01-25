@@ -43,6 +43,9 @@ class UserService {
         };
     }
 
+
+
+
     async resetPassword(email) {
         const candidate = await UserModel.findOne({ email });
 
@@ -90,6 +93,22 @@ class UserService {
             await ResetPasswordModel.deleteOne({ link })
         } catch (error) {
 
+        }
+    }
+
+    async assignUserPassword(email, password) {
+        try {
+            const user = await UserModel.findOne({email});
+
+            if (!user) {
+                throw ApiError.BadRequest("Непредвиденная ошибка")
+            }
+            const hashPassword = await bcrypt.hash(password, 7)
+            user.password = hashPassword;
+            await user.save()
+            
+        } catch (error) {
+            
         }
     }
 
