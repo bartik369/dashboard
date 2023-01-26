@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Routes, Route, Navigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  Router,
+  BrowserRouter,
+} from "react-router-dom";
 import { compareAccessToken } from "./store/actions/usersActions";
 import Sidebar from "./components/sidebar/SideBar";
 import Header from "./components/header/Header";
-import { routes, authRoutes } from "./routes/routes.js";
+import {privateRoute, authRoutes } from "./routes/routes.js";
 import "./styles/App.css";
+import PrivateRoutes from "./routes/PrivateRoutes";
 
 function App() {
   const dispatch = useDispatch();
@@ -16,7 +23,6 @@ function App() {
   console.log("check memory");
 
   useEffect(() => {
-
     if (isAuth || token) {
       dispatch(compareAccessToken());
     }
@@ -37,8 +43,15 @@ function App() {
             <Header moveHeader={slideStateContainer} />
             <div className="content-container">
               <Routes>
-                {routes.map((route) => (
-                  <Route key={route.path} path={route.path} element={route.element} />))}
+                <Route element={<PrivateRoutes/>}>
+                  {privateRoute.map((route) => (
+                    <Route
+                      key={route.path}
+                      path={route.path}
+                      element={route.element}
+                    />
+                  ))}
+                </Route>
               </Routes>
             </div>
           </div>
@@ -46,7 +59,8 @@ function App() {
       ) : (
         <Routes>
           {authRoutes.map((route) => (
-            <Route key={route.path} path={route.path} element={ isAuth ? <Navigate to={"/dashboard"} /> : route.element} />))}
+            <Route key={route.path} path={route.path} element={route.element} />
+          ))}
         </Routes>
       )}
     </div>
@@ -55,3 +69,9 @@ function App() {
 
 export default App;
 
+{
+  /* <Routes>
+  {routes.map((route) => (
+  <Route key={route.path} path={route.path} element={route.element} />))}
+</Routes> */
+}
