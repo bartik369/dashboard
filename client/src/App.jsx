@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  Routes,
-  Route,
-  Navigate,
-  Router,
-  BrowserRouter,
-} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { compareAccessToken } from "./store/actions/usersActions";
 import Sidebar from "./components/sidebar/SideBar";
 import Header from "./components/header/Header";
-import {privateRoute, authRoutes } from "./routes/routes.js";
+import { privateRoute, authRoutes } from "./routes/routes.jsx";
 import "./styles/App.css";
-import PrivateRoutes from "./routes/PrivateRoutes";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,15 +36,14 @@ function App() {
             <Header moveHeader={slideStateContainer} />
             <div className="content-container">
               <Routes>
-                <Route element={<PrivateRoutes/>}>
-                  {privateRoute.map((route) => (
-                    <Route
-                      key={route.path}
-                      path={route.path}
-                      element={route.element}
-                    />
-                  ))}
-                </Route>
+                {privateRoute.map((route) => (
+                  <Route
+                    key={route.path}
+                    path={route.path}
+                    // element={<PrivateRoutes>{route.element}</PrivateRoutes>}
+                    element={route.element}
+                  />
+                ))}
               </Routes>
             </div>
           </div>
@@ -59,7 +51,11 @@ function App() {
       ) : (
         <Routes>
           {authRoutes.map((route) => (
-            <Route key={route.path} path={route.path} element={route.element} />
+            <Route
+              key={route.path}
+              path={route.path}
+              element={route.element}
+            />
           ))}
         </Routes>
       )}
@@ -68,10 +64,3 @@ function App() {
 }
 
 export default App;
-
-{
-  /* <Routes>
-  {routes.map((route) => (
-  <Route key={route.path} path={route.path} element={route.element} />))}
-</Routes> */
-}
