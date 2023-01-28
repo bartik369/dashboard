@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import MenuItem from './MenuItem';
 import '../sidebar/Sidebar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,6 +8,8 @@ import { menuItem } from "../../utils/data-arrays/arrays";
 
 const Sidebar = ({ slideContentContainer, getLinkName}) => {
   const [inActive, setInactive] = useState(false);
+  const user = useSelector((state) => state.user.user);
+
 
   useEffect(() => {
     if (inActive) {
@@ -37,12 +40,21 @@ const Sidebar = ({ slideContentContainer, getLinkName}) => {
             <MenuItem
             key={index}
             name={item.name}
-            icon={item.iconClassName}
+            icon={
+              user.roles.map((role) => {
+                
+                if (role === "Administrator" && item.to === "/settings") {
+                  console.log("dennay")
+                }
+                return item.iconClassName
+              })
+            }
             to={item.to}
             getLinkName={getLinkName}
              />
           ))}
         </ul>
+        {/* item.iconClassName */}
       </nav>
     </div>
   );

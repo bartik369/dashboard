@@ -31,4 +31,5 @@ export const authRoutes = [
   { path: "/singup", element: <Signup /> },
   { path: "/reset-password", element: <ResetPassword /> },
   { path: "/setpassword/:link", element: <SetNewPassword /> },
+  { path: "*", element: <NotFoundPage /> },
 ];
