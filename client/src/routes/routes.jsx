@@ -14,7 +14,7 @@ import SetNewPassword from "../components/pages/Authentication/SetNewPassword";
 import Profile from "../components/pages/Profile/Profile";
 
 export const privateRoute = [
-  { path: "/", element: <Navigate to={"/dashboard"} />},
+  { path: "/", element: <Homepage /> },
   { path: "/dashboard", element: <Homepage /> },
   { path: "/devices", element: <Devices /> },
   { path: "/statistic", element: <Statistics /> },

@@ -8,6 +8,7 @@ import { menuItem } from "../../utils/data-arrays/arrays";
 
 const Sidebar = ({ slideContentContainer, getLinkName}) => {
   const [inActive, setInactive] = useState(false);
+
   const user = useSelector((state) => state.user.user);
 
 
@@ -37,18 +38,11 @@ const Sidebar = ({ slideContentContainer, getLinkName}) => {
       <nav className="menu">
         <ul className="menu__list">
           {menuItem.map((item, index) => (
+
             <MenuItem
             key={index}
             name={item.name}
-            icon={
-              user.roles.map((role) => {
-                
-                if (role === "Administrator" && item.to === "/settings") {
-                  console.log("dennay")
-                }
-                return item.iconClassName
-              })
-            }
+            icon={item.iconClassName}
             to={item.to}
             getLinkName={getLinkName}
              />

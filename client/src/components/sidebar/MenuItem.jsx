@@ -1,10 +1,11 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 
 const MenuItem = ({...props}) => {
 
   return (
-    <li className="menu__item">
+    <li className={"menu__item"}>
       <Link to={props.to}>
         <div className="icon">
           <i className={props.icon}></i>
@@ -18,4 +19,4 @@ const MenuItem = ({...props}) => {
 };
 
 export default MenuItem;
-// 
+// "menu__item"
