@@ -23,7 +23,7 @@ export const privateRoute = [
   { path: "/calendar", element: <Calendar /> },
   { path: "/settings", element: <Settings /> },
   { path: "/profile", element: <Profile /> },
-  { path: "*", element: <NotFoundPage /> },
+
 ];
 
 export const authRoutes = [
@@ -31,5 +31,4 @@ export const authRoutes = [
   { path: "/singup", element: <Signup /> },
   { path: "/reset-password", element: <ResetPassword /> },
   { path: "/setpassword/:link", element: <SetNewPassword /> },
-  { path: "*", element: <NotFoundPage /> },
 ];

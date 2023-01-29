@@ -11,7 +11,8 @@ import Settings from './Settings';
 import Statistics from './Statistic';
 import Todos from './Todos/Todos';
 import Users from './Users';
-import PrivateRoutes from '../../routes/PrivateRoutes';
+import Private from '../../routes/Private';
+import Layout from './Layout/Layout';
 
 export default function ContentSide() {
     const [slideStateContainer, setSlideStateContainer] = useState(false);
@@ -29,15 +30,18 @@ export default function ContentSide() {
             <Header moveHeader={slideStateContainer} />
             <div className="content-container">
               <Routes>
-                <Route path='/' element={<Navigate to={"/dashboard"} />}></Route>
-                <Route path='/dashboard' element={<PrivateRoutes><Homepage /></PrivateRoutes>}></Route>
-                <Route path='/devices' element={<PrivateRoutes><Devices /></PrivateRoutes>}></Route>
-                <Route path='/statistic' element={<PrivateRoutes><Statistics /></PrivateRoutes>}></Route>
-                <Route path='/users' element={<PrivateRoutes><Users /></PrivateRoutes>}></Route>
-                <Route path='/todos' element={<PrivateRoutes><Todos /></PrivateRoutes>}></Route>
-                <Route path='/calrndar' element={<PrivateRoutes><Calendar /></PrivateRoutes>}></Route>
-                <Route path='/settings' element={<PrivateRoutes><Settings /></PrivateRoutes>}></Route>
-                <Route path='/profile' element={<PrivateRoutes><Profile /></PrivateRoutes>}></Route>
+                <Route path='/' element={<Layout />}>
+                  <Route element={<Private/>}>
+                  <Route path='/' element={<Navigate to={"/dashboard"} />}/>
+                  <Route path='/dashboard' element={<Homepage />}/>
+                  <Route path='/devices' element={<Devices />}/>
+                  <Route path='/statistic' element={<Statistics/>}/>
+                  <Route path='/users' element={<Users />}/>
+                  <Route path='/todos' element={<Todos />}/>
+                  <Route path='/calrndar' element={<Calendar />}/>
+                  <Route path='/settings' element={<Settings />}/>
+                </Route>
+                </Route>
                 <Route path='*' element={<NotFoundPage />}></Route>
               </Routes>
             </div>
