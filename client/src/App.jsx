@@ -35,34 +35,27 @@ function App() {
 
   return (
     <div className={isAuth ? "App" : "App-out"}>
-      {isAuth 
-      ? 
       <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route element={<PrivateRoutes />}>
-                <Route path="/" element={<Navigate to={"/dashboard"} />} />
-                <Route path="/dashboard" element={<Homepage />} />
-                <Route path="/devices" element={<Devices />} />
-                <Route path="/statistic" element={<Statistics />} />
-                <Route path="/users" element={<Users />} />
-                <Route path="/todos" element={<Todos />} />
-                <Route path="/calendar" element={<Calendar />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="/profile" element={<Profile  />} />
-            </Route>
-            <Route path="*" element={<NotFoundPage />}></Route>
+          <Route element={<PrivateRoutes />}>
+            <Route path="/" element={<Navigate to={"/dashboard"} />} />
+            <Route path="/dashboard" element={<Homepage />} />
+            <Route path="/devices" element={<Devices />} />
+            <Route path="/statistic" element={<Statistics />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/todos" element={<Todos />} />
+            <Route path="/calendar" element={<Calendar />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
-          </Routes>
-      : 
+      </Routes>
       <Routes>
         <Route element={<PublicRoutes />}>
-          <Route path='/' element={<Login />} />
-          <Route path='/singup' element={<Signup />} />
-          <Route path='/reset-password' element={<ResetPassword />} />
-          <Route path='/setpassword/:link' element={<SetNewPassword/>} />
-      </Route>
-    </Routes>
-    }
+          <Route path="/" element={<Login />} />
+          <Route path="/singup" element={<Signup />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/setpassword/:link" element={<SetNewPassword />} />
+        </Route>
+      </Routes>
    </div>
   );
 }
