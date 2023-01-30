@@ -4,7 +4,6 @@ import UpdateDeviceForm from "../../form/update-device/UpdateDeviceForm";
 import AddDevice from "../../form/add-device/AddDevice";
 import Pagination from "../../UI/pagination/Pagination";
 import CategoryMenu from "./CategoryMenu";
-import * as deviceConstants from "../../../utils/constants/content.constants";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteDevice, getsingleDevice, loadDevices, addDevice, updateDevice} from "../../../store/actions/devicesActions";
 import "../../../styles/App.css";
