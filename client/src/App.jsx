@@ -13,7 +13,6 @@ import Login from "./components/pages/Authentication/Login";
 import Signup from "./components/pages/Authentication/Signup";
 import ResetPassword from "./components/pages/Authentication/ResetPassword";
 import SetNewPassword from "./components/pages/Authentication/SetNewPassword";
-import Layout from "./components/pages/Layout/Layout";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import PublicRoutes from "./routes/PublicRoutes";
 import { useSelector, useDispatch } from "react-redux";
@@ -36,27 +35,24 @@ function App() {
   return (
     <div className={isAuth ? "App" : "App-out"}>
       <Routes>
-          <Route element={<PrivateRoutes />}>
-            <Route path="/" element={<Navigate to={"/dashboard"} />} />
-            <Route path="/dashboard" element={<Homepage />} />
-            <Route path="/devices" element={<Devices />} />
-            <Route path="/statistic" element={<Statistics />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/todos" element={<Todos />} />
-            <Route path="/calendar" element={<Calendar />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/profile" element={<Profile />} />
-          </Route>
-      </Routes>
-      <Routes>
+        <Route element={<PrivateRoutes />}>
+          <Route path="/dashboard" element={<Homepage />} />
+          <Route path="/devices" element={<Devices />} />
+          <Route path="/statistic" element={<Statistics />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/todos" element={<Todos />} />
+          <Route path="/calendar" element={<Calendar />} />
+          <Route path="/settings" element={<Settings />} />
+        </Route>
         <Route element={<PublicRoutes />}>
           <Route path="/" element={<Login />} />
           <Route path="/singup" element={<Signup />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/setpassword/:link" element={<SetNewPassword />} />
         </Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
-   </div>
+    </div>
   );
 }
 

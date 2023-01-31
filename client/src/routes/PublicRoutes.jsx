@@ -7,6 +7,6 @@ export default function PrivateRoutes({ }) {
   const user = useSelector((state) => state.user.user);
 
   return (
-    !isAuth ? <Outlet/> : <Navigate to={"/dashboard"}/>
+    isAuth ? <Navigate to={"/dashboard"}/> : <Outlet/>
   )
 }

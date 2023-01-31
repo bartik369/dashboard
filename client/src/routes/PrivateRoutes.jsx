@@ -11,7 +11,7 @@ export default function PrivateRoutes({ }) {
   const [slideStateContainer, setSlideStateContainer] = useState(false);
 
   return (
-    isAuth ? 
+    isAuth ?
     <div className="afterlogin">
     <div className="menu-container">
       <Sidebar slideContentContainer={setSlideStateContainer} />
@@ -26,7 +26,7 @@ export default function PrivateRoutes({ }) {
       <Outlet />
       </div>
     </div>
-  </div> 
-  : <Navigate to={"/"}/>
+  </div>
+  : <Navigate to="/"/>
   )
 }
