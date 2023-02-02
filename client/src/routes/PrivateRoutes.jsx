@@ -4,14 +4,19 @@ import { Navigate, Outlet } from "react-router-dom";
 import Header from "../components/header/Header";
 import Sidebar from "../components/sidebar/SideBar";
 
-export default function PrivateRoutes({ }) {
+export default function PrivateRoutes({ allowedRoles }) {
 
-  const isAuth = useSelector((state) => state.users.isAuth);
-  const user = useSelector((state) => state.user.user);
+  const isAuth = useSelector((state) => state.auth.auth.isAuth);
+  const user = useSelector((state) => state.auth.auth.user);
+  
+
   const [slideStateContainer, setSlideStateContainer] = useState(false);
 
+  console.log(user)
+  console.log(isAuth)
+
   return (
-    isAuth ?
+    isAuth &&
     <div className="afterlogin">
     <div className="menu-container">
       <Sidebar slideContentContainer={setSlideStateContainer} />
@@ -23,10 +28,12 @@ export default function PrivateRoutes({ }) {
     >
       <Header moveHeader={slideStateContainer} />
       <div className="content-container">
-      <Outlet />
+      {user?.roles?.find(role => allowedRoles?.includes(role))
+      ? <Outlet />
+      : <Navigate to={"/"} />
+    }
       </div>
-    </div>
+    </div>  
   </div>
-  : <Navigate to="/"/>
   )
 }

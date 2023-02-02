@@ -14,7 +14,7 @@ import "../timer/timer.css";
 const OverdueTodo = () => {
 
   const {todos} = useSelector(state => state.todos);
-  const user = useSelector(state => state.user.user)
+  const user = useSelector((state) => state.auth.auth.user);
   let dispatch = useDispatch();
   const overdueTodos = [];
   const attentionTodos = [];

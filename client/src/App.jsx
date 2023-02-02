@@ -21,7 +21,7 @@ import "./styles/App.css";
 
 function App() {
   const dispatch = useDispatch();
-  const isAuth = useSelector((state) => state.users.isAuth);
+  const isAuth = useSelector((state) => state.auth.auth.isAuth);
   const token = localStorage.getItem("token");
 
   console.log("check memory");
@@ -35,7 +35,7 @@ function App() {
   return (
     <div className={isAuth ? "App" : "App-out"}>
       <Routes>
-        <Route element={<PrivateRoutes />}>
+        <Route element={<PrivateRoutes allowedRoles={["User"]} />}>
           <Route path="/dashboard" element={<Homepage />} />
           <Route path="/devices" element={<Devices />} />
           <Route path="/statistic" element={<Statistics />} />

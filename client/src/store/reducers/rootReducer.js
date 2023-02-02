@@ -6,8 +6,7 @@ import searchDataReducer from "./searchDataReducer";
 
 const rootReducer = combineReducers({
     users: usersReducer,
-    user: usersReducer,
-    isAuth: usersReducer,
+    auth: usersReducer,
     devices: devicesReducer,
     device: devicesReducer,
     todos: todosReducer,

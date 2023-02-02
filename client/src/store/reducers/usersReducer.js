@@ -7,13 +7,24 @@ import {
 
 } from "../types/typesUsers";
 
+// const initialState = {
+//     users: [],
+//     user: null,
+//     isAuth: false,
+//     accessToken: null,
+//     loading: true,
+// };
+
 const initialState = {
     users: [],
-    user: null,
-    isAuth: false,
-    accessToken: null,
+    auth: {
+        user: null,
+        isAuth: false,
+        accessToken: null,
+    },
     loading: true,
 };
+
 
 const usersReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -23,6 +34,17 @@ const usersReducer = (state = initialState, action) => {
                 users: action.payload,
                 loading: false,
             };
+
+        case LOGIN_USER:
+            return {
+                ...state,
+                auth: {
+                    ...state.auth,
+                    user: action.payload,
+                    isAuth: true,
+                    accessToken: action.payload.accessToken,
+                }
+            }
 
         case GET_USER:
             return {
@@ -34,18 +56,15 @@ const usersReducer = (state = initialState, action) => {
                 ...state,
                 user: action.payload,
             };
-        case LOGIN_USER:
-            return {
-                ...state,
-                user: action.payload,
-                isAuth: true,
-                accessToken: action.payload.accessToken,
-            }
         case LOGOUT_USER:
             return {
                 ...state,
-                user: null,
-                isAuth: false,
+                auth: {
+                    ...state.auth,
+                    user: null,
+                    isAuth: false,
+                    accessToken: null,
+                }
             }
         default:
             return state;

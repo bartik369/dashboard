@@ -24,7 +24,7 @@ const Todos = () => {
   const [activeModal, setActiveModal] = useState(null);
   const dispatch = useDispatch();
   const { todos } = useSelector((state) => state.todos);
-  const user = useSelector(state => state.user.user);
+  const user = useSelector((state) => state.auth.auth.user);
   const dateNow = Date.now();
 
   useEffect(() => {

@@ -16,7 +16,7 @@ const Header = ({ moveHeader }) => {
   const [countMessages, setCountMessages] = useState(5);
   const [countTodos, setCountTodos] = useState(0);
   const { todos } = useSelector((state) => state.todos);
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.auth.auth.user);
   const overTodos = [];
   const location = useLocation();
   const dispatch = useDispatch();

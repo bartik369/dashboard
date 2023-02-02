@@ -9,7 +9,7 @@ import { menuItem } from "../../utils/data-arrays/arrays";
 const Sidebar = ({ slideContentContainer, getLinkName}) => {
   const [inActive, setInactive] = useState(false);
 
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.auth.user);
 
 
   useEffect(() => {
