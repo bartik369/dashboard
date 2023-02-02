@@ -8,8 +8,6 @@ export default function PrivateRoutes({ allowedRoles }) {
 
   const isAuth = useSelector((state) => state.auth.auth.isAuth);
   const user = useSelector((state) => state.auth.auth.user);
-  
-
   const [slideStateContainer, setSlideStateContainer] = useState(false);
 
   console.log(user)
@@ -17,23 +15,25 @@ export default function PrivateRoutes({ allowedRoles }) {
 
   return (
     isAuth &&
-    <div className="afterlogin">
-    <div className="menu-container">
-      <Sidebar slideContentContainer={setSlideStateContainer} />
-    </div>
-    <div
-      className={`content-wrapper slided-content${
-        slideStateContainer === false ? "slided-content" : ""
-      }`}
-    >
-      <Header moveHeader={slideStateContainer} />
-      <div className="content-container">
-      {user?.roles?.find(role => allowedRoles?.includes(role))
-      ? <Outlet />
-      : <Navigate to={"/"} />
-    }
+        <div className="afterlogin">
+        <div className="menu-container">
+          <Sidebar slideContentContainer={setSlideStateContainer} />
+        </div>
+        <div
+          className={`content-wrapper slided-content${
+            slideStateContainer === false ? "slided-content" : ""
+          }`}
+        >
+          <Header moveHeader={slideStateContainer} />
+          <div className="content-container">
+            {user?.roles?.find(role => allowedRoles?.includes(role)) 
+              ? <Outlet /> 
+              : <Navigate to={"/"} />
+            }
+          </div>
+        </div>  
       </div>
-    </div>  
-  </div>
+      /* user?.roles?.find(role => allowedRoles?.includes(role)) */
+
   )
 }

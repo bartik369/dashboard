@@ -7,7 +7,7 @@ import ChangePassword from '../../form/change-password/ChangePassword';
 export default function Profile() {
 
     const [activeModal, setActiveModal] = useState(null);
-    const user = useSelector(state => state.user.user)
+    const user = useSelector((state) => state.auth.auth.user);
 
     console.log(user)
 

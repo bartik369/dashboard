@@ -42,6 +42,9 @@ function App() {
           <Route path="/users" element={<Users />} />
           <Route path="/todos" element={<Todos />} />
           <Route path="/calendar" element={<Calendar />} />
+          <Route path="/profile" element={<Profile />} />
+        </Route>
+        <Route element={<PrivateRoutes allowedRoles={["Administrator"]} />}>
           <Route path="/settings" element={<Settings />} />
         </Route>
         <Route element={<PublicRoutes />}>
