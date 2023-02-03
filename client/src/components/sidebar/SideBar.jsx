@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import MenuItem from './MenuItem';
+import { useSelector } from "react-redux";
 import '../sidebar/Sidebar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faBarsStaggered} from '@fortawesome/free-solid-svg-icons';
@@ -8,9 +8,17 @@ import { menuItem } from "../../utils/data-arrays/arrays";
 
 const Sidebar = ({ slideContentContainer, getLinkName}) => {
   const [inActive, setInactive] = useState(false);
+  const [isDisabled, setDisabled] = useState(false)
+  const user = useSelector((state) => state.auth.auth.user);
 
-  const user = useSelector((state) => state.auth.user);
-
+  useEffect(() => {
+    user?.roles?.map((role) => {
+      console.log(role)
+      if (role === "Administrator") {
+        setDisabled(true)
+      }
+    })
+  }, [user])
 
   useEffect(() => {
     if (inActive) {
@@ -19,6 +27,7 @@ const Sidebar = ({ slideContentContainer, getLinkName}) => {
       slideContentContainer(false);
     }
   });
+
 
   return (
     <div className={`sidebar inactive${inActive ? "inactive"  : ""}`}>
@@ -38,9 +47,9 @@ const Sidebar = ({ slideContentContainer, getLinkName}) => {
       <nav className="menu">
         <ul className="menu__list">
           {menuItem.map((item, index) => (
-
             <MenuItem
             key={index}
+            isAdmin={item.isAdmin}
             name={item.name}
             icon={item.iconClassName}
             to={item.to}
