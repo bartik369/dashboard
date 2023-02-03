@@ -8,14 +8,13 @@ import { menuItem } from "../../utils/data-arrays/arrays";
 
 const Sidebar = ({ slideContentContainer, getLinkName}) => {
   const [inActive, setInactive] = useState(false);
-  const [isDisabled, setDisabled] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
   const user = useSelector((state) => state.auth.auth.user);
 
   useEffect(() => {
     user?.roles?.map((role) => {
-      console.log(role)
       if (role === "Administrator") {
-        setDisabled(true)
+        setIsAdmin(true)
       }
     })
   }, [user])
@@ -47,9 +46,10 @@ const Sidebar = ({ slideContentContainer, getLinkName}) => {
       <nav className="menu">
         <ul className="menu__list">
           {menuItem.map((item, index) => (
-            <MenuItem
+          (!isAdmin && item.to === "/settings") 
+          ? null
+          : <MenuItem
             key={index}
-            isAdmin={item.isAdmin}
             name={item.name}
             icon={item.iconClassName}
             to={item.to}
@@ -57,7 +57,6 @@ const Sidebar = ({ slideContentContainer, getLinkName}) => {
              />
           ))}
         </ul>
-        {/* item.iconClassName */}
       </nav>
     </div>
   );

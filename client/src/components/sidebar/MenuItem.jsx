@@ -1,12 +1,10 @@
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 
 const MenuItem = ({...props}) => {
 
   return (
-    <li className={!props.isAdmin ? "menu__item" : "hiden-li"}>
+    <li className={"menu__item"}> 
       <Link to={props.to}>
         <div className="icon">
           <i className={props.icon}></i>
@@ -15,9 +13,9 @@ const MenuItem = ({...props}) => {
       <Link to={props.to} className="menu__link">
           {props.name}
       </Link>
+
     </li>
   );
 };
 
 export default MenuItem;
-// "menu__item"

@@ -35,7 +35,7 @@ export const menuItem = [
     { name: 'Пользователи', to: '/users', iconClassName: 'bi bi-people' },
     { name: 'Задачи', to: '/todos', iconClassName: 'bi bi-check2-square' },
     { name: 'Календарь', to: '/calendar', iconClassName: 'bi bi-calendar-date' },
-    { name: 'Настройки', to: '/settings', iconClassName: 'bi bi-gear', },
+    { name: 'Настройки', to: '/settings', iconClassName: 'bi bi-gear' },
 ]
 
 // Category menu
