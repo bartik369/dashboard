@@ -37,11 +37,11 @@
 }
 
 .widget-table tr:nth-child(even) {
-    background-color: #f4edfe;
+    background-color: #f4f3f8;
 }
 
 .widget-table tr:hover {
-    background-color: #f6f1fd;
+    background-color: #f4f3f8;
 }
 
 .widget-table th {
@@ -51,7 +51,7 @@
     font-family: 'Roboto Condensed', sans-serif;
     padding-bottom: 12px;
     text-align: center;
-    background-color: #8a6be0;
+    background-color: #43d294;
     color: #fff;
 }
 

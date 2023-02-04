@@ -17,7 +17,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #d77cbc;
+}
+
+.device-btns {
+    display: flex;
+    align-items: center;
 }
 
 .devices-title>span {
@@ -30,33 +34,40 @@
     color: #626284;
 }
 
-.delete-btn {
-    padding: 9px 12px;
+.device .line {
+    height: 27px;
+    width: 1px;
+    background-color: #d8dce1;
+    margin-left: 5px;
+}
+
+.delete-btn,
+.update-btn {
+    padding: 9px 7px 9px 12px;
     background-color: transparent;
+    display: flex;
+    align-items: center;
     border-radius: 2px;
     font-size: 18px;
-    font-weight: 800;
     color: #7f86aa;
     transition: all .7s;
 }
 
-.delete-btn:hover {
+.delete-btn:hover,
+.delete-btn span:hover {
     color: #da3851;
 }
 
-.update-btn {
-    padding: 9px 12px;
-    background-color: transparent;
-    font-size: 18px;
-    font-weight: 800;
-    color: #7f86aa;
-    margin-left: 5px;
-    border-radius: 2px;
-    transition: all .7s;
+.update-btn:hover,
+.update-btn span:hover {
+    color: #6b67e9;
 }
 
-.update-btn:hover {
-    color: #6b67e9;
+.delete-btn span,
+.update-btn span {
+    font-size: 10px;
+    color: #8c99a9;
+    padding-left: 5px;
 }
 
 .add-device-form {
@@ -118,14 +129,14 @@
     color: #545475;
     font-size: 11px;
     margin-bottom: 11px;
-    border-radius: 13px;
+    border-radius: 12px;
     transition: all .3s ease-in-out;
 }
 
 .category-menu__item:hover,
 .category-menu__item.active {
     background-color: #3f88f8;
-    box-shadow: 0 0 10px 5px rgba(71, 85, 237, 0.3);
+    box-shadow: rgba(71, 121, 237, 0.5) 0px 2px 8px 0px;
     color: #ffffff;
 }
 

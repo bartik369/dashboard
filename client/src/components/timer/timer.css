@@ -35,8 +35,8 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    background-color: #f9e580;
-    border-bottom: 2px solid #ea7508;
+    border: 1px solid #f8cf47;
+    border-radius: 3px;
     margin: 3px;
 }
 

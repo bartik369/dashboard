@@ -110,22 +110,23 @@ const Devices = () => {
                           <span>{device.number}</span>
                           <span>{device.user}</span>
                           <span>{device.addTime}</span>
-                          <div>
+                          <div className="device-btns">
                             <button 
                             className="delete-btn" 
                             title="Удалить" 
                             onClick={() => removeDevice(device._id)}>
                             <i className="bi bi-trash3"></i>
+                            <span>Удалить</span>
                             </button>
-                            </div>
-                          <div>
+                            <div className="line"></div>
                             <button 
                             className="update-btn" 
                             title="Обновить" 
                             onClick={() => handleUpdateDeviceInfo(device._id)}>
                             <i className="bi bi-arrow-repeat"></i>
+                            <span>Обновить</span>
                             </button>
-                           </div>
+                          </div>
                       </div>
                   ))}
        <Pagination
