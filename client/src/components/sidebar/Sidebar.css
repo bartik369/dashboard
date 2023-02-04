@@ -2,7 +2,7 @@
     width: 210px;
     position: fixed;
     height: 100%;
-    background: #252339;
+    background: #2144ac;
     transition: width .5s ease-in-out;
     box-shadow: 0 0 15px rgba(109, 104, 192, 0.9);
     z-index: 99;
@@ -16,7 +16,7 @@
 
 .top-section {
     position: relative;
-    background: #2d2a45;
+    background: #1c3c9e;
     width: 100%;
     height: 65px;
     display: flex;
@@ -81,8 +81,8 @@
 .menu .menu__list .menu__item {
     position: relative;
     padding: 5px 0;
-    border-top: 1px solid #1c1c2c;
-    border-bottom: 1px solid #312f4b;
+    border-top: 1px solid #1d3c99;
+    border-bottom: 1px solid #264ec4;
 }
 
 .menu .menu__list .menu__item:first-child {
@@ -95,7 +95,7 @@
 
 .menu .menu__list .menu__item .icon {
     font-size: 25px;
-    color: #7e7d8b;
+    color: #f1f1f4;
     font-family: bold;
     display: inline-block;
     padding: 10px;
@@ -104,11 +104,11 @@
 }
 
 .sidebar.inactive .menu .menu__list .menu__item .icon:hover {
-    background: #302e4b;
+    background: #1e3d9a;
 }
 
 .menu .menu__list .menu__item .menu__link {
-    color: #7e7d8b;
+    color: #fff;
     position: absolute;
     text-decoration: none;
     cursor: pointer;

@@ -153,9 +153,9 @@ h6 {
 
 .afterlogin {
     width: 100%;
-    /* background: #e5e7f1; */
-    background-image: url("../assets/portal/bg-in.jpg");
-    background-size: cover;
+    background: #f1f5f9;
+    /* background-image: url("../assets/portal/bg-in.jpg");
+    background-size: cover; */
     display: flex;
 }
 
