@@ -2,7 +2,7 @@
 
 .submit-btn {
     padding: 14px 17px;
-    background-color: #6b67e9;
+    background: #2144ac;
     color: aliceblue;
     transition: all .5s;
     margin: 20px 0;
@@ -10,7 +10,7 @@
 }
 
 .submit-btn:hover {
-    background-color: #d639e1;
+    background: #43d294;
 }
 
 .submit-btn-medium {
@@ -18,9 +18,7 @@
     align-items: center;
     justify-content: center;
     padding: 9px 21px;
-    /* background: #524899;
-    background: linear-gradient(146deg, rgb(71, 63, 136) 0%, rgb(102, 63, 139) 100%); */
-    background: #43d294;
+    background: #3f88f8;
     border-radius: 4px;
     color: #ffffff;
     transition: all .5s;
@@ -28,12 +26,12 @@
 }
 
 .submit-btn-medium:hover {
-    background: #3f88f8;
+    background: #43d294;
 }
 
 .submit-btn-small {
     padding: 8px 14px;
-    background-color: #4c4bb1;
+    background: #2144ac;
     color: aliceblue;
     transition: all .5s;
     margin: 20px 0;
@@ -41,7 +39,7 @@
 }
 
 .submit-btn-small:hover {
-    background-color: #d639e1;
+    background: #43d294;
 }
 
 
@@ -52,7 +50,7 @@
     align-items: center;
     padding: 6px 12px 6px 8px;
     border-radius: 6px;
-    background: #6b67e9;
+    background: #2144ac;
     color: #f6feff;
     font-family: inherit;
     text-transform: uppercase;
