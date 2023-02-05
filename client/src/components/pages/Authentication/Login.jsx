@@ -47,7 +47,10 @@ export default function Login() {
   return (
     <div className="main">
       <div className="auth">
-        <div className="auth-sidebar"></div>
+        <div className="auth-sidebar">
+        
+        </div>
+        <div className="auth-info">
         <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
           <div className="auth-form__title">{formConstants.titleLogin}</div>
           <div className="input-layer">
@@ -113,6 +116,7 @@ export default function Login() {
             <Link to="/singup">{formConstants.register}</Link>
           </div>
         </form>
+        </div>
       </div>
     </div>
   );

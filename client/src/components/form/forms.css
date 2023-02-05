@@ -156,16 +156,6 @@
     font-family: inherit;
 }
 
-.main .auth-sidebar {
-    background-image: url("../../assets/portal/login.png");
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    min-width: 550px;
-    max-width: 550px;
-    width: 100%;
-}
-
 .main .auth-sidebar__info {
     display: flex;
     width: 100%;
@@ -275,11 +265,6 @@
     color: aliceblue;
     font-size: 95px;
     margin-bottom: 20px;
-}
-
-.main .auth-sidebar img {
-    width: 100%;
-    height: 100%;
 }
 
 .input-icon {
@@ -410,14 +395,51 @@
     font-family: 'Roboto Condensed', sans-serif;
 }
 
-.main {
+.auth {
+    background-color: darkcyan;
     display: flex;
+    align-items: center;
     justify-content: center;
+    width: 100%;
+}
+
+.main {
+    width: 100%;
+    height: 100vh;
 }
 
 .main .auth {
     display: flex;
-    min-height: 600px;
+    width: 100%;
+    background-color: #f1f5f9;
+}
+
+.main .auth-sidebar {
+    /* background-image: url("../../assets/portal/side-img.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 50%;
+    background-color: #2144ac;
+}
+
+.main .auth-sidebar img {
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+}
+
+.main .auth-info {
+    background-color: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 100%;
 }
 
 .auth-form__title {
@@ -428,24 +450,6 @@
     text-transform: uppercase;
     margin-bottom: 15px;
     font-family: inherit;
-}
-
-.main .auth-sidebar {
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    min-width: 550px;
-    max-width: 550px;
-    width: 100%;
-}
-
-.main .auth-sidebar {
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    min-width: 550px;
-    max-width: 550px;
-    width: 100%;
 }
 
 .main .auth-sidebar__info {
@@ -544,17 +548,13 @@
     margin-bottom: 20px;
 }
 
-.main .auth-sidebar img {
-    width: 100%;
-    height: 100%;
-}
-
 .main .auth-form {
-    padding: 40px;
+    padding: 70px 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     min-width: 400px;
+    max-width: 400px;
     background: rgb(255, 255, 255, .8);
     background-position: bottom;
     background-repeat: no-repeat;

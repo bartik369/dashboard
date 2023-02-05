@@ -54,7 +54,7 @@ export default function AddDevice({create}) {
   console.log("check memory");
 
   return (
-    <div className="main">
+    
       <form className="device-form" onSubmit={handleSubmit(onSubmit)}>
       <div className="device-form__title">{formConstants.newDeviceTitle}</div>
       <div className="device-form__input">
@@ -147,6 +147,5 @@ export default function AddDevice({create}) {
         <SubmitButton className={"submit-btn-medium"} title={uiConstants.titleAdd} />
         </div>
       </form>
-    </div>
   );
 }

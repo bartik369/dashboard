@@ -142,9 +142,9 @@ h6 {
 
 .App-out {
     width: 100%;
-    background: #252339;
-    background-image: url("../assets/portal/bg-auth.jpg");
-    background-size: cover;
+    background-color: #062ee1;
+    /* background-image: url("../assets/portal/bg-auth.jpg");
+    background-size: cover; */
     height: 100vh;
     display: flex;
     justify-content: center;

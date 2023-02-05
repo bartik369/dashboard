@@ -83,6 +83,7 @@ function SetNewPassword() {
             </div>
           </div>
         </div>
+        <div className="auth-info">
         <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="auth-form__title">{formConstants.titleSetNewPasswordForm}</div>
           <div className="input-layer">
@@ -165,6 +166,7 @@ function SetNewPassword() {
           </Link>
           </div>
         </form>
+        </div>
         </div>
     </div>
   )

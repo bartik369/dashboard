@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import paperAirplane from "../../../assets/portal/paper_airplane.png";
 import { CSSTransition } from "react-transition-group";
+import SidebarImg from "../../../assets/portal/side-img.png"
 
 export default function Signup() {
 
@@ -92,6 +93,7 @@ export default function Signup() {
       </div>
       <div className={formStatus ? "auth" : "auth-disabled"}>
         <div className="auth-sidebar">
+          <img src={SidebarImg} />
           <div className="auth-sidebar__info">
             <div className="auth__notification">
               <CSSTransition
@@ -106,6 +108,7 @@ export default function Signup() {
             </div>
           </div>
         </div>
+        <div className="auth-info">
         <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
           <div className="auth-form__title">{formConstants.titleRegistrationForm}</div>
           <div className="input-layer">
@@ -234,6 +237,7 @@ export default function Signup() {
             </Link>
           </div>
         </form>
+        </div>
       </div>
     </div>
   );
