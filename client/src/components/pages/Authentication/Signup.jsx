@@ -10,9 +10,6 @@ import * as infoConstants from "../../../utils/constants/information.constants"
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
-import paperAirplane from "../../../assets/portal/paper_airplane.png";
-import { CSSTransition } from "react-transition-group";
-import SidebarImg from "../../../assets/portal/side-img.png"
 
 export default function Signup() {
 
@@ -93,19 +90,10 @@ export default function Signup() {
       </div>
       <div className={formStatus ? "auth" : "auth-disabled"}>
         <div className="auth-sidebar">
-          <img src={SidebarImg} />
           <div className="auth-sidebar__info">
-            <div className="auth__notification">
-              <CSSTransition
-                in={animationPaperAirplane}
-                timeout={1000}
-                classNames="paperAirplane-animation"
-              >
-                <div className="paperAirplane">
-                  <img src={paperAirplane} alt="" />
-                </div>
-              </CSSTransition>
-            </div>
+           <div className="auth-sidebar__title">
+            Warehouse
+           </div>
           </div>
         </div>
         <div className="auth-info">
