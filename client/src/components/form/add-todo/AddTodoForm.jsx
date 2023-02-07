@@ -19,7 +19,7 @@ const AddTodoForm = ({ create }) => {
     user: "",
   })
 
-  const user = useSelector(state => state.user.user)
+  const user = useSelector((state) => state.auth.auth.user);
 
   const {
     register,

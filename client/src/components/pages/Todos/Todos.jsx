@@ -18,6 +18,7 @@ import AddButton from "../../UI/buttons/AddButton";
 import "../Todos/Todos.css";
 import "../../../styles/App.css";
 import Masonry from "react-masonry-css";
+import OverdueClock from "../../../assets/portal/todo-overdue-bg.png"
 
 const Todos = () => {
   const [deleteId, setDeleteId] = useState();
@@ -105,6 +106,7 @@ const Todos = () => {
         columnClassName="my-masonry-grid_column"
       >
         {todos.map((todo, index) => {
+          console.log(todo.status)
 
           if ((todo.user === user.id)) {
 
@@ -118,21 +120,24 @@ const Todos = () => {
             ${deleteId === todo._id ? "delete-animation" : ""}`}
               key={index}
             >
-              <div className="todo-item__inner">
-              <div className={`icon-done ${todo.status === "done" ? "completed" : ""}`}>
-                <i className="bi bi-check-all"></i>
-              </div>
-              <div className="todo-item__title">{todo.title}</div>
-              <div className="todo-item__description">{todo.description}</div>
-              <hr className="separate" />
-              <div className="time-info">
-                <span className="time-text">{uiConstants.startTime}</span>
-                <span className="start-time">{startTodoDate}</span>
-                <span className="time-text">{uiConstants.endTime}</span>
-                <span className="end-time">
-                  {moment(endTodoDate).format("DD.MM.YYYY HH:mm")}
-                </span>
-              </div>
+              <div className={"todo-item__inner"}>
+                <div className={`icon-overdue ${endTodoDate <= dateNow && todo.status !== "done" ? "overdue" : ""}`}>
+                  <img src={OverdueClock} />
+                </div>
+
+                <div className={`icon-done ${todo.status === "done" ? "completed" : ""}`}>
+                  <i className="bi bi-check-all"></i>
+                </div>
+                <div className="todo-item__title">{todo.title}</div>
+                <div className="todo-item__description">{todo.description}</div>
+                <div className="time-info">
+                  <span className="time-text">{uiConstants.startTime}</span>
+                  <span className="start-time">{startTodoDate}</span>
+                  <span className="time-text">{uiConstants.endTime}</span>
+                  <span className="end-time">
+                    {moment(endTodoDate).format("DD.MM.YYYY HH:mm")}
+                  </span>
+                </div>
             </div>
             <div className="todo-btns">
                   <ul className="todo-btns__inner">

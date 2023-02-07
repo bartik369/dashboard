@@ -97,6 +97,7 @@
 
 .add-todo-btn:hover {
     background: #26bea6;
+    box-shadow: #21ac85 0 10px 20px -10px;
     color: #f6feff;
 }
 
