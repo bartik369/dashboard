@@ -10,30 +10,6 @@
     border-radius: 5px;
 }
 
-
-/* CSS */
-
-.su {
-    background: #5E5DF0;
-    border-radius: 999px;
-    box-shadow: #5E5DF0 0 10px 20px -10px;
-    box-sizing: border-box;
-    color: #FFFFFF;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 24px;
-    opacity: 1;
-    outline: 0 solid transparent;
-    padding: 8px 18px;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    width: fit-content;
-    word-break: break-word;
-    border: 0;
-}
-
 .submit-btn:hover {
     background: #43d294;
 }
@@ -43,7 +19,7 @@
     align-items: center;
     justify-content: center;
     padding: 9px 21px;
-    background: #3f88f8;
+    background: #2144ac;
     border-radius: 4px;
     color: #ffffff;
     transition: all .5s;
