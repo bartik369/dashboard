@@ -23,11 +23,16 @@
 .todo-item {
     background: rgb(255, 255, 255);
     background: linear-gradient(180deg, rgba(255, 255, 255, 1) 4%, rgba(255, 255, 255, 1) 91%);
-    box-shadow: -8px 14px 19px rgb(127, 120, 167, .5);
-    border-radius: 20px;
+    box-shadow: rgba(120, 131, 167, 0.2) 0px 4px 12px;
+    border-radius: 15px;
     margin: 10px 10px 20px 10px;
-    padding-bottom: 43px;
+    /* padding-bottom: 43px; */
     position: relative;
+    transition: all .5s;
+}
+
+.todo-item:hover {
+    box-shadow: rgba(120, 131, 167, 0.25) 0px 50px 100px -20px, rgba(120, 131, 167, 0.3) 0px 30px 60px -30px;
 }
 
 .todo-item.overdue {
@@ -51,7 +56,7 @@
     font-family: sans-serif;
     transition: all .5s ease-out;
     overflow: hidden;
-    border-radius: 25px;
+    border-radius: 15px;
 }
 
 .todo-item__inner:hover {}
@@ -81,17 +86,9 @@
     font-family: inherit;
 }
 
-.start-time {
-    color: #0a1a21;
-}
-
-.end-time {
-    /* color: #6b67e9; */
-    color: #0a1a21;
-}
-
 .start-time,
 .end-time {
+    color: #1e293b;
     font-family: inherit;
     font-size: 15px;
     font-weight: 600;
@@ -160,7 +157,7 @@
 }
 
 .todo-item__title {
-    color: #0a1a21;
+    color: #1e293b;
     text-transform: uppercase;
     font-size: 18px;
     margin: 15px 0px;
@@ -186,12 +183,13 @@
 .time-info {
     margin-top: 5px;
     z-index: 9;
+    padding-bottom: 20px;
 }
 
 .separate {
     width: 70%;
     margin: 20px auto 10px;
-    border-bottom: 2px solid #ced2e7;
+    border-bottom: 2px solid #ccd5e1;
     border-bottom-style: dashed;
 }
 

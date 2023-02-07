@@ -15,7 +15,7 @@ const Homepage = () => {
         <div className="row">
         <div className="col-m"><LastDevices /></div>
         <div className="col-s"><OverdueTodo /></div>
-        <div className="col-s"><LastUsers /></div>
+        <div className="col-s"></div>
         <div className="col-s"></div>
         </div>
         <div className="row">

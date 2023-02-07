@@ -142,7 +142,7 @@ h6 {
 
 .App-out {
     width: 100%;
-    background-color: #062ee1;
+    background: #f1f5f9;
     /* background-image: url("../assets/portal/bg-auth.jpg");
     background-size: cover; */
     height: 100vh;
@@ -243,7 +243,7 @@ h6 {
     .col-m {
         width: 49%;
         flex: 49%;
-        background-color: rgb(129, 4, 106);
+        /* background-color: rgb(129, 4, 106); */
     }
 }
 
@@ -253,11 +253,11 @@ h6 {
     .col-s {
         width: 24%;
         flex: 24%;
-        background-color: rgb(4, 100, 129);
+        /* background-color: rgb(4, 100, 129); */
     }
     .col-m {
         width: 49%;
         flex: 49%;
-        background-color: rgb(129, 4, 71);
+        /* background-color: rgb(129, 4, 71); */
     }
 }
