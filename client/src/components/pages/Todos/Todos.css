@@ -150,17 +150,15 @@
 }
 
 .icon-overdue {
-    font-size: 55px;
-    color: #a17878;
     position: absolute;
     right: 5px;
-    bottom: 5px;
+    top: 5px;
     opacity: 0;
 }
 
 .icon-overdue.overdue {
-    width: 150px;
-    height: 150px;
+    width: 80px;
+    height: 50px;
     opacity: 1;
     z-index: 9;
 }
@@ -203,7 +201,7 @@
     padding-bottom: 20px;
 }
 
-.separate {
+.todo-item__inner .separate {
     width: 70%;
     margin: 20px auto 10px;
     border-bottom: 2px solid #ccd5e1;
@@ -271,7 +269,7 @@
 }
 
 .todo-item.overdue .todoreopen-btn:hover {
-    color: #88e9f3;
+    color: #43d294;
 }
 
 .todoend-btn,

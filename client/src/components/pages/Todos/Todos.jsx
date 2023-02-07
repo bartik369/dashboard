@@ -122,7 +122,7 @@ const Todos = () => {
             >
               <div className={"todo-item__inner"}>
                 <div className={`icon-overdue ${endTodoDate <= dateNow && todo.status !== "done" ? "overdue" : ""}`}>
-                  <img src={OverdueClock} />
+                  {/* <img src={OverdueClock} /> */}
                 </div>
 
                 <div className={`icon-done ${todo.status === "done" ? "completed" : ""}`}>
@@ -130,6 +130,7 @@ const Todos = () => {
                 </div>
                 <div className="todo-item__title">{todo.title}</div>
                 <div className="todo-item__description">{todo.description}</div>
+                <div className="separate"></div>
                 <div className="time-info">
                   <span className="time-text">{uiConstants.startTime}</span>
                   <span className="start-time">{startTodoDate}</span>
