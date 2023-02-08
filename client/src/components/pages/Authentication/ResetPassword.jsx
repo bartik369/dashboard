@@ -28,7 +28,6 @@ function ResetPassword() {
   const [notificationStatus, setNotificationStatus] = useState(false);
   const [animationPaperAirplane, setAnimationPaperAirplane] = useState(false);
   const [formStatus, setFormStatus] = useState(true);
-  const [showInfo, setShowInfo] = useState(false);
 
   const dispatch = useDispatch();
   const watchFields = watch({ email: "email" });
@@ -38,7 +37,6 @@ function ResetPassword() {
     setTimeout(() => {
       setNotificationStatus(true);
       setFormStatus(false);
-      setShowInfo(true);
     }, 1000);
     reset();
   };
@@ -59,15 +57,6 @@ function ResetPassword() {
 
   return (
     <div className="main">
-      <CSSTransition
-              in={animationPaperAirplane}
-              timeout={1000}
-              classNames="paperAirplane-animation"
-            >
-              <div className="paperAirplane">
-                <img src={paperAirplane} alt="" />
-              </div>
-            </CSSTransition>
       <div
         className={notificationStatus ? "notification-active" : "notification"}
       >
@@ -79,14 +68,15 @@ function ResetPassword() {
       <div className={formStatus ? "auth" : "auth-disabled"}>
         <div className="auth-sidebar">
           <div className="auth__notification">
-            <div className={animationPaperAirplane ? "back-notification" : ""}>
-              <div
-                className={showInfo ? "completed" : "completion-registration"}
-              >
-                <div className="title">{formConstants.confirmRegistration}</div>
-                <span>{formConstants.registrationInfo}</span>
+            <CSSTransition
+              in={animationPaperAirplane}
+              timeout={1000}
+              classNames="paperAirplane-animation"
+            >
+              <div className="paperAirplane">
+                <img src={paperAirplane} alt="" />
               </div>
-            </div>
+            </CSSTransition>
           </div>
         </div>
         <div className="auth-info">
