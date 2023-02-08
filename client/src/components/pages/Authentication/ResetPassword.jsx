@@ -28,6 +28,7 @@ function ResetPassword() {
   const [notificationStatus, setNotificationStatus] = useState(false);
   const [animationPaperAirplane, setAnimationPaperAirplane] = useState(false);
   const [formStatus, setFormStatus] = useState(true);
+  const [showInfo, setShowInfo] = useState(false);
 
   const dispatch = useDispatch();
   const watchFields = watch({ email: "email" });
@@ -37,7 +38,8 @@ function ResetPassword() {
     setTimeout(() => {
       setNotificationStatus(true);
       setFormStatus(false);
-    }, 1400);
+      setShowInfo(true);
+    }, 1000);
     reset();
   };
 
@@ -49,25 +51,15 @@ function ResetPassword() {
       updateUserPassword(
         resetPasswordData,
         setError,
-        setNotificationStatus,
         setFormStatus,
         animationSignup
-      ),
+      )
     );
   };
 
   return (
     <div className="main">
-      <div className={notificationStatus ? "notification-active" : "notification"}>
-        <SendPasswordLink
-          title={infoConstants.titleResetPasswordLink}
-          text={infoConstants.textResetPasswordLink}
-        />
-      </div>
-      <div className={formStatus ? "auth" : "auth-disabled"}>
-        <div className="auth-sidebar">
-        <div className="auth__notification">
-            <CSSTransition
+      <CSSTransition
               in={animationPaperAirplane}
               timeout={1000}
               classNames="paperAirplane-animation"
@@ -76,42 +68,61 @@ function ResetPassword() {
                 <img src={paperAirplane} alt="" />
               </div>
             </CSSTransition>
+      <div
+        className={notificationStatus ? "notification-active" : "notification"}
+      >
+        <SendPasswordLink
+          title={infoConstants.titleResetPasswordLink}
+          text={infoConstants.textResetPasswordLink}
+        />
+      </div>
+      <div className={formStatus ? "auth" : "auth-disabled"}>
+        <div className="auth-sidebar">
+          <div className="auth__notification">
+            <div className={animationPaperAirplane ? "back-notification" : ""}>
+              <div
+                className={showInfo ? "completed" : "completion-registration"}
+              >
+                <div className="title">{formConstants.confirmRegistration}</div>
+                <span>{formConstants.registrationInfo}</span>
+              </div>
+            </div>
           </div>
         </div>
-      <div className="auth-info">
-        <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
-          <div className="auth-form__title">
-            {formConstants.titleResetPasswordForm}
-          </div>
-          <div className="input-layer">
-            <div className="auth-form__input">
-              <FontAwesomeIcon icon={faEnvelope} className="input-icon" />
-              <input
-                type="text"
-                name="email"
-                {...register("email", {
-                  required: formConstants.fillEmail,
-                  pattern: {
-                    value: REGEX.isValidEmail,
-                    message: formConstants.wrongEmailFormat,
-                  },
-                })}
-              />
-              <span className={watchFields.email ? "lable-span" : ""}>
-                {formConstants.yourEmail}
-              </span>
+        <div className="auth-info">
+          <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
+            <div className="auth-form__title">
+              {formConstants.titleResetPasswordForm}
             </div>
-            <div className="form-error">
-              {errors.email && <p>{errors.email.message || "Error"}</p>}
+            <div className="input-layer">
+              <div className="auth-form__input">
+                <FontAwesomeIcon icon={faEnvelope} className="input-icon" />
+                <input
+                  type="text"
+                  name="email"
+                  {...register("email", {
+                    required: formConstants.fillEmail,
+                    pattern: {
+                      value: REGEX.isValidEmail,
+                      message: formConstants.wrongEmailFormat,
+                    },
+                  })}
+                />
+                <span className={watchFields.email ? "lable-span" : ""}>
+                  {formConstants.yourEmail}
+                </span>
+              </div>
+              <div className="form-error">
+                {errors.email && <p>{errors.email.message || "Error"}</p>}
+              </div>
             </div>
-          </div>
-          <SubmitButton className={"submit-btn"} title={formConstants.send} />
-          <div className="auth-links">
-            <Link to="/">{formConstants.enter}</Link>
-            <Link to="/singup">{formConstants.register}</Link>
-          </div>
-        </form>
-      </div>
+            <SubmitButton className={"submit-btn"} title={formConstants.send} />
+            <div className="auth-links">
+              <Link to="/">{formConstants.enter}</Link>
+              <Link to="/singup">{formConstants.register}</Link>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

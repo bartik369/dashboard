@@ -2,12 +2,15 @@
     font-family: 'Roboto Condensed', sans-serif;
 }
 
-.main {
+
+/* .main {
     display: flex;
     justify-content: center;
-}
+    background-color: #2144ac;
+} */
 
-.auth {
+
+/* .auth {
     display: block;
 }
 
@@ -23,9 +26,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} */
 
-.auth__notification .paperAirplane {
+
+/* .main .paperAirplane {
     width: 150px;
     position: absolute;
     left: 20px;
@@ -33,11 +37,12 @@
     z-index: 1;
 }
 
-.auth__notification .paperAirplane img {
+.main .paperAirplane img {
     width: 100%
-}
+} */
 
-.paperAirplane-animation-enter {
+
+/* .paperAirplane-animation-enter {
     position: absolute;
 }
 
@@ -61,4 +66,4 @@
 
 .auth__notification .completion-registration {
     display: none;
-}
+} */

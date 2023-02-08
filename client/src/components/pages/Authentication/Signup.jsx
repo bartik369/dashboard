@@ -52,7 +52,7 @@ export default function Signup() {
     setTimeout(() => {
       setNotificationStatus(true);
       setFormStatus(false);
-    }, 1400);
+    }, 1000);
     reset();
   };
 

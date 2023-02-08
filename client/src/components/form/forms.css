@@ -203,11 +203,11 @@
     position: absolute;
     right: 0;
     top: 0;
-    background: hsla(249, 27%, 15%, 1);
-    background: linear-gradient(45deg, hsla(249, 27%, 15%, 1) 0%, hsla(247, 29%, 17%, 1) 18%, hsla(248, 29%, 20%, 1) 32%, hsla(320, 64%, 33%, 1) 84%, hsla(320, 67%, 35%, 1) 100%);
+    background: #2144ac;
+    /* background: linear-gradient(45deg, hsla(249, 27%, 15%, 1) 0%, hsla(247, 29%, 17%, 1) 18%, hsla(248, 29%, 20%, 1) 32%, hsla(320, 64%, 33%, 1) 84%, hsla(320, 67%, 35%, 1) 100%);
     background: -moz-linear-gradient(45deg, hsla(249, 27%, 15%, 1) 0%, hsla(247, 29%, 17%, 1) 18%, hsla(248, 29%, 20%, 1) 32%, hsla(320, 64%, 33%, 1) 84%, hsla(320, 67%, 35%, 1) 100%);
     background: -webkit-linear-gradient(45deg, hsla(249, 27%, 15%, 1) 0%, hsla(247, 29%, 17%, 1) 18%, hsla(248, 29%, 20%, 1) 32%, hsla(320, 64%, 33%, 1) 84%, hsla(320, 67%, 35%, 1) 100%);
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#1E1B2F", endColorstr="#221F38", GradientType=1);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#1E1B2F", endColorstr="#221F38", GradientType=1); */
     z-index: 3;
 }
 
@@ -403,6 +403,20 @@
     width: 100%;
 }
 
+.auth-disabled {
+    display: none;
+}
+
+.notification {
+    display: none;
+}
+
+.notification-active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .auth-sidebar__title {
     color: #fff;
     font-size: 70px;
@@ -412,6 +426,9 @@
 .main {
     width: 100%;
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    background-color: #2144ac;
 }
 
 .main .auth {
@@ -473,7 +490,7 @@
     overflow: hidden;
 }
 
-.auth__notification .paperAirplane {
+.main .paperAirplane {
     width: 150px;
     position: absolute;
     left: 20px;
@@ -481,7 +498,7 @@
     z-index: 1;
 }
 
-.auth__notification .paperAirplane img {
+.main .paperAirplane img {
     width: 100%
 }
 
