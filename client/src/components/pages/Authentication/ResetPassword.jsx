@@ -10,10 +10,13 @@ import * as formConstants from "../../../utils/constants/form.constants";
 import * as infoConstants from "../../../utils/constants/information.constants";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CSSTransition } from "react-transition-group";
+import paperAirplane from "../../../assets/portal/paper_airplane.png";
 
 function ResetPassword() {
   const {
     register,
+    reset,
     formState: { errors },
     handleSubmit,
     setError,
@@ -23,13 +26,22 @@ function ResetPassword() {
   });
 
   const [notificationStatus, setNotificationStatus] = useState(false);
+  const [animationPaperAirplane, setAnimationPaperAirplane] = useState(false);
   const [formStatus, setFormStatus] = useState(true);
 
   const dispatch = useDispatch();
   const watchFields = watch({ email: "email" });
 
+  const animationSignup = () => {
+    setAnimationPaperAirplane(true);
+    setTimeout(() => {
+      setNotificationStatus(true);
+      setFormStatus(false);
+    }, 1400);
+    reset();
+  };
+
   const onSubmit = (data) => {
-    console.log("chick chick");
     const resetPasswordData = {
       email: data.email,
     };
@@ -38,23 +50,34 @@ function ResetPassword() {
         resetPasswordData,
         setError,
         setNotificationStatus,
-        setFormStatus
-      )
+        setFormStatus,
+        animationSignup
+      ),
     );
   };
 
   return (
     <div className="main">
-      <div
-        className={notificationStatus ? "notification-active" : "notification"}
-      >
+      <div className={notificationStatus ? "notification-active" : "notification"}>
         <SendPasswordLink
           title={infoConstants.titleResetPasswordLink}
           text={infoConstants.textResetPasswordLink}
         />
       </div>
       <div className={formStatus ? "auth" : "auth-disabled"}>
-        <div className="auth-sidebar"></div>
+        <div className="auth-sidebar">
+        <div className="auth__notification">
+            <CSSTransition
+              in={animationPaperAirplane}
+              timeout={1000}
+              classNames="paperAirplane-animation"
+            >
+              <div className="paperAirplane">
+                <img src={paperAirplane} alt="" />
+              </div>
+            </CSSTransition>
+          </div>
+        </div>
       <div className="auth-info">
         <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
           <div className="auth-form__title">

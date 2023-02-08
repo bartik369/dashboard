@@ -121,7 +121,7 @@ export const loadUsers = () => {
     };
 }
 
-export const updateUserPassword = (data, setError, setNotificationStatus, setFormStatus) => {
+export const updateUserPassword = (data, setError, setNotificationStatus, setFormStatus, animationSignup) => {
     console.log(data)
     return async function(dispatch) {
         try {
@@ -129,6 +129,7 @@ export const updateUserPassword = (data, setError, setNotificationStatus, setFor
                 .then((response) => {
                     setNotificationStatus(true);
                     setFormStatus(false);
+                    animationSignup()
                 });
         } catch (error) {
             console.log(error);
