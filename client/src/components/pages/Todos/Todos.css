@@ -29,7 +29,9 @@
     /* padding-bottom: 43px; */
     position: relative;
     transition: all .5s;
-    border-bottom: 8px solid #43d294;
+    display: flex;
+    justify-content: center;
+    /* border-bottom: 8px solid #43d294; */
 }
 
 .todo-item:hover {
@@ -39,7 +41,7 @@
 .todo-item.overdue {
     background: rgb(255, 255, 255);
     background: linear-gradient(180deg, rgba(255, 255, 255, 1) 4%, rgba(255, 255, 255, 1) 91%);
-    border-bottom: 8px solid #665ff1;
+    /* border-bottom: 8px solid #665ff1; */
 }
 
 .todo-item__inner {
@@ -152,7 +154,7 @@
 .icon-overdue {
     position: absolute;
     right: 5px;
-    top: 5px;
+    bottom: -5px;
     opacity: 0;
 }
 
@@ -161,6 +163,15 @@
     height: 50px;
     opacity: 1;
     z-index: 9;
+}
+
+.podlogka {
+    background-color: #3cc276;
+    border-radius: 15px;
+    height: 50px;
+    width: 90%;
+    position: absolute;
+    bottom: -10px;
 }
 
 .todo-item.done .todoend-btn {
@@ -204,7 +215,7 @@
 .todo-item__inner .separate {
     width: 70%;
     margin: 20px auto 10px;
-    border-bottom: 2px solid #ccd5e1;
+    border-bottom: 2px solid #43d294;
     border-bottom-style: dashed;
 }
 
