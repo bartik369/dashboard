@@ -120,10 +120,10 @@ const Todos = () => {
             ${deleteId === todo._id ? "delete-animation" : ""}`}
               key={index}
             >
-              <div className="podlogka"></div>
+              <div className={`todo-item__back ${endTodoDate <= dateNow && todo.status !== "done" ? "overdue" : ""}`}></div>
               <div className={"todo-item__inner"}>
                 <div className={`icon-overdue ${endTodoDate <= dateNow && todo.status !== "done" ? "overdue" : ""}`}>
-                  {/* <img src={OverdueClock} /> */}
+                  <img src={OverdueClock} />
                 </div>
 
                 <div className={`icon-done ${todo.status === "done" ? "completed" : ""}`}>

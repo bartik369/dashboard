@@ -165,13 +165,17 @@
     z-index: 9;
 }
 
-.podlogka {
-    background-color: #3cc276;
-    border-radius: 15px;
+.todo-item__back {
+    background-color: #4e6abd;
+    border-radius: 10px;
     height: 50px;
     width: 90%;
     position: absolute;
-    bottom: -10px;
+    bottom: -7px;
+}
+
+.todo-item__back.overdue {
+    background-color: #d95757;
 }
 
 .todo-item.done .todoend-btn {
@@ -215,7 +219,7 @@
 .todo-item__inner .separate {
     width: 70%;
     margin: 20px auto 10px;
-    border-bottom: 2px solid #43d294;
+    border-bottom: 2px solid #bbc6d5;
     border-bottom-style: dashed;
 }
 
