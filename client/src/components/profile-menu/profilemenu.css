@@ -3,9 +3,7 @@
 }
 
 .profile-menu {
-    background-color: #312f49;
-    -webkit-box-shadow: 0 20px 40px rgb(34 46 80 / 50%), 0 4px 20px rgb(34 46 80 / 35%);
-    box-shadow: 0 20px 40px rgb(34 46 80 / 50%), 0 4px 20px rgb(34 46 80 / 35%);
+    background-color: #2144ac;
     border-radius: 7px;
     width: 200px;
     height: fit-content;
@@ -21,7 +19,7 @@
     right: 0px;
     top: -6px;
     position: absolute;
-    background-color: #312f49;
+    background-color: #2144ac;
     border-radius: 8px 8px 8px;
 }
 
@@ -44,30 +42,28 @@
     text-transform: uppercase;
 }
 
-
-
 .profile-menu .profile__item {
     display: block;
-    padding: 11px 0;
+    padding: 14px 0;
 }
 
 .profile__items .profile__link {
     display: inline-block;
-    color: #b6bdcc;
+    color: #e4e8f1;
     transition: all .5s;
     font-size: 12px;
     font-family: inherit;
 }
 
 .profile__items .profile__link:hover {
-    color: #26bea6;
+    color: #fff;
 }
 
 .bi-person-check,
 .bi-pencil,
 .bi-box-arrow-right,
 .bi-chat-square {
-    color: #b6bdcc;
+    color: #e4e8f1;
     font-size: 16px;
     display: inline-block;
     margin-right: 10px;
@@ -76,8 +72,8 @@
 .profile__item {
     padding: 5px 0;
     position: relative;
-    border-top: 1px solid #3c3958;
-    border-bottom: 1px solid #262439;
+    border-top: 1px solid #274fc6;
+    border-bottom: 1px solid #1d3b95;
 }
 
 .profile__item:last-child {
