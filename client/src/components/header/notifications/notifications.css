@@ -21,6 +21,13 @@
     border-bottom: none;
 }
 
+.todo-alert__title {
+    color: #1e293b;
+    font-size: 14px;
+    font-family: inherit;
+    font-weight: 700;
+}
+
 .todo-alert__item .icon {
     color: rgb(239, 55, 120);
     font-size: 21px;

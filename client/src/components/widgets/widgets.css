@@ -78,12 +78,12 @@
     color: #0A2540;
     text-transform: uppercase;
     font-weight: 700;
-    font-family: 'Roboto Condensed', sans-serif;
+    font-family: inherit;
     display: inline-block;
 }
 
 .todos_info__title {
-    font-family: 'Roboto Condensed', sans-serif;
+    font-family: inherit;
     text-transform: uppercase;
     font-weight: 700;
     font-size: 12px;

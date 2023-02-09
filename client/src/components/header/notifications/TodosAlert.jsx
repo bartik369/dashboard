@@ -8,6 +8,9 @@ export default function TodosAlert({todos, user}) {
     return (
       <div className="todo-alert">
         <div className="todo-alert__items">
+          <div className="todo-alert__title">
+            Просроченные задачи
+          </div>
           {todos.map((todo, index) => {
             if (Date.parse(todo.endTime) <= Date.now() 
             && todo.status !== "done" && todo.user === user.id) {

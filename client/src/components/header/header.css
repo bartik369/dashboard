@@ -61,7 +61,7 @@
     position: absolute;
     display: flex;
     padding: 20px;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+    box-shadow: rgba(132, 138, 152, 0.5) 0px 20px 25px -5px, rgba(132, 138, 152, 0.3) 0px 10px 10px -5px;
     border-radius: 7px;
     background-color: #ffffff;
     left: -200px;
