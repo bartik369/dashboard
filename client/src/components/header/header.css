@@ -60,8 +60,8 @@
 .todos-notification__dropmenu {
     position: absolute;
     display: flex;
-    padding: 20px;
-    box-shadow: rgba(132, 138, 152, 0.5) 0px 20px 25px -5px, rgba(132, 138, 152, 0.3) 0px 10px 10px -5px;
+    padding: 20px 25px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
     border-radius: 7px;
     background-color: #ffffff;
     left: -200px;
@@ -97,7 +97,7 @@
 .todos-notification_count {
     height: 20px;
     width: 20px;
-    background-color: rgb(255, 35, 112);
+    background-color: #dc2626;
     color: aliceblue;
     border-radius: 50%;
     display: flex;

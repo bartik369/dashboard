@@ -7,17 +7,15 @@ export default function TodosAlert({todos, user}) {
 
     return (
       <div className="todo-alert">
+        <div className="todo-alert__title">Просроченные задачи</div>
         <div className="todo-alert__items">
-          <div className="todo-alert__title">
-            Просроченные задачи
-          </div>
           {todos.map((todo, index) => {
             if (Date.parse(todo.endTime) <= Date.now() 
             && todo.status !== "done" && todo.user === user.id) {
               return (
                 <div className="todo-alert__item" key={index}>
                   <div className="icon">
-                  <i className="bi bi-exclamation-circle"></i>
+                    <i className="bi bi bi-check"></i>
                   </div>
                   <div className="description">
                     <div className="title">{todo.title}</div>
@@ -30,8 +28,8 @@ export default function TodosAlert({todos, user}) {
             }
           })}
         </div>
-        <button className="check-todos">
-          <Link to="/todos">Посмотреть все</Link>
+        <button className="submit-btn-medium">
+          <Link to="/todos">Открыть задачи</Link>
         </button>
       </div>
     );

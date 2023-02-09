@@ -5,38 +5,46 @@
 .todo-alert {
     width: fit-content;
     height: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+.todo-alert__title {
+    padding: 10px 0;
+    text-align: center;
+    font-family: inherit;
+    font-size: 15px;
+    letter-spacing: -0.2px;
+    text-transform: uppercase;
+    font-weight: 700;
 }
 
 .todo-alert__items {}
 
 .todo-alert__item {
     border-bottom: 1px solid #e8e5ed;
-    padding: 10px 0;
+    padding: 5px 0;
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 
 .todo-alert__item:last-child {
     border-bottom: none;
-}
-
-.todo-alert__title {
-    color: #1e293b;
-    font-size: 14px;
-    font-family: inherit;
-    font-weight: 700;
+    margin-bottom: 10px;
 }
 
 .todo-alert__item .icon {
-    color: rgb(239, 55, 120);
-    font-size: 21px;
+    color: #dc2626;
+    font-size: 17px;
     margin-right: 10px;
 }
 
+.todo-alert__item .description {}
+
 .todo-alert__item .title {
     color: #11243e;
-    font-size: 20px;
+    font-size: 14px;
+    font-weight: 700;
     text-transform: none;
     font-family: inherit;
 }
@@ -54,7 +62,7 @@
 }
 
 .check-todos a {
-    color: #5d687c;
+    color: #fff;
     font-size: 11px;
     font-family: inherit;
 }

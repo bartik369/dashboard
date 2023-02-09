@@ -124,11 +124,6 @@ const Todos = () => {
             >
               <div className={`todo-item__back ${checkStatus ? "overdue" : ""}`}></div>
               <div className={"todo-item__inner"}>
-                <div className={`icon-overdue ${checkStatus ? "overdue" : ""}`}>
-                {/* <FontAwesomeIcon icon={faBell} /> */}
-                <i className="bi bi-bell"></i>
-                </div>
-
                 <div className={`icon-done ${todo.status === "done" ? "completed" : ""}`}>
                   <i className="bi bi-check-all"></i>
                 </div>
