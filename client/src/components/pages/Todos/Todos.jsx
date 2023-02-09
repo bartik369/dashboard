@@ -18,7 +18,8 @@ import AddButton from "../../UI/buttons/AddButton";
 import "../Todos/Todos.css";
 import "../../../styles/App.css";
 import Masonry from "react-masonry-css";
-import OverdueClock from "../../../assets/portal/todo-overdue-bg.png"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faBell} from '@fortawesome/free-solid-svg-icons';
 
 const Todos = () => {
   const [deleteId, setDeleteId] = useState();
@@ -112,6 +113,7 @@ const Todos = () => {
 
           const startTodoDate = moment(todo.startTime).format("DD.MM.YYYY HH:mm");
           const endTodoDate = Date.parse(todo.endTime);
+          const checkStatus = endTodoDate <= dateNow && todo.status !== "done";
 
           return (
             <div className={`todo-item
@@ -120,10 +122,11 @@ const Todos = () => {
             ${deleteId === todo._id ? "delete-animation" : ""}`}
               key={index}
             >
-              <div className={`todo-item__back ${endTodoDate <= dateNow && todo.status !== "done" ? "overdue" : ""}`}></div>
+              <div className={`todo-item__back ${checkStatus ? "overdue" : ""}`}></div>
               <div className={"todo-item__inner"}>
-                <div className={`icon-overdue ${endTodoDate <= dateNow && todo.status !== "done" ? "overdue" : ""}`}>
-                  <img src={OverdueClock} />
+                <div className={`icon-overdue ${checkStatus ? "overdue" : ""}`}>
+                {/* <FontAwesomeIcon icon={faBell} /> */}
+                <i className="bi bi-bell"></i>
                 </div>
 
                 <div className={`icon-done ${todo.status === "done" ? "completed" : ""}`}>

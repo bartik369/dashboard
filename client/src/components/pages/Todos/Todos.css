@@ -153,16 +153,78 @@
 
 .icon-overdue {
     position: absolute;
-    right: 5px;
-    bottom: -5px;
+    right: 15px;
+    top: 15px;
     opacity: 0;
 }
 
 .icon-overdue.overdue {
-    width: 80px;
-    height: 50px;
     opacity: 1;
     z-index: 9;
+    font-size: 20px;
+    color: #f77b7b;
+    animation: bellshake 3s infinite;
+}
+
+@keyframes bellshake {
+    0% {
+        transform: rotate(0deg);
+    }
+    8.0% {
+        transform: rotate(0deg);
+    }
+    12.0% {
+        transform: rotate(20deg);
+    }
+    16.0% {
+        transform: rotate(-20deg);
+    }
+    20.0% {
+        transform: rotate(0deg);
+    }
+    23.0% {
+        transform: rotate(10deg);
+    }
+    26.0% {
+        transform: rotate(-10deg);
+    }
+    29.0% {
+        transform: rotate(0deg);
+    }
+    31.0% {
+        transform: rotate(5deg);
+    }
+    33.0% {
+        transform: rotate(-5deg);
+    }
+    35.0% {
+        transform: rotate(0deg);
+    }
+    37.0% {
+        transform: rotate(-2deg);
+    }
+    39.0% {
+        transform: rotate(0deg);
+    }
+    40.0% {
+        transform: rotate(2deg);
+    }
+    44.0% {
+        transform: rotate(-1deg);
+    }
+    49.0% {
+        transform: rotate(1deg);
+    }
+    55.0% {
+        transform: rotate(0deg);
+    }
+    62.0% {
+        transform: rotate(1deg);
+    }
+    70.0%,
+    100% {
+        transform: rotate(0deg);
+    }
 }
 
 .todo-item__back {
