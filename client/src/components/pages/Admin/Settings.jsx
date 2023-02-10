@@ -1,5 +1,9 @@
 import React, {useEffect, useState} from "react";
 import "./admin.css"
+import SystemInfo from "./SystemInfo";
+import UserInfo from "./UserInfo";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAddressCard} from '@fortawesome/free-solid-svg-icons';
 
 const Settings = () => {
 
@@ -10,24 +14,25 @@ const Settings = () => {
     }
 
     return (
-        <div className="tabs">
+        <div className="block-tabs">
             <div nav="tabs-nav">
                 <button className={activeTab === 1 ? "tabs active-tabs" : "tabs"} onClick={() => setTabHandler(1)}>
-                    Tab number 1
+                    <FontAwesomeIcon className="icon" icon={faAddressCard} />
+                    <span>UserInfo</span>
                 </button>
                 <button className={activeTab === 2 ? "tabs active-tabs" : "tabs"} onClick={() => setTabHandler(2)}>
-                    Tab number 2
+                    <span>SystemInfo</span>
                 </button>
                 <button className={activeTab === 3 ? "tabs active-tabs" : "tabs"} onClick={() => setTabHandler(3)}>
-                    Tab number 3
+                    <span>Tab number 3</span>
                 </button>
             </div>
-            <div className="tabs-content">
+            <div className="content-tabs">
                 <div className={activeTab === 1 ? "content active-content" : "content"}>
-                    Content number1
+                    <UserInfo />
                 </div>
                 <div className={activeTab === 2 ? "content active-content" : "content"}>
-                    Content number2
+                    <SystemInfo />
                 </div>
                 <div className={activeTab === 3 ? "content active-content" : "content"}>
                     Content number3
