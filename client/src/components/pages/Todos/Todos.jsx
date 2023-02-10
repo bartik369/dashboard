@@ -18,8 +18,6 @@ import AddButton from "../../UI/buttons/AddButton";
 import "../Todos/Todos.css";
 import "../../../styles/App.css";
 import Masonry from "react-masonry-css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faBell} from '@fortawesome/free-solid-svg-icons';
 
 const Todos = () => {
   const [deleteId, setDeleteId] = useState();

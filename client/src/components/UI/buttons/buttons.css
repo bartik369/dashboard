@@ -30,6 +30,10 @@
     background: #43d294;
 }
 
+.submit-btn-medium a {
+    color: #fff;
+}
+
 .submit-btn-small {
     padding: 12px 21px;
     background: #2144ac;

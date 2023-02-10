@@ -75,7 +75,7 @@
 .widget-item__title {
     font-size: 16px;
     margin-bottom: 10px;
-    color: #0A2540;
+    color: #1e293b;
     text-transform: uppercase;
     font-weight: 700;
     font-family: inherit;
@@ -88,7 +88,7 @@
     font-weight: 700;
     font-size: 12px;
     padding: 7px 0;
-    color: #252938;
+    color: #1e293b;
 }
 
 .todos_info__endtime {
@@ -97,14 +97,16 @@
     font-family: inherit;
     font-weight: 700;
     letter-spacing: -.4px;
+    font-size: 13px;
 }
 
 .todos_info__endtime-danger {
     padding: 5px 0;
-    color: #ea3e71;
+    color: #dc2626;
     font-family: inherit;
     font-weight: 700;
     letter-spacing: -.4px;
+    font-size: 13px;
 }
 
 .button-wrap {

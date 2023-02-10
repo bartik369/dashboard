@@ -11,3 +11,5 @@ export const deviceName = "Название";
 export const deviceNumber = "Серийный номер";
 export const deviceUser = "Пользователь";
 export const deviceDateAdded = "Дата добавления";
+
+export const openTodos = "Открыть задачи"
