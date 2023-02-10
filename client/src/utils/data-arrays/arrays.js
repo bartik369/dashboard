@@ -32,7 +32,7 @@ export const menuItem = [
     { name: 'Главная', to: '/dashboard', iconClassName: 'bi bi-speedometer' },
     { name: 'Устройства', to: '/devices', iconClassName: 'bi bi-hdd' },
     { name: 'Статистика', to: '/statistic', iconClassName: 'bi bi-bar-chart' },
-    { name: 'Пользователи', to: '/users', iconClassName: 'bi bi-people' },
+    { name: 'Сообщения', to: '/messenger', iconClassName: 'bi bi-chat-left-text' },
     { name: 'Задачи', to: '/todos', iconClassName: 'bi bi-check2-square' },
     { name: 'Календарь', to: '/calendar', iconClassName: 'bi bi-calendar-date' },
     { name: 'Настройки', to: '/settings', iconClassName: 'bi bi-gear' },

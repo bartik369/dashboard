@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import Devices from "./components/pages/Devices/Devices";
 import Statistics from "./components/pages/Statistic";
-import Users from "./components/pages/Users";
+import Messenger from "./components/pages/Messanger/Messenger";
 import Todos from "./components/pages/Todos/Todos";
 import Calendar from "./components/pages/Calendar";
 import Settings from "./components/pages/Admin/Settings";
@@ -39,7 +39,7 @@ function App() {
           <Route path="/dashboard" element={<Homepage />} />
           <Route path="/devices" element={<Devices />} />
           <Route path="/statistic" element={<Statistics />} />
-          <Route path="/users" element={<Users />} />
+          <Route path="/messenger" element={<Messenger />} />
           <Route path="/todos" element={<Todos />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/profile" element={<Profile />} />
