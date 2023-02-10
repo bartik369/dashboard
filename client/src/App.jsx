@@ -5,7 +5,7 @@ import Statistics from "./components/pages/Statistic";
 import Users from "./components/pages/Users";
 import Todos from "./components/pages/Todos/Todos";
 import Calendar from "./components/pages/Calendar";
-import Settings from "./components/pages/Settings";
+import Settings from "./components/pages/Admin/Settings";
 import Homepage from "./components/pages/Homepage";
 import Profile from "./components/pages/Profile/Profile";
 import NotFoundPage from "./components/pages/NotFoundPage/NotFoundPage";
