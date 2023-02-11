@@ -82,7 +82,7 @@ export default function Profile() {
   };
 
   const updateUserInfoHandler = () => {
-    
+
   }
 
   return (
@@ -114,7 +114,7 @@ export default function Profile() {
           </div>
           <input
             className="content-form__input"
-            placeholder={formConstants.fillDeviceName}
+            placeholder={formConstants.yourName}
             type="text"
             name="displayname"
             {...register("displayname", {
@@ -132,7 +132,7 @@ export default function Profile() {
           </div>
           <input
             className="content-form__input"
-            placeholder={formConstants.fillDeviceName}
+            placeholder={formConstants.yourEmail}
             type="text"
             name="email"
             {...register("email", {
@@ -153,7 +153,7 @@ export default function Profile() {
 
         <textarea
             className="content-form__input"
-            placeholder={formConstants.fillDeviceName}
+            placeholder={formConstants.profileDescription}
             type="text"
             name="description"
             {...register("description", {
@@ -172,7 +172,7 @@ export default function Profile() {
 
           <input
             className="content-form__input"
-            placeholder={formConstants.fillDeviceName}
+            placeholder={formConstants.profileCity}
             type="text"
             name="city"
             {...register("city", {
@@ -191,7 +191,7 @@ export default function Profile() {
 
           <input
             className="content-form__input"
-            placeholder={formConstants.fillDeviceName}
+            placeholder={formConstants.profileBirthday}
             type="text"
             name="birthday"
             {...register("birthday", {
@@ -210,7 +210,7 @@ export default function Profile() {
 
           <input
             className="content-form__input"
-            placeholder={formConstants.fillDeviceName}
+            placeholder={formConstants.profilePhone}
             type="text"
             name="phone"
             {...register("phone", {
@@ -229,7 +229,7 @@ export default function Profile() {
 
           <input
             className="content-form__input"
-            placeholder={formConstants.fillDeviceName}
+            placeholder={formConstants.profileWorkDepartament}
             type="text"
             name="departament"
             {...register("departament", {
@@ -248,7 +248,7 @@ export default function Profile() {
 
           <input
             className="content-form__input"
-            placeholder={formConstants.fillDeviceName}
+            placeholder={formConstants.profileWorkPhone}
             type="text"
             name="workPhone"
             {...register("workPhone", {
@@ -265,8 +265,7 @@ export default function Profile() {
             )}
           </div>
           <AddButton
-          className={"add-todo-btn"}
-          icon={"bi bi-plus"}
+          className={"submit-btn-small"}
           action={() => updateUserInfoHandler()}
           title={uiConstants.newTask}
         />

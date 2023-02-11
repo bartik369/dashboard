@@ -66,3 +66,13 @@ export const todoTitlePlaceholder = "Заголовок задачи";
 export const todoDescriptionPlaceholder = "Описание задачи";
 export const newTodoTitle = "Создать новую задачу";
 export const updateTodoTitle = "Обновление задачи";
+
+// profile
+
+export const profileDescription = "Расскажите о себе";
+export const profileCity = "Город";
+export const profileBirthday = "День рождения";
+export const profilePhone = "Номер телефона";
+export const profileWorkDepartament = "Департамент";
+export const profileWorkPhone = "Номер рабочего телефона";
+export const profileWorkVocation = "Направление";
