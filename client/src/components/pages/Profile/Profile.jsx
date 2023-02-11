@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import {useForm} from "react-hook-form";
 import Modal from '../../UI/modal/Modal';
 import ChangePassword from '../../form/change-password/ChangePassword';
 
@@ -29,6 +30,15 @@ export default function Profile() {
         avatar: "",
       });
 
+      const {
+        register,
+        formState: {errors},
+        handleSubmit,
+        reset,
+      } = useForm({
+        mode:"onBlur"
+      })
+
     const changePassword = () => {
         setActiveModal(true);
     }
@@ -41,7 +51,7 @@ export default function Profile() {
 
   return (
     <div className="profile">
-        <Modal active={activeModal} close={closeModal}>
+        {/* <Modal active={activeModal} close={closeModal}>
             <ChangePassword email={user.email} />
         </Modal>
         <div className="user-info">
@@ -60,7 +70,10 @@ export default function Profile() {
         <div className="change-password">
         <Link to="#" onClick={changePassword}>Изменить пароль</Link>
         </div>
-        </div>
+        </div> */}
+        <form action="">
+
+        </form>
     </div>
   )
 }
