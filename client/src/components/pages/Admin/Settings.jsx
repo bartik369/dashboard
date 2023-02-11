@@ -2,13 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./admin.css";
 import SystemInfo from "./SystemInfo";
 import UserInfo from "./UserInfo";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faAddressCard,
-  faFile,
-  faNetworkWired,
-  faServer
-} from "@fortawesome/free-solid-svg-icons";
 
 const Settings = () => {
   const [activeTab, setActiveTab] = useState(1);
