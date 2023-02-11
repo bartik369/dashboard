@@ -7,20 +7,24 @@ import {
 
 } from "../types/typesUsers";
 
-// const initialState = {
-//     users: [],
-//     user: null,
-//     isAuth: false,
-//     accessToken: null,
-//     loading: true,
-// };
-
 const initialState = {
     users: [],
     auth: {
         user: null,
         isAuth: false,
         accessToken: null,
+    },
+    userInfo: {
+        description: "some text",
+        city: "Moscow",
+        birthday: "15 feb",
+        phone: "8 927 2316745",
+        work: {
+            departament: "IT",
+            phone: "8 905 4561212",
+            vocation: "developer",
+        },
+        avatar: null,
     },
     loading: true,
 };
