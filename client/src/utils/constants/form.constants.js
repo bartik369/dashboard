@@ -30,6 +30,7 @@ export const register = "Зарегистрироваться";
 export const forgotPassword = "Забыли пароль?";
 export const accountNotExist = "Нет аккауна?";
 export const accountExist = "Уже есть аккаунт?";
+export const save = "Сохранить"
 
 
 //

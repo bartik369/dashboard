@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-const UserInfoShema = new Schema({
+const ProfileInfoShema = new Schema({
     userId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
@@ -32,7 +32,7 @@ const UserInfoShema = new Schema({
             unique: false,
             required: false,
         },
-        phone: {
+        workPhone: {
             type: Number,
             unique: false,
             required: false,
@@ -48,4 +48,7 @@ const UserInfoShema = new Schema({
         unique: false,
         required: false,
     }
-})
+});
+
+const ProfileInfo = mongoose.model('ProfileInfo', ProfileInfoShema);
+export default ProfileInfo;

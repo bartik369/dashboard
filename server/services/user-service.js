@@ -1,4 +1,5 @@
 import UserModel from "../models/user-model.js";
+import ProfileInfoModel from "../models/user-info-model.js"
 import Roles from "../models/roles-model.js"
 import ResetPasswordModel from "../models/reset-password-model.js";
 import bcrypt from "bcrypt";
@@ -27,6 +28,18 @@ class UserService {
             activationLink,
             roles: [userRoles.value]
         });
+        const profileInfo = await ProfileInfoModel.create({
+            userId: candidate._id,
+            description: "",
+            city: "",
+            birthday: "",
+            phone: "",
+            work: {
+                departament: "",
+                workPhone: "",
+                vocation: ""
+            }
+        })
 
         await mailService.sendActivationMail(
             email,
@@ -96,9 +109,28 @@ class UserService {
         }
     }
 
+    async updateProfileInfo(displayname, email, description, city, birthday, phone, work) {
+        try {
+            const user = await UserModel.findOne({ email })
+
+            if (!user) {
+                throw ApiError.UnauthorizedError();
+            }
+            const data = await UserModel.findById(user._id, {
+                description: description,
+            })
+
+            data.save()
+
+        } catch (error) {
+
+        }
+
+    }
+
     async assignUserPassword(email, password) {
         try {
-            const user = await UserModel.findOne({email});
+            const user = await UserModel.findOne({ email });
 
             if (!user) {
                 throw ApiError.BadRequest("Непредвиденная ошибка")
@@ -106,9 +138,9 @@ class UserService {
             const hashPassword = await bcrypt.hash(password, 7)
             user.password = hashPassword;
             await user.save()
-            
+
         } catch (error) {
-            
+
         }
     }
 

@@ -184,7 +184,7 @@ export default function Profile() {
           mask="+7(999)999-99-99"
           name="phone"
           {...register("phone", {
-            required: formConstants.requiredText,
+            // required: formConstants.requiredText,
           //   pattern: {
           //     value: REGEX.isValidDisplayName,
           //     message: formConstants.wrongDeviceNumber,
@@ -220,7 +220,7 @@ export default function Profile() {
           mask="+7(999)999-99-99"
           name="workPhone"
           {...register("workPhone", {
-            required: formConstants.requiredText,
+            // required: formConstants.requiredText,
           //   pattern: {
           //     value: REGEX.isValidDisplayName,
           //     message: formConstants.wrongDeviceNumber,
@@ -249,7 +249,7 @@ export default function Profile() {
           <AddButton
           className={"submit-btn-small"}
           action={() => updateUserInfoHandler()}
-          title={uiConstants.newTask}
+          title={formConstants.save}
         />
         </div>
       </form>
