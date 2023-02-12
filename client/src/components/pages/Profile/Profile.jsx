@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
+import InputMask from "react-input-mask"
 import * as formConstants from "../../../utils/constants/form.constants";
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as uiConstants from "../../../utils/constants/ui.constants";
@@ -37,6 +38,7 @@ export default function Profile() {
   });
 
   const {
+    control,
     register,
     formState: { errors },
     handleSubmit,
@@ -51,6 +53,7 @@ export default function Profile() {
       birthday: userInfo.birthday,
       phone: userInfo.phone,
       departament: userInfo.work.departament,
+      // workPhone: userInfo.work.phone,
       workPhone: userInfo.work.phone,
       vocation: userInfo.work.vocation,
     }
@@ -148,6 +151,12 @@ export default function Profile() {
               <p>{errors.email.message || formConstants.unknownError}</p>
             )}
           </div>
+          <Modal active={activeModal} close={closeModal}>
+            <ChangePassword email={user.email} />
+        </Modal>
+        <div className="change-password">
+        <Link to="#" onClick={changePassword}>Изменить пароль</Link>
+        </div>
         </div>
         <div className="profile__additional-info">
 
@@ -208,19 +217,20 @@ export default function Profile() {
             )}
           </div>
 
-          <input
-            className="content-form__input"
-            placeholder={formConstants.profilePhone}
-            type="text"
-            name="phone"
-            {...register("phone", {
-              required: formConstants.requiredText,
-              pattern: {
-                value: REGEX.isValidDisplayName,
-                message: formConstants.wrongDeviceName,
-              },
-            })}
-          />
+          <InputMask
+          className="content-form__input"
+          as={InputMask}
+          control={control}
+          mask="+7 (999) 999-99-99"
+          name="workPhone"
+          {...register("workPhone", {
+            required: formConstants.requiredText,
+            pattern: {
+              value: REGEX.isValidDisplayName,
+              message: formConstants.wrongDeviceName,
+            },
+          })}
+        />
           <div className="form-error">
             {errors.phone && (
               <p>{errors.phone.message || formConstants.unknownError}</p>
