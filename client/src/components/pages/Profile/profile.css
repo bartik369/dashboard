@@ -6,6 +6,29 @@
     overflow: hidden;
 }
 
+.profile .ext-info {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 5px 5px -5px rgb(99 108 126 / 30%);
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.profile .form {
+    display: flex;
+    justify-content: center;
+    max-width: 1000px;
+    width: 100%;
+    overflow: hidden;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 5px 5px -5px rgb(99 108 126 / 30%);
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
 .profile__main-info {
     width: 50%;
     padding: 20px;

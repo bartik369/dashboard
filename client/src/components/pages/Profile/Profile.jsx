@@ -53,7 +53,6 @@ export default function Profile() {
       birthday: userInfo.birthday,
       phone: userInfo.phone,
       departament: userInfo.work.departament,
-      // workPhone: userInfo.work.phone,
       workPhone: userInfo.work.phone,
       vocation: userInfo.work.vocation,
     }
@@ -68,6 +67,7 @@ export default function Profile() {
   };
 
   const onSubmit = (data) => {
+    console.log(data)
     const mainInfo = {
       ...userMainInfo,
       displayname: data.displayname,
@@ -90,27 +90,7 @@ export default function Profile() {
 
   return (
     <div className="profile">
-      {/* <Modal active={activeModal} close={closeModal}>
-            <ChangePassword email={user.email} />
-        </Modal>
-        <div className="user-info">
-        <h1>User Info</h1>
-        <div className="name">{user.displayname}</div>
-        <div className="email">{user.email}</div>
-        <div className="description">{userInfo.description}</div>
-        <div className="city">{userInfo.city}</div>
-        <div className="birthday">{userInfo.birthday}</div>
-        <div className="phone">{userInfo.phone}</div>
-        <div className="departament">{userInfo.work.departament}</div>
-        <div className="phone">{userInfo.work.phone}</div>
-        <div className="vocation">{userInfo.work.vocation}</div>
-
-
-        <div className="change-password">
-        <Link to="#" onClick={changePassword}>Изменить пароль</Link>
-        </div>
-        </div> */}
-      <form className="profile" onSubmit={handleSubmit(onSubmit)}>
+      <form className="form" onSubmit={handleSubmit(onSubmit)}>
         <div className="profile__main-info">
           <div className="profile__image">
             <img src={profileImage} />
@@ -121,11 +101,7 @@ export default function Profile() {
             type="text"
             name="displayname"
             {...register("displayname", {
-              required: formConstants.requiredText,
-              pattern: {
-                value: REGEX.isValidDisplayName,
-                message: formConstants.wrongDeviceName,
-              },
+            
             })}
           />
           <div className="form-error">
@@ -139,11 +115,7 @@ export default function Profile() {
             type="text"
             name="email"
             {...register("email", {
-              required: formConstants.requiredText,
-              pattern: {
-                value: REGEX.isValidDisplayName,
-                message: formConstants.wrongDeviceName,
-              },
+             
             })}
           />
           <div className="form-error">
@@ -166,11 +138,7 @@ export default function Profile() {
             type="text"
             name="description"
             {...register("description", {
-              required: formConstants.requiredText,
-              pattern: {
-                value: REGEX.isValidDisplayName,
-                message: formConstants.wrongDeviceName,
-              },
+            
             })}
           />
           <div className="form-error">
@@ -185,11 +153,7 @@ export default function Profile() {
             type="text"
             name="city"
             {...register("city", {
-              required: formConstants.requiredText,
-              pattern: {
-                value: REGEX.isValidDisplayName,
-                message: formConstants.wrongDeviceName,
-              },
+            
             })}
           />
           <div className="form-error">
@@ -204,11 +168,7 @@ export default function Profile() {
             type="text"
             name="birthday"
             {...register("birthday", {
-              required: formConstants.requiredText,
-              pattern: {
-                value: REGEX.isValidDisplayName,
-                message: formConstants.wrongDeviceName,
-              },
+             
             })}
           />
           <div className="form-error">
@@ -219,16 +179,17 @@ export default function Profile() {
 
           <InputMask
           className="content-form__input"
+          placeholder={formConstants.profilePhone}
           as={InputMask}
           control={control}
-          mask="+7 (999) 999-99-99"
-          name="workPhone"
-          {...register("workPhone", {
+          mask="+7(999)999-99-99"
+          name="phone"
+          {...register("phone", {
             required: formConstants.requiredText,
-            pattern: {
-              value: REGEX.isValidDisplayName,
-              message: formConstants.wrongDeviceName,
-            },
+          //   pattern: {
+          //     value: REGEX.isValidDisplayName,
+          //     message: formConstants.wrongDeviceNumber,
+          // },
           })}
         />
           <div className="form-error">
@@ -243,11 +204,7 @@ export default function Profile() {
             type="text"
             name="departament"
             {...register("departament", {
-              required: formConstants.requiredText,
-              pattern: {
-                value: REGEX.isValidDisplayName,
-                message: formConstants.wrongDeviceName,
-              },
+             
             })}
           />
           <div className="form-error">
@@ -256,19 +213,21 @@ export default function Profile() {
             )}
           </div>
 
-          <input
-            className="content-form__input"
-            placeholder={formConstants.profileWorkPhone}
-            type="text"
-            name="workPhone"
-            {...register("workPhone", {
-              required: formConstants.requiredText,
-              pattern: {
-                value: REGEX.isValidDisplayName,
-                message: formConstants.wrongDeviceName,
-              },
-            })}
-          />
+          <InputMask
+          className="content-form__input"
+          placeholder={formConstants.profilePhone}
+          as={InputMask}
+          control={control}
+          mask="+7(999)999-99-99"
+          name="workPhone"
+          {...register("workPhone", {
+            required: formConstants.requiredText,
+          //   pattern: {
+          //     value: REGEX.isValidDisplayName,
+          //     message: formConstants.wrongDeviceNumber,
+          // },
+          })}
+        />
           <div className="form-error">
             {errors.workPhone && (
               <p>{errors.workPhone.message || formConstants.unknownError}</p>
@@ -281,6 +240,9 @@ export default function Profile() {
         />
         </div>
       </form>
+      <div className="ext-info">
+        fsfsfsdfs
+      </div>
     </div>
   );
 }
