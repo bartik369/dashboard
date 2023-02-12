@@ -200,3 +200,17 @@ export const compareAccessToken = () => {
         }
     };
 }
+
+export const updateProfileInfo = (main) => {
+
+    return async function(dispatch) {
+        try {
+            await axios.put(`${ENV.HOSTNAME}api/update-profile-info`, main)
+                .then((response) => {
+
+                })
+        } catch (error) {
+
+        }
+    }
+}

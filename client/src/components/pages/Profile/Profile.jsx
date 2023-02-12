@@ -12,26 +12,23 @@ import ChangePassword from "../../form/change-password/ChangePassword";
 import profileImage from "../../../assets/users/developer-profile.jpg"
 import "../../form/forms.css";
 import "./profile.css"
+import { updateProfileInfo } from "../../../store/actions/usersActions";
 
 export default function Profile() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.auth.user);
   const userInfo = useSelector((state) => state.userInfo.userInfo);
   const [activeModal, setActiveModal] = useState(null);
-  const [userMainInfo, setUserMainInfo] = useState({
+  const [profileInfo, setProfileInfo] = useState({
     displayname: "",
     email: "",
-    roles: "",
-  });
-
-  const [userAdditionalInfo, setUserAdditionalInfo] = useState({
     description: "",
     city: "",
     birthday: "",
     phone: "",
     work: {
       departament: "",
-      phone: "",
+      workPhone: "",
       vocation: "",
     },
     avatar: "",
@@ -68,20 +65,22 @@ export default function Profile() {
 
   const onSubmit = (data) => {
     console.log(data)
-    const mainInfo = {
-      ...userMainInfo,
+    const updatedProfileInfo = {
+      ...profileInfo,
       displayname: data.displayname,
       email: data.email,
-      roles: data.roles,
-    };
-    const additionalInfo = {
-      ...userAdditionalInfo,
       description: data.description,
       city: data.city,
       birthday: data.birthday,
       phone: data.phone,
-      work: data.work,
+      work: {
+        departament: data.departament,
+        workPhone: data.workPhone,
+        vocation: data.vocation,
+      },
     };
+    dispatch(updateProfileInfo(updatedProfileInfo))
+    reset();
   };
 
   const updateUserInfoHandler = () => {
@@ -231,6 +230,20 @@ export default function Profile() {
           <div className="form-error">
             {errors.workPhone && (
               <p>{errors.workPhone.message || formConstants.unknownError}</p>
+            )}
+          </div>
+          <input
+            className="content-form__input"
+            placeholder={formConstants.profileWorkVocation}
+            type="text"
+            name="vocation"
+            {...register("vocation", {
+             
+            })}
+          />
+          <div className="form-error">
+            {errors.vocation && (
+              <p>{errors.vocation.message || formConstants.unknownError}</p>
             )}
           </div>
           <AddButton

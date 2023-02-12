@@ -105,11 +105,26 @@ class UserController {
 
     async assignNewPassword(req, res, next) {
         try {
-          const { email, password } = req.body;
-          const userData = await userService.assignUserPassword(email, password);
-          return userData
+            const { email, password } = req.body;
+            const userData = await userService.assignUserPassword(email, password);
+            return userData
         } catch (error) {
             next(error)
+        }
+    }
+
+    async updateProfileInfo(req, res, next) {
+        try {
+            const { displayname, email, description, city, birthday, phone, work } = req.body;
+            console.log(displayname)
+            console.log(email)
+            console.log(description)
+            console.log(city)
+            console.log(birthday)
+            console.log(phone)
+            console.log(work)
+        } catch (error) {
+
         }
     }
 
