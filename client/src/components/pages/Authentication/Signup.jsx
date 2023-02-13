@@ -24,6 +24,16 @@ export default function Signup() {
     displayname: "",
     email: "",
     password: "",
+    description: "",
+    city: "",
+    birthday: "",
+    phone: null,
+    work: {
+      departament: "",
+      workPhone: null,
+      vocation: "",
+    },
+    avatar: "",
   });
 
   const {
@@ -62,6 +72,16 @@ export default function Signup() {
       displayname: data.displayname,
       email: data.email,
       password: data.password,
+      description: "",
+      city: "",
+      birthday: "",
+      phone: null,
+      work: {
+      departament: "",
+      workPhone: null,
+      vocation: "",
+    },
+    avatar: "",
     };
     setUserInfo(newUser);
     dispatch(createUser(newUser, animationSignup, setError));

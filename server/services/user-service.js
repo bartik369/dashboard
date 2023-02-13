@@ -10,7 +10,7 @@ import UserDto from "../dtos/user-dto.js";
 import ApiError from "../exceptions/api-error.js";
 
 class UserService {
-    async registration(displayname, email, password) {
+    async registration(displayname, email, password, description, city, birthday, phone, work) {
         const candidate = await UserModel.findOne({ email });
 
         if (candidate) {
@@ -28,17 +28,13 @@ class UserService {
             activationLink,
             roles: [userRoles.value]
         });
-        const profileInfo = await ProfileInfoModel.create({
-            userId: candidate._id,
-            description: "",
-            city: "",
-            birthday: "",
-            phone: "",
-            work: {
-                departament: "",
-                workPhone: "",
-                vocation: ""
-            }
+        await ProfileInfoModel.create({
+            userId: user._id,
+            description,
+            city,
+            birthday,
+            phone,
+            work,
         })
 
         await mailService.sendActivationMail(
