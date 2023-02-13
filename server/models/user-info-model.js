@@ -22,7 +22,7 @@ const ProfileInfoShema = new Schema({
         required: false,
     },
     phone: {
-        type: Number,
+        type: String,
         unique: true,
         required: false,
     },
@@ -33,7 +33,7 @@ const ProfileInfoShema = new Schema({
             required: false,
         },
         workPhone: {
-            type: Number,
+            type: String,
             unique: false,
             required: false,
         },

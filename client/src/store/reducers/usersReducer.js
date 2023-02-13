@@ -17,14 +17,14 @@ const initialState = {
     userInfo: {
         description: "",
         city: "",
-        birthday: null,
+        birthday: "",
         phone: "",
         work: {
             departament: "",
             phone: "",
             vocation: "",
         },
-        avatar: null,
+        avatar: "",
     },
     loading: true,
 };

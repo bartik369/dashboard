@@ -112,11 +112,28 @@ class UserService {
             if (!user) {
                 throw ApiError.UnauthorizedError();
             }
-            const data = await UserModel.findById(user._id, {
-                description: description,
-            })
+
+            const data = await UserModel(user.id, {
+                displayname: displayname,
+                email: email,
+            });
 
             data.save()
+
+            const extData = await ProfileInfoModel.findById({ userId: user._id });
+
+            if (!extData) {
+                throw ApiError.UnauthorizedError();
+            }
+            const data2 = await ProfileInfoModel(extData.userId, {
+                description: description,
+                city: city,
+                birthday: birthday,
+                phone: phone,
+                work: work
+            });
+            data2.save()
+
 
         } catch (error) {
 
@@ -192,7 +209,6 @@ class UserService {
         if (!userData || !tokenFromDatabase) {
             throw ApiError.UnauthorizedError();
         }
-        c
 
         const user = await UserModel.findById(userData.id);
         const userDto = new UserDto(user);
