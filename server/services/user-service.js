@@ -113,7 +113,7 @@ class UserService {
                 throw ApiError.UnauthorizedError();
             }
 
-            const profileInfo =  await ProfilModel.findOne(user._id);
+            const profileInfo = await ProfilModel.findOne(user._id);
 
             if (!profileInfo) {
                 throw ApiError.UnauthorizedError();
@@ -216,6 +216,20 @@ class UserService {
         };
     }
 
+    async getProfile(id) {
+        const user = await UserModel.findById(id);
+
+        if (!user) {
+            throw ApiError.BadRequest()
+        }
+        const profile = await ProfilModel.findOne(user._id)
+
+        if (!profile) {
+            throw ApiError.BadRequest()
+        }
+        return profile
+    }
+
     async getUsers() {
         const users = await UserModel.find();
         return users;
@@ -225,5 +239,6 @@ class UserService {
 
     }
 }
+
 
 export default new UserService();

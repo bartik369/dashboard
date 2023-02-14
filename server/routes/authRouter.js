@@ -9,6 +9,7 @@ router.get('/activate/:link', userController.activate);
 router.get('/refresh', userController.refresh);
 router.get('/users', userController.getUsers);
 router.get('/user/:id', userController.getUser);
+router.get('/profile/:id', userController.getProfile)
 router.get('/auth', userController.authUser);
 router.post('/reset', userController.resetPassword);
 router.get('/setpassword/:link', userController.checkResetLink)

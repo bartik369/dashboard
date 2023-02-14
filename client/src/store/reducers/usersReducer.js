@@ -4,6 +4,8 @@ import {
     LOGOUT_USER,
     GET_USER,
     GET_USERS,
+    GET_PROFILE_INFO,
+    UPDATE_PROFILE_INFO,
 
 } from "../types/typesUsers";
 
@@ -68,6 +70,23 @@ const usersReducer = (state = initialState, action) => {
                     user: null,
                     isAuth: false,
                     accessToken: null,
+                }
+            }
+        case GET_PROFILE_INFO:
+            return {
+                ...state,
+                userInfo: {
+                    ...state.userInfo,
+                    description: "esds",
+                    city: "dsds",
+                    birthday: "dsds",
+                    phone: "",
+                    work: {
+                        departament: "",
+                        phone: "",
+                        vocation: "",
+                    },
+                    avatar: "",
                 }
             }
         default:

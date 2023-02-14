@@ -22,6 +22,7 @@ export default function Profile() {
   const userInfo = useSelector((state) => state.userInfo.userInfo);
   const [activeModal, setActiveModal] = useState(null);
   const [profileInfo, setProfileInfo] = useState({
+    id: "",
     displayname: "",
     email: "",
     description: "",
@@ -58,6 +59,7 @@ export default function Profile() {
     }
   });
 
+
   useEffect(() => {
     dispatch(getProfileInfo(user.id))
   }, [user])
@@ -87,7 +89,7 @@ export default function Profile() {
       },
     };
     dispatch(updateProfileInfo(updatedProfileInfo))
-    reset();
+    // reset();
   };
 
   const updateUserInfoHandler = () => {

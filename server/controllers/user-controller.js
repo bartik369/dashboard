@@ -6,7 +6,7 @@ import tokenService from "../services/token-service.js";
 class UserController {
     async registration(req, res, next) {
         try {
-            const { displayname, email, password, description, city, birthday, phone, work  } = req.body;
+            const { displayname, email, password, description, city, birthday, phone, work } = req.body;
             const userData = await userService.registration(displayname, email, password, description, city, birthday, phone, work);
             res.cookie('refreshToken', userData.refreshToken, {
                 maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -135,6 +135,16 @@ class UserController {
     async getUser(req, res, next) {
         try {
             const user = await userService.getUser();
+        } catch (error) {
+
+        }
+    }
+
+    async getProfile(req, res, next) {
+        try {
+            const id = req.params.id;
+            const profile = await userService.getProfile(id)
+            return res.json(profile)
         } catch (error) {
 
         }

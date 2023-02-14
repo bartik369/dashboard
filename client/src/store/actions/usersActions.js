@@ -40,8 +40,9 @@ const updateProfile = () => ({
     type: UPDATE_PROFILE_INFO,
 });
 
-const profileInfo = () => ({
+const profileInfo = (profile) => ({
     type: GET_PROFILE_INFO,
+    payload: profile,
 });
 
 export const createUser = (user, animationSignup, setError) => {
@@ -226,13 +227,14 @@ export const updateProfileInfo = (main) => {
 
 export const getProfileInfo = (id) => {
 
-    console.log(id)
-    
     return async function(dispatch) {
         try {
-
+            await axios.get(`${ENV.HOSTNAME}api/profile/${id}`)
+                .then((response) => {
+                    profileInfo(response.data)
+                })
         } catch (error) {
-            
+            console.log(error)
         }
     }
 }

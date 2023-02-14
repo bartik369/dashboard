@@ -10,9 +10,6 @@ export default function PrivateRoutes({ allowedRoles }) {
   const user = useSelector((state) => state.auth.auth.user);
   const [slideStateContainer, setSlideStateContainer] = useState(false);
 
-  console.log(user)
-  console.log(isAuth)
-
   return (
     isAuth &&
         <div className="afterlogin">
