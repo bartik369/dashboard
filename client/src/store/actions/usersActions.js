@@ -7,6 +7,8 @@ import {
     CREATE_USER,
     LOGIN_USER,
     LOGOUT_USER,
+    GET_PROFILE_INFO,
+    UPDATE_PROFILE_INFO,
 } from "../types/typesUsers.js";
 
 
@@ -14,26 +16,33 @@ const getUsers = (users) => ({
     type: GET_USERS,
     payload: users,
     loading: true,
-})
+});
 
 const getUser = (user) => ({
     type: GET_USER,
     payload: user,
-})
+});
 
 const login = (user) => ({
     type: LOGIN_USER,
     payload: user,
-})
+});
 
 const logout = () => ({
     type: LOGOUT_USER,
-})
+});
 
 const addUser = () => ({
     type: CREATE_USER,
-})
+});
 
+const updateProfile = () => ({
+    type: UPDATE_PROFILE_INFO,
+});
+
+const profileInfo = () => ({
+    type: GET_PROFILE_INFO,
+});
 
 export const createUser = (user, animationSignup, setError) => {
     return async function(dispatch) {
@@ -205,12 +214,25 @@ export const updateProfileInfo = (main) => {
 
     return async function(dispatch) {
         try {
-            await axios.put(`${ENV.HOSTNAME}api/update-profile-info`, main)
+            await axios.put(`${ENV.HOSTNAME}api/update-profile`, main)
                 .then((response) => {
 
                 })
         } catch (error) {
 
+        }
+    }
+}
+
+export const getProfileInfo = (id) => {
+
+    console.log(id)
+    
+    return async function(dispatch) {
+        try {
+
+        } catch (error) {
+            
         }
     }
 }

@@ -113,15 +113,13 @@ class UserController {
         }
     }
 
-    async updateProfileInfo(req, res, next) {
+    async updateProfile(req, res, next) {
         try {
-            const { displayname, email, description, city, birthday, phone, work } = req.body;
-            const userData = await userService.updateProfileInfo(
-                displayname, email, description, city, birthday, phone, work
-            )
-            return userData
+            const { email, description, city, birthday, phone, work } = req.body;
+            const profileData = await userService.updateProfile(email, description, city, birthday, phone, work)
+            console.log(profileData)
         } catch (error) {
-
+            next()
         }
     }
 

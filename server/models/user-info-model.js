@@ -38,7 +38,7 @@ const ProfileInfoShema = new Schema({
             required: false,
         },
         vocation: {
-            type: Number,
+            type: String,
             unique: false,
             required: false,
         },

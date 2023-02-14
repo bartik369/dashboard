@@ -12,9 +12,11 @@ import ChangePassword from "../../form/change-password/ChangePassword";
 import profileImage from "../../../assets/users/developer-profile.jpg"
 import "../../form/forms.css";
 import "./profile.css"
-import { updateProfileInfo } from "../../../store/actions/usersActions";
+import { updateProfileInfo, getProfileInfo } from "../../../store/actions/usersActions";
 
 export default function Profile() {
+
+
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.auth.user);
   const userInfo = useSelector((state) => state.userInfo.userInfo);
@@ -33,6 +35,7 @@ export default function Profile() {
     },
     avatar: "",
   });
+
 
   const {
     control,
@@ -54,6 +57,10 @@ export default function Profile() {
       vocation: userInfo.work.vocation,
     }
   });
+
+  useEffect(() => {
+    dispatch(getProfileInfo(user.id))
+  }, [user])
 
   const changePassword = () => {
     setActiveModal(true);
