@@ -231,7 +231,9 @@ export const getProfileInfo = (id) => {
         try {
             await axios.get(`${ENV.HOSTNAME}api/profile/${id}`)
                 .then((response) => {
-                    profileInfo(response.data)
+                    dispatch(profileInfo(response.data));
+                    console.log(response.data)
+
                 })
         } catch (error) {
             console.log(error)

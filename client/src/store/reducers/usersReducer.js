@@ -77,16 +77,16 @@ const usersReducer = (state = initialState, action) => {
                 ...state,
                 userInfo: {
                     ...state.userInfo,
-                    description: "esds",
-                    city: "dsds",
-                    birthday: "dsds",
-                    phone: "",
+                    description: action.payload.description,
+                    city: action.payload.city,
+                    birthday: action.payload.birthday,
+                    phone: action.payload.phone,
                     work: {
-                        departament: "",
-                        phone: "",
-                        vocation: "",
+                        departament: action.payload.work.departament,
+                        phone: action.payload.work.phone,
+                        vocation: action.payload.work.vocation,
                     },
-                    avatar: "",
+                    avatar: action.payload.avatar,
                 }
             }
         default:

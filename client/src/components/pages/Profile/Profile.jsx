@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useForm, Controller } from "react-hook-form";
+import { updateProfileInfo, getProfileInfo } from "../../../store/actions/usersActions";
+import { useForm } from "react-hook-form";
 import InputMask from "react-input-mask"
 import * as formConstants from "../../../utils/constants/form.constants";
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as uiConstants from "../../../utils/constants/ui.constants";
 import Modal from "../../UI/modal/Modal";
-import AddButton from "../../UI/buttons/AddButton";
+import SubmitButton from "../../UI/buttons/SubmitButton";
 import ChangePassword from "../../form/change-password/ChangePassword";
 import profileImage from "../../../assets/users/developer-profile.jpg"
 import "../../form/forms.css";
 import "./profile.css"
-import { updateProfileInfo, getProfileInfo } from "../../../store/actions/usersActions";
-
 export default function Profile() {
 
 
@@ -59,10 +58,12 @@ export default function Profile() {
     }
   });
 
+  console.log("check memory profile")
+
 
   useEffect(() => {
     dispatch(getProfileInfo(user.id))
-  }, [user])
+  }, []);
 
   const changePassword = () => {
     setActiveModal(true);
@@ -89,12 +90,8 @@ export default function Profile() {
       },
     };
     dispatch(updateProfileInfo(updatedProfileInfo))
-    // reset();
+    reset();
   };
-
-  const updateUserInfoHandler = () => {
-
-  }
 
   return (
     <div className="profile">
@@ -255,9 +252,8 @@ export default function Profile() {
               <p>{errors.vocation.message || formConstants.unknownError}</p>
             )}
           </div>
-          <AddButton
+          <SubmitButton
           className={"submit-btn-small"}
-          action={() => updateUserInfoHandler()}
           title={formConstants.save}
         />
         </div>
