@@ -7,7 +7,7 @@ import searchDataReducer from "./searchDataReducer";
 const rootReducer = combineReducers({
     users: usersReducer,
     auth: usersReducer,
-    userInfo: usersReducer,
+    profile: usersReducer,
     devices: devicesReducer,
     device: devicesReducer,
     todos: todosReducer,

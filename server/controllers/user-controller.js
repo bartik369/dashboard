@@ -144,6 +144,7 @@ class UserController {
         try {
             const id = req.params.id;
             const profile = await userService.getProfile(id)
+            console.log(profile)
             return res.json(profile)
         } catch (error) {
 

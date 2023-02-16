@@ -1,5 +1,5 @@
 import UserModel from "../models/user-model.js";
-import ProfilModel from "../models/user-info-model.js"
+import ProfilModel from "../models/profile-model.js"
 import Roles from "../models/roles-model.js"
 import ResetPasswordModel from "../models/reset-password-model.js";
 import bcrypt from "bcrypt";
@@ -222,7 +222,7 @@ class UserService {
         if (!user) {
             throw ApiError.BadRequest()
         }
-        const profile = await ProfilModel.findOne(user._id)
+        const profile = await ProfilModel.findOne({userId: user._id})
 
         if (!profile) {
             throw ApiError.BadRequest()
@@ -233,10 +233,6 @@ class UserService {
     async getUsers() {
         const users = await UserModel.find();
         return users;
-    }
-
-    async getUser() {
-
     }
 }
 

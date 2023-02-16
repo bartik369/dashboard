@@ -16,14 +16,14 @@ const initialState = {
         isAuth: false,
         accessToken: null,
     },
-    userInfo: {
+    profile: {
         description: "",
         city: "",
         birthday: "",
         phone: "",
         work: {
             departament: "",
-            phone: "",
+            workPhone: "",
             vocation: "",
         },
         avatar: "",
@@ -70,20 +70,20 @@ const usersReducer = (state = initialState, action) => {
                     user: null,
                     isAuth: false,
                     accessToken: null,
-                }
+                }   
             }
         case GET_PROFILE_INFO:
             return {
                 ...state,
-                userInfo: {
-                    ...state.userInfo,
+                profile: {
+                    ...state.profile,
                     description: action.payload.description,
                     city: action.payload.city,
                     birthday: action.payload.birthday,
                     phone: action.payload.phone,
                     work: {
                         departament: action.payload.work.departament,
-                        phone: action.payload.work.phone,
+                        workPhone: action.payload.work.workPhone,
                         vocation: action.payload.work.vocation,
                     },
                     avatar: action.payload.avatar,

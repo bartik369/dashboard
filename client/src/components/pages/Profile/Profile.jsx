@@ -18,7 +18,7 @@ export default function Profile() {
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.auth.user);
-  const userInfo = useSelector((state) => state.userInfo.userInfo);
+  const profile = useSelector((state) => state.profile.profile);
   const [activeModal, setActiveModal] = useState(null);
   const [profileInfo, setProfileInfo] = useState({
     id: "",
@@ -48,13 +48,13 @@ export default function Profile() {
     defaultValues: {
       displayname: user.displayname,
       email: user.email,
-      description: userInfo.description,
-      city: userInfo.city,
-      birthday: userInfo.birthday,
-      phone: userInfo.phone,
-      departament: userInfo.work.departament,
-      workPhone: userInfo.work.phone,
-      vocation: userInfo.work.vocation,
+      description: profile.description,
+      city: profile.city,
+      birthday: profile.birthday,
+      phone: profile.phone,
+      departament: profile.work.departament,
+      workPhone: profile.work.workPhone,
+      vocation: profile.work.vocation,
     }
   });
 
@@ -63,7 +63,7 @@ export default function Profile() {
 
   useEffect(() => {
     dispatch(getProfileInfo(user.id))
-  }, []);
+  }, [user.id]);
 
   const changePassword = () => {
     setActiveModal(true);
