@@ -21,14 +21,15 @@ import "./styles/App.css";
 
 function App() {
   const dispatch = useDispatch();
-  const isAuth = useSelector((state) => state.auth.auth.isAuth);
+  // const isAuth = useSelector((state) => state.auth.auth.isAuth);
+  const isAuth = false
   const token = localStorage.getItem("token");
 
   console.log("check memory");
 
   useEffect(() => {
     if (isAuth || token) {
-      dispatch(compareAccessToken());
+      // dispatch(compareAccessToken());
     }
   }, [isAuth, token]);
 

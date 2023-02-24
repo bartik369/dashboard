@@ -6,8 +6,10 @@ import Sidebar from "../components/sidebar/SideBar";
 
 export default function PrivateRoutes({ allowedRoles }) {
 
-  const isAuth = useSelector((state) => state.auth.auth.isAuth);
-  const user = useSelector((state) => state.auth.auth.user);
+  // const isAuth = useSelector((state) => state.auth.auth.isAuth);
+  const isAuth = false
+  // const user = useSelector((state) => state.auth.auth.user);
+   const user = [1, 2, 3]
   const [slideStateContainer, setSlideStateContainer] = useState(false);
 
   return (

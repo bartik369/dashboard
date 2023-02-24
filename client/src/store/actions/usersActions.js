@@ -11,7 +11,7 @@ import {
     UPDATE_PROFILE_INFO,
 } from "../types/typesUsers.js";
 
-
+// action creators 
 const getUsers = (users) => ({
     type: GET_USERS,
     payload: users,
@@ -194,22 +194,22 @@ export const assignNewPassword = (data) => {
     }
 }
 
-export const compareAccessToken = () => {
-    return async function(dispatch) {
-        try {
-            await axios.get(`${ENV.HOSTNAME}api/auth`, {
-                    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-                })
-                .then((response) => {
-                    dispatch(login(response.data));
-                });
-        } catch (error) {
-            console.log(error);
-            localStorage.removeItem("token");
-            dispatch(logout());
-        }
-    };
-}
+// export const compareAccessToken = () => {
+//     return async function(dispatch) {
+//         try {
+//             await axios.get(`${ENV.HOSTNAME}api/auth`, {
+//                     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+//                 })
+//                 .then((response) => {
+//                     dispatch(login(response.data));
+//                 });
+//         } catch (error) {
+//             console.log(error);
+//             localStorage.removeItem("token");
+//             dispatch(logout());
+//         }
+//     };
+// }
 
 export const updateProfileInfo = (main) => {
 

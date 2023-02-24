@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as uiConstants from "../../utils/constants/ui.constants";
 import CanvasJSReact from "../../lib/canvas/canvasjs.react";
 import "../widgets/widgets.css";
+
 const Chart = () => {
 
     useEffect(() => {
@@ -11,9 +12,9 @@ const Chart = () => {
     }, []);
 
     const CanvasJSChart = CanvasJSReact.CanvasJSChart;
-    let dispatch = useDispatch();
     const {devices} = useSelector(state => state.devices)
     const nameArray = [];
+    let dispatch = useDispatch();
     let newArray = [];
     let count = [];
 
