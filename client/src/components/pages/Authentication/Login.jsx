@@ -9,8 +9,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import "../../form/forms.css"
+import { useSigninMutation } from "../../../store/api/authApi";
 
 export default function Login() {
+
+  const [signin, {data, isLoading}] = useSigninMutation()
   const [passwordType, setPasswordType] = useState(false);
 
   const {
@@ -34,7 +37,8 @@ export default function Login() {
       email: data.email,
       password: data.password,
     };
-    dispatch(loginUser(userLoginData, setError, navigate));
+    // dispatch(loginUser(userLoginData, setError, navigate));
+    signin(userLoginData)
   }
 
   const showPassword = (e) => {
@@ -110,7 +114,7 @@ export default function Login() {
           <div className="restore-password">
             <Link to="/reset-password">{formConstants.forgotPassword}</Link>
           </div>
-          <SubmitButton className={"submit-btn"} title={formConstants.send} />
+          <SubmitButton className={"submit-btn"} title={formConstants.send} isLoading={isLoading} />
           <div className="auth-links">
             {formConstants.accountNotExist}
             <Link to="/singup">{formConstants.register}</Link>

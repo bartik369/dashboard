@@ -5,19 +5,29 @@ export const authApi = createApi({
     reducerPath: "authApi",
     baseQuery: fetchBaseQuery({ baseUrl: ENV.HOSTNAME }),
     endpoints: (builder) => ({
-        checkValidToken: builder.query({
-            query: () => ({
-                baseUrl: "/api/auth",
-                prepareHeaders: (headers, { getState }) => {
-                    const token = getState().auth.token
-
-                    if (token) {
-                        headers.set('authorization', `Bearer ${token}`)
+        signin: builder.mutation({
+                query: ({ email, password }) => {
+                    return {
+                        url: "api/login",
+                        method: "POST",
                     }
-
-                    return headers
-                },
+                }
             })
-        })
+            // checkValidToken: builder.query({
+            //     query: () => ({
+            //         baseUrl: "/api/auth",
+            //         prepareHeaders: (headers, { getState }) => {
+            //             const token = getState().auth.token
+
+        //             if (token) {
+        //                 headers.set('authorization', `Bearer ${token}`)
+        //             }
+
+        //             return headers
+        //         },
+        //     })
+        // })
     })
 })
+
+export const { useSigninMutation } = authApi;
