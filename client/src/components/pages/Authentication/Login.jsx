@@ -13,8 +13,11 @@ import { useSigninMutation } from "../../../store/api/authApi";
 
 export default function Login() {
 
-  const [signin, {data, isLoading}] = useSigninMutation()
+  const [signin, {data, isLoading, error}] = useSigninMutation()
   const [passwordType, setPasswordType] = useState(false);
+
+  console.log(data)
+  console.log(error)
 
   const {
     register,

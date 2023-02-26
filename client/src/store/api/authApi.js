@@ -5,45 +5,60 @@ export const authApi = createApi({
     reducerPath: "authApi",
     baseQuery: fetchBaseQuery({ baseUrl: ENV.HOSTNAME }),
     endpoints: (builder) => ({
+
+        // signup
         signup: builder.mutation({
             query: (body) => ({
-                url: "",
+                url: "api/signup",
                 method: "post",
                 body,
             }),
         }),
+
+        // signin
         signin: builder.mutation({
             query: (body) => ({
-                url: "api/login",
+                url: "api/signin",
                 method: "post",
                 body,
             }),
         }),
-        ressetPassword: builder.mutation({
+
+        // resset password
+        resetPassword: builder.mutation({
             query: (body) => ({
                 url: "api/reset",
                 method: "post",
                 body,
             }),
         }),
+
+        // set new password
         setPassword: builder.mutation({
             query: (body) => ({
-                url: "api/reset",
-                method: "post",
+                url: "api/setpassword/:link",
+                method: "put",
                 body,
             }),
         }),
-        ressetPassword: builder.mutation({
-            query: (body) => ({
-                url: "api/reset",
-                method: "post",
-                body,
+
+        // compare password link
+        comparePasswordLink: builder.mutation({
+            query: (link) => ({
+                url: `api/setpassword/${link}`,
+                method: "put",
             }),
         }),
     }),
 });
 
-export const { useSigninMutation } = authApi;
+export const {
+    useSigninMutation,
+    useSignupMutation,
+    useResetPasswordMutation,
+    useSetPasswordMutation,
+    useComparePasswordLinkMutation
+} = authApi;
 
 // checkValidToken: builder.query({
 //     query: () => ({

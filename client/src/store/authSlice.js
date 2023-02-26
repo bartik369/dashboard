@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    value: 0,
+    user: null,
+    token: null,
+    isAuth: false,
 }
 
 export const AuthSlice = createSlice({
@@ -12,6 +14,6 @@ export const AuthSlice = createSlice({
     },
 })
 
-export const { increment, decrement, incrementByAmount } = AuthSlice.actions
+export const {} = AuthSlice.actions
 
 export default AuthSlice.reducer

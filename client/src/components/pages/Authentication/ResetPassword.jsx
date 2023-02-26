@@ -12,6 +12,8 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CSSTransition } from "react-transition-group";
 import paperAirplane from "../../../assets/portal/paper_airplane.png";
+import { useResetPasswordMutation } from "../../../store/api/authApi";
+
 
 function ResetPassword() {
   const {
@@ -28,6 +30,7 @@ function ResetPassword() {
   const [notificationStatus, setNotificationStatus] = useState(false);
   const [animationPaperAirplane, setAnimationPaperAirplane] = useState(false);
   const [formStatus, setFormStatus] = useState(true);
+  const [resetPassword, {data, isLoading}] = useResetPasswordMutation()
 
   const dispatch = useDispatch();
   const watchFields = watch({ email: "email" });
@@ -45,14 +48,15 @@ function ResetPassword() {
     const resetPasswordData = {
       email: data.email,
     };
-    dispatch(
-      updateUserPassword(
-        resetPasswordData,
-        setError,
-        setFormStatus,
-        animationSignup
-      )
-    );
+    resetPassword(resetPasswordData)
+    // dispatch(
+    //   updateUserPassword(
+    //     resetPasswordData,
+    //     setError,
+    //     setFormStatus,
+    //     animationSignup
+    //   )
+    // );
   };
 
   return (
@@ -106,7 +110,7 @@ function ResetPassword() {
                 {errors.email && <p>{errors.email.message || "Error"}</p>}
               </div>
             </div>
-            <SubmitButton className={"submit-btn"} title={formConstants.send} />
+            <SubmitButton className={"submit-btn"} title={formConstants.send} isLoading={isLoading} />
             <div className="auth-links">
               <Link to="/">{formConstants.enter}</Link>
               <Link to="/singup">{formConstants.register}</Link>

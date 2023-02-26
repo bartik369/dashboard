@@ -17,5 +17,6 @@ export default configureStore({
         [devicesApi.reducerPath]: devicesApi.reducer,
         [authApi.reducerPath]: authApi.reducer,
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(devicesApi.middleware)
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(devicesApi.middleware),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authApi.middleware),
 });

@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import { CSSTransition } from "react-transition-group";
 import paperAirplane from "../../../assets/portal/paper_airplane.png";
+import { useSignupMutation } from "../../../store/api/authApi";
 
 export default function Signup() {
   const [passwordType, setPasswordType] = useState(false);
@@ -19,6 +20,10 @@ export default function Signup() {
   const [animationPaperAirplane, setAnimationPaperAirplane] = useState(false);
   const [notificationStatus, setNotificationStatus] = useState(false);
   const [formStatus, setFormStatus] = useState(true);
+
+  const [signup, {data, isLoading, error}] = useSignupMutation();
+  console.log(data)
+  console.log(error)
 
   const [userInfo, setUserInfo] = useState({
     displayname: "",
@@ -84,7 +89,8 @@ export default function Signup() {
     avatar: "",
     };
     setUserInfo(newUser);
-    dispatch(createUser(newUser, animationSignup, setError));
+    // dispatch(createUser(newUser, animationSignup, setError));
+    signup(newUser)
   };
 
   const showPassword = (e) => {
@@ -258,7 +264,7 @@ export default function Signup() {
                 )}
               </div>
             </div>
-            <SubmitButton className={"submit-btn"} title={formConstants.send} />
+            <SubmitButton className={"submit-btn"} isLoading={isLoading} title={formConstants.send} />
             <div className="auth-links">
               {formConstants.accountExist}
               <Link to="/">{formConstants.enter}</Link>

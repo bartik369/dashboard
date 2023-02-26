@@ -7,6 +7,7 @@ class UserController {
     async registration(req, res, next) {
         try {
             const { displayname, email, password, description, city, birthday, phone, work } = req.body;
+            console.log(displayname, email, password)
             const userData = await userService.registration(displayname, email, password, description, city, birthday, phone, work);
             res.cookie('refreshToken', userData.refreshToken, {
                 maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -86,6 +87,7 @@ class UserController {
     async checkResetLink(req, res, next) {
         try {
             const resetPasswordLink = req.params.link;
+            console.log("check reset link", resetPasswordLink)
             const userData = await userService.checkResetPasswordLink(resetPasswordLink);
             return res.json(userData)
         } catch (error) {
@@ -97,6 +99,8 @@ class UserController {
     async setNewPassword(req, res, next) {
         try {
             const { link, password } = req.body;
+            console.log(link)
+            console.log(password)
             const userData = await userService.setNewUserPassword(link, password)
             return userData
         } catch (error) {
@@ -107,6 +111,8 @@ class UserController {
     async assignNewPassword(req, res, next) {
         try {
             const { email, password } = req.body;
+            console.log(email)
+            console.log(password)
             const userData = await userService.assignUserPassword(email, password);
             return userData
         } catch (error) {

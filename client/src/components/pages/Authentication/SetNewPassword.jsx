@@ -11,6 +11,8 @@ import * as REGEX from "../../../utils/constants/regex.constants";
 import * as formConstants from "../../../utils/constants/form.constants";
 import * as infoConstants from "../../../utils/constants/information.constants";
 import "../Authentication/Authentication.css"
+import { useComparePasswordLinkMutation, useSetPasswordMutation } from '../../../store/api/authApi';
+
 
 function SetNewPassword() {
 
@@ -22,6 +24,8 @@ function SetNewPassword() {
     link: "",
     password: "",
   });
+
+  const [newDataPassword, {data, isLoading}] = useSetPasswordMutation();
 
   const {
     register,
@@ -35,9 +39,11 @@ function SetNewPassword() {
 
   const params = useParams();
   const navigate = useNavigate();
+  const [compareDataPassword, {}] = useComparePasswordLinkMutation();
 
   useEffect(() => {
-    dispatch(comparePasswordLink(params.link, navigate))
+    // dispatch(comparePasswordLink(params.link, navigate))
+    compareDataPassword(params.link)
   }, [params.link]);
 
   const password = useRef({});
@@ -62,7 +68,8 @@ function SetNewPassword() {
       link: params.link,
       password: data.password,
     }
-    dispatch(setNewUserPassword(newUserPassword));
+    newDataPassword(newUserPassword)
+    // dispatch(setNewUserPassword(newUserPassword));
     setFormStatus(false);
     setNotificationStatus(true);
     reset();
