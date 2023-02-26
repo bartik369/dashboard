@@ -46,8 +46,9 @@ export const authApi = createApi({
         comparePasswordLink: builder.mutation({
             query: (link) => ({
                 url: `api/setpassword/${link}`,
-                method: "put",
+                method: "get",
             }),
+            transformResponse: (response, meta, arg) => console.log("data from query compare", response)
         }),
     }),
 });

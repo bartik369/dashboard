@@ -22,8 +22,6 @@ export default function Signup() {
   const [formStatus, setFormStatus] = useState(true);
 
   const [signup, {data, isLoading, error}] = useSignupMutation();
-  console.log(data)
-  console.log(error)
 
   const [userInfo, setUserInfo] = useState({
     displayname: "",
@@ -90,7 +88,10 @@ export default function Signup() {
     };
     setUserInfo(newUser);
     // dispatch(createUser(newUser, animationSignup, setError));
-    signup(newUser)
+    signup(newUser);
+    if (!error) {
+      animationSignup()
+    }
   };
 
   const showPassword = (e) => {

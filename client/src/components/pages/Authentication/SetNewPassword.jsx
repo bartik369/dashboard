@@ -25,7 +25,7 @@ function SetNewPassword() {
     password: "",
   });
 
-  const [newDataPassword, {data, isLoading}] = useSetPasswordMutation();
+  const [newDataPassword, {isLoading}] = useSetPasswordMutation();
 
   const {
     register,
@@ -36,10 +36,12 @@ function SetNewPassword() {
   } = useForm({
     mode: "onBlur",
   });
+  console.log(isSuccess)
 
   const params = useParams();
   const navigate = useNavigate();
-  const [compareDataPassword, {}] = useComparePasswordLinkMutation();
+  const [compareDataPassword, {data, isError}] = useComparePasswordLinkMutation();
+
 
   useEffect(() => {
     // dispatch(comparePasswordLink(params.link, navigate))

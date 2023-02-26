@@ -89,10 +89,10 @@ class UserController {
             const resetPasswordLink = req.params.link;
             console.log("check reset link", resetPasswordLink)
             const userData = await userService.checkResetPasswordLink(resetPasswordLink);
+            console.log(userData)
             return res.json(userData)
         } catch (error) {
             next(error)
-
         }
     }
 
