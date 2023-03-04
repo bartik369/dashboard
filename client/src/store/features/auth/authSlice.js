@@ -6,14 +6,16 @@ const initialState = {
     isAuth: false,
 }
 
-export const AuthSlice = createSlice({
+export const authSlice = createSlice({
     name: 'auth ',
-    initialState,
+    initialState: {
+        user: null,
+        token: null,
+    },
     reducers: {
-
+        setCredentials: (state)
     },
 })
 
-export const {} = AuthSlice.actions
 
-export default AuthSlice.reducer
+export default authSlice.reducer
