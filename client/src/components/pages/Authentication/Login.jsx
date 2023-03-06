@@ -40,11 +40,10 @@ export default function Login() {
     };
     try {
       const userData = await signin(userLoginData);
-      dispatch(setCredentials(userData))
-      console.log(userData)
+      dispatch(setCredentials({...userData.data}))
+      navigate('/dashboard')
       // localStorage.setItem("token", JSON.stringify(userData.data.accessToken))
     } catch (error) {
-      
       if (error.response?.status === 401) {
         alert("Unauthorized")
       }

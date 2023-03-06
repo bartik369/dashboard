@@ -24,7 +24,7 @@ function App() {
   const dispatch = useDispatch();
   const token = useSelector(selectCurrenToken);
 
-  console.log("check memory");
+  console.log(token);
 
   useEffect(() => {
     if (token) {
