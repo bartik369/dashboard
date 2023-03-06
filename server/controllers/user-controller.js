@@ -7,7 +7,6 @@ class UserController {
     async registration(req, res, next) {
         try {
             const { displayname, email, password, description, city, birthday, phone, work } = req.body;
-            console.log(displayname, email, password)
             const userData = await userService.registration(displayname, email, password, description, city, birthday, phone, work);
             res.cookie('refreshToken', userData.refreshToken, {
                 maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -23,7 +22,6 @@ class UserController {
     async login(req, res, next) {
         try {
             const { email, password } = req.body;
-            console.log(email, password)
             const userData = await userService.login(email, password);
             res.cookie('refreshToken', userData.refreshToken, {
                 maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -39,10 +37,8 @@ class UserController {
     async logout(req, res, next) {
         try {
             const { refreshToken } = req.cookies;
-            // const token = await userService.logout(refreshToken);
             await userService.logout(refreshToken);
             res.clearCookie('refreshToken');
-            // return res.json(token);
             return res.status(200).json({ message: "Logout success" })
         } catch (err) {
             next(err);

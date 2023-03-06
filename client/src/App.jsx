@@ -16,25 +16,24 @@ import SetNewPassword from "./components/pages/Authentication/SetNewPassword";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import PublicRoutes from "./routes/PublicRoutes";
 import { useSelector, useDispatch } from "react-redux";
+import { selectCurrenToken } from "./store/features/auth/authSlice";
 import { compareAccessToken } from "./store/actions/usersActions";
 import "./styles/App.css";
 
 function App() {
   const dispatch = useDispatch();
-  // const isAuth = useSelector((state) => state.auth.auth.isAuth);
-  const isAuth = false
-  const token = localStorage.getItem("token");
+  const token = useSelector(selectCurrenToken);
 
   console.log("check memory");
 
   useEffect(() => {
-    if (isAuth || token) {
+    if (token) {
       // dispatch(compareAccessToken());
     }
-  }, [isAuth, token]);
+  }, [token]);
 
   return (
-    <div className={isAuth ? "App" : "App-out"}>
+    <div className={token ? "App" : "App-out"}>
       <Routes>
         <Route element={<PrivateRoutes allowedRoles={["User"]} />}>
           <Route path="/dashboard" element={<Homepage />} />

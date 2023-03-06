@@ -9,7 +9,7 @@ export default class ApiError extends Error {
     };
 
     static UnauthorizedError(message, errors = []) {
-        return new ApiError(401, message, errors)
+        return new ApiError(403, message, errors)
     };
 
     static BadRequest(message, errors = []) {

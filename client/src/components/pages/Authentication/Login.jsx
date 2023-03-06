@@ -1,7 +1,9 @@
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../../store/actions/usersActions";
+import { setCredentials } from "../../../store/features/auth/authSlice";
 import { useForm } from "react-hook-form";
+import { useSigninMutation } from "../../../store/features/auth/authApiSlice";
 import SubmitButton from "../../UI/buttons/SubmitButton";
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as formConstants from "../../../utils/constants/form.constants";
@@ -9,15 +11,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import "../../form/forms.css"
-import { useSigninMutation } from "../../../store/api/authApi";
-
 export default function Login() {
 
-  const [signin, {data, isLoading, error}] = useSigninMutation()
-  const [passwordType, setPasswordType] = useState(false);
 
-  console.log(data)
-  console.log(error)
+  const [passwordType, setPasswordType] = useState(false);
+  const [signin, {isLoading}] = useSigninMutation()
 
   const {
     register,
@@ -35,13 +33,23 @@ export default function Login() {
   password.current = watch("password", "");
   const watchFields = watch({email: "email", password: "password"});
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const userLoginData = {
       email: data.email,
       password: data.password,
     };
+    try {
+      const userData = await signin(userLoginData);
+      dispatch(setCredentials(userData))
+      console.log(userData)
+      // localStorage.setItem("token", JSON.stringify(userData.data.accessToken))
+    } catch (error) {
+      
+      if (error.response?.status === 401) {
+        alert("Unauthorized")
+      }
+    }
     // dispatch(loginUser(userLoginData, setError, navigate));
-    signin(userLoginData)
   }
 
   const showPassword = (e) => {
@@ -117,7 +125,7 @@ export default function Login() {
           <div className="restore-password">
             <Link to="/reset-password">{formConstants.forgotPassword}</Link>
           </div>
-          <SubmitButton className={"submit-btn"} title={formConstants.send} isLoading={isLoading} />
+          <SubmitButton className={"submit-btn"} title={formConstants.send} />
           <div className="auth-links">
             {formConstants.accountNotExist}
             <Link to="/singup">{formConstants.register}</Link>

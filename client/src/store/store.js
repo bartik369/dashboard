@@ -1,22 +1,15 @@
-// import { applyMiddleware, legacy_createStore as createStore } from 'redux';
-// import rootReducer from './reducers/rootReducer';
-// import thunk from "redux-thunk";
-// import { composeWithDevTools } from "redux-devtools-extension";
-
-// const middleware = [thunk]
-
-// const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(...middleware)));
-
-// export default store;
 import { configureStore } from "@reduxjs/toolkit";
-import { devicesApi } from "./devices/devicesApi";
-import { authApi } from "./api/authApi";
+import { apiSlice } from "./api/apiSlice";
+import authReducer from "../store/features/auth/authSlice";
 
-export default configureStore({
+
+export const store = configureStore({
     reducer: {
-        [devicesApi.reducerPath]: devicesApi.reducer,
-        [authApi.reducerPath]: authApi.reducer,
+        [apiSlice.reducerPath]: apiSlice.reducer,
+        auth: authReducer
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(devicesApi.middleware),
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authApi.middleware),
-});
+    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(apiSlice.middleware),
+    devTools: true,
+
+})
+

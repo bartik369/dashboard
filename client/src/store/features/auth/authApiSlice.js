@@ -1,5 +1,20 @@
 import { apiSlice } from "../../api/apiSlice";
 
+export const authApiSlice = apiSlice.injectEndpoints({
+    endpoints: (builder) => ({
+        signin: builder.mutation({
+            query: (credentials) => ({
+                url: 'api/signin',
+                method: "POST",
+                body: {...credentials}
+            })
+        }),
+    })
+})
+
+
+export const {useSigninMutation} = authApiSlice;
+
 
 // import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 // import ENV from "../../env.config";

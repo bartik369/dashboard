@@ -1,19 +1,21 @@
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import Header from "../components/header/Header";
 import Sidebar from "../components/sidebar/SideBar";
+import { selectCurrenToken, selectCurrentUser } from "../store/features/auth/authSlice";
 
 export default function PrivateRoutes({ allowedRoles }) {
 
   // const isAuth = useSelector((state) => state.auth.auth.isAuth);
-  const isAuth = false
   // const user = useSelector((state) => state.auth.auth.user);
-   const user = [1, 2, 3]
+  const token = useSelector(selectCurrenToken);
+  const user = useSelector(selectCurrentUser);
+  const location = useLocation()
   const [slideStateContainer, setSlideStateContainer] = useState(false);
 
   return (
-    isAuth &&
+    token &&
         <div className="afterlogin">
         <div className="menu-container">
           <Sidebar slideContentContainer={setSlideStateContainer} />
@@ -27,7 +29,7 @@ export default function PrivateRoutes({ allowedRoles }) {
           <div className="content-container">
             {user?.roles?.find(role => allowedRoles?.includes(role)) 
               ? <Outlet /> 
-              : <Navigate to={"/"} />
+              : <Navigate to="/" state={{ from: location }} replace />
             }
           </div>
         </div>  
