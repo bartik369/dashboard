@@ -6,12 +6,9 @@ const initialState = {
     isAuth: false,
 }
 
-export const authSlice = createSlice({
+const authSlice = createSlice({
     name: 'auth ',
-    initialState: {
-        user: null,
-        token: null,
-    },
+    initialState,
     reducers: {
         setCredentials: (state, action) => {
             const { user, accessToken } = action.payload;
