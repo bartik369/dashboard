@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { loginUser } from "../../../store/actions/usersActions";
 import { setCredentials } from "../../../store/features/auth/authSlice";
 import { useForm } from "react-hook-form";
-import { useSigninMutation } from "../../../store/features/auth/authApiSlice";
+import { useSigninMutation } from "../../../store/features/auth/authApi";
 import SubmitButton from "../../UI/buttons/SubmitButton";
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as formConstants from "../../../utils/constants/form.constants";

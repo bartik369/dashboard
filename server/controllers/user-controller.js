@@ -28,6 +28,11 @@ class UserController {
                 httpOnly: true,
                 httpsOnly: true,
             });
+            res.cookie('accessToken', userData.accessToken, {
+                maxAge: 15 * 60 * 1000,
+                httpOnly: true,
+                httpsOnly: true,
+            });
             return res.json(userData)
         } catch (err) {
             next(err);
@@ -39,6 +44,7 @@ class UserController {
             const { refreshToken } = req.cookies;
             await userService.logout(refreshToken);
             res.clearCookie('refreshToken');
+            res.clearCookie('accessToken');
             return res.status(200).json({ message: "Logout success" })
         } catch (err) {
             next(err);
