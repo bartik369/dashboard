@@ -9,12 +9,16 @@ import * as contentConstants from "../../utils/constants/content.constants";
 import * as uiConstants from "../../utils/constants/ui.constants";
 import { loadTodos } from "../../store/actions/todosActions";
 import { useDispatch, useSelector } from "react-redux";
+import { useGetTodosQuery } from "../../store/todos/todoApi";
+import { selectCurrentUser } from "../../store/features/auth/authSlice";
 import "../timer/timer.css";
 
 const OverdueTodo = () => {
 
-  const {todos} = useSelector(state => state.todos);
-  const user = useSelector((state) => state.auth.auth.user);
+  // const {todos} = useSelector(state => state.todos);
+  const {data = [], isLoading} = useGetTodosQuery();
+  const user = useSelector(selectCurrentUser)
+  // const user = useSelector((state) => state.auth.auth.user);
   let dispatch = useDispatch();
   const overdueTodos = [];
   const attentionTodos = [];
@@ -23,7 +27,7 @@ const OverdueTodo = () => {
     dispatch(loadTodos());
   }, [dispatch]);
 
-  todos.map((todo) => {
+  data.map((todo) => {
 
     if ((todo.user === user.id)) {
 

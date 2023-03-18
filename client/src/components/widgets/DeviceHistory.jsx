@@ -1,18 +1,20 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import CanvasJSReact from "../../lib/canvas/canvasjs.react";
-import * as uiConstants from "../../utils/constants/ui.constants"
+import * as uiConstants from "../../utils/constants/ui.constants";
+import { useGetDevicesQuery } from "../../store/features/devices/deviceApi";
 import "../widgets/widgets.css";
 
 const DeviceHistory = () => {
     const CanvasJSChart = CanvasJSReact.CanvasJSChart;
-    const {devices} = useSelector(state => state.devices)
+    const {data = [], isLoading} = useGetDevicesQuery()
+    // const {devices} = useSelector(state => state.devices)
     const nameArray = [];
     let newArray = [];
     let count = [];
 
     const getDevicesCount = () => {
-        devices.map((item) => {
+        data.map((item) => {
             nameArray.push(item.addTime.split(' ')[0]);
         });
         nameArray.map((sum) => {

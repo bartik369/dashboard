@@ -22,7 +22,7 @@ import "./styles/App.css";
 
 function App() {
   const dispatch = useDispatch();
-  const token = useSelector(selectCurrenToken);
+  const token = true
 
   console.log(token);
 

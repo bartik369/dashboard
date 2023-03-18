@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import SearchData from "../UI/search/SearchData";
 import { setSearchQuery } from "../../store/actions/searchDataAction";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ProfileMenu from "../profile-menu/ProfileMenu";
 import useravatar from "../../assets/users/profile-avatar.jpg";
 import "./header.css";
 import TodosAlert from "./notifications/TodosAlert";
 import { useLocation } from "react-router-dom";
+import { useGetTodosQuery } from "../../store/todos/todoApi";
+import { selectCurrentUser } from "../../store/features/auth/authSlice";
 
 const Header = ({ moveHeader }) => {
   const [searchData, setSearchData] = useState("");
@@ -15,25 +16,28 @@ const Header = ({ moveHeader }) => {
   const [todosDropMenu, setTodosDropMenu] = useState(false);
   const [countMessages, setCountMessages] = useState(5);
   const [countTodos, setCountTodos] = useState(0);
-  const { todos } = useSelector((state) => state.todos);
-  const user = useSelector((state) => state.auth.auth.user);
+  // const user = useSelector((state) => state.auth.auth.user);
+  const user = useSelector(selectCurrentUser);
   const overTodos = [];
   const location = useLocation();
   const dispatch = useDispatch();
 
+  const {data = [], isLoading} = useGetTodosQuery();
+
   useEffect(() => {
-    todos.map((todo) => {
+    data.map((todo) => {
       if (Date.parse(todo.endTime) <= Date.now() && todo.status !== "done" && todo.user === user.id) {
         overTodos.push(todo);
       }
       setCountTodos(overTodos.length);
     })
     console.log("check memory")
-  }, [todos])
+  }, [data])
 
   useEffect(() => {
     dispatch(setSearchQuery(searchData));
   }, [searchData]);
+
 
   const userMenuHandler = () =>
     userMenu ? setUserMenu(false) : setUserMenu(true);
@@ -85,8 +89,8 @@ const Header = ({ moveHeader }) => {
                 }
               >
                 <TodosAlert
-                  todos={todos}
-                  user={user}
+                  todos={data}
+                  // user={user}
                   className={
                     todosDropMenu
                       ? "todos-notification__dropmenu"
@@ -106,7 +110,7 @@ const Header = ({ moveHeader }) => {
             alt=""
             onClick={userMenuHandler}
           />
-          <div className="drop-menu">{userMenu && <ProfileMenu user={user} />}</div>
+          {/* <div className="drop-menu">{userMenu && <ProfileMenu user={user} />}</div> */}
         </div>
       </div>
     </header>

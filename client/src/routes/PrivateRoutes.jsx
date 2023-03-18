@@ -9,7 +9,7 @@ export default function PrivateRoutes({ allowedRoles }) {
 
   // const isAuth = useSelector((state) => state.auth.auth.isAuth);
   // const user = useSelector((state) => state.auth.auth.user);
-  const token = useSelector(selectCurrenToken);
+  const token = true
   const user = useSelector(selectCurrentUser);
   const location = useLocation()
   const [slideStateContainer, setSlideStateContainer] = useState(false);

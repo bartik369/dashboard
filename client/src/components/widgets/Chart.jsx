@@ -3,6 +3,7 @@ import { loadDevices } from "../../store/actions/devicesActions";
 import { useDispatch, useSelector } from "react-redux";
 import * as uiConstants from "../../utils/constants/ui.constants";
 import CanvasJSReact from "../../lib/canvas/canvasjs.react";
+import { useGetDevicesQuery } from "../../store/features/devices/deviceApi";
 import "../widgets/widgets.css";
 
 const Chart = () => {
@@ -12,14 +13,15 @@ const Chart = () => {
     }, []);
 
     const CanvasJSChart = CanvasJSReact.CanvasJSChart;
-    const {devices} = useSelector(state => state.devices)
+    const {data = [], isLoading} = useGetDevicesQuery()
+    // const {devices} = useSelector(state => state.devices)
     const nameArray = [];
     let dispatch = useDispatch();
     let newArray = [];
     let count = [];
 
     const getDevicesCount = () => {
-        devices.map((item) => {
+        data.map((item) => {
             nameArray.push(item.type);
         });
         nameArray.map((sum) => {

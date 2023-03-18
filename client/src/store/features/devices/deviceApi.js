@@ -3,9 +3,9 @@ import ENV from "../../../env.config";
 
 export const deviceApi = createApi({
     reducerPath: 'deviceApi',
-    baseQuery: fetchBaseQuery({ baseUrl: ENV.HOSTNAME}),
+    baseQuery: fetchBaseQuery({ baseUrl: ENV.HOSTNAME }),
     endpoints: (builder) => ({
-        
+
         // add device
         addDevice: builder.mutation({
             query: (device) => ({
@@ -24,23 +24,23 @@ export const deviceApi = createApi({
             })
         }),
 
-        //update device
-        updateDevice: builder.mutation({
-            query: (todo) => ({
-                url: `/device/${id}`,
-                method: "PUT",
-                body: todo
-            })
-        }),
+        // //update device
+        // updateDevice: builder.mutation({
+        //     query: (todo) => ({
+        //         url: `/device/${id}`,
+        //         method: "PUT",
+        //         body: todo
+        //     })
+        // }),
 
-        // get device
-        getDevice: builder.query({
-            query: (id) => ({
-                url: `/device/${id}`,
-                method: 'GET',
-                body: id,
-            })
-        }),
+        // // get device
+        // getDevice: builder.query({
+        //     query: (id) => ({
+        //         url: `/device/${id}`,
+        //         method: 'GET',
+        //         body: id,
+        //     })
+        // }),
 
         // get devices
         getDevices: builder.query({

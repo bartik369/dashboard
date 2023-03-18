@@ -1,13 +1,15 @@
 import React from "react";
 import * as contentConstants from "../../utils/constants/content.constants";
 import { useSelector } from "react-redux";
+import { useGetDevicesQuery } from "../../store/features/devices/deviceApi";
 import "../widgets/widgets.css";
 
 
 const LastDevices = () => {
 
-    const {devices} = useSelector(state => state.devices)
-    const arrayDevices = [...devices];
+    // const {devices} = useSelector(state => state.devices)
+    const { data = [], isLoading } = useGetDevicesQuery()
+    const arrayDevices = [...data];
     const reverseArrayDevices = arrayDevices.reverse().slice(0, 6);
     
     return (

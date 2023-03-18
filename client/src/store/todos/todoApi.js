@@ -4,15 +4,15 @@ import ENV from "../../env.config";
 
 export const todoApi = createApi({
     reducerPath: 'todoApi',
-    baseQuery: fetchBaseQuery({ baseUrl: ENV.HOSTNAME}),
+    baseQuery: fetchBaseQuery({ baseUrl: ENV.HOSTNAME }),
     endpoints: (builder) => ({
-        
+
         // add todo
         addTodo: builder.mutation({
             query: (todo) => ({
                 url: '/todos',
                 method: 'POST',
-                body: device,
+                body: todo,
             })
         }),
 
@@ -26,13 +26,13 @@ export const todoApi = createApi({
         }),
 
         //update todo
-        updateTodo: builder.mutation({
-            query: (todo) => ({
-                url: `/todo/${id}`,
-                method: "PUT",
-                body: todo
-            })
-        }),
+        // updateTodo: builder.mutation({
+        //     query: (todo) => ({
+        //         url: `/todo/${id}`,
+        //         method: "PUT",
+        //         body: todo
+        //     })
+        // }),
 
         // get todo
         getTodo: builder.query({
