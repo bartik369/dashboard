@@ -9,7 +9,7 @@ import * as contentConstants from "../../utils/constants/content.constants";
 import * as uiConstants from "../../utils/constants/ui.constants";
 import { loadTodos } from "../../store/actions/todosActions";
 import { useDispatch, useSelector } from "react-redux";
-import { useGetTodosQuery } from "../../store/todos/todoApi";
+import { useGetTodosQuery } from "../../store/features/todos/todoApi";
 import { selectCurrentUser } from "../../store/features/auth/authSlice";
 import "../timer/timer.css";
 

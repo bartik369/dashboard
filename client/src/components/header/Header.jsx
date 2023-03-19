@@ -7,7 +7,7 @@ import useravatar from "../../assets/users/profile-avatar.jpg";
 import "./header.css";
 import TodosAlert from "./notifications/TodosAlert";
 import { useLocation } from "react-router-dom";
-import { useGetTodosQuery } from "../../store/todos/todoApi";
+import { useGetTodosQuery } from "../../store/features/todos/todoApi";
 import { selectCurrentUser } from "../../store/features/auth/authSlice";
 
 
