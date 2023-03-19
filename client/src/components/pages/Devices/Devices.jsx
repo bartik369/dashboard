@@ -6,6 +6,7 @@ import Pagination from "../../UI/pagination/Pagination";
 import CategoryMenu from "./CategoryMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteDevice, getsingleDevice, loadDevices, addDevice, updateDevice} from "../../../store/actions/devicesActions";
+import { useGetDevicesQuery } from "../../../store/features/devices/deviceApi";
 import "../../../styles/App.css";
 import "./devices.css";
 
@@ -14,8 +15,10 @@ const Devices = () => {
 
   const [activeModal, setActiveModal] = useState(null);
   let dispatch = useDispatch();
-  const {devices} = useSelector(state => state.devices);
-  const searchQuery = useSelector(state => state.seqrchQuery.query);
+  // const {devices} = useSelector(state => state.devices);
+  const {data = [], isLoading} = useGetDevicesQuery();
+  // const searchQuery = useSelector(state => state.seqrchQuery.query);
+  const searchQuery = ""
   const [category, setCategory] = useState([])
   let filter = []
 
@@ -33,13 +36,13 @@ const Devices = () => {
   const indefOfFirstDevice = indexOfLastDevice - devicesPerPage;
 
   useEffect(() => {
-    filter = devices.filter((item) => {
+    filter = data.filter((item) => {
       return Object.keys(item).some((request) =>
         String(item[request]).toLowerCase().includes(searchQuery.toLowerCase())
       );
     })
     setCategory(filter)
-  }, [devices, searchQuery, indefOfFirstDevice, indexOfLastDevice])
+  }, [data, searchQuery, indefOfFirstDevice, indexOfLastDevice])
 
   // Search device
 
@@ -74,7 +77,7 @@ const Devices = () => {
   
 
   const sortCategoryHandler = (category) => {
-    const sortedCategoryArray = devices.filter((item) => {
+    const sortedCategoryArray = data.filter((item) => {
 
       if (item.type === category) {
         return item.type
@@ -85,7 +88,7 @@ const Devices = () => {
   }
   
   const resetHandler = () => {
-    setCategory(devices)
+    setCategory(data)
   }
 
   const closeModal = () => {

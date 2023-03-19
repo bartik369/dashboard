@@ -9,7 +9,8 @@ import { faMagnifyingGlass, faXmark} from '@fortawesome/free-solid-svg-icons';
 
 const SearchData = ({...props}) => {
     const [activeSearch, setActiveSearch] = useState(true);
-    const searchQuery = useSelector(state => state.seqrchQuery.query)
+    // const searchQuery = useSelector(state => state.seqrchQuery.query)
+    const searchQuery = "useSelector(state => state.seqrchQuery.query)"
     const dispatch = useDispatch();
 
     const setStatusSearch = () => {

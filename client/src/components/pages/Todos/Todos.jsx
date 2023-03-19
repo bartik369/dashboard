@@ -14,6 +14,8 @@ import UpdateTodoForm from "../../form/update-todo/UpdateTodoForm";
 import TodoButton from "../../UI/buttons/TodoButton";
 import { breakpoints } from "../../../utils/data-arrays/arrays";
 import * as uiConstants from "../../../utils/constants/ui.constants";
+import { useGetTodosQuery } from "../../../store/features/todos/todoApi";
+import { selectCurrentUser } from "../../../store/features/auth/authSlice";
 import AddButton from "../../UI/buttons/AddButton";
 import "../Todos/Todos.css";
 import "../../../styles/App.css";
@@ -23,8 +25,9 @@ const Todos = () => {
   const [deleteId, setDeleteId] = useState();
   const [activeModal, setActiveModal] = useState(null);
   const dispatch = useDispatch();
-  const { todos } = useSelector((state) => state.todos);
-  const user = useSelector((state) => state.auth.auth.user);
+  const {data = [], isLoading} = useGetTodosQuery()
+  // const { todos } = useSelector((state) => state.todos);
+  // const user = useSelector((state) => state.auth.auth.user);
   const dateNow = Date.now();
 
   useEffect(() => {
@@ -37,9 +40,9 @@ const Todos = () => {
   }
 
   useEffect(() => {
-    console.log(todos)
-    console.log(user)
-  }, [todos])
+    console.log(data)
+    console.log(selectCurrentUser)
+  }, [data])
 
   const createTodo = (newTodo) => {
     dispatch(addTodo(newTodo));
@@ -64,13 +67,13 @@ const Todos = () => {
   }
 
   const handleTodoComplete = (id) => {
-    const indexOfDoneItem = todos.find((item) => item._id === id);
+    const indexOfDoneItem = data.find((item) => item._id === id);
     indexOfDoneItem.status = "done";
     dispatch(updateTodo(indexOfDoneItem, indexOfDoneItem._id));
   }
 
   const handleTodoReopen = (id) => {
-    const indexOfReopenItem = todos.find((item) => item._id === id);
+    const indexOfReopenItem = data.find((item) => item._id === id);
     indexOfReopenItem.status = "inprocess";
     dispatch(updateTodo(indexOfReopenItem, indexOfReopenItem._id));
   }
@@ -104,10 +107,10 @@ const Todos = () => {
         className="my-masonry-grid"
         columnClassName="my-masonry-grid_column"
       >
-        {todos.map((todo, index) => {
+        {data.map((todo, index) => {
           console.log(todo.status)
 
-          if ((todo.user === user.id)) {
+          if ((todo.user === selectCurrentUser.id)) {
 
           const startTodoDate = moment(todo.startTime).format("DD.MM.YYYY HH:mm");
           const endTodoDate = Date.parse(todo.endTime);
