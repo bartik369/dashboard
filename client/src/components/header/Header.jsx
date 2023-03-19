@@ -10,6 +10,7 @@ import { useLocation } from "react-router-dom";
 import { useGetTodosQuery } from "../../store/todos/todoApi";
 import { selectCurrentUser } from "../../store/features/auth/authSlice";
 
+
 const Header = ({ moveHeader }) => {
   const [searchData, setSearchData] = useState("");
   const [userMenu, setUserMenu] = useState(false);
@@ -90,7 +91,7 @@ const Header = ({ moveHeader }) => {
               >
                 <TodosAlert
                   todos={data}
-                  // user={user}
+                  user={selectCurrentUser}
                   className={
                     todosDropMenu
                       ? "todos-notification__dropmenu"
