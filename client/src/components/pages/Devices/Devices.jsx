@@ -6,7 +6,7 @@ import Pagination from "../../UI/pagination/Pagination";
 import CategoryMenu from "./CategoryMenu";
 import { useDispatch, useSelector } from "react-redux";
 // import { deleteDevice, getsingleDevice, loadDevices, addDevice, updateDevice} from "../../../store/actions/devicesActions";
-import { useGetDevicesQuery, useGetDeviceQuery } from "../../../store/features/devices/deviceApi";
+import { useGetDevicesQuery, useGetDeviceQuery} from "../../../store/features/devices/deviceApi";
 import "../../../styles/App.css";
 import "./devices.css";
 
@@ -22,6 +22,7 @@ const Devices = () => {
   const searchQuery = ""
   const [category, setCategory] = useState([])
   let filter = []
+
 
   useEffect(() => {
     // dispatch(loadDevices());
