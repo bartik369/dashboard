@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { deviceTypes } from "../../../utils/data-arrays/arrays";
+import { useUpdateDeviceMutation } from "../../../store/features/devices/deviceApi";
 import SubmitButton from "../../UI/buttons/SubmitButton";
 import * as formConstants from "../../../utils/constants/form.constants";
 import * as REGEX from "../../../utils/constants/regex.constants";
@@ -10,7 +11,9 @@ import "../../form/forms.css";
 
 const UpdateDeviceForm = ({update}) => {
 
-  const device = useSelector((state) => state.device.device);
+  const device = "";
+  // const device = useSelector((state) => state.device.device);
+  const [updateDevice] = useUpdateDeviceMutation();
 
   const [updateDev, setUpdateDev] = useState({
     id: "",
@@ -20,6 +23,7 @@ const UpdateDeviceForm = ({update}) => {
     user: "",
     addTime: "",
   });
+
 
   useEffect(() => {
     reset(device)

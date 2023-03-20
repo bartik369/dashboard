@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SearchData from "../UI/search/SearchData";
-import { setSearchQuery } from "../../store/actions/searchDataAction";
+// import { setSearchQuery } from "../../store/actions/searchDataAction";
+import { setSearchQuery } from "../../store/features/search/searchSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileMenu from "../profile-menu/ProfileMenu";
 import useravatar from "../../assets/users/profile-avatar.jpg";

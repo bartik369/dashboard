@@ -5,8 +5,8 @@ import AddDevice from "../../form/add-device/AddDevice";
 import Pagination from "../../UI/pagination/Pagination";
 import CategoryMenu from "./CategoryMenu";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteDevice, getsingleDevice, loadDevices, addDevice, updateDevice} from "../../../store/actions/devicesActions";
-import { useGetDevicesQuery } from "../../../store/features/devices/deviceApi";
+// import { deleteDevice, getsingleDevice, loadDevices, addDevice, updateDevice} from "../../../store/actions/devicesActions";
+import { useGetDevicesQuery, useGetDeviceQuery } from "../../../store/features/devices/deviceApi";
 import "../../../styles/App.css";
 import "./devices.css";
 
@@ -16,14 +16,15 @@ const Devices = () => {
   const [activeModal, setActiveModal] = useState(null);
   let dispatch = useDispatch();
   // const {devices} = useSelector(state => state.devices);
-  const {data = [], isLoading} = useGetDevicesQuery();
+  const {data: devices, isLoading, isError, error} = useGetDevicesQuery();
+  // const [getDevice] = useGetDeviceQuery();
   // const searchQuery = useSelector(state => state.seqrchQuery.query);
   const searchQuery = ""
   const [category, setCategory] = useState([])
   let filter = []
 
   useEffect(() => {
-    dispatch(loadDevices());
+    // dispatch(loadDevices());
   }, [dispatch]);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -36,13 +37,13 @@ const Devices = () => {
   const indefOfFirstDevice = indexOfLastDevice - devicesPerPage;
 
   useEffect(() => {
-    filter = data.filter((item) => {
+    filter = devices.filter((item) => {
       return Object.keys(item).some((request) =>
         String(item[request]).toLowerCase().includes(searchQuery.toLowerCase())
       );
     })
     setCategory(filter)
-  }, [data, searchQuery, indefOfFirstDevice, indexOfLastDevice])
+  }, [devices, searchQuery, indefOfFirstDevice, indexOfLastDevice])
 
   // Search device
 
@@ -51,13 +52,13 @@ const Devices = () => {
   }
 
   const createDevice = (newDevice) => {
-    dispatch(addDevice(newDevice));
+    // dispatch(addDevice(newDevice));
   }
 
   // Delete device
 
   function removeDevice(id) {
-    dispatch(deleteDevice(id));
+    // dispatch(deleteDevice(id));
   }
 
   // Update device
@@ -65,11 +66,11 @@ const Devices = () => {
   
   const handleUpdateDeviceInfo = (id) => {
     setActiveModal(true);
-    dispatch(getsingleDevice(id));
+    // dispatch(geteDevice(id));
   }
 
   const updateDeviceData = (updateData) => {
-    dispatch(updateDevice(updateData, updateData.id));
+    // dispatch(updateDevice(updateData, updateData.id));
     setActiveModal(false);
   }
 
@@ -77,7 +78,7 @@ const Devices = () => {
   
 
   const sortCategoryHandler = (category) => {
-    const sortedCategoryArray = data.filter((item) => {
+    const sortedCategoryArray = devices.filter((item) => {
 
       if (item.type === category) {
         return item.type
@@ -88,7 +89,7 @@ const Devices = () => {
   }
   
   const resetHandler = () => {
-    setCategory(data)
+    setCategory(devices)
   }
 
   const closeModal = () => {

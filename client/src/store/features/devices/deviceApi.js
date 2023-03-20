@@ -25,22 +25,22 @@ export const deviceApi = createApi({
         }),
 
         // //update device
-        // updateDevice: builder.mutation({
-        //     query: (todo) => ({
-        //         url: `/device/${id}`,
-        //         method: "PUT",
-        //         body: todo
-        //     })
-        // }),
+        updateDevice: builder.mutation({
+            query: ({id, todo}) => ({
+                url: `/device/${id}`,
+                method: "PUT",
+                body: todo
+            })
+        }),
 
-        // // get device
-        // getDevice: builder.query({
-        //     query: (id) => ({
-        //         url: `/device/${id}`,
-        //         method: 'GET',
-        //         body: id,
-        //     })
-        // }),
+        // get device
+        getDevice: builder.query({
+            query: (id) => ({
+                url: `/device/${id}`,
+                method: 'GET',
+                body: id,
+            })
+        }),
 
         // get devices
         getDevices: builder.query({
