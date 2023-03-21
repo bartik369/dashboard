@@ -6,7 +6,7 @@ import Pagination from "../../UI/pagination/Pagination";
 import CategoryMenu from "./CategoryMenu";
 import { useDispatch, useSelector } from "react-redux";
 // import { deleteDevice, getsingleDevice, loadDevices, addDevice, updateDevice} from "../../../store/actions/devicesActions";
-import { useGetDevicesQuery, useGetDeviceQuery} from "../../../store/features/devices/deviceApi";
+import { useGetDevicesQuery, useGetDeviceQuery, useDeleteDeviceMutation, useAddDeviceMutation} from "../../../store/features/devices/deviceApi";
 import "../../../styles/App.css";
 import "./devices.css";
 
@@ -14,6 +14,7 @@ const Devices = () => {
 
 
   const [activeModal, setActiveModal] = useState(null);
+  const [singleDevice, setSingleDevice] = useState("")
   let dispatch = useDispatch();
   // const {devices} = useSelector(state => state.devices);
   const {data: devices, isLoading, isError, error} = useGetDevicesQuery();
@@ -22,11 +23,9 @@ const Devices = () => {
   const searchQuery = ""
   const [category, setCategory] = useState([])
   let filter = []
-
-
-  useEffect(() => {
-    // dispatch(loadDevices());
-  }, [dispatch]);
+  const {data: device} = useGetDeviceQuery(singleDevice);
+  const [deleteDevice] = useDeleteDeviceMutation()
+  const [addDevice] = useAddDeviceMutation()
 
   const [currentPage, setCurrentPage] = useState(1);
   const [devicesPerPage] = useState(25);
@@ -54,6 +53,7 @@ const Devices = () => {
 
   const createDevice = (newDevice) => {
     // dispatch(addDevice(newDevice));
+    addDevice(newDevice)
   }
 
   // Delete device
@@ -67,6 +67,7 @@ const Devices = () => {
   
   const handleUpdateDeviceInfo = (id) => {
     setActiveModal(true);
+    setSingleDevice(id)
     // dispatch(geteDevice(id));
   }
 
@@ -104,7 +105,7 @@ const Devices = () => {
         <CategoryMenu sortCategory={sortCategoryHandler} reset={resetHandler}/>
       </div>
       <Modal active={activeModal} close={closeModal}>
-        <UpdateDeviceForm update={updateDeviceData} />
+        <UpdateDeviceForm update={updateDeviceData} device={device} />
       </Modal>
       <div className="devices-list">
       <div className="title">Список устройств</div>
@@ -119,7 +120,7 @@ const Devices = () => {
                             <button 
                             className="delete-btn" 
                             title="Удалить" 
-                            onClick={() => removeDevice(device._id)}>
+                            onClick={() => deleteDevice(device._id)}>
                             <i className="bi bi-trash3"></i>
                             <span>Удалить</span>
                             </button>
@@ -127,6 +128,7 @@ const Devices = () => {
                             <button 
                             className="update-btn" 
                             title="Обновить" 
+                            // onClick={() => handleUpdateDeviceInfo(device._id)}>
                             onClick={() => handleUpdateDeviceInfo(device._id)}>
                             <i className="bi bi-arrow-repeat"></i>
                             <span>Обновить</span>

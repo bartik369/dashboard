@@ -9,9 +9,8 @@ import * as REGEX from "../../../utils/constants/regex.constants";
 import * as uiConstants from "../../../utils/constants/ui.constants";
 import "../../form/forms.css";
 
-const UpdateDeviceForm = ({update}) => {
+const UpdateDeviceForm = ({update, device}) => {
 
-  const device = "";
   // const device = useSelector((state) => state.device.device);
   const [updateDevice] = useUpdateDeviceMutation();
 
