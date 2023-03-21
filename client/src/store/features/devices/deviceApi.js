@@ -11,7 +11,10 @@ export const deviceApi = createApi({
       query: () => ({
         url: "/api/devices",
         method: "GET",
-        providesTags: ['Devices'],
+        providesTags: (result) =>
+        result
+          ? [...result.map(({ _id }) => ({ type: 'Devices',  _id })), 'Devices']
+          : ['Devices'],
       }),
     }),
 
@@ -20,7 +23,7 @@ export const deviceApi = createApi({
       query: (id) => ({
         url: `/api/device/${id}`,
         method: "GET",
-        providesTags: ['Devices'],
+        // invalidatesTags: [{ type: 'Devices', id: 'LIST'}]
       }),
     }),
 
@@ -30,7 +33,7 @@ export const deviceApi = createApi({
         url: "/api/add",
         method: "POST",
         body: device,
-        providesTags: ['Devices'],
+        invalidatesTags: [{ type: 'Devices',  _id: 'LIST'}]
       }),
     }),
 
@@ -39,7 +42,7 @@ export const deviceApi = createApi({
       query: (id) => ({
         url: `/api/device/${id}`,
         method: "DELETE",
-        providesTags: ['Devices'],
+        invalidatesTags: [{ type: 'Devices',  _id: 'LIST'}]
       }),
     }),
 
@@ -48,7 +51,7 @@ export const deviceApi = createApi({
       query: ({ id, todo }) => ({
         url: `/api/device/${id}`,
         method: "PUT",
-        providesTags: ['Devices'],
+        invalidatesTags: [{ type: 'Devices',  _id: 'LIST'}]
       }),
     }),
   }),

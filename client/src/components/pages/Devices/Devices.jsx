@@ -6,7 +6,11 @@ import Pagination from "../../UI/pagination/Pagination";
 import CategoryMenu from "./CategoryMenu";
 import { useDispatch, useSelector } from "react-redux";
 // import { deleteDevice, getsingleDevice, loadDevices, addDevice, updateDevice} from "../../../store/actions/devicesActions";
-import { useGetDevicesQuery, useGetDeviceQuery, useDeleteDeviceMutation, useAddDeviceMutation} from "../../../store/features/devices/deviceApi";
+import { 
+  useGetDeviceQuery, 
+  useGetDevicesQuery,
+  useDeleteDeviceMutation, 
+  useAddDeviceMutation} from "../../../store/features/devices/deviceApi";
 import "../../../styles/App.css";
 import "./devices.css";
 
@@ -17,21 +21,18 @@ const Devices = () => {
   const [singleDevice, setSingleDevice] = useState("")
   let dispatch = useDispatch();
   // const {devices} = useSelector(state => state.devices);
-  const {data: devices, isLoading, isError, error} = useGetDevicesQuery();
   // const [getDevice] = useGetDeviceQuery();
   // const searchQuery = useSelector(state => state.seqrchQuery.query);
   const searchQuery = ""
   const [category, setCategory] = useState([])
   let filter = []
   const {data: device} = useGetDeviceQuery(singleDevice);
+  const {data: devices} = useGetDevicesQuery()
   const [deleteDevice] = useDeleteDeviceMutation()
   const [addDevice] = useAddDeviceMutation()
 
   const [currentPage, setCurrentPage] = useState(1);
   const [devicesPerPage] = useState(25);
-
-
-  console.log("check memory")
   
   const indexOfLastDevice = currentPage * devicesPerPage;
   const indefOfFirstDevice = indexOfLastDevice - devicesPerPage;
