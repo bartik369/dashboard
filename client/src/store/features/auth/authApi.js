@@ -9,11 +9,19 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 body: {...credentials}
             })
         }),
+
+
+        checkValidToken: builder.query({
+            query: () => ({
+                url: "/api/auth",
+                method: "GET",
+            })
+        })
     })
 })
 
 
-export const {useSigninMutation} = authApiSlice;
+export const {useSigninMutation, useCheckValidTokenQuery} = authApiSlice;
 
 
 // import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";

@@ -15,8 +15,6 @@ export const store = configureStore({
         search: searchReducer,
     },
     middleware: getDefaultMiddleware => getDefaultMiddleware().concat([apiSlice.middleware, todoApi.middleware, deviceApi.middleware]),
-    // middleware: getDefaultMiddleware => getDefaultMiddleware().concat(todoApi.middleware),
-    // middleware: getDefaultMiddleware => getDefaultMiddleware().concat(deviceApi.middleware),
     devTools: true,
 
 })

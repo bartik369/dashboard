@@ -60,7 +60,7 @@ const Devices = () => {
   // Delete device
 
   function removeDevice(id) {
-    // dispatch(deleteDevice(id));
+    dispatch(deleteDevice(id));
   }
 
   // Update device

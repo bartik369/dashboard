@@ -40,6 +40,7 @@ export default function Login() {
     };
     try {
       const userData = await signin(userLoginData);
+      console.log(userData)
       dispatch(setCredentials({...userData.data}))
       navigate('/dashboard')
       // localStorage.setItem("token", JSON.stringify(userData.data.accessToken))

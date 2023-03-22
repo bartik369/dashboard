@@ -1,62 +1,60 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import ENV from "../../../env.config";
 
-
 export const todoApi = createApi({
-    reducerPath: 'todoApi',
-    baseQuery: fetchBaseQuery({ baseUrl: ENV.HOSTNAME }),
-    endpoints: (builder) => ({
+  reducerPath: "todoApi",
+  baseQuery: fetchBaseQuery({ baseUrl: ENV.HOSTNAME }),
+  endpoints: (builder) => ({
 
-        // add todo
-        addTodo: builder.mutation({
-            query: (todo) => ({
-                url: '/todos',
-                method: 'POST',
-                body: todo,
-            })
-        }),
+    // get todos
+    getTodos: builder.query({
+      query: () => ({
+        url: "api/todos",
+        method: "GET",
+      }),
+    }),
 
-        //delete todo
-        deleteTodo: builder.mutation({
-            query: ({ id }) => ({
-                url: `/todo/${id}`,
-                method: 'DELETE',
-                body: id
-            })
-        }),
+    // get todo
+    getTodo: builder.query({
+      query: (id) => ({
+        url: `/api/todo/${id}`,
+        method: "GET",
+      }),
+    }),
 
-        //update todo
-        // updateTodo: builder.mutation({
-        //     query: (todo) => ({
-        //         url: `/todo/${id}`,
-        //         method: "PUT",
-        //         body: todo
-        //     })
-        // }),
+    // add todo
+    addTodo: builder.mutation({
+      query: (todo) => ({
+        url: "/api/todos",
+        method: "POST",
+        body: todo,
+      }),
+    }),
 
-        // get todo
-        getTodo: builder.query({
-            query: (id) => ({
-                url: `/todo/${id}`,
-                method: 'GET',
-                body: id,
-            })
-        }),
+    //delete todo
+    deleteTodo: builder.mutation({
+      query: ({ id }) => ({
+        url: `/todo/${id}`,
+        method: "DELETE",
+        body: id,
+      }),
+    }),
 
-        // get todos
-        getTodos: builder.query({
-            query: () => ({
-                url: '/todos',
-                method: 'GET',
-            })
-        }),
-    })
-})
+    //update todo
+    updateTodo: builder.mutation({
+      query: (id, todo) => ({
+        url: `/todo/${id}`,
+        method: "PUT",
+        body: todo,
+      }),
+    }),
+  }),
+});
 
 export const {
-    useAddTodoMutation,
-    useDeleteTodoMutation,
-    useUpdateTodoMutation,
-    useGetTodoQuery,
-    useGetTodosQuery,
+  useAddTodoMutation,
+  useDeleteTodoMutation,
+  useUpdateTodoMutation,
+  useGetTodoQuery,
+  useGetTodosQuery,
 } = todoApi;

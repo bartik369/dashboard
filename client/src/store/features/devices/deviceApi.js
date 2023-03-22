@@ -3,9 +3,10 @@ import ENV from "../../../env.config";
 
 export const deviceApi = createApi({
   reducerPath: "deviceApi",
-  baseQuery: fetchBaseQuery({ baseUrl: `${ENV.HOSTNAME}` }),
+  baseQuery: fetchBaseQuery({ baseUrl: ENV.HOSTNAME }),
   tagTypes: ['Devices'],
   endpoints: (builder) => ({
+    
     // get devices
     getDevices: builder.query({
       query: () => ({
@@ -51,6 +52,7 @@ export const deviceApi = createApi({
       query: ({ id, todo }) => ({
         url: `/api/device/${id}`,
         method: "PUT",
+        todo,
         invalidatesTags: [{ type: 'Devices',  _id: 'LIST'}]
       }),
     }),
