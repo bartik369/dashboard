@@ -16,21 +16,26 @@ import SetNewPassword from "./components/pages/Authentication/SetNewPassword";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import PublicRoutes from "./routes/PublicRoutes";
 import { useSelector, useDispatch } from "react-redux";
-import { selectCurrenToken } from "./store/features/auth/authSlice";
-import { compareAccessToken } from "./store/actions/usersActions";
+import { selectCurrenToken, selectCurrentUser } from "./store/features/auth/authSlice";
+import { useCheckValidTokenQuery } from "./store/features/auth/authApi";
 import "./styles/App.css";
 
 function App() {
-  const dispatch = useDispatch();
-  const token = true
 
-  console.log(token);
+  const token = useSelector(selectCurrenToken);
+  const user = useSelector(selectCurrentUser);
+  const [checkAccessToken] = useCheckValidTokenQuery()
 
-  useEffect(() => {
-    if (token) {
-      // dispatch(compareAccessToken());
-    }
-  }, [token]);
+
+  console.log(token)
+  console.log(user)
+
+
+  // useEffect(() => {
+  //   if (token) {
+  //     checkAccessToken(token)
+  //   }
+  // }, [token]);
 
   return (
     <div className={token ? "App" : "App-out"}>

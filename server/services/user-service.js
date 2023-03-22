@@ -76,9 +76,6 @@ class UserService {
         };
     }
 
-
-
-
     async resetPassword(email) {
         const candidate = await UserModel.findOne({ email });
 
