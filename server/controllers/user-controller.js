@@ -22,6 +22,7 @@ class UserController {
     async login(req, res, next) {
         try {
             const { email, password } = req.body;
+            console.log(req.cookies.accessToken)
             const userData = await userService.login(email, password);
             res.cookie('refreshToken', userData.refreshToken, {
                 maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -168,8 +169,6 @@ class UserController {
 
         try {
             const token = req.headers.authorization.split(' ')[1];
-            console.log(req.cookie)
-            console.log('here is a tokem', token)
 
             if (!token) {
                 throw ApiError.UnauthorizedError("Вы не авторизированы")

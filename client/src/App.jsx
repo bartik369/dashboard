@@ -24,7 +24,7 @@ function App() {
 
   const token = useSelector(selectCurrenToken);
   const user = useSelector(selectCurrentUser);
-  const [checkAccessToken] = useCheckValidTokenQuery()
+  // const [checkAccessToken] = useCheckValidTokenQuery()
 
 
   console.log(token)

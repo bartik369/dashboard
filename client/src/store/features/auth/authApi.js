@@ -1,16 +1,17 @@
-import { apiSlice } from "../../api/apiSlice";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query";
+import ENV from "../../../env.config";
 
-export const authApiSlice = apiSlice.injectEndpoints({
+export const authApi = createApi({
+    reducerPath: "authApi",
+    baseQuery: fetchBaseQuery({ baseUrl: ENV.HOSTNAME }),
     endpoints: (builder) => ({
         signin: builder.mutation({
             query: (credentials) => ({
                 url: 'api/signin',
                 method: "POST",
-                body: {...credentials}
+                body: {...credentials }
             })
         }),
-
-
         checkValidToken: builder.query({
             query: () => ({
                 url: "/api/auth",
@@ -20,8 +21,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
     })
 })
 
-
-export const {useSigninMutation, useCheckValidTokenQuery} = authApiSlice;
+export const { useSigninMutation } = authApi
 
 
 // import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
