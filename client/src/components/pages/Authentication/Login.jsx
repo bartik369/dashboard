@@ -1,9 +1,8 @@
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../../../store/actions/usersActions";
 import { setCredentials } from "../../../store/features/auth/authSlice";
 import { useForm } from "react-hook-form";
-import { useSigninMutation } from "../../../store/features/auth/authApi";
+import {signin} from "../../../store/features/auth/authApi";
 import SubmitButton from "../../UI/buttons/SubmitButton";
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as formConstants from "../../../utils/constants/form.constants";
@@ -15,7 +14,6 @@ export default function Login() {
 
 
   const [passwordType, setPasswordType] = useState(false);
-  const [signin, {isLoading}] = useSigninMutation()
 
   const {
     register,
@@ -39,11 +37,9 @@ export default function Login() {
       password: data.password,
     };
     try {
-      const userData = await signin(userLoginData);
-      console.log(userData)
-      dispatch(setCredentials({...userData.data}))
+      const userData = dispatch(signin(userLoginData));
+      // dispatch(setCredentials({...userData.data}))
       navigate('/dashboard')
-      // localStorage.setItem("token", JSON.stringify(userData.data.accessToken))
     } catch (error) {
       if (error.response?.status === 401) {
         alert("Unauthorized")

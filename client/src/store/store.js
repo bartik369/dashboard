@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 // import { apiSlice } from "./api/apiSlice";
 import searchReducer from "../store/features/search/searchSlice"
-import authReducer from "../store/features/auth/authSlice";
+import authReducer from "../store/features/auth/authApi";
 import { todoApi } from "./features/todos/todoApi"
 import { deviceApi } from "./features/devices/deviceApi";
 import { authApi } from "./features/auth/authApi";

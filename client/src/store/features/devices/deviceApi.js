@@ -13,9 +13,7 @@ export const deviceApi = createApi({
                 url: "/api/devices",
                 method: "GET",
                 providesTags: (result) =>
-                    result ?
-                    [...result.map(({ _id }) => ({ type: 'Devices', _id })), 'Devices'] :
-                    ['Devices'],
+                    result ? [...result.map(({ _id }) => ({ type: 'Devices', _id })), 'Devices'] : ['Devices'],
             }),
         }),
 
