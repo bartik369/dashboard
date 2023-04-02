@@ -10,11 +10,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import "../../form/forms.css"
+
 export default function Login() {
 
-
   const [passwordType, setPasswordType] = useState(false);
-
   const {
     register,
     formState: { errors },
@@ -38,7 +37,6 @@ export default function Login() {
     };
     try {
       const userData = dispatch(signin(userLoginData));
-      // dispatch(setCredentials({...userData.data}))
       navigate('/dashboard')
     } catch (error) {
       if (error.response?.status === 401) {

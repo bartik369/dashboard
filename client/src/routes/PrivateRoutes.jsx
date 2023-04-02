@@ -3,16 +3,16 @@ import { useState } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import Header from "../components/header/Header";
 import Sidebar from "../components/sidebar/SideBar";
-import { selectCurrenToken, selectCurrentUser } from "../store/features/auth/authSlice";
 
 export default function PrivateRoutes({ allowedRoles }) {
 
-  // const isAuth = useSelector((state) => state.auth.auth.isAuth);
-  // const user = useSelector((state) => state.auth.auth.user);
-  const token = true
-  const user = useSelector(selectCurrentUser);
-  const location = useLocation()
+  const user = useSelector((state) => state.auth.user);
+  const token = useSelector((state) => state.auth.token);
+
+  const location = useLocation();
   const [slideStateContainer, setSlideStateContainer] = useState(false);
+
+  
 
   return (
     token &&

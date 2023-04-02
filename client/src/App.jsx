@@ -16,15 +16,13 @@ import SetNewPassword from "./components/pages/Authentication/SetNewPassword";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import PublicRoutes from "./routes/PublicRoutes";
 import { useSelector, useDispatch } from "react-redux";
-import { selectCurrentUser, selectCurrentToken} from "./store/features/auth/authApi";
 import "./styles/App.css";
 
 function App() {
 
-  const token = useSelector(selectCurrentToken);
-  const user = useSelector(selectCurrentUser);
-
-
+  const user = useSelector((state) => state.auth.user);
+  const token = useSelector((state) => state.auth.token);
+  
   console.log(token)
   console.log(user)
 
