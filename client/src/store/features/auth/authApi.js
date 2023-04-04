@@ -41,26 +41,6 @@ export const checkValidToken = createAsyncThunk("api/auth",
     }
 )
 
-// export const authApi = createApi({
-//     reducerPath: "authApi",
-//     baseQuery: fetchBaseQuery({ baseUrl: ENV.HOSTNAME }),
-//     endpoints: (builder) => ({
-//         checkValidToken: builder.query({
-//             query: () => ({
-//                 baseUrl: "/api/auth",
-//                 prepareHeaders: (headers, { getState }) => {
-//                     const token = getState().auth.token
-
-//                     if (token) {
-//                         headers.set('authorization', `Bearer ${token}`)
-//                     }
-
-//                     return headers
-//                 },
-//             })
-//         })
-//     }),
-// });
 
 const initialState = {
     user: {},
@@ -128,26 +108,13 @@ export const authApi = createApi({
         //     transformResponse: (response, meta, arg) => console.log("data from query compare", response)
         // }),
 
-        // checkValidToken: builder.query({
-        //     query: () => ({
-        //         baseUrl: "/api/auth",
-        //         prepareHeaders: (headers, { getState }) => {
-        //             const token = getState().auth.token
-
-        //             if (token) {
-        //                 headers.set('authorization', `Bearer ${token}`)
-        //             }
-
-        //             return headers
-        //         },
-        //     })
-        // })
     }),
 });
 
 
 export default authSlice.reducer;
 export const {} = authApi;
+export const {logOut} = createSlice;
 
 export const {
     useSigninMutation,
@@ -156,18 +123,3 @@ export const {
     useSetPasswordMutation,
     useComparePasswordLinkMutation,
 } = authApi;
-
-// checkValidToken: builder.query({
-//     query: () => ({
-//         baseUrl: "/api/auth",
-//         prepareHeaders: (headers, { getState }) => {
-//             const token = getState().auth.token
-
-//             if (token) {
-//                 headers.set('authorization', `Bearer ${token}`)
-//             }
-
-//             return headers
-//         },
-//     })
-// })

@@ -24,17 +24,14 @@ class UserController {
         try {
             const { email, password } = req.body;
             const userData = await userService.login(email, password);
-            res.cookie('refresh', userData.refreshToken, {
+            const {accessToken, refreshToken} = userData;
+            res.cookie('refresh', refreshToken, {
                 maxAge: 30 * 24 * 60 * 60 * 1000,
-                secure: true,
                 httpOnly: true,
-                httpsOnly: true,
             });
-            res.cookie('access', userData.accessToken, {
+            res.cookie('access', accessToken, {
                 maxAge: 15 * 60 * 1000,
                 httpOnly: true,
-                httpsOnly: true,
-                secure: true,
             });
  
             return res.json(userData)

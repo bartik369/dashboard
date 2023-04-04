@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import Devices from "./components/pages/Devices/Devices";
 import Statistics from "./components/pages/Statistic";
 import Messenger from "./components/pages/Messanger/Messenger";
@@ -17,6 +17,7 @@ import PrivateRoutes from "./routes/PrivateRoutes";
 import PublicRoutes from "./routes/PublicRoutes";
 import { useSelector, useDispatch } from "react-redux";
 import { checkValidToken } from "./store/features/auth/authApi";
+import { logOut } from "./store/features/auth/authApi";
 import "./styles/App.css";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
   const user = useSelector((state) => state.auth.user);
   const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   
   console.log(token)
   console.log(user)
@@ -31,6 +33,9 @@ function App() {
   useEffect(() => {
     if (token || user) {
       dispatch(checkValidToken())
+    } else {
+      dispatch(logOut())
+      navigate("yandex.ru")
     }
   }, [token, user]);
 
