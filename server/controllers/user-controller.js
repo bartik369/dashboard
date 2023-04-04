@@ -3,6 +3,7 @@ import ApiError from "../exceptions/api-error.js";
 import tokenService from "../services/token-service.js";
 
 
+
 class UserController {
     async registration(req, res, next) {
         try {
@@ -22,19 +23,22 @@ class UserController {
     async login(req, res, next) {
         try {
             const { email, password } = req.body;
-            console.log(req.cookies.accessToken)
             const userData = await userService.login(email, password);
-            res.cookie('refreshToken', userData.refreshToken, {
+            res.cookie('refresh', userData.refreshToken, {
                 maxAge: 30 * 24 * 60 * 60 * 1000,
+                secure: true,
                 httpOnly: true,
                 httpsOnly: true,
             });
-            res.cookie('accessToken', userData.accessToken, {
+            res.cookie('access', userData.accessToken, {
                 maxAge: 15 * 60 * 1000,
                 httpOnly: true,
                 httpsOnly: true,
+                secure: true,
             });
+ 
             return res.json(userData)
+            
         } catch (err) {
             next(err);
         }
@@ -180,6 +184,17 @@ class UserController {
 
         } catch (error) {
             return res.status(403).json({ message: "Пользователь не авторизован" })
+        }
+    }
+
+    async checkCookie(req, res, next) {
+        try {
+            const { accessToken } = req.cookie;
+            const userData = tokenService.validateAccessToken(accessToken);
+            console.log('after validation cookie', userData)
+            return res.json(userData)
+        } catch (error) {
+            
         }
     }
 };

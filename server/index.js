@@ -47,7 +47,7 @@ app.put('/device/:id', updateDevice);
 app.put('/todo/:id', updateTodo)
 
 
-const start = async() => {
+const start = async () => {
     try {
         await mongoose.connect(process.env.DB_URL, {
             useNewUrlParser: true,

@@ -3,7 +3,7 @@ import SuccessRegister from "../../notifications/SuccessRegister";
 import SubmitButton from "../../UI/buttons/SubmitButton";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { createUser } from "../../../store/actions/usersActions";
+import { singup } from "../../../store/features/auth/authApi";
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as formConstants from "../../../utils/constants/form.constants";
 import * as infoConstants from "../../../utils/constants/information.constants";
@@ -86,7 +86,7 @@ export default function Signup() {
     avatar: "",
     };
     setUserInfo(newUser);
-    // dispatch(createUser(newUser, animationSignup, setError));
+    dispatch(singup(newUser));
       animationSignup()
   };
 

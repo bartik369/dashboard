@@ -17,8 +17,8 @@ const OverdueTodo = () => {
 
   // const {todos} = useSelector(state => state.todos);
   const {data = [], isLoading} = useGetTodosQuery();
-  const user = useSelector(selectCurrentUser)
-  // const user = useSelector((state) => state.auth.auth.user);
+  
+  const user = useSelector((state) => state.auth.user);
   let dispatch = useDispatch();
   const overdueTodos = [];
   const attentionTodos = [];

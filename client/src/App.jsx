@@ -16,21 +16,23 @@ import SetNewPassword from "./components/pages/Authentication/SetNewPassword";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import PublicRoutes from "./routes/PublicRoutes";
 import { useSelector, useDispatch } from "react-redux";
+import { checkValidToken } from "./store/features/auth/authApi";
 import "./styles/App.css";
 
 function App() {
 
   const user = useSelector((state) => state.auth.user);
   const token = useSelector((state) => state.auth.token);
+  const dispatch = useDispatch()
   
   console.log(token)
   console.log(user)
 
-  // useEffect(() => {
-  //   if (token) {
-  //     checkAccessToken(token)
-  //   }
-  // }, [token]);
+  useEffect(() => {
+    if (token || user) {
+      dispatch(checkValidToken())
+    }
+  }, [token, user]);
 
   return (
     <div className={token ? "App" : "App-out"}>

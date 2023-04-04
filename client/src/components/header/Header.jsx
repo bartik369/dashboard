@@ -18,8 +18,8 @@ const Header = ({ moveHeader }) => {
   const [todosDropMenu, setTodosDropMenu] = useState(false);
   const [countMessages, setCountMessages] = useState(5);
   const [countTodos, setCountTodos] = useState(0);
-  // const user = useSelector((state) => state.auth.auth.user);
-  const user = useSelector(selectCurrentUser);
+  const user = useSelector((state) => state.auth.user);
+  const token = useSelector((state) => state.auth.token);
   const overTodos = [];
   const location = useLocation();
   const dispatch = useDispatch();

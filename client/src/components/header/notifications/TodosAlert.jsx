@@ -8,7 +8,7 @@ export default function TodosAlert({todos, user}) {
 
     return (
       <div className="todo-alert">
-        <div className="todo-alert__title">{contentConstants.overdueTodosTitle}</div>
+        {/* <div className="todo-alert__title">{contentConstants.overdueTodosTitle}</div>
         <div className="todo-alert__items">
           {todos.map((todo, index) => {
             if (Date.parse(todo.endTime) <= Date.now() 
@@ -31,7 +31,7 @@ export default function TodosAlert({todos, user}) {
         </div>
         <button className="submit-btn-medium">
           <Link to="/todos">{contentConstants.openTodos}</Link>
-        </button>
+        </button> */}
       </div>
     );
 }
