@@ -173,12 +173,14 @@ class UserController {
             const refreshToken = cookie.split("refreshToken=")[1].split(";")[0];
             const userData = await userService.checkValidAccess(accessToken);
             console.log(userData)
-            // return res.json({
-            //     user: userData
-            // })
+
+            if (!userData) {
+                res.clearCookie("accessToken");
+                res.clearCookie("refreshToken")
+            }
             return res.json(userData)
         } catch (error) {
-            
+
         }
     }
 };

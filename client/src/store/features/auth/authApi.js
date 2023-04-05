@@ -20,6 +20,7 @@ export const signin = createAsyncThunk("auth/signin",
 
         } catch (error) {
             console.log("Error", error.response.data);
+            logOut()
             return thunkAPI.rejectWithValue(error.response.data);
         }
     }
@@ -50,6 +51,7 @@ export const checkValidToken = createAsyncThunk("api/auth",
             console.log("response from front", response.data)
             return response.data
         } catch (error) {
+            logOut()
             console.log("Error", error.response.data);
         }
     }
@@ -57,7 +59,7 @@ export const checkValidToken = createAsyncThunk("api/auth",
 
 
 const initialState = {
-    user: {},
+    user: null,
     token: null,
     isAuth: false,
 };
