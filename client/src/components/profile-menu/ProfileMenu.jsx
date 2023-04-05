@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { logoutUser } from "../../store/actions/usersActions";
 import {Link} from "react-router-dom";
+import { logout } from "../../store/features/auth/authApi";
 import "./profilemenu.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -16,7 +16,8 @@ export default function ProfileMenu({user}) {
   }, [])
 
   const logoutHandler = () => {
-    dispatch(logoutUser(navigate));
+    dispatch(logout());
+  
   };
 
   return (

@@ -112,7 +112,7 @@ const Header = ({ moveHeader }) => {
             alt=""
             onClick={userMenuHandler}
           />
-          {/* <div className="drop-menu">{userMenu && <ProfileMenu user={user} />}</div> */}
+          <div className="drop-menu">{userMenu && <ProfileMenu user={user} />}</div>
         </div>
       </div>
     </header>

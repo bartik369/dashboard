@@ -6,7 +6,7 @@ import ENV from "../../../env.config";
 
 
 export const signin = createAsyncThunk("auth/signin",
-    async (data, thunkAPI) => {
+    async(data, thunkAPI) => {
         try {
             const config = {
                 withCredentials: true,
@@ -27,7 +27,7 @@ export const signin = createAsyncThunk("auth/signin",
 );
 
 export const singup = createAsyncThunk("auth/singup",
-    async (data, thunkAPI) => {
+    async(data, thunkAPI) => {
         try {
             const response = await axios.post(`${ENV.HOSTNAME}api/signup`, data)
             return response.data
@@ -38,8 +38,26 @@ export const singup = createAsyncThunk("auth/singup",
     }
 )
 
+export const logout = createAsyncThunk("auth/logout",
+    async(thunkAPI) => {
+        try {
+            const config = {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+            const response = await axios.get(`${ENV.HOSTNAME}api/logout`, config)
+            return response.data
+        } catch (error) {
+            console.log("Error", error.response.data);
+            return thunkAPI.rejectWithValue(error.response.data);
+        }
+    }
+)
+
 export const checkValidToken = createAsyncThunk("api/auth",
-    async () => {
+    async() => {
         try {
             const config = {
                 withCredentials: true,
@@ -130,7 +148,7 @@ export const authApi = createApi({
 
 export default authSlice.reducer;
 export const {} = authApi;
-export const {logOut} = createSlice;
+export const { logOut } = createSlice;
 
 export const {
     useSigninMutation,

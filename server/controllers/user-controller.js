@@ -37,9 +37,9 @@ class UserController {
                 secure: true,
                 sameSite: "none",
             });
- 
+
             return res.json(userData)
-            
+
         } catch (err) {
             next(err);
         }
@@ -47,7 +47,10 @@ class UserController {
 
     async logout(req, res, next) {
         try {
-            const { refreshToken } = req.cookies;
+            // const { refreshToken } = req.cookies;
+            const { cookie } = req.headers;
+            // const accessToken = cookie.split("accessToken=")[1];
+            const refreshToken = cookie.split("refreshToken=")[1].split(";")[0];
             await userService.logout(refreshToken);
             res.clearCookie('refreshToken');
             res.clearCookie('accessToken');
@@ -173,14 +176,9 @@ class UserController {
             const refreshToken = cookie.split("refreshToken=")[1].split(";")[0];
             const userData = await userService.checkValidAccess(accessToken);
             console.log(userData)
-
-            if (!userData) {
-                res.clearCookie("accessToken");
-                res.clearCookie("refreshToken")
-            }
             return res.json(userData)
         } catch (error) {
-
+            console.log(error)
         }
     }
 };
@@ -193,24 +191,24 @@ export default new UserController();
 
 
 
-    // async authUser(req, res, next) {
+// async authUser(req, res, next) {
 
-    //     if (req.method === 'OPTIONS') {
-    //         next();
-    //     }
+//     if (req.method === 'OPTIONS') {
+//         next();
+//     }
 
-    //     try {
-    //         const token = req.headers.authorization.split(' ')[1];
+//     try {
+//         const token = req.headers.authorization.split(' ')[1];
 
-    //         if (!token) {
-    //             throw ApiError.UnauthorizedError("Вы не авторизированы")
-    //         }
-    //         const userData = tokenService.validateAccessToken(token);
-    //         return res.json(userData)
-    //             // req.user = userData;
-    //             // next()
+//         if (!token) {
+//             throw ApiError.UnauthorizedError("Вы не авторизированы")
+//         }
+//         const userData = tokenService.validateAccessToken(token);
+//         return res.json(userData)
+//             // req.user = userData;
+//             // next()
 
-    //     } catch (error) {
-    //         return res.status(403).json({ message: "Пользователь не авторизован" })
-    //     }
-    // }
+//     } catch (error) {
+//         return res.status(403).json({ message: "Пользователь не авторизован" })
+//     }
+// }
