@@ -8,7 +8,14 @@ import ENV from "../../../env.config";
 export const signin = createAsyncThunk("auth/signin",
     async (data, thunkAPI) => {
         try {
-            const response = await axios.post(`${ENV.HOSTNAME}api/signin`, data)
+            const config = {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+            const response = await axios.post(`${ENV.HOSTNAME}api/signin`, data, config);
+
             return response.data
 
         } catch (error) {

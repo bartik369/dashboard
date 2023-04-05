@@ -26,9 +26,7 @@ function App() {
   const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  
-  console.log(token)
-  console.log(user)
+
 
   useEffect(() => {
     if (token || user) {

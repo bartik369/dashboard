@@ -5,7 +5,6 @@ import AddDevice from "../../form/add-device/AddDevice";
 import Pagination from "../../UI/pagination/Pagination";
 import CategoryMenu from "./CategoryMenu";
 import { useDispatch, useSelector } from "react-redux";
-// import { deleteDevice, getsingleDevice, loadDevices, addDevice, updateDevice} from "../../../store/actions/devicesActions";
 import { 
   useGetDeviceQuery, 
   useGetDevicesQuery,
@@ -16,11 +15,9 @@ import "./devices.css";
 
 const Devices = () => {
 
-
   const [activeModal, setActiveModal] = useState(null);
   const [singleDevice, setSingleDevice] = useState("")
   let dispatch = useDispatch();
-  // const {devices} = useSelector(state => state.devices);
   // const [getDevice] = useGetDeviceQuery();
   // const searchQuery = useSelector(state => state.seqrchQuery.query);
   const searchQuery = ""

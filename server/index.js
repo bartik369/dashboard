@@ -21,6 +21,7 @@ app.use(cookieParser());
 app.use(cors({
     credentials: true,
     origin: process.env.CLIENT_URL,
+    
 }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api', authRoutes, deviceRoutes, todoRoutes);
