@@ -24,21 +24,16 @@ function App() {
 
   const user = useSelector((state) => state.auth.user);
   const token = useSelector((state) => state.auth.token);
+  const isAuth = useSelector((state) => state.auth.isAut)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-
   useEffect(() => {
-    if (token || user) {
-      dispatch(checkValidToken())
-    } else {
-      dispatch(logOut())
-      navigate("yandex.ru")
-    }
-  }, [token, user]);
+    dispatch(checkValidToken())
+  }, [dispatch])
 
   return (
-    <div className={token ? "App" : "App-out"}>
+    <div className={user ? "App" : "App-out"}>
       <Routes>
         <Route element={<PrivateRoutes allowedRoles={["User"]} />}>
           <Route path="/dashboard" element={<Homepage />} />

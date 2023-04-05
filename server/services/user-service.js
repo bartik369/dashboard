@@ -1,4 +1,5 @@
 import UserModel from "../models/user-model.js";
+import TokenModel from "../models/todo-model.js"
 import ProfilModel from "../models/profile-model.js"
 import Roles from "../models/roles-model.js"
 import ResetPasswordModel from "../models/reset-password-model.js";
@@ -74,6 +75,13 @@ class UserService {
             ...tokens,
             user: userDto,
         };
+    }
+
+    async checkValidAccess(accessToken) {
+        const userData = tokenService.validateAccessToken(accessToken)
+        return {
+            user: userData
+        }
     }
 
     async resetPassword(email) {

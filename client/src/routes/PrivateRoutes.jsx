@@ -15,7 +15,7 @@ export default function PrivateRoutes({ allowedRoles }) {
   
 
   return (
-    token &&
+    user &&
         <div className="afterlogin">
         <div className="menu-container">
           <Sidebar slideContentContainer={setSlideStateContainer} />

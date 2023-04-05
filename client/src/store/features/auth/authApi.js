@@ -15,7 +15,7 @@ export const signin = createAsyncThunk("auth/signin",
                 },
             }
             const response = await axios.post(`${ENV.HOSTNAME}api/signin`, data, config);
-
+            console.log(response.data)
             return response.data
 
         } catch (error) {
@@ -40,7 +40,14 @@ export const singup = createAsyncThunk("auth/singup",
 export const checkValidToken = createAsyncThunk("api/auth",
     async () => {
         try {
-            const response = await axios.get(`${ENV.HOSTNAME}api/auth`)
+            const config = {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+            const response = await axios.get(`${ENV.HOSTNAME}api/auth`, config)
+            console.log("response from front", response.data)
             return response.data
         } catch (error) {
             console.log("Error", error.response.data);
