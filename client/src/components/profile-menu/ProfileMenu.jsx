@@ -4,19 +4,15 @@ import {Link} from "react-router-dom";
 import { logout } from "../../store/features/auth/authApi";
 import "./profilemenu.css";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 export default function ProfileMenu({user}) {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(user.email)
-  }, [])
-
   const logoutHandler = () => {
     dispatch(logout());
+    navigate("/")
   
   };
 
@@ -41,7 +37,7 @@ export default function ProfileMenu({user}) {
         </li>
         <li className="profile__item">
         <i className="bi bi-box-arrow-right"></i>
-          <Link className="profile__link" to="#" onClick={logoutHandler}>Выйти</Link>
+        <button onClick={logoutHandler}>Logout</button>
         </li>
       </ul>
     </div>

@@ -52,7 +52,7 @@ export const logout = createAsyncThunk("auth/logout",
         } catch (error) {
             console.log("Error", error.response.data);
             return thunkAPI.rejectWithValue(error.response.data);
-        }
+        } 
     }
 )
 
