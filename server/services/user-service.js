@@ -78,9 +78,18 @@ class UserService {
     }
 
     async checkValidAccess(accessToken) {
-        const userData = tokenService.validateAccessToken(accessToken)
-        return {
-            user: userData
+        try {
+            const userData = tokenService.validateAccessToken(accessToken);
+
+            if (!userData) {
+                throw ApiError.UnauthorizedError("you dont have access")
+            }
+        
+            return {
+                userData
+            }
+        } catch (error) {
+            return null
         }
     }
 

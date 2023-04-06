@@ -31,8 +31,7 @@ class UserController {
                 sameSite: "none",
             });
             res.cookie('accessToken', userData.accessToken, {
-                // maxAge: 15 * 60 * 1000,
-                maxAge: 30 * 24 * 60 * 60 * 1000,
+                maxAge: 1 * 60 * 1000,
                 httpOnly: true,
                 secure: true,
                 sameSite: "none",
@@ -175,10 +174,10 @@ class UserController {
             const accessToken = cookie.split("accessToken=")[1];
             const refreshToken = cookie.split("refreshToken=")[1].split(";")[0];
             const userData = await userService.checkValidAccess(accessToken);
-            console.log(userData)
-            return res.json(userData)
-        } catch (error) {
-            console.log(error)
+            return res.json({user: userData, accessToken: accessToken})
+        } catch (err) {
+        next(err)
+        res.status(403);
         }
     }
 };

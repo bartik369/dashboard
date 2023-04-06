@@ -9,7 +9,7 @@ import "./header.css";
 import TodosAlert from "./notifications/TodosAlert";
 import { useLocation } from "react-router-dom";
 import { useGetTodosQuery } from "../../store/features/todos/todoApi";
-import { selectCurrentUser } from "../../store/features/auth/authSlice";
+import { checkValidToken } from "../../store/features/auth/authApi";
 
 
 const Header = ({ moveHeader }) => {
@@ -19,7 +19,7 @@ const Header = ({ moveHeader }) => {
   const [countMessages, setCountMessages] = useState(5);
   const [countTodos, setCountTodos] = useState(0);
   const user = useSelector((state) => state.auth.user);
-  const token = useSelector((state) => state.auth.token);
+  const token = useSelector((state) => state.auth.token)
   const overTodos = [];
   const location = useLocation();
   const dispatch = useDispatch();
@@ -40,6 +40,11 @@ const Header = ({ moveHeader }) => {
     dispatch(setSearchQuery(searchData));
   }, [searchData]);
 
+  useEffect(() => {
+    console.log("token from APP", token)
+    console.log("user from APP", user)
+    dispatch(checkValidToken())
+  }, [])
 
   const userMenuHandler = () =>
     userMenu ? setUserMenu(false) : setUserMenu(true);
@@ -92,7 +97,7 @@ const Header = ({ moveHeader }) => {
               >
                 <TodosAlert
                   todos={data}
-                  user={selectCurrentUser}
+                  user={user}
                   className={
                     todosDropMenu
                       ? "todos-notification__dropmenu"

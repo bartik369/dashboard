@@ -4,7 +4,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios"
 import ENV from "../../../env.config";
 
-
 export const signin = createAsyncThunk("auth/signin",
     async(data, thunkAPI) => {
         try {
@@ -66,15 +65,13 @@ export const checkValidToken = createAsyncThunk("api/auth",
                 },
             }
             const response = await axios.get(`${ENV.HOSTNAME}api/auth`, config)
-            console.log("response from front", response.data)
+            console.log(response.data)
             return response.data
         } catch (error) {
-            logOut()
-            console.log("Error", error.response.data);
+            
         }
     }
 )
-
 
 const initialState = {
     user: null,
@@ -102,7 +99,7 @@ const authSlice = createSlice({
             state.token = action.payload.accessToken
         })
         builder.addCase(checkValidToken.fulfilled, (state, action) => {
-            state.user = action.payload.user
+            state.user = action.payload.user.userData
             state.token = action.payload.accessToken
         })
     },
