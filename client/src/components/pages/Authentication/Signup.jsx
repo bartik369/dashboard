@@ -3,7 +3,7 @@ import SuccessRegister from "../../notifications/SuccessRegister";
 import SubmitButton from "../../UI/buttons/SubmitButton";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { singup } from "../../../store/features/auth/authApi";
+import { useSignupMutation } from "../../../store/features/auth/authApi";
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as formConstants from "../../../utils/constants/form.constants";
 import * as infoConstants from "../../../utils/constants/information.constants";
@@ -38,6 +38,8 @@ export default function Signup() {
     avatar: "",
   });
 
+  const [signup, {isLoading}] = useSignupMutation()
+
   const {
     register,
     reset,
@@ -50,6 +52,7 @@ export default function Signup() {
   });
 
   const dispatch = useDispatch();
+
   const password = useRef({});
   password.current = watch("password", "");
   const watchFields = watch({
@@ -86,7 +89,7 @@ export default function Signup() {
     avatar: "",
     };
     setUserInfo(newUser);
-    dispatch(singup(newUser));
+    signup(newUser);
       animationSignup()
   };
 

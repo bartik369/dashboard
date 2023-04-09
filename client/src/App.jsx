@@ -15,21 +15,18 @@ import ResetPassword from "./components/pages/Authentication/ResetPassword";
 import SetNewPassword from "./components/pages/Authentication/SetNewPassword";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import PublicRoutes from "./routes/PublicRoutes";
-import { useSelector, useDispatch } from "react-redux";
-import { checkValidToken } from "./store/features/auth/authApi";
+import { useSelector } from "react-redux";
+import { selectCurrentToken, selectCurrentUser } from "./store/features/auth/authSlice";
 import "./styles/App.css";
 
 function App() {
 
-  const user = useSelector((state) => state.auth.user);
-  const token = useSelector((state) => state.auth.token)
-  const dispatch = useDispatch()
+  const token = useSelector(selectCurrentToken);
+  const user = useSelector(selectCurrentUser);
 
-  // useEffect(() => {
-  //   console.log("token from APP", token)
-  //   console.log("user from APP", user)
-  //   dispatch(checkValidToken())
-  // }, [dispatch])
+useEffect(() => {
+   
+}, [])
 
   return (
     <div className={user ? "App" : "App-out"}>

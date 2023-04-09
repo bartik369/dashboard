@@ -1,17 +1,14 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import {Link} from "react-router-dom";
-import { logout } from "../../store/features/auth/authApi";
 import "./profilemenu.css";
 import { useNavigate } from "react-router-dom";
 
 export default function ProfileMenu({user}) {
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const logoutHandler = () => {
-    dispatch(logout());
+    
     navigate("/")
   
   };

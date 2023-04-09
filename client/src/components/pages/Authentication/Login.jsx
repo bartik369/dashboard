@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setCredentials } from "../../../store/features/auth/authSlice";
+import { setCredentials } from "../../../store/features/auth/authSlice"; 
+import { useSigninMutation } from "../../../store/features/auth/authApi";
 import { useForm } from "react-hook-form";
-import {signin} from "../../../store/features/auth/authApi";
 import SubmitButton from "../../UI/buttons/SubmitButton";
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as formConstants from "../../../utils/constants/form.constants";
@@ -24,6 +24,8 @@ export default function Login() {
     mode: "onBlur",
   });
 
+  const [signin, {isLoading}] = useSigninMutation()
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const password = useRef({});
@@ -36,7 +38,8 @@ export default function Login() {
       password: data.password,
     };
     try {
-      const userData = dispatch(signin(userLoginData));
+     const userData = await signin(userLoginData).unwrap();
+     dispatch(setCredentials(userData))
       navigate('/dashboard')
     } catch (error) {
       if (error.response?.status === 401) {

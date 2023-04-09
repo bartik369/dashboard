@@ -9,7 +9,8 @@ import "./header.css";
 import TodosAlert from "./notifications/TodosAlert";
 import { useLocation } from "react-router-dom";
 import { useGetTodosQuery } from "../../store/features/todos/todoApi";
-import { checkValidToken } from "../../store/features/auth/authApi";
+import { selectCurrentUser} from "../../store/features/auth/authSlice";
+import { selectCurrentToken } from "../../store/features/auth/authSlice";
 
 
 const Header = ({ moveHeader }) => {
@@ -18,11 +19,17 @@ const Header = ({ moveHeader }) => {
   const [todosDropMenu, setTodosDropMenu] = useState(false);
   const [countMessages, setCountMessages] = useState(5);
   const [countTodos, setCountTodos] = useState(0);
-  const user = useSelector((state) => state.auth.user);
-  const token = useSelector((state) => state.auth.token)
   const overTodos = [];
   const location = useLocation();
   const dispatch = useDispatch();
+
+  const token = useSelector(selectCurrentToken);
+  const user = useSelector(selectCurrentUser);
+
+useEffect(() => {
+    console.log(user);
+    console.log(token)
+}, [])
 
   const {data = [], isLoading} = useGetTodosQuery();
 
@@ -39,12 +46,6 @@ const Header = ({ moveHeader }) => {
   useEffect(() => {
     dispatch(setSearchQuery(searchData));
   }, [searchData]);
-
-  useEffect(() => {
-    console.log("token from APP", token)
-    console.log("user from APP", user)
-    dispatch(checkValidToken())
-  }, [])
 
   const userMenuHandler = () =>
     userMenu ? setUserMenu(false) : setUserMenu(true);
