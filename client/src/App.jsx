@@ -15,7 +15,7 @@ import ResetPassword from "./components/pages/Authentication/ResetPassword";
 import SetNewPassword from "./components/pages/Authentication/SetNewPassword";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import PublicRoutes from "./routes/PublicRoutes";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectCurrentToken, selectCurrentUser } from "./store/features/auth/authSlice";
 import "./styles/App.css";
 
@@ -23,10 +23,8 @@ function App() {
 
   const token = useSelector(selectCurrentToken);
   const user = useSelector(selectCurrentUser);
+  const dispatch = useDispatch()
 
-useEffect(() => {
-   
-}, [])
 
   return (
     <div className={user ? "App" : "App-out"}>

@@ -9,8 +9,7 @@ import "./header.css";
 import TodosAlert from "./notifications/TodosAlert";
 import { useLocation } from "react-router-dom";
 import { useGetTodosQuery } from "../../store/features/todos/todoApi";
-import { selectCurrentUser} from "../../store/features/auth/authSlice";
-import { selectCurrentToken } from "../../store/features/auth/authSlice";
+import { selectCurrentUser, selectCurrentToken} from "../../store/features/auth/authSlice";
 
 
 const Header = ({ moveHeader }) => {
