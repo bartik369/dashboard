@@ -30,12 +30,12 @@ class UserController {
                 secure: true,
                 sameSite: "none",
             });
-            res.cookie('accessToken', userData.accessToken, {
-                maxAge: 1 * 60 * 1000,
-                httpOnly: true,
-                secure: true,
-                sameSite: "none",
-            });
+            // res.cookie('accessToken', userData.accessToken, {
+            //     maxAge: 1 * 60 * 1000,
+            //     httpOnly: true,
+            //     secure: true,
+            //     sameSite: "none",
+            // });
 
             return res.json(userData)
 
@@ -174,10 +174,10 @@ class UserController {
             const accessToken = cookie.split("accessToken=")[1];
             const refreshToken = cookie.split("refreshToken=")[1].split(";")[0];
             const userData = await userService.checkValidAccess(accessToken);
-            return res.json({user: userData, accessToken: accessToken})
+            return res.json({ user: userData, accessToken: accessToken })
         } catch (err) {
-        next(err)
-        res.status(403);
+            next(err)
+            res.status(403);
         }
     }
 };
