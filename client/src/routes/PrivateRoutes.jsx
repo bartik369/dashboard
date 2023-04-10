@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import Header from "../components/header/Header";
 import Sidebar from "../components/sidebar/SideBar";
@@ -11,8 +11,6 @@ export default function PrivateRoutes({ allowedRoles }) {
 
   const location = useLocation();
   const [slideStateContainer, setSlideStateContainer] = useState(false);
-
-  
 
   return (
     user &&

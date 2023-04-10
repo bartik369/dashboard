@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import Devices from "./components/pages/Devices/Devices";
 import Statistics from "./components/pages/Statistic";
@@ -15,6 +15,7 @@ import ResetPassword from "./components/pages/Authentication/ResetPassword";
 import SetNewPassword from "./components/pages/Authentication/SetNewPassword";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import PublicRoutes from "./routes/PublicRoutes";
+import { useRefreshToken } from "./store/api/apiSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { selectCurrentToken, selectCurrentUser } from "./store/features/auth/authSlice";
 import "./styles/App.css";
@@ -24,10 +25,27 @@ function App() {
   const token = useSelector(selectCurrentToken);
   const user = useSelector(selectCurrentUser);
   const dispatch = useDispatch()
+  const refresh = useRefreshToken()
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const verifyRefresfToken = async () => {
+      try {
+        console.log("useeffect refresh token")
+        await refresh()
+      } catch (error) {
+        
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    token ? verifyRefresfToken() : setIsLoading(false)
+  }, [])
+
 
 
   return (
-    <div className={user ? "App" : "App-out"}>
+    <div className="App">
       <Routes>
         <Route element={<PrivateRoutes allowedRoles={["User"]} />}>
           <Route path="/dashboard" element={<Homepage />} />

@@ -31,12 +31,13 @@ export const useRefreshToken = () => {
 const baseQueryWithReauth = async(args, api, extraOptions) => {
     let result = await baseQuery(args, api, extraOptions);
 
-    if (result?.error?.originalStatus === 403) {
+    if (result) {
         // if (result?.error?.originalStatus === 403) {
         console.log("sending refresh token");
         const refreshResult = await baseQuery("/refresh", api, extraOptions);
 
-        if (refreshResult?.data) {
+        if (refreshResult) {
+            // if (refreshResult ? .data) {
             const user = api.getState().auth.user;
             //  store a new token
             // api.dispatch(setCredentials({...refreshResult.data, user }));
