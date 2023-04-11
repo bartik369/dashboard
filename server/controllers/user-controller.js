@@ -71,14 +71,15 @@ class UserController {
 
     async refresh(req, res, next) {
         try {
+            const { cookie } = req.headers;
             const refreshToken = cookie.split("refreshToken=")[1].split(";")[0];
-            console.log("there is refresh token", refreshToken)
             const userData = await userService.refresh(refreshToken);
             res.cookie('refreshToken', userData.refreshToken, {
                 maxAge: 30 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
                 httpsOnly: true,
             });
+            console.log("userData from controllker", userData)
             return res.json(userData);
         } catch (err) {
             next(err);
@@ -169,18 +170,19 @@ class UserController {
         }
     }
 
-    async checkCookie(req, res, next) {
-        try {
-            const { cookie } = req.headers;
-            const accessToken = cookie.split("accessToken=")[1];
-            const refreshToken = cookie.split("refreshToken=")[1].split(";")[0];
-            const userData = await userService.checkValidAccess(accessToken);
-            return res.json({ user: userData, accessToken: accessToken })
-        } catch (err) {
-            next(err)
-            res.status(403);
-        }
-    }
+    // async checkCookie(req, res, next) {
+    //     try {
+    //         const { cookie } = req.headers;
+    //         const accessToken = cookie.split("accessToken=")[1];
+    //         console.log(accessToken)
+    //         // const refreshToken = cookie.split("refreshToken=")[1].split(";")[0];
+    //         const userData = await userService.checkValidAccess(accessToken);
+    //         return res.json({ user: userData, accessToken: accessToken })
+    //     } catch (err) {
+    //         next(err)
+    //         res.status(403);
+    //     }
+    // }
 };
 
 export default new UserController();

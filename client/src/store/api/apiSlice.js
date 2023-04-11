@@ -18,8 +18,11 @@ const baseQuery = fetchBaseQuery({
 export const useRefreshToken = () => {
 
     const refresh = async() => {
-        const response = await baseQuery('api/refresh', {
-            withCredentials: true
+        console.log("refresh log from aliSlice")
+        // const response = await baseQuery('api/refresh', {
+        const response = await axios.get(`${ENV.HOSTNAME}api/refresh`, {
+            withCredentials: true,
+            // credentials: "include",
         });
         console.log(response)
         return response.data.accessToken;
@@ -30,17 +33,20 @@ export const useRefreshToken = () => {
 
 const baseQueryWithReauth = async(args, api, extraOptions) => {
     let result = await baseQuery(args, api, extraOptions);
+    console.log("result data from baseQueryWithReauth", result.data)
 
-    if (result) {
+    if (result?.error?.originalStatus === 403) {
         // if (result?.error?.originalStatus === 403) {
         console.log("sending refresh token");
-        const refreshResult = await baseQuery("/refresh", api, extraOptions);
+        const refreshResult = await baseQuery("api/refresh", api, extraOptions);
+
+        console.log("refreshResult", refreshResult)
 
         if (refreshResult) {
             // if (refreshResult ? .data) {
             const user = api.getState().auth.user;
             //  store a new token
-            // api.dispatch(setCredentials({...refreshResult.data, user }));
+            api.dispatch(setCredentials({...refreshResult.data, user }));
             result = await baseQuery(args, api, extraOptions)
         } else {
             api.dispatch(logOut())

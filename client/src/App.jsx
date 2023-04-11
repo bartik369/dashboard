@@ -31,7 +31,7 @@ function App() {
   useEffect(() => {
     const verifyRefresfToken = async () => {
       try {
-        console.log("useeffect refresh token")
+        console.log("report from UE from App")
         await refresh()
       } catch (error) {
         
@@ -39,8 +39,8 @@ function App() {
         setIsLoading(false)
       }
     }
-    token ? verifyRefresfToken() : setIsLoading(false)
-  }, [])
+    !token ? verifyRefresfToken() : setIsLoading(false)
+  }, [token])
 
 
 
