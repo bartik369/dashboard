@@ -16,30 +16,32 @@ import SetNewPassword from "./components/pages/Authentication/SetNewPassword";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import PublicRoutes from "./routes/PublicRoutes";
 import { useRefreshToken } from "./store/api/apiSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { selectCurrentToken, selectCurrentUser } from "./store/features/auth/authSlice";
+import { useSelector } from "react-redux";
+import { selectCurrentToken} from "./store/features/auth/authSlice";
 import "./styles/App.css";
 
 function App() {
 
   const token = useSelector(selectCurrentToken);
-  const user = useSelector(selectCurrentUser);
-  const dispatch = useDispatch()
   const refresh = useRefreshToken()
-  const [isLoading, setIsLoading] = useState(true)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const verifyRefresfToken = async () => {
       try {
         await refresh()
       } catch (error) {
-        
-      } finally {
-        setIsLoading(false)
-      }
+      } 
     }
-    !token ? verifyRefresfToken() : setIsLoading(false)
+    !token && verifyRefresfToken()
   }, [token])
+
+  // useEffect(() => {
+
+  //   if (!token) {
+  //     navigate("/")
+  //   }
+  // }, [])
 
 
 

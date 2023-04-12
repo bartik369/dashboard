@@ -5,7 +5,7 @@ import { selectCurrentUser, selectCurrentToken } from "../store/features/auth/au
 export default function PrivateRoutes({ }) {
   
   const user = useSelector(selectCurrentUser);
-  const token = useSelector(selectCurrentToken);
+  const token = useSelector(selectCurrentToken)
   return (
     token ? <Navigate to={"/dashboard"}/> : <Outlet/> 
   )

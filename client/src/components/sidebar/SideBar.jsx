@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MenuItem from './MenuItem';
 import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../store/features/auth/authSlice";
 import '../sidebar/Sidebar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faBarsStaggered} from '@fortawesome/free-solid-svg-icons';
@@ -9,15 +10,15 @@ import { menuItem } from "../../utils/data-arrays/arrays";
 const Sidebar = ({ slideContentContainer, getLinkName}) => {
   const [inActive, setInactive] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false)
-  const user = useSelector((state) => state.auth.user);
+  const user = useSelector(selectCurrentUser);
 
-  // useEffect(() => {
-  //   user?.roles?.map((role) => {
-  //     if (role === "Administrator") {
-  //       setIsAdmin(true)
-  //     }
-  //   })
-  // }, [user])
+  useEffect(() => {
+    user?.roles?.map((role) => {
+      if (role === "Administrator") {
+        setIsAdmin(true)
+      }
+    })
+  }, [user])
 
   useEffect(() => {
     if (inActive) {
