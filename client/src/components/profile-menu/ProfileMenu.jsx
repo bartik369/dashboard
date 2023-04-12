@@ -1,16 +1,19 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signout } from "../../store/api/apiSlice";
+import { logOut } from "../../store/features/auth/authSlice";
 import "./profilemenu.css";
-import { useNavigate } from "react-router-dom";
 
-export default function ProfileMenu({user}) {
+export default function ProfileMenu({user, token}) {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
-  const logoutHandler = () => {
-    
+  const logoutHandler = async () => {
+    await signout()
+    dispatch(logOut())
     navigate("/")
-  
   };
 
   return (

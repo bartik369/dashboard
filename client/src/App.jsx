@@ -31,7 +31,6 @@ function App() {
   useEffect(() => {
     const verifyRefresfToken = async () => {
       try {
-        console.log("report from UE from App")
         await refresh()
       } catch (error) {
         

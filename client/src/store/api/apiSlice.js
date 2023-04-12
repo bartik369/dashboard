@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { setCredentials, logOut } from "../features/auth/authSlice";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 import ENV from "../../env.config";
 
 const baseQuery = fetchBaseQuery({
@@ -15,35 +16,43 @@ const baseQuery = fetchBaseQuery({
     },
 });
 
+// Refresh access token
+
 export const useRefreshToken = () => {
 
-    const refresh = async() => {
-        console.log("refresh log from aliSlice")
-        // const response = await baseQuery('api/refresh', {
+    const dispatch = useDispatch();
+    const refresh = async () => {
         const response = await axios.get(`${ENV.HOSTNAME}api/refresh`, {
             withCredentials: true,
-            // credentials: "include",
         });
-        console.log(response)
+        console.log("response from refresh", response)
+
+        if (response) {
+            dispatch(setCredentials({...response.data,}));
+        }
         return response.data.accessToken;
     }
     return refresh;
 };
 
+// Logout
 
-const baseQueryWithReauth = async(args, api, extraOptions) => {
+export const signout = async () => {
+    const response = await axios.get(`${ENV.HOSTNAME}api/logout`, {
+        withCredentials: true,
+    });
+    return response
+}
+
+
+const baseQueryWithReauth = async (args, api, extraOptions) => {
     let result = await baseQuery(args, api, extraOptions);
-    console.log("result data from baseQueryWithReauth", result.data)
 
     if (result?.error?.originalStatus === 403) {
-        // if (result?.error?.originalStatus === 403) {
         console.log("sending refresh token");
         const refreshResult = await baseQuery("api/refresh", api, extraOptions);
 
-        console.log("refreshResult", refreshResult)
-
-        if (refreshResult) {
-            // if (refreshResult ? .data) {
+        if (refreshResult?.data) {
             const user = api.getState().auth.user;
             //  store a new token
             api.dispatch(setCredentials({...refreshResult.data, user }));

@@ -1,19 +1,19 @@
 import { useSelector } from "react-redux";
-import { useState,useEffect } from "react";
+import { selectCurrentToken, selectCurrentUser } from "../store/features/auth/authSlice";
+import { useState } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import Header from "../components/header/Header";
 import Sidebar from "../components/sidebar/SideBar";
 
 export default function PrivateRoutes({ allowedRoles }) {
 
-  const user = useSelector((state) => state.auth.user);
-  const token = useSelector((state) => state.auth.token);
-
   const location = useLocation();
   const [slideStateContainer, setSlideStateContainer] = useState(false);
+  const user = useSelector(selectCurrentUser);
+  const token = useSelector(selectCurrentToken);
 
   return (
-    user &&
+    token &&
         <div className="afterlogin">
         <div className="menu-container">
           <Sidebar slideContentContainer={setSlideStateContainer} />
@@ -34,5 +34,5 @@ export default function PrivateRoutes({ allowedRoles }) {
       </div>
       /* user?.roles?.find(role => allowedRoles?.includes(role)) */
 
-  )
+   )
 }

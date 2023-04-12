@@ -21,15 +21,8 @@ const Header = ({ moveHeader }) => {
   const overTodos = [];
   const location = useLocation();
   const dispatch = useDispatch();
-
   const token = useSelector(selectCurrentToken);
   const user = useSelector(selectCurrentUser);
-
-useEffect(() => {
-    console.log(user);
-    console.log(token)
-}, [])
-
   const {data = [], isLoading} = useGetTodosQuery();
 
   useEffect(() => {
@@ -70,12 +63,6 @@ useEffect(() => {
           )}
         </div>
         <div className="header__menu">
-          {/* <ul>
-            <li>menu 1</li>
-            <li>menu 2</li>
-            <li>menu 3</li>
-            <li>menu 4</li>
-          </ul> */}
         </div>
         <div
           className="header__user-panel"
@@ -117,7 +104,7 @@ useEffect(() => {
             alt=""
             onClick={userMenuHandler}
           />
-          <div className="drop-menu">{userMenu && <ProfileMenu user={user} />}</div>
+          <div className="drop-menu">{userMenu && <ProfileMenu user={user} token={token} />}</div>
         </div>
       </div>
     </header>

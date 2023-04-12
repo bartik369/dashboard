@@ -1,14 +1,12 @@
 import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
+import { selectCurrentUser, selectCurrentToken } from "../store/features/auth/authSlice";
 
 export default function PrivateRoutes({ }) {
-
-  // const isAuth = useSelector((state) => state.auth.auth.isAuth);
-  const isAuth = false
-  // const user = useSelector((state) => state.auth.auth.user);
-
-
+  
+  const user = useSelector(selectCurrentUser);
+  const token = useSelector(selectCurrentToken);
   return (
-    isAuth ? <Navigate to={"/dashboard"}/> : <Outlet/> 
+    token ? <Navigate to={"/dashboard"}/> : <Outlet/> 
   )
 }

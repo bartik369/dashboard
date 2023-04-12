@@ -30,13 +30,6 @@ class UserController {
                 secure: true,
                 sameSite: "none",
             });
-            // res.cookie('accessToken', userData.accessToken, {
-            //     maxAge: 1 * 60 * 1000,
-            //     httpOnly: true,
-            //     secure: true,
-            //     sameSite: "none",
-            // });
-
             return res.json(userData)
 
         } catch (err) {
@@ -52,7 +45,6 @@ class UserController {
             const refreshToken = cookie.split("refreshToken=")[1].split(";")[0];
             await userService.logout(refreshToken);
             res.clearCookie('refreshToken');
-            res.clearCookie('accessToken');
             return res.status(200).json({ message: "Logout success" })
         } catch (err) {
             next(err);
