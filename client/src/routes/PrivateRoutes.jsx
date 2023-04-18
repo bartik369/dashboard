@@ -12,30 +12,6 @@ export default function PrivateRoutes({ allowedRoles }) {
   const user = useSelector(selectCurrentUser);
   const token = useSelector(selectCurrentToken);
 
-  // return (
-  //   token &&
-  //       <div className="afterlogin">
-  //       <div className="menu-container">
-  //         <Sidebar slideContentContainer={setSlideStateContainer} />
-  //       </div>
-  //       <div
-  //         className={`content-wrapper slided-content${
-  //           slideStateContainer === false ? "slided-content" : ""
-  //         }`}
-  //       >
-  //         <Header moveHeader={slideStateContainer} />
-  //         <div className="content-container">
-  //           {user?.roles?.find(role => allowedRoles?.includes(role)) 
-  //             ? <Outlet /> 
-  //             : <Navigate to="/" />
-  //           }
-  //         </div>
-  //       </div>  
-  //     </div>
-  //     /* user?.roles?.find(role => allowedRoles?.includes(role)) */
-
-  //  )
-
    return (
     token &&
         <div className="afterlogin">

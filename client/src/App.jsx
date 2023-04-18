@@ -36,15 +36,6 @@ function App() {
     !token && verifyRefresfToken()
   }, [token])
 
-  // useEffect(() => {
-
-  //   if (!token) {
-  //     navigate("/")
-  //   }
-  // }, [])
-
-
-
   return (
     <div className="App">
       <Routes>

@@ -30,6 +30,7 @@ class UserController {
                 secure: true,
                 sameSite: "none",
             });
+            console.log("userdata from back", userData)
             return res.json(userData)
 
         } catch (err) {
@@ -64,6 +65,7 @@ class UserController {
     async refresh(req, res, next) {
         try {
             const { cookie } = req.headers;
+            console.log(cookie)
             const refreshToken = cookie.split("refreshToken=")[1].split(";")[0];
             const userData = await userService.refresh(refreshToken);
             res.cookie('refreshToken', userData.refreshToken, {
@@ -71,10 +73,10 @@ class UserController {
                 httpOnly: true,
                 httpsOnly: true,
             });
-            console.log("userData from controllker", userData)
+            // console.log("userData from controllker", userData)
             return res.json(userData);
         } catch (err) {
-            next(err);
+            // next(err);
         }
     };
 

@@ -9,6 +9,7 @@ const baseQuery = fetchBaseQuery({
     credentials: "include",
     prepareHeaders: (headers, { getState }) => {
         const token = getState().auth.token;
+
         if (token) {
             headers.set("authorization", `Bearer ${token}`);
         }
@@ -25,8 +26,7 @@ export const useRefreshToken = () => {
         const response = await axios.get(`${ENV.HOSTNAME}api/refresh`, {
             withCredentials: true,
         });
-        console.log("response from refresh", response)
-
+        
         if (response) {
             dispatch(setCredentials({...response.data,}));
         }
@@ -63,6 +63,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     }
     return result
 };
+
 
 export const apiSlice = createApi({
     baseQuery: baseQueryWithReauth,

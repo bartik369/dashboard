@@ -42,7 +42,7 @@ const Header = ({ moveHeader }) => {
   const userMenuHandler = () =>
     userMenu ? setUserMenu(false) : setUserMenu(true);
 
-  const todosNotificationHandler = () =>
+  const todosNotificationHandler = () => 
     todosDropMenu ? setTodosDropMenu(false) : setTodosDropMenu(true);
 
   window.addEventListener("click", () => {
