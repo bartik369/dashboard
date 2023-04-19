@@ -17,22 +17,40 @@ const baseQuery = fetchBaseQuery({
     },
 });
 
-// Refresh access token
+// const baseQueryWithReauth = async (args, api, extraOptions) => {
+//     let result = await baseQuery(args, api, extraOptions);
+//     console.log("result b", result)
 
-export const useRefreshToken = () => {
+//     if (result?.error?.originalStatus === 403) {
+//         console.log("sending refresh token");
+//         const refreshResult = await baseQuery("api/refresh", api, extraOptions);
+
+//         if (refreshResult?.data) {
+//             const user = api.getState().auth.user;
+//             //  store a new token
+//             api.dispatch(setCredentials({...refreshResult.data, user }));
+//             result = await baseQuery(args, api, extraOptions)
+//         } else {
+//             api.dispatch(logOut())
+//         }
+//     }
+//     return result
+// };
+
+
+export const useValidateAccessToken = () => {
 
     const dispatch = useDispatch();
-    const refresh = async () => {
-        const response = await axios.get(`${ENV.HOSTNAME}api/refresh`, {
+    const validateAccessToken = async () => {
+        const response = await axios.get(`${ENV.HOSTNAME}api/auth`, {
             withCredentials: true,
         });
-        
         if (response) {
             dispatch(setCredentials({...response.data,}));
-        }
+        } 
         return response.data.accessToken;
     }
-    return refresh;
+    return validateAccessToken;
 };
 
 // Logout
@@ -44,30 +62,9 @@ export const signout = async () => {
     return response
 }
 
-
-const baseQueryWithReauth = async (args, api, extraOptions) => {
-    let result = await baseQuery(args, api, extraOptions);
-
-    if (result?.error?.originalStatus === 403) {
-        console.log("sending refresh token");
-        const refreshResult = await baseQuery("api/refresh", api, extraOptions);
-
-        if (refreshResult?.data) {
-            const user = api.getState().auth.user;
-            //  store a new token
-            api.dispatch(setCredentials({...refreshResult.data, user }));
-            result = await baseQuery(args, api, extraOptions)
-        } else {
-            api.dispatch(logOut())
-        }
-    }
-    return result
-};
-
-
 export const apiSlice = createApi({
-    baseQuery: baseQueryWithReauth,
+    baseQuery:baseQuery,
     endpoints: (builder) => ({})
 })
 
-export default baseQueryWithReauth;
+export default baseQuery;

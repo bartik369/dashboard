@@ -15,7 +15,7 @@ import ResetPassword from "./components/pages/Authentication/ResetPassword";
 import SetNewPassword from "./components/pages/Authentication/SetNewPassword";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import PublicRoutes from "./routes/PublicRoutes";
-import { useRefreshToken } from "./store/api/apiSlice";
+import { useValidateAccessToken } from "./store/api/apiSlice";
 import { useSelector } from "react-redux";
 import { selectCurrentToken} from "./store/features/auth/authSlice";
 import "./styles/App.css";
@@ -23,17 +23,17 @@ import "./styles/App.css";
 function App() {
 
   const token = useSelector(selectCurrentToken);
-  const refresh = useRefreshToken()
+  const validateAccessToken = useValidateAccessToken()
   const navigate = useNavigate()
 
   useEffect(() => {
-    const verifyRefresfToken = async () => {
+    const verifyAccessToken = async () => {
       try {
-        await refresh()
+        await validateAccessToken()
       } catch (error) {
       } 
     }
-    !token && verifyRefresfToken()
+    !token && verifyAccessToken()
   }, [token])
 
   return (

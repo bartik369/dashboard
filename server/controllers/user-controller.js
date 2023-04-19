@@ -9,11 +9,11 @@ class UserController {
         try {
             const { displayname, email, password, description, city, birthday, phone, work } = req.body;
             const userData = await userService.registration(displayname, email, password, description, city, birthday, phone, work);
-            res.cookie('refreshToken', userData.refreshToken, {
-                maxAge: 30 * 24 * 60 * 60 * 1000,
-                httpOnly: true,
-                httpsOnly: true,
-            });
+            // res.cookie('refreshToken', userData.refreshToken, {
+            //     maxAge: 30 * 24 * 60 * 60 * 1000,
+            //     httpOnly: true,
+            //     httpsOnly: true,
+            // });
             return res.json(userData);
         } catch (err) {
             next(err);
@@ -30,6 +30,12 @@ class UserController {
                 secure: true,
                 sameSite: "none",
             });
+            res.cookie('accessToken', userData.accessToken, {
+                maxAge: 60 * 1000,
+                httpOnly: true,
+                secure: true,
+                sameSite: "none",
+            })
             console.log("userdata from back", userData)
             return res.json(userData)
 
@@ -45,6 +51,7 @@ class UserController {
             // const accessToken = cookie.split("accessToken=")[1];
             const refreshToken = cookie.split("refreshToken=")[1].split(";")[0];
             await userService.logout(refreshToken);
+            res.clearCookie('accessToken');
             res.clearCookie('refreshToken');
             return res.status(200).json({ message: "Logout success" })
         } catch (err) {
@@ -164,19 +171,39 @@ class UserController {
         }
     }
 
-    // async checkCookie(req, res, next) {
-    //     try {
-    //         const { cookie } = req.headers;
-    //         const accessToken = cookie.split("accessToken=")[1];
-    //         console.log(accessToken)
-    //         // const refreshToken = cookie.split("refreshToken=")[1].split(";")[0];
-    //         const userData = await userService.checkValidAccess(accessToken);
-    //         return res.json({ user: userData, accessToken: accessToken })
-    //     } catch (err) {
-    //         next(err)
-    //         res.status(403);
-    //     }
-    // }
+    async checkCookie(req, res, next) {
+        try {
+            const { cookie } = req.headers;
+            const accessToken = cookie.split("accessToken=")[1];
+            const refreshToken = cookie.split("refreshToken=")[1].split(";")[0];
+
+            if (accessToken) {
+                const userData = await userService.checkValidAccess(accessToken);
+                return res.json({ user: userData, accessToken: accessToken })
+            } else {
+                const refreshUserData = await userService.refresh(refreshToken);
+                console.log("refresh token ==========================================>>>>", refreshUserData)
+                res.cookie('refreshToken', refreshUserData.refreshToken, {
+                    maxAge: 30 * 24 * 60 * 60 * 1000,
+                    httpOnly: true,
+                    secure: true,
+                    sameSite: "none",
+                });
+                res.cookie('accessToken', refreshUserData.accessToken, {
+                    maxAge: 60 * 1000,
+                    httpOnly: true,
+                    secure: true,
+                    sameSite: "none",
+                });
+
+                console.log("final data from refresh servie", refreshUserData)
+                return res.json(refreshUserData)
+            }
+
+        } catch (err) {
+            return res.status(403).json({ message: "Пользователь не авторизован" })
+        }
+    }
 };
 
 export default new UserController();
