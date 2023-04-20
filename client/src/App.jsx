@@ -31,6 +31,7 @@ function App() {
       try {
         await validateAccessToken()
       } catch (error) {
+      
       } 
     }
     !token && verifyAccessToken()

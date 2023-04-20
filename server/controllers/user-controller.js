@@ -72,7 +72,6 @@ class UserController {
     async refresh(req, res, next) {
         try {
             const { cookie } = req.headers;
-            console.log(cookie)
             const refreshToken = cookie.split("refreshToken=")[1].split(";")[0];
             const userData = await userService.refresh(refreshToken);
             res.cookie('refreshToken', userData.refreshToken, {
@@ -171,39 +170,54 @@ class UserController {
         }
     }
 
+
     async checkCookie(req, res, next) {
         try {
             const { cookie } = req.headers;
             const accessToken = cookie.split("accessToken=")[1];
-            const refreshToken = cookie.split("refreshToken=")[1].split(";")[0];
 
-            if (accessToken) {
-                const userData = await userService.checkValidAccess(accessToken);
-                return res.json({ user: userData, accessToken: accessToken })
-            } else {
-                const refreshUserData = await userService.refresh(refreshToken);
-                console.log("refresh token ==========================================>>>>", refreshUserData)
-                res.cookie('refreshToken', refreshUserData.refreshToken, {
-                    maxAge: 30 * 24 * 60 * 60 * 1000,
-                    httpOnly: true,
-                    secure: true,
-                    sameSite: "none",
-                });
-                res.cookie('accessToken', refreshUserData.accessToken, {
-                    maxAge: 60 * 1000,
-                    httpOnly: true,
-                    secure: true,
-                    sameSite: "none",
-                });
-
-                console.log("final data from refresh servie", refreshUserData)
-                return res.json(refreshUserData)
+            if (!accessToken) {
+                return res.status(403).json({ message: "Пользователь не авторизован" })
             }
-
-        } catch (err) {
-            return res.status(403).json({ message: "Пользователь не авторизован" })
+            const userData = await userService.checkValidAccess(accessToken);
+            return res.json({ user: userData, accessToken: accessToken })
+        } catch (error) {
+            next(error)
         }
     }
+
+    // async checkCookie(req, res, next) {
+    //     try {
+    //         const { cookie } = req.headers;
+    //         const accessToken = cookie.split("accessToken=")[1];
+    //         const refreshToken = cookie.split("refreshToken=")[1].split(";")[0];
+
+    //         if (accessToken) {
+    //             const userData = await userService.checkValidAccess(accessToken);
+    //             return res.json({ user: userData, accessToken: accessToken })
+    //         } else {
+    //             const refreshUserData = await userService.refresh(refreshToken);
+
+    //             res.cookie('refreshToken', refreshUserData.refreshToken, {
+    //                 maxAge: 30 * 24 * 60 * 60 * 1000,
+    //                 httpOnly: true,
+    //                 secure: true,
+    //                 sameSite: "none",
+    //             });
+    //             res.cookie('accessToken', refreshUserData.accessToken, {
+    //                 maxAge: 60 * 1000,
+    //                 httpOnly: true,
+    //                 secure: true,
+    //                 sameSite: "none",
+    //             });
+
+    //             return res.json(refreshUserData)
+    //         }
+
+    //     } catch (err) {
+    //         return res.status(403).json({ message: "Пользователь не авторизован" })
+    //     }
+    // }
 };
 
 export default new UserController();
