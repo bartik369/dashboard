@@ -4,9 +4,11 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import ENV from "../../env.config";
 
+
 const baseQuery = fetchBaseQuery({
     baseUrl: ENV.HOSTNAME,
     credentials: "include",
+    method: "GET",
     prepareHeaders: (headers, { getState }) => {
         const token = getState().auth.token;
 
@@ -17,42 +19,10 @@ const baseQuery = fetchBaseQuery({
     },
 });
 
+// check valid access token
 
-
-// const baseQueryWithReauth = async (args, api, extraOptions) => {
-//     let result = await baseQuery(args, api, extraOptions);
-//     console.log("result b", result)
-
-//     if (result?.error?.originalStatus === 403) {
-//         console.log("sending refresh token");
-//         const refreshResult = await baseQuery("api/refresh", api, extraOptions);
-
-//         if (refreshResult?.data) {
-//             const user = api.getState().auth.user;
-//             //  store a new token
-//             api.dispatch(setCredentials({...refreshResult.data, user }));
-//             result = await baseQuery(args, api, extraOptions)
-//         } else {
-//             api.dispatch(logOut())
-//         }
-//     }
-//     return result
-// };
-
-
-
-const baseQueryWithReauth = async (args, api, extraOptions) => {
-    let result = await baseQuery(args, api, extraOptions);
-
-
-    if (result.data) {
-        api.dispatch(setCredentials({...result.data,}));
-    }
-    return result
-};
 
 export const useValidateAccessToken = () => {
-
     const dispatch = useDispatch();
     const validateAccessToken = async () => {
 
@@ -61,27 +31,24 @@ export const useValidateAccessToken = () => {
                 withCredentials: true,
             });
 
+            console.log(response)
+
             if (response.data) {
                 dispatch(setCredentials({...response.data,}));
-                return response.data.accessToken;
-            } else if (response.status === 403) {
-                console.log("ooooops")
-            }
-          } catch (error) {
-            console.log(error)
-          }
-    //   try {
-    //     const response = await axios.get(`${ENV.HOSTNAME}api/auth`, {
-    //         withCredentials: true,
-    //     });
+            } 
+        } catch (error) {
 
-    //     if (response) {
-    //         dispatch(setCredentials({...response.data,}));
-    //     } 
-    //     return response.data.accessToken;
-    //   } catch (error) {
-        
-    //   }
+            if (error.response.status === 403) {
+                const response = await axios.get(`${ENV.HOSTNAME}api/refresh`, {
+                    withCredentials: true,
+                });
+
+                if (response.data) {
+                    dispatch(setCredentials({...response.data,}));
+                }
+            }
+        }
+            
     }
     return validateAccessToken;
 };
@@ -96,11 +63,11 @@ export const signout = async () => {
 }
 
 export const apiSlice = createApi({
-    baseQuery: baseQueryWithReauth,
+    baseQuery: baseQuery,
     endpoints: (builder) => ({})
 })
 
-export default baseQueryWithReauth;
+export default baseQuery;
 
 
 
