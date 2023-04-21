@@ -24,18 +24,18 @@ class UserController {
         try {
             const { email, password } = req.body;
             const userData = await userService.login(email, password);
+            res.cookie('accessToken', userData.accessToken, {
+                maxAge: 1 * 60 * 1000,
+                httpOnly: true,
+                secure: true,
+                sameSite: "none",
+            });
             res.cookie('refreshToken', userData.refreshToken, {
                 maxAge: 30 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
                 secure: true,
                 sameSite: "none",
             });
-            res.cookie('accessToken', userData.accessToken, {
-                maxAge: 1 * 60 * 1000,
-                httpOnly: true,
-                secure: true,
-                sameSite: "none",
-            })
             console.log("userdata from back", userData)
             return res.json(userData)
 
@@ -71,13 +71,16 @@ class UserController {
 
     async refresh(req, res, next) {
         try {
-            console.log("refresh works")
+
             const { cookie } = req.headers;
             const refreshToken = cookie.split("refreshToken=")[1].split(";")[0];
             console.log(refreshToken)
             const userData = await userService.refresh(refreshToken);
+
+            console.log("i need it", userData)
+
             res.cookie('accessToken', userData.accessToken, {
-                maxAge: 30 * 60 * 1000,
+                maxAge: 1 * 60 * 1000,
                 httpOnly: true,
                 secure: true,
                 sameSite: "none",
@@ -85,7 +88,7 @@ class UserController {
             res.cookie('refreshToken', userData.refreshToken, {
                 maxAge: 30 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
-                httpsOnly: true,
+                secure: true,
                 sameSite: "none",
             });
             return res.json(userData);
