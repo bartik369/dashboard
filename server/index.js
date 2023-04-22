@@ -21,7 +21,7 @@ app.use(cookieParser());
 app.use(cors({
     credentials: true,
     origin: process.env.CLIENT_URL,
-    
+
 }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api', authRoutes, deviceRoutes, todoRoutes);
@@ -48,7 +48,7 @@ app.put('/device/:id', updateDevice);
 app.put('/todo/:id', updateTodo)
 
 
-const start = async () => {
+const start = async() => {
     try {
         await mongoose.connect(process.env.DB_URL, {
             useNewUrlParser: true,
