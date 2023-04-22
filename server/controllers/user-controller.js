@@ -24,8 +24,9 @@ class UserController {
         try {
             const { email, password } = req.body;
             const userData = await userService.login(email, password);
+            console.log(userData)
             res.cookie('accessToken', userData.accessToken, {
-                maxAge: 1 * 60 * 1000,
+                maxAge: 15 * 60 * 1000,
                 httpOnly: true,
                 secure: true,
                 sameSite: "none",
@@ -71,16 +72,11 @@ class UserController {
 
     async refresh(req, res, next) {
         try {
-
-            const { cookie } = req.headers;
-            const refreshToken = cookie.split("refreshToken=")[1].split(";")[0];
-            console.log(refreshToken)
+            const refreshToken = req.cookies.refreshToken;
             const userData = await userService.refresh(refreshToken);
 
-            console.log("i need it", userData)
-
             res.cookie('accessToken', userData.accessToken, {
-                maxAge: 1 * 60 * 1000,
+                maxAge: 15 * 60 * 1000,
                 httpOnly: true,
                 secure: true,
                 sameSite: "none",
@@ -184,16 +180,14 @@ class UserController {
 
     async checkCookie(req, res, next) {
         try {
-            const { cookie } = req.headers;
-            const accessToken = cookie.split("accessToken=")[1];
-
+            const accessToken = req.cookies.accessToken;
             if (!accessToken) {
                 return res.status(403).json({ message: "Пользователь не авторизован" })
             }
             const userData = await userService.checkValidAccess(accessToken);
             return res.json({ user: userData, accessToken: accessToken })
         } catch (error) {
-         
+
         }
     }
 

@@ -45,7 +45,7 @@ class UserService {
 
     }
 
-    
+
     async login(email, password) {
         const user = await UserModel.findOne({ email });
 
@@ -76,7 +76,7 @@ class UserService {
             if (!userData) {
                 throw ApiError.UnauthorizedError("you dont have access")
             }
-        
+
             return {
                 userData
             }
@@ -228,7 +228,7 @@ class UserService {
         if (!user) {
             throw ApiError.BadRequest()
         }
-        const profile = await ProfilModel.findOne({userId: user._id})
+        const profile = await ProfilModel.findOne({ userId: user._id })
 
         if (!profile) {
             throw ApiError.BadRequest()

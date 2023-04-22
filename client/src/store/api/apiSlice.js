@@ -8,7 +8,6 @@ import ENV from "../../env.config";
 const baseQuery = fetchBaseQuery({
     baseUrl: ENV.HOSTNAME,
     credentials: "include",
-    method: "GET",
     prepareHeaders: (headers, { getState }) => {
         const token = getState().auth.token;
 
@@ -24,7 +23,7 @@ const baseQuery = fetchBaseQuery({
 
 export const useValidateAccessToken = () => {
     const dispatch = useDispatch();
-    const validateAccessToken = async () => {
+    const validateAccessToken = async() => {
 
         try {
             const response = await axios.get(`${ENV.HOSTNAME}api/auth`, {
@@ -34,28 +33,27 @@ export const useValidateAccessToken = () => {
             console.log(response)
 
             if (response.data) {
-                dispatch(setCredentials({...response.data,}));
-            } 
+                dispatch(setCredentials({...response.data, }));
+            }
         } catch (error) {
-
             if (error.response.status === 403) {
                 const response = await axios.get(`${ENV.HOSTNAME}api/refresh`, {
                     withCredentials: true,
                 });
 
                 if (response.data) {
-                    dispatch(setCredentials({...response.data,}));
+                    dispatch(setCredentials({...response.data, }));
                 }
             }
         }
-            
+
     }
     return validateAccessToken;
 };
 
 // Logout
 
-export const signout = async () => {
+export const signout = async() => {
     const response = await axios.get(`${ENV.HOSTNAME}api/logout`, {
         withCredentials: true,
     });
