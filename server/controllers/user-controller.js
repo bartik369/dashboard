@@ -74,7 +74,7 @@ class UserController {
         try {
             const refreshToken = req.cookies.refreshToken;
             const userData = await userService.refresh(refreshToken);
-
+            console.log("trefresh works")
             res.cookie('accessToken', userData.accessToken, {
                 maxAge: 15 * 60 * 1000,
                 httpOnly: true,
