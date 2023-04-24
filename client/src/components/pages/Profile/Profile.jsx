@@ -7,18 +7,22 @@ import InputMask from "react-input-mask"
 import * as formConstants from "../../../utils/constants/form.constants";
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as uiConstants from "../../../utils/constants/ui.constants";
+import { selectCurrentUser } from "../../../store/features/auth/authSlice";
+import { useGetUserProfileQuery } from "../../../store/features/auth/authApi";
 import Modal from "../../UI/modal/Modal";
 import SubmitButton from "../../UI/buttons/SubmitButton";
 import ChangePassword from "../../form/change-password/ChangePassword";
 import profileImage from "../../../assets/users/developer-profile.jpg"
 import "../../form/forms.css";
 import "./profile.css"
+
+
+
 export default function Profile() {
 
-
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.auth.user);
-  const profile = useSelector((state) => state.profile.profile);
+  const user = useSelector(selectCurrentUser);
+  // const profile = useSelector((state) => state.profile.profile);
   const [activeModal, setActiveModal] = useState(null);
   const [profileInfo, setProfileInfo] = useState({
     id: "",
@@ -36,6 +40,7 @@ export default function Profile() {
     avatar: "",
   });
 
+  const {data: profile} = useGetUserProfileQuery(user.id)
 
   const {
     control,
@@ -60,10 +65,9 @@ export default function Profile() {
 
   console.log("check memory profile")
 
-
-  useEffect(() => {
-    dispatch(getProfileInfo(user.id))
-  }, [user.id]);
+  // useEffect(() => {
+  //   dispatch(getProfileInfo(user.id))
+  // }, [user.id]);
 
   const changePassword = () => {
     setActiveModal(true);
