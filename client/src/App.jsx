@@ -17,7 +17,7 @@ import PrivateRoutes from "./routes/PrivateRoutes";
 import PublicRoutes from "./routes/PublicRoutes";
 import { useValidateAccessToken } from "./store/api/apiSlice";
 import { useSelector } from "react-redux";
-import { selectCurrentToken} from "./store/features/auth/authSlice";
+import { selectCurrentToken } from "./store/features/auth/authSlice";
 import "./styles/App.css";
 
 function App() {
@@ -36,6 +36,7 @@ function App() {
     }
     !token && verifyAccessToken()
   }, [token])
+
 
   return (
     <div className="App">

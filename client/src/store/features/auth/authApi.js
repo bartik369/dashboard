@@ -1,4 +1,6 @@
 import { apiSlice } from "../../api/apiSlice";
+import axios from "axios";
+import ENV from "../../../env.config";
 
 
 export const authApi = apiSlice.injectEndpoints({
@@ -18,8 +20,26 @@ export const authApi = apiSlice.injectEndpoints({
                 body: {...credentials },
             })
         }),
+        getUserProfile: builder.query({
+            queryFn: async (id) => {
+                try {
+                    const response = await axios.get(`${ENV.HOSTNAME}/api/profile/${id}`);
+                    console.log(response);
+                    return {data: await response.json()};
+                } catch (error) {
+                    return {error: error.message}
+                }
+            }
+            // query: (id) => ({
+            //     url: `api/profile/${id}`,
+            //     method: "GET",
+            // })
+        })
     }),
 
 });
 
-export const { useSigninMutation, useSignupMutation } = authApi;
+export const { useSigninMutation, useSignupMutation, useGetUserProfileQuery } = authApi;
+
+
+

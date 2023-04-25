@@ -168,6 +168,7 @@ class UserController {
 
     async getProfile(req, res, next) {
         try {
+            console.log(id)
             const id = req.params.id;
             const profile = await userService.getProfile(id)
             console.log(profile)
@@ -185,7 +186,8 @@ class UserController {
                 return res.status(403).json({ message: "Пользователь не авторизован" })
             }
             const userData = await userService.checkValidAccess(accessToken);
-            return res.json({ user: userData, accessToken: accessToken })
+            console.log(userData)
+            return res.json({user: userData, accessToken: accessToken})
         } catch (error) {
 
         }

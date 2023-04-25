@@ -30,10 +30,11 @@ export const useValidateAccessToken = () => {
                 withCredentials: true,
             });
 
-            console.log(response)
-
             if (response.data) {
-                dispatch(setCredentials({...response.data, }));
+                dispatch(setCredentials({...response.data, 
+                    user: response.data.user,
+                    token: response.data.accessToken,
+                }));
             }
         } catch (error) {
             if (error.response.status === 403) {
@@ -42,7 +43,10 @@ export const useValidateAccessToken = () => {
                 });
 
                 if (response.data) {
-                    dispatch(setCredentials({...response.data, }));
+                    dispatch(setCredentials({...response.data,
+                        user: response.data.user,
+                        token: response.data.accessToken,
+                    }));
                 }
             }
         }
@@ -59,6 +63,8 @@ export const signout = async() => {
     });
     return response
 }
+
+// Get user profile info
 
 export const apiSlice = createApi({
     baseQuery: baseQuery,

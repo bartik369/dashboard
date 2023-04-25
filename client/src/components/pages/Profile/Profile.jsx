@@ -22,7 +22,6 @@ export default function Profile() {
 
   const dispatch = useDispatch();
   const user = useSelector(selectCurrentUser);
-  // const profile = useSelector((state) => state.profile.profile);
   const [activeModal, setActiveModal] = useState(null);
   const [profileInfo, setProfileInfo] = useState({
     id: "",
@@ -40,7 +39,8 @@ export default function Profile() {
     avatar: "",
   });
 
-  const {data: profile} = useGetUserProfileQuery(user.id)
+  const { data: profile, isError,  isFetching, refetch } = useGetUserProfileQuery(user.id);
+  console.log(user.id)
 
   const {
     control,
@@ -65,8 +65,9 @@ export default function Profile() {
 
   console.log("check memory profile")
 
+
   // useEffect(() => {
-  //   dispatch(getProfileInfo(user.id))
+
   // }, [user.id]);
 
   const changePassword = () => {

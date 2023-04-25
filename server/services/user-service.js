@@ -77,9 +77,7 @@ class UserService {
                 throw ApiError.UnauthorizedError("you dont have access")
             }
 
-            return {
-                userData
-            }
+            return userData
         } catch (error) {
             return null
         }
