@@ -8,7 +8,7 @@ import * as formConstants from "../../../utils/constants/form.constants";
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as uiConstants from "../../../utils/constants/ui.constants";
 import { selectCurrentUser } from "../../../store/features/auth/authSlice";
-import { useGetUserProfileQuery } from "../../../store/features/auth/authApi";
+import { useUserProfileQuery } from "../../../store/features/auth/authApi";
 import Modal from "../../UI/modal/Modal";
 import SubmitButton from "../../UI/buttons/SubmitButton";
 import ChangePassword from "../../form/change-password/ChangePassword";
@@ -22,25 +22,16 @@ export default function Profile() {
 
   const dispatch = useDispatch();
   const user = useSelector(selectCurrentUser);
+  const { data: someInfo} = useUserProfileQuery(user.id);
   const [activeModal, setActiveModal] = useState(null);
-  const [profileInfo, setProfileInfo] = useState({
-    id: "",
-    displayname: "",
-    email: "",
-    description: "",
-    city: "",
-    birthday: "",
-    phone: "",
-    work: {
-      departament: "",
-      workPhone: "",
-      vocation: "",
-    },
-    avatar: "",
-  });
+  const [profileInfo, setProfileInfo] = useState();
+  const [test, setTest] = useState();
+   
 
-  const { data: profile, isError,  isFetching, refetch } = useGetUserProfileQuery(user.id);
-  console.log(user.id)
+  useEffect(() => {
+    setTest(someInfo);
+     console.log(test)
+  }, [user.id])
 
   const {
     control,
@@ -53,13 +44,13 @@ export default function Profile() {
     defaultValues: {
       displayname: user.displayname,
       email: user.email,
-      description: profile.description,
-      city: profile.city,
-      birthday: profile.birthday,
-      phone: profile.phone,
-      departament: profile.work.departament,
-      workPhone: profile.work.workPhone,
-      vocation: profile.work.vocation,
+      // description: profileInfo.description,
+      // city: profileInfo.city,
+      // birthday: profileInfo.birthday,
+      // phone: profileInfo.phone,
+      // departament: profileInfo.work.departament,
+      // workPhone: profileInfo.work.workPhone,
+      // vocation: profileInfo.work.vocation,
     }
   });
 
