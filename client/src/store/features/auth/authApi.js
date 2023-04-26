@@ -21,33 +21,28 @@ export const authApi = apiSlice.injectEndpoints({
             })
         }),
         userProfile: builder.query({
-            // queryFn: async (id) => {
-            //     console.log("id frokm quey", id)
-            //     try {
-            //         const response = await axios.get(`${ENV.HOSTNAME}api/profile/${id}`);
-            //         console.log("response from api slise", response.data);
-            //         // return {data: await response.data.json()};
-            //         return {data: await response.data.json()};
-            //     } catch (error) {
-            //         return {error: error.message}
+            queryFn: async(id) => {
+                    try {
+                        const response = await axios.get(`${ENV.HOSTNAME}api/profile/${id}`);
+                        // return {data: await response.data.json()};
+                        return { data: await response.data };
+                    } catch (error) {
+                        return { error: error.message }
+                    }
+                }
+                // query: (id) => ({
+                //     url: `api/profile/${id}`,
+                //     method: "GET",
+                // }),
+                // transformResponse: (response, meta, arg) => {
+
+            //     if (response) {
+            //         return response;
             //     }
             // }
-            query: (id) => ({
-                url: `api/profile/${id}`,
-                method: "GET",
-            }),
-            transformResponse: (response, meta, arg) => {
-                
-                if (response) {
-                    return response;
-                }
-            }
         })
     }),
 
 });
 
 export const { useSigninMutation, useSignupMutation, useUserProfileQuery } = authApi;
-
-
-
