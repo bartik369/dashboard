@@ -22,17 +22,27 @@ export default function Profile() {
 
   const dispatch = useDispatch();
   const user = useSelector(selectCurrentUser);
-  const { data: someInfo} = useUserProfileQuery(user.id);
+  const { currentData: someInfo} = useUserProfileQuery(user.id);
   const [activeModal, setActiveModal] = useState(null);
-  const [profileInfo, setProfileInfo] = useState();
-  const [test, setTest] = useState();
-   
 
-  useEffect(() => {
-    setTest(someInfo);
-     console.log(test)
-  }, [user.id])
+  console.log(someInfo)
 
+  // useEffect(() => {
+  //   setProfile(someInfo)
+  // }, [someInfo])
+
+
+  const [profile, setProfile] = useState({
+      birthday: "",
+      city: "",
+      description: "",
+      phone: "",
+      work: {
+        departament: "",
+        workPhone: "",
+        vocation: "",
+      },
+  });
   const {
     control,
     register,
@@ -44,13 +54,13 @@ export default function Profile() {
     defaultValues: {
       displayname: user.displayname,
       email: user.email,
-      // description: profileInfo.description,
-      // city: profileInfo.city,
-      // birthday: profileInfo.birthday,
-      // phone: profileInfo.phone,
-      // departament: profileInfo.work.departament,
-      // workPhone: profileInfo.work.workPhone,
-      // vocation: profileInfo.work.vocation,
+      description: profile.description,
+      city: profile.city,
+      birthday: profile.birthday,
+      phone: profile.phone,
+      departament: profile.work.departament,
+      workPhone: profile.work.workPhone,
+      // vocation: someInfo.work.vocation,
     }
   });
 
@@ -72,7 +82,7 @@ export default function Profile() {
   const onSubmit = (data) => {
     console.log(data)
     const updatedProfileInfo = {
-      ...profileInfo,
+      ...profile,
       displayname: data.displayname,
       email: data.email,
       description: data.description,
