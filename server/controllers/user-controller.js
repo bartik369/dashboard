@@ -169,7 +169,6 @@ class UserController {
     async getProfile(req, res, next) {
         try {
             const id = req.params.id;
-            console.log(id)
             const profile = await userService.getProfile(id)
             console.log(profile)
             return res.json(profile)

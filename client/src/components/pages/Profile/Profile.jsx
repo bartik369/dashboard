@@ -1,48 +1,48 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { updateProfileInfo, getProfileInfo } from "../../../store/actions/usersActions";
+import { updateProfileInfo } from "../../../store/actions/usersActions";
 import { useForm } from "react-hook-form";
-import InputMask from "react-input-mask"
+import InputMask from "react-input-mask";
 import * as formConstants from "../../../utils/constants/form.constants";
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as uiConstants from "../../../utils/constants/ui.constants";
-import { selectCurrentUser } from "../../../store/features/auth/authSlice";
-import { useUserProfileQuery } from "../../../store/features/auth/authApi";
 import Modal from "../../UI/modal/Modal";
 import SubmitButton from "../../UI/buttons/SubmitButton";
 import ChangePassword from "../../form/change-password/ChangePassword";
-import profileImage from "../../../assets/users/developer-profile.jpg"
+import profileImage from "../../../assets/users/developer-profile.jpg";
 import "../../form/forms.css";
-import "./profile.css"
-
-
+import "./profile.css";
+import { selectCurrentUser } from "../../../store/features/auth/authSlice";
+import { useUserProfileQuery } from "../../../store/features/auth/authApi";
 
 export default function Profile() {
-
-  const dispatch = useDispatch();
   const user = useSelector(selectCurrentUser);
-  const { currentData: someInfo} = useUserProfileQuery(user.id);
+  const { currentData: userProfile, isError, isLoading } = useUserProfileQuery(user.id);
+
+
+  console.log(user);
+  const dispatch = useDispatch();
   const [activeModal, setActiveModal] = useState(null);
-
-  console.log(someInfo)
-
-  // useEffect(() => {
-  //   setProfile(someInfo)
-  // }, [someInfo])
-
-
-  const [profile, setProfile] = useState({
-      birthday: "",
-      city: "",
-      description: "",
-      phone: "",
-      work: {
-        departament: "",
-        workPhone: "",
-        vocation: "",
-      },
+  const [profileInfo, setProfileInfo] = useState({
+    description: "",
+    city: "",
+    birthday: "",
+    phone: "",
+    work: {
+      departament: "",
+      workPhone: "",
+      vocation: "",
+    },
   });
+
+  useEffect(() => {
+    
+    if (!isLoading) {
+      setProfileInfo(userProfile)
+    }
+  }, [userProfile])
+
   const {
     control,
     register,
@@ -51,25 +51,18 @@ export default function Profile() {
     reset,
   } = useForm({
     mode: "onBlur",
-    defaultValues: {
-      displayname: user.displayname,
-      email: user.email,
-      description: profile.description,
-      city: profile.city,
-      birthday: profile.birthday,
-      phone: profile.phone,
-      departament: profile.work.departament,
-      workPhone: profile.work.workPhone,
-      // vocation: someInfo.work.vocation,
-    }
+    // defaultValues: {
+    //   displayname: user.displayname,
+    //   email: user.email,
+    //   description: profileInfo.description,
+    //   city: profileInfo.city,
+    //   birthday: profileInfo.birthday,
+    //   phone: profileInfo.phone,
+    //   departament: profileInfo.work.departament,
+    //   workPhone: profileInfo.work.workPhone,
+    //   vocation: profileInfo.work.vocation,
+    // },
   });
-
-  console.log("check memory profile")
-
-
-  // useEffect(() => {
-
-  // }, [user.id]);
 
   const changePassword = () => {
     setActiveModal(true);
@@ -80,9 +73,9 @@ export default function Profile() {
   };
 
   const onSubmit = (data) => {
-    console.log(data)
+    console.log(data);
     const updatedProfileInfo = {
-      ...profile,
+      ...profileInfo,
       displayname: data.displayname,
       email: data.email,
       description: data.description,
@@ -95,7 +88,8 @@ export default function Profile() {
         vocation: data.vocation,
       },
     };
-    dispatch(updateProfileInfo(updatedProfileInfo))
+    console.log(updatedProfileInfo)
+    dispatch(updateProfileInfo(updatedProfileInfo));
     reset();
   };
 
@@ -111,9 +105,8 @@ export default function Profile() {
             placeholder={formConstants.yourName}
             type="text"
             name="displayname"
-            {...register("displayname", {
-            
-            })}
+            defaultValue={user.displayname}
+            {...register("displayname", {})}
           />
           <div className="form-error">
             {errors.displayname && (
@@ -125,9 +118,8 @@ export default function Profile() {
             placeholder={formConstants.yourEmail}
             type="text"
             name="email"
-            {...register("email", {
-             
-            })}
+            defaultValue={user.email}
+            {...register("email", {})}
           />
           <div className="form-error">
             {errors.email && (
@@ -136,21 +128,21 @@ export default function Profile() {
           </div>
           <Modal active={activeModal} close={closeModal}>
             <ChangePassword email={user.email} />
-        </Modal>
-        <div className="change-password">
-        <Link to="#" onClick={changePassword}>Изменить пароль</Link>
-        </div>
+          </Modal>
+          <div className="change-password">
+            <Link to="#" onClick={changePassword}>
+              Изменить пароль
+            </Link>
+          </div>
         </div>
         <div className="profile__additional-info">
-
-        <textarea
+          <textarea
             className="content-form__input"
             placeholder={formConstants.profileDescription}
             type="text"
             name="description"
-            {...register("description", {
-            
-            })}
+            defaultValue={profileInfo.description}
+            {...register("description", {})}
           />
           <div className="form-error">
             {errors.description && (
@@ -163,9 +155,7 @@ export default function Profile() {
             placeholder={formConstants.profileCity}
             type="text"
             name="city"
-            {...register("city", {
-            
-            })}
+            {...register("city", {})}
           />
           <div className="form-error">
             {errors.city && (
@@ -178,9 +168,7 @@ export default function Profile() {
             placeholder={formConstants.profileBirthday}
             type="text"
             name="birthday"
-            {...register("birthday", {
-             
-            })}
+            {...register("birthday", {})}
           />
           <div className="form-error">
             {errors.birthday && (
@@ -189,20 +177,20 @@ export default function Profile() {
           </div>
 
           <InputMask
-          className="content-form__input"
-          placeholder={formConstants.profilePhone}
-          as={InputMask}
-          control={control}
-          mask="+7(999)999-99-99"
-          name="phone"
-          {...register("phone", {
-            // required: formConstants.requiredText,
-          //   pattern: {
-          //     value: REGEX.isValidDisplayName,
-          //     message: formConstants.wrongDeviceNumber,
-          // },
-          })}
-        />
+            className="content-form__input"
+            placeholder={formConstants.profilePhone}
+            as={InputMask}
+            control={control}
+            mask="+7(999)999-99-99"
+            name="phone"
+            {...register("phone", {
+              // required: formConstants.requiredText,
+              //   pattern: {
+              //     value: REGEX.isValidDisplayName,
+              //     message: formConstants.wrongDeviceNumber,
+              // },
+            })}
+          />
           <div className="form-error">
             {errors.phone && (
               <p>{errors.phone.message || formConstants.unknownError}</p>
@@ -214,9 +202,7 @@ export default function Profile() {
             placeholder={formConstants.profileWorkDepartament}
             type="text"
             name="departament"
-            {...register("departament", {
-             
-            })}
+            {...register("departament", {})}
           />
           <div className="form-error">
             {errors.departament && (
@@ -225,20 +211,20 @@ export default function Profile() {
           </div>
 
           <InputMask
-          className="content-form__input"
-          placeholder={formConstants.profilePhone}
-          as={InputMask}
-          control={control}
-          mask="+7(999)999-99-99"
-          name="workPhone"
-          {...register("workPhone", {
-            // required: formConstants.requiredText,
-          //   pattern: {
-          //     value: REGEX.isValidDisplayName,
-          //     message: formConstants.wrongDeviceNumber,
-          // },
-          })}
-        />
+            className="content-form__input"
+            placeholder={formConstants.profilePhone}
+            as={InputMask}
+            control={control}
+            mask="+7(999)999-99-99"
+            name="workPhone"
+            {...register("workPhone", {
+              // required: formConstants.requiredText,
+              //   pattern: {
+              //     value: REGEX.isValidDisplayName,
+              //     message: formConstants.wrongDeviceNumber,
+              // },
+            })}
+          />
           <div className="form-error">
             {errors.workPhone && (
               <p>{errors.workPhone.message || formConstants.unknownError}</p>
@@ -249,9 +235,7 @@ export default function Profile() {
             placeholder={formConstants.profileWorkVocation}
             type="text"
             name="vocation"
-            {...register("vocation", {
-             
-            })}
+            {...register("vocation", {})}
           />
           <div className="form-error">
             {errors.vocation && (
@@ -259,14 +243,12 @@ export default function Profile() {
             )}
           </div>
           <SubmitButton
-          className={"submit-btn-small"}
-          title={formConstants.save}
-        />
+            className={"submit-btn-small"}
+            title={formConstants.save}
+          />
         </div>
       </form>
-      <div className="ext-info">
-        fsfsfsdfs
-      </div>
+      <div className="ext-info">fsfsfsdfs</div>
     </div>
   );
 }

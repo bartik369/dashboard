@@ -32,7 +32,6 @@ const Header = ({ moveHeader }) => {
       }
       setCountTodos(overTodos.length);
     })
-    console.log("check memory")
   }, [data])
 
   useEffect(() => {
