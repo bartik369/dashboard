@@ -13,16 +13,19 @@ import ChangePassword from "../../form/change-password/ChangePassword";
 import profileImage from "../../../assets/users/developer-profile.jpg";
 import "../../form/forms.css";
 import "./profile.css";
-import { selectCurrentUser } from "../../../store/features/auth/authSlice";
-import { useUserProfileQuery } from "../../../store/features/auth/authApi";
+import { selectCurrentUser, selectUserProfile } from "../../../store/features/auth/authSlice";
+import { useUserProfileQuery, useUpdateProfileMutation } from "../../../store/features/auth/authApi";
 
 export default function Profile() {
   const user = useSelector(selectCurrentUser);
-  const { currentData: userProfile, isError, isLoading } = useUserProfileQuery(user.id);
+  const profile = useSelector(selectUserProfile);
 
 
   console.log(user);
+  console.log(profile)
+
   const dispatch = useDispatch();
+  const [updateProfile] = useUpdateProfileMutation()
   const [activeModal, setActiveModal] = useState(null);
   const [profileInfo, setProfileInfo] = useState({
     description: "",
@@ -36,12 +39,6 @@ export default function Profile() {
     },
   });
 
-  useEffect(() => {
-    
-    if (!isLoading) {
-      setProfileInfo(userProfile)
-    }
-  }, [userProfile])
 
   const {
     control,
@@ -89,7 +86,7 @@ export default function Profile() {
       },
     };
     console.log(updatedProfileInfo)
-    dispatch(updateProfileInfo(updatedProfileInfo));
+    dispatch(updateProfile(updatedProfileInfo));
     reset();
   };
 
@@ -217,6 +214,7 @@ export default function Profile() {
             control={control}
             mask="+7(999)999-99-99"
             name="workPhone"
+            defaultValue={profile.work.workPhone}
             {...register("workPhone", {
               // required: formConstants.requiredText,
               //   pattern: {

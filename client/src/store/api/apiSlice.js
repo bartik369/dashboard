@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { setCredentials, logOut } from "../features/auth/authSlice";
+import { setCredentials, logOut, setProfile } from "../features/auth/authSlice";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import ENV from "../../env.config";
@@ -31,10 +31,20 @@ export const useValidateAccessToken = () => {
             });
 
             if (response.data) {
-                dispatch(setCredentials({...response.data, 
-                    user: response.data.user,
-                    token: response.data.accessToken,
-                }));
+
+                try {
+                    const profile = await axios.get(`${ENV.HOSTNAME}api/profile/${response.data.user.id}`)
+                    dispatch(setProfile({...profile.data,
+                        profile: profile.data,
+                    }))
+                    dispatch(setCredentials({...response.data,
+                        user: response.data.user,
+                        token: response.data.accessToken,
+                    }));
+
+                } catch (error) {
+
+                }
             }
         } catch (error) {
             if (error.response.status === 403) {
