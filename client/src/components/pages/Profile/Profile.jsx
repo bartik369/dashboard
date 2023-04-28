@@ -24,21 +24,8 @@ export default function Profile() {
   console.log(user);
   console.log(profile)
 
-  const dispatch = useDispatch();
   const [updateProfile] = useUpdateProfileMutation()
   const [activeModal, setActiveModal] = useState(null);
-  const [profileInfo, setProfileInfo] = useState({
-    description: "",
-    city: "",
-    birthday: "",
-    phone: "",
-    work: {
-      departament: "",
-      workPhone: "",
-      vocation: "",
-    },
-  });
-
 
   const {
     control,
@@ -48,17 +35,6 @@ export default function Profile() {
     reset,
   } = useForm({
     mode: "onBlur",
-    // defaultValues: {
-    //   displayname: user.displayname,
-    //   email: user.email,
-    //   description: profileInfo.description,
-    //   city: profileInfo.city,
-    //   birthday: profileInfo.birthday,
-    //   phone: profileInfo.phone,
-    //   departament: profileInfo.work.departament,
-    //   workPhone: profileInfo.work.workPhone,
-    //   vocation: profileInfo.work.vocation,
-    // },
   });
 
   const changePassword = () => {
@@ -69,10 +45,10 @@ export default function Profile() {
     setActiveModal(null);
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
     const updatedProfileInfo = {
-      ...profileInfo,
+      ...profile,
       displayname: data.displayname,
       email: data.email,
       description: data.description,
@@ -86,7 +62,7 @@ export default function Profile() {
       },
     };
     console.log(updatedProfileInfo)
-    dispatch(updateProfile(updatedProfileInfo));
+    await updateProfile(updatedProfileInfo).unwrap();
     reset();
   };
 
@@ -138,7 +114,7 @@ export default function Profile() {
             placeholder={formConstants.profileDescription}
             type="text"
             name="description"
-            defaultValue={profileInfo.description}
+            defaultValue={profile.description}
             {...register("description", {})}
           />
           <div className="form-error">
@@ -152,6 +128,7 @@ export default function Profile() {
             placeholder={formConstants.profileCity}
             type="text"
             name="city"
+            defaultValue={profile.city}
             {...register("city", {})}
           />
           <div className="form-error">
@@ -165,6 +142,7 @@ export default function Profile() {
             placeholder={formConstants.profileBirthday}
             type="text"
             name="birthday"
+            defaultValue={profile.birthday}
             {...register("birthday", {})}
           />
           <div className="form-error">
@@ -180,6 +158,7 @@ export default function Profile() {
             control={control}
             mask="+7(999)999-99-99"
             name="phone"
+            defaultValue={profile.phone}
             {...register("phone", {
               // required: formConstants.requiredText,
               //   pattern: {
@@ -199,6 +178,7 @@ export default function Profile() {
             placeholder={formConstants.profileWorkDepartament}
             type="text"
             name="departament"
+            defaultValue={profile.work.departament}
             {...register("departament", {})}
           />
           <div className="form-error">
@@ -233,6 +213,7 @@ export default function Profile() {
             placeholder={formConstants.profileWorkVocation}
             type="text"
             name="vocation"
+            defaultValue={profile.work.vocation}
             {...register("vocation", {})}
           />
           <div className="form-error">

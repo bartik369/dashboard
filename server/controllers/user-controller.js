@@ -141,6 +141,7 @@ class UserController {
 
     async updateProfile(req, res, next) {
         try {
+            console.log("updated data from front", req.body)
             const { email, description, city, birthday, phone, work } = req.body;
             const profileData = await userService.updateProfile(email, description, city, birthday, phone, work)
             console.log(profileData)
@@ -186,7 +187,7 @@ class UserController {
             }
             const userData = await userService.checkValidAccess(accessToken);
             console.log(userData)
-            return res.json({user: userData, accessToken: accessToken})
+            return res.json({ user: userData, accessToken: accessToken })
         } catch (error) {
 
         }
