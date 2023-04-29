@@ -7,23 +7,16 @@ import InputMask from "react-input-mask";
 import * as formConstants from "../../../utils/constants/form.constants";
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as uiConstants from "../../../utils/constants/ui.constants";
-import Modal from "../../UI/modal/Modal";
 import SubmitButton from "../../UI/buttons/SubmitButton";
-import ChangePassword from "../../form/change-password/ChangePassword";
 import profileImage from "../../../assets/users/developer-profile.jpg";
 import "../../form/forms.css";
 import "./profile.css";
 import { selectCurrentUser, selectUserProfile } from "../../../store/features/auth/authSlice";
-import { useUserProfileQuery, useUpdateProfileMutation } from "../../../store/features/auth/authApi";
+import { useUpdateProfileMutation } from "../../../store/features/auth/authApi";
 
 export default function Profile() {
   const user = useSelector(selectCurrentUser);
   const profile = useSelector(selectUserProfile);
-
-
-  console.log(user);
-  console.log(profile)
-
   const [updateProfile] = useUpdateProfileMutation()
   const [activeModal, setActiveModal] = useState(null);
 
@@ -34,7 +27,7 @@ export default function Profile() {
     handleSubmit,
     reset,
   } = useForm({
-    mode: "onBlur",
+    mode: "onSubmit",
   });
 
   const changePassword = () => {
@@ -46,7 +39,6 @@ export default function Profile() {
   };
 
   const onSubmit = async (data) => {
-    console.log(data);
     const updatedProfileInfo = {
       ...profile,
       displayname: data.displayname,
@@ -61,7 +53,6 @@ export default function Profile() {
         vocation: data.vocation,
       },
     };
-    console.log(updatedProfileInfo)
     await updateProfile(updatedProfileInfo).unwrap();
     reset();
   };
@@ -99,10 +90,35 @@ export default function Profile() {
               <p>{errors.email.message || formConstants.unknownError}</p>
             )}
           </div>
-          <Modal active={activeModal} close={closeModal}>
-            <ChangePassword email={user.email} />
-          </Modal>
           <div className="change-password">
+          <input
+            className="content-form__input"
+            placeholder={formConstants.yourEmail}
+            type="text"
+            name="email"
+            defaultValue={user.email}
+            {...register("email", {})}
+          />
+          <div className="form-error">
+            {errors.email && (
+              <p>{errors.email.message || formConstants.unknownError}</p>
+            )}
+          </div>
+
+          <input
+            className="content-form__input"
+            placeholder={formConstants.yourEmail}
+            type="text"
+            name="email"
+            defaultValue={user.email}
+            {...register("email", {})}
+          />
+          <div className="form-error">
+            {errors.email && (
+              <p>{errors.email.message || formConstants.unknownError}</p>
+            )}
+          </div>
+          
             <Link to="#" onClick={changePassword}>
               Изменить пароль
             </Link>
@@ -154,18 +170,11 @@ export default function Profile() {
           <InputMask
             className="content-form__input"
             placeholder={formConstants.profilePhone}
-            as={InputMask}
             control={control}
             mask="+7(999)999-99-99"
             name="phone"
             defaultValue={profile.phone}
-            {...register("phone", {
-              // required: formConstants.requiredText,
-              //   pattern: {
-              //     value: REGEX.isValidDisplayName,
-              //     message: formConstants.wrongDeviceNumber,
-              // },
-            })}
+            {...register("phone", {})}
           />
           <div className="form-error">
             {errors.phone && (
@@ -190,18 +199,11 @@ export default function Profile() {
           <InputMask
             className="content-form__input"
             placeholder={formConstants.profilePhone}
-            as={InputMask}
             control={control}
             mask="+7(999)999-99-99"
             name="workPhone"
             defaultValue={profile.work.workPhone}
-            {...register("workPhone", {
-              // required: formConstants.requiredText,
-              //   pattern: {
-              //     value: REGEX.isValidDisplayName,
-              //     message: formConstants.wrongDeviceNumber,
-              // },
-            })}
+            {...register("workPhone", {})}
           />
           <div className="form-error">
             {errors.workPhone && (

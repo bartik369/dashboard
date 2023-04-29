@@ -82,27 +82,3 @@ export const apiSlice = createApi({
 })
 
 export default baseQuery;
-
-
-
-
-
-// const baseQueryWithReauth = async (args, api, extraOptions) => {
-//     let result = await baseQuery(args, api, extraOptions);
-//     console.log("result b", result)
-
-//     if (result?.error?.originalStatus === 403) {
-//         console.log("sending refresh token");
-//         const refreshResult = await baseQuery("api/refresh", api, extraOptions);
-
-//         if (refreshResult?.data) {
-//             const user = api.getState().auth.user;
-//             //  store a new token
-//             api.dispatch(setCredentials({...refreshResult.data, user }));
-//             result = await baseQuery(args, api, extraOptions)
-//         } else {
-//             api.dispatch(logOut())
-//         }
-//     }
-//     return result
-// };

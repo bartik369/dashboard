@@ -1,7 +1,4 @@
 import { apiSlice } from "../../api/apiSlice";
-import axios from "axios";
-import ENV from "../../../env.config";
-import { setProfile } from "./authSlice";
 
 export const authApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -26,32 +23,24 @@ export const authApi = apiSlice.injectEndpoints({
                 url: "/api/update-profile",
                 method: "PUT",
                 body: {...credentials },
-            })
+            }),
+            //     transformResponse: async(response, meta, arg) => {
+            //         if (response) {
+            //             setProfile(response)
+            //             return response;
+            //         }
+            //     },
+            // }),
         }),
-        // userProfile: builder.query({
-        //     query: (id) => ({
-        //         url: `api/profile/${id}`,
-        //         method: "GET",
-        //     }),
-        //     transformResponse: async(response, meta, arg) => {
-        //         if (response) {
-        //             setProfile(response)
-        //             return response;
-        //         }
-        //     },
-        // }),
+        updateUserPassword: builder.mutation({
+            query: (credentials) => ({
+                url: "/api/assign-password",
+                method: "PUT",
+                body: {...credentials },
+            })
+        })
     }),
 });
 
-export const { useSigninMutation, useSignupMutation, useUserProfileQuery, useUpdateProfileMutation, } =
+export const { useSigninMutation, useSignupMutation, useUpdateProfileMutation, useUpdateUserPasswordMutation } =
 authApi;
-
-// queryFn: async(id) => {
-//             try {
-//                 const response = await axios.get(`${ENV.HOSTNAME}api/profile/${id}`);
-//                 // return {data: await response.data.json()};
-//                 return { data: await response.data };
-//             } catch (error) {
-//                 return { error: error.message }
-//             }
-//         }
