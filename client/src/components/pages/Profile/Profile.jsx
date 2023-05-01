@@ -20,6 +20,9 @@ export default function Profile() {
   const [updateProfile] = useUpdateProfileMutation()
   const [activeModal, setActiveModal] = useState(null);
 
+  console.log(user)
+  console.log(profile)
+
   const {
     control,
     register,
@@ -33,6 +36,7 @@ export default function Profile() {
   const onSubmit = async (data) => {
     const updatedProfileInfo = {
       ...profile,
+      id: profile._id,
       displayname: data.displayname,
       email: data.email,
       description: data.description,

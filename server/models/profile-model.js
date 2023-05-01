@@ -11,43 +11,51 @@ const ProfileShema = new Schema({
         type: String,
         unique: false,
         required: false,
+        default: "",
     },
     city: {
         type: String,
         unique: false,
         required: false,
+        default: "",
     },
     birthday: {
         type: String,
         unique: false,
         required: false,
+        default: "",
     },
     phone: {
         type: String,
         unique: true,
         required: false,
+        default: "",
     },
     work: {
         departament: {
             type: String,
             unique: false,
             required: false,
+            default: "",
         },
         workPhone: {
             type: String,
             unique: false,
             required: false,
+            default: "",
         },
         vocation: {
             type: String,
             unique: false,
             required: false,
+            default: "",
         },
     },
     avatar: {
         type: String,
         unique: false,
         required: false,
+        default: "",
     }
 });
 

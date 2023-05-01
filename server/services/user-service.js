@@ -133,24 +133,14 @@ class UserService {
         }
     }
 
-    async updateProfile(email, description, city, birthday, phone, work) {
+    async updateProfile(id, email, description, city, birthday, phone, work) {
         try {
-            const user = await UserModel.findOne({ email });
-
-            if (!user) {
-                throw ApiError.UnauthorizedError();
-            }
-
-            const profileInfo = await ProfilModel.findOne(user._id);
-
+            const profileInfo = await ProfilModel.findById(id);
             if (!profileInfo) {
                 throw ApiError.UnauthorizedError();
-                // const userProfile = await ProfilModel.create({
-
-                // })
             }
 
-            const profileData = await ProfilModel.findOneAndUpdate(profileInfo.userId, {
+            const profileData = await ProfilModel.findByIdAndUpdate(profileInfo._id, {
                 description: description,
                 city: city,
                 birthday: birthday,
