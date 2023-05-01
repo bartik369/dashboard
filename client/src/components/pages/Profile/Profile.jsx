@@ -30,14 +30,6 @@ export default function Profile() {
     mode: "onSubmit",
   });
 
-  const changePassword = () => {
-    setActiveModal(true);
-  };
-
-  const closeModal = () => {
-    setActiveModal(null);
-  };
-
   const onSubmit = async (data) => {
     const updatedProfileInfo = {
       ...profile,
@@ -54,6 +46,11 @@ export default function Profile() {
       },
     };
     await updateProfile(updatedProfileInfo).unwrap();
+    reset();
+  };
+  const changePassword = async (data) => {
+    const updatedPassword = {
+    };
     reset();
   };
 
@@ -89,39 +86,6 @@ export default function Profile() {
             {errors.email && (
               <p>{errors.email.message || formConstants.unknownError}</p>
             )}
-          </div>
-          <div className="change-password">
-          <input
-            className="content-form__input"
-            placeholder={formConstants.yourEmail}
-            type="text"
-            name="email"
-            defaultValue={user.email}
-            {...register("email", {})}
-          />
-          <div className="form-error">
-            {errors.email && (
-              <p>{errors.email.message || formConstants.unknownError}</p>
-            )}
-          </div>
-
-          <input
-            className="content-form__input"
-            placeholder={formConstants.yourEmail}
-            type="text"
-            name="email"
-            defaultValue={user.email}
-            {...register("email", {})}
-          />
-          <div className="form-error">
-            {errors.email && (
-              <p>{errors.email.message || formConstants.unknownError}</p>
-            )}
-          </div>
-          
-            <Link to="#" onClick={changePassword}>
-              Изменить пароль
-            </Link>
           </div>
         </div>
         <div className="profile__additional-info">
@@ -229,7 +193,40 @@ export default function Profile() {
           />
         </div>
       </form>
-      <div className="ext-info">fsfsfsdfs</div>
+      <div className="ext-info">
+      <form className="form" onSubmit={handleSubmit(changePassword)}>
+      <div className="change-password">
+            <h1>Укажите новый пароль</h1>
+          <input
+            className="content-form__input"
+            placeholder={formConstants.fillPassword}
+            type="password"
+            name=""
+            {...register("password", {})}
+          />
+          <div className="form-error">
+            {errors.email && (
+              <p>{errors.email.message || formConstants.unknownError}</p>
+            )}
+          </div>
+          <input
+            className="content-form__input"
+            placeholder={formConstants.fillPassword}
+            type="password"
+            name=""
+            {...register("password", {})}
+          />
+          <div className="form-error">
+            {errors.email && (
+              <p>{errors.email.message || formConstants.unknownError}</p>
+            )}
+          </div>
+            <Link to="#" onClick={changePassword}>
+              Изменить пароль
+            </Link>
+          </div>
+      </form>
+      </div>
     </div>
   );
 }

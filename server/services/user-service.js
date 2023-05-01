@@ -145,6 +145,9 @@ class UserService {
 
             if (!profileInfo) {
                 throw ApiError.UnauthorizedError();
+                // const userProfile = await ProfilModel.create({
+
+                // })
             }
 
             const profileData = await ProfilModel.findOneAndUpdate(profileInfo.userId, {
