@@ -74,7 +74,6 @@ class UserController {
         try {
             const refreshToken = req.cookies.refreshToken;
             const userData = await userService.refresh(refreshToken);
-            console.log("trefresh works")
             res.cookie('accessToken', userData.accessToken, {
                 maxAge: 15 * 60 * 1000,
                 httpOnly: true,
@@ -106,7 +105,6 @@ class UserController {
     async checkResetLink(req, res, next) {
         try {
             const resetPasswordLink = req.params.link;
-            console.log("check reset link", resetPasswordLink)
             const userData = await userService.checkResetPasswordLink(resetPasswordLink);
             console.log(userData)
             return res.json(userData)
@@ -130,8 +128,6 @@ class UserController {
     async assignNewPassword(req, res, next) {
         try {
             const { email, password } = req.body;
-            console.log(email)
-            console.log(password)
             const userData = await userService.assignUserPassword(email, password);
             return userData
         } catch (error) {
@@ -143,7 +139,6 @@ class UserController {
         try {
             const { id, email, description, city, birthday, phone, work } = req.body;
             const profileData = await userService.updateProfile(id, email, description, city, birthday, phone, work)
-            console.log("=======>", profileData)
             return profileData
         } catch (error) {
             next()
@@ -186,7 +181,6 @@ class UserController {
                 return res.status(403).json({ message: "Пользователь не авторизован" })
             }
             const userData = await userService.checkValidAccess(accessToken);
-            console.log("returned", userData)
             return res.json({ user: userData, accessToken: accessToken })
         } catch (error) {
 
