@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateProfileInfo } from "../../../store/actions/usersActions";
 import { useForm } from "react-hook-form";
 import InputMask from "react-input-mask";
 import * as formConstants from "../../../utils/constants/form.constants";
@@ -9,19 +7,21 @@ import * as REGEX from "../../../utils/constants/regex.constants";
 import * as uiConstants from "../../../utils/constants/ui.constants";
 import SubmitButton from "../../UI/buttons/SubmitButton";
 import profileImage from "../../../assets/users/developer-profile.jpg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLock} from "@fortawesome/free-solid-svg-icons";
 import "../../form/forms.css";
 import "./profile.css";
 import { selectCurrentUser, selectUserProfile } from "../../../store/features/auth/authSlice";
-import { useUpdateProfileMutation } from "../../../store/features/auth/authApi";
+import { useUpdateProfileMutation, useUpdateUserPasswordMutation } from "../../../store/features/auth/authApi";
 
 export default function Profile() {
   const user = useSelector(selectCurrentUser);
   const profile = useSelector(selectUserProfile);
-  const [updateProfile] = useUpdateProfileMutation()
-  const [activeModal, setActiveModal] = useState(null);
+  const [updateProfile] = useUpdateProfileMutation();
+  const [updatePassword] = useUpdateUserPasswordMutation();
 
-  console.log(user)
-  console.log(profile)
+  const [passwordType, setPasswordType] = useState(false);
+  const [repeatPasswordType, setRepeatPasswordType] = useState(false)
 
   const {
     control,
@@ -32,6 +32,33 @@ export default function Profile() {
   } = useForm({
     mode: "onSubmit",
   });
+
+  const {
+    control: controlPass,
+    register: registerPass,
+    watch,
+    formState: { errors:  errorsPass},
+    handleSubmit: handleSubmitPass,
+    reset: resetPass,
+  } = useForm({
+    mode: "onSubmit",
+  });
+
+  const password = useRef({});
+  password.current = watch("password", "");
+  const watchFields = watch({password: "password", confirmPassword: "confirmPassword"});
+
+
+  
+  const showPassword = (e) => {
+    e.preventDefault();
+    setPasswordType(passwordType ? false : true);
+  }
+
+  const showConfirmPassword = (e) => {
+    e.preventDefault();
+    setRepeatPasswordType(repeatPasswordType ? false : true);
+  }
 
   const onSubmit = async (data) => {
     const updatedProfileInfo = {
@@ -54,7 +81,10 @@ export default function Profile() {
   };
   const changePassword = async (data) => {
     const updatedPassword = {
+      email: user.email,
+      password: data.password,
     };
+    await updatePassword( updatedPassword).unwrap()
     reset();
   };
 
@@ -198,38 +228,84 @@ export default function Profile() {
         </div>
       </form>
       <div className="ext-info">
-      <form className="form" onSubmit={handleSubmit(changePassword)}>
-      <div className="change-password">
-            <h1>Укажите новый пароль</h1>
-          <input
-            className="content-form__input"
-            placeholder={formConstants.fillPassword}
-            type="password"
-            name=""
-            {...register("password", {})}
+
+      <form className="auth-form" onSubmit={handleSubmitPass(changePassword)}>
+        <div className="auth-form__title">{formConstants.titleSetNewPasswordForm}</div>
+          <div className="input-layer">
+            <div className="auth-form__input">
+              <FontAwesomeIcon icon={faLock} className="input-icon" />
+              <input
+                type={passwordType ? "text" : "password"}
+                {...registerPass("password", {
+                  required: formConstants.fillPassword,
+                  minLength: {
+                    value: 3,
+                    message: formConstants.minSymbolsOfPassword,
+                  },
+                  pattern: {
+                    value: REGEX.isValidPassword,
+                    message: formConstants.onlyLatinCharacters,
+                  },
+                })}
+              />
+              <span className={watchFields.password ? "lable-span" : ""}>{formConstants.yourPassword}</span>
+              <button className="show-password" onClick={showPassword}>
+                {passwordType ? (
+                  <i
+                    className="bi bi-eye-slash"
+                    title={formConstants.hidePassword}
+                  ></i>
+                ) : (
+                  <i
+                    className="bi bi-eye"
+                    title={formConstants.openPassword}
+                  ></i>
+                )}
+              </button>
+            </div>
+            <div className="form-error">
+              {errors.password && <p>{errors.password.message || "Error"}</p>}
+            </div>
+          </div>
+
+          <div className="input-layer">
+            <div className="auth-form__input">
+              <FontAwesomeIcon icon={faLock} className="input-icon" />
+              <input
+                type={repeatPasswordType ? "text" : "password"}
+                {...registerPass("confirmPassword", {
+                  required: formConstants.fillPassword,
+                  validate: (value) =>
+                    value === password.current ||
+                    formConstants.passwordsDoNotMatch,
+                })}
+              />
+              <span className={watchFields.confirmPassword ? "lable-span" : ""}>{formConstants.repeatPassword}</span>
+              <button className="show-password" onClick={showConfirmPassword}>
+                {repeatPasswordType ? (
+                  <i
+                    className="bi bi-eye-slash"
+                    title={formConstants.hidePassword}
+                  ></i>
+                ) : (
+                  <i
+                    className="bi bi-eye"
+                    title={formConstants.openPassword}
+                  ></i>
+                )}
+              </button>
+            </div>
+            <div className="form-error">
+              {errors.confirmPassword && (
+                <p>{errors.confirmPassword.message || "Error"}</p>
+              )}
+            </div>
+          </div>
+          <SubmitButton
+            className={"submit-btn-small"}
+            title={formConstants.save}
           />
-          <div className="form-error">
-            {errors.email && (
-              <p>{errors.email.message || formConstants.unknownError}</p>
-            )}
-          </div>
-          <input
-            className="content-form__input"
-            placeholder={formConstants.fillPassword}
-            type="password"
-            name=""
-            {...register("password", {})}
-          />
-          <div className="form-error">
-            {errors.email && (
-              <p>{errors.email.message || formConstants.unknownError}</p>
-            )}
-          </div>
-            <Link to="#" onClick={changePassword}>
-              Изменить пароль
-            </Link>
-          </div>
-      </form>
+        </form>
       </div>
     </div>
   );
