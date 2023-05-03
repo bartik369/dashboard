@@ -38,9 +38,38 @@ export const authApi = apiSlice.injectEndpoints({
                 method: "PUT",
                 body: {...credentials },
             })
-        })
+        }),
+
+        setNewPassword: builder.mutation({
+            query: (credentials, link) => ({
+                url: `/api/setpassword/${link}`,
+                method: "PUT",
+                body: {...credentials}
+            })
+        }),
+
+        resetPassword: builder.mutation({
+            query: (credentials) => ({
+                url: "/api/reset",
+                method: "POST",
+                body: {...credentials}
+            })
+        }),
+        checkLink: builder.query({
+            query: (link) => ({
+                url: `/api/setpassword/${link}`,
+                method: "GET",
+            })
+        }),
     }),
 });
 
-export const { useSigninMutation, useSignupMutation, useUpdateProfileMutation, useUpdateUserPasswordMutation } =
-authApi;
+export const { 
+    useSigninMutation, 
+    useSignupMutation, 
+    useUpdateProfileMutation, 
+    useUpdateUserPasswordMutation,
+    useCheckLinkQuery,
+    useResetPasswordMutation,
+    useSetNewPasswordMutation,
+ } = authApi;

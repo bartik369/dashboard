@@ -13,6 +13,7 @@ import "../../form/forms.css";
 import "./profile.css";
 import { selectCurrentUser, selectUserProfile } from "../../../store/features/auth/authSlice";
 import { useUpdateProfileMutation, useUpdateUserPasswordMutation } from "../../../store/features/auth/authApi";
+import RequestRoles from "../../form/roles/RequestRoles";
 
 export default function Profile() {
   const user = useSelector(selectCurrentUser);
@@ -34,7 +35,6 @@ export default function Profile() {
   });
 
   const {
-    control: controlPass,
     register: registerPass,
     watch,
     formState: { errors:  errorsPass},
@@ -84,7 +84,7 @@ export default function Profile() {
       email: user.email,
       password: data.password,
     };
-    await updatePassword( updatedPassword).unwrap()
+    await updatePassword(updatedPassword).unwrap()
     reset();
   };
 
@@ -228,11 +228,10 @@ export default function Profile() {
         </div>
       </form>
       <div className="ext-info">
-
-      <form className="auth-form" onSubmit={handleSubmitPass(changePassword)}>
-        <div className="auth-form__title">{formConstants.titleSetNewPasswordForm}</div>
+      <form className="common-form" onSubmit={handleSubmitPass(changePassword)}>
+        <div className="common-form__title">{formConstants.titleSetNewPasswordForm}</div>
           <div className="input-layer">
-            <div className="auth-form__input">
+            <div className="common-form__input">
               <FontAwesomeIcon icon={faLock} className="input-icon" />
               <input
                 type={passwordType ? "text" : "password"}
@@ -269,7 +268,7 @@ export default function Profile() {
           </div>
 
           <div className="input-layer">
-            <div className="auth-form__input">
+            <div className="common-form__input">
               <FontAwesomeIcon icon={faLock} className="input-icon" />
               <input
                 type={repeatPasswordType ? "text" : "password"}
@@ -306,6 +305,9 @@ export default function Profile() {
             title={formConstants.save}
           />
         </form>
+        <div className="roles">
+          <RequestRoles />
+        </div>
       </div>
     </div>
   );

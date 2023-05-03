@@ -77,3 +77,4 @@ export const profilePhone = "Номер телефона";
 export const profileWorkDepartament = "Департамент";
 export const profileWorkPhone = "Номер рабочего телефона";
 export const profileWorkVocation = "Направление";
+export const selectUserRole = "Выберите роль";

@@ -650,7 +650,7 @@
 
 .content-form {
     padding: 50px 20px 30px 20px;
-    background-color: #f8f9fa;
+    background-color: #c732ae;
     box-shadow: 0 3px 3px 0 rgba(190, 193, 195, .5), 0 6px 6px 0 rgba(190, 193, 195, .5), 0 12px 12px 0 rgba(190, 193, 195, .5), 0 24px 24px 0 rgba(190, 193, 195, .5), 0 48px 48px 0 rgba(190, 193, 195, .5), 0 96px 96px 0 rgba(190, 193, 195, .5);
     width: 400px;
     border-radius: 8px;
@@ -758,3 +758,91 @@
     margin: 0 7px;
     color: #858585;
 }
+
+
+/* form reset password profile page*/
+
+
+.common-form {
+    padding: 70px 40px;
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    min-width: 400px;
+    height: fit-content;
+}
+
+.common-form__title {
+    color: #0b1a21;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    font-family: inherit;
+}
+.common-form__select {
+    width: 100%;
+    background-color: teal;
+    padding: 5px 10px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #ebedf0;
+    background: #f1f4f7;
+    font-size: 12px;
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: #546274;
+    transition: all .6s;
+    margin-bottom: 10px;
+}
+.common-form input {
+    padding: 12px 40px 12px 8px;
+    transition: all .5s;
+    font-size: 15px;
+    width: 100%;
+}
+
+.common-form input:hover {}
+
+.common-form__input {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    padding: 5px 12px;
+    color: #0b1a21;
+    border: 1px solid #e5e7ef;
+    background: #fafbff;
+}
+
+.common-form__input:hover {
+    background: #ffffff;
+    border: 1px solid #e2e2ff;
+    box-shadow: 0 0 10px 5px rgba(204, 204, 240, .15);
+}
+
+.common-form__input span {
+    position: absolute;
+    color: #8087a9;
+    background: #fff;
+    border-radius: 4px;
+    top: 17px;
+    left: 35px;
+    padding: 4px;
+    display: inline-block;
+    transition: .7s;
+    pointer-events: none;
+    font-size: 13px;
+}
+
+.common-form__input input:focus~span {
+    transform: translateX(1px) translateY(-25px);
+}
+
+.common-form label {
+    padding: 5px 0;
+    color: #90959e;
+    font-size: 13px;
+}
+

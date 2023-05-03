@@ -7,7 +7,10 @@
 }
 
 .profile .ext-info {
-    background-color: #fff;
+    background-color: #6ce099;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     border-radius: 8px;
     padding: 10px;
     box-shadow: 0 5px 5px -5px rgb(99 108 126 / 30%);
@@ -51,4 +54,10 @@
 
 .profile__additional-info textarea {
     min-height: 150px;
+}
+
+.roles {
+    width: 300px;
+    background-color: burlywood;
+
 }

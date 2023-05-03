@@ -108,7 +108,7 @@ class UserService {
             return user
 
         } catch (error) {
-
+            return null
         }
     }
 

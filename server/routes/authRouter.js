@@ -10,7 +10,6 @@ router.get('/refresh', userController.refresh);
 router.get('/users', userController.getUsers);
 router.get('/user/:id', userController.getUser);
 router.get('/profile/:id', userController.getProfile)
-    // router.get('/auth', userController.authUser);
 router.get('/auth', userController.checkCookie);
 router.post('/reset', userController.resetPassword);
 router.get('/setpassword/:link', userController.checkResetLink)

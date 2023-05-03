@@ -4,7 +4,7 @@ import SendPasswordLink from "../../notifications/SendPasswordLink";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { updateUserPassword } from "../../../store/actions/usersActions";
+import { useResetPasswordMutation } from "../../../store/features/auth/authApi";
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as formConstants from "../../../utils/constants/form.constants";
 import * as infoConstants from "../../../utils/constants/information.constants";
@@ -30,6 +30,7 @@ function ResetPassword() {
   const [notificationStatus, setNotificationStatus] = useState(false);
   const [animationPaperAirplane, setAnimationPaperAirplane] = useState(false);
   const [formStatus, setFormStatus] = useState(true);
+  const [sendLinkToResetPass] = useResetPasswordMutation()
 
 
   const dispatch = useDispatch();
@@ -44,10 +45,12 @@ function ResetPassword() {
     reset();
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const resetPasswordData = {
       email: data.email,
     };
+
+    await sendLinkToResetPass(resetPasswordData).unwrap()
 
     // dispatch(
     //   updateUserPassword(

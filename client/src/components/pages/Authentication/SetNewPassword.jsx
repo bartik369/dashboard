@@ -1,9 +1,9 @@
 import React, {useRef, useState, useEffect}from 'react';
 import SubmitButton from '../../UI/buttons/SubmitButton';
 import SetUserPassword from '../../notifications/SetUserPassword';
-import { comparePasswordLink, setNewUserPassword } from '../../../store/actions/usersActions';
-import { useDispatch} from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useCheckLinkQuery } from '../../../store/features/auth/authApi';
+import { useSetNewPasswordMutation } from '../../../store/features/auth/authApi';
 import {useForm} from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock} from "@fortawesome/free-solid-svg-icons";
@@ -24,6 +24,8 @@ function SetNewPassword() {
     password: "",
   });
 
+  const [updatePassword] = useSetNewPasswordMutation();
+
   const {
     register,
     formState: {errors},
@@ -35,17 +37,17 @@ function SetNewPassword() {
   });
 
   const params = useParams();
+  const {data} = useCheckLinkQuery(params.link)
   const navigate = useNavigate(); 
-  
-  useEffect(() => {
-    // dispatch(comparePasswordLink(params.link, navigate))
-  
-  }, [params.link]);
-
   const password = useRef({});
   password.current = watch("password", "");
-  const dispatch = useDispatch();
   const watchFields = watch({password: "password", confirmPassword: "confirmPassword"});
+
+  useEffect(() => {
+    if (data === null) {
+      navigate("/reset-password")
+    }
+  }, [data])
 
   const showPassword = (e) => {
     e.preventDefault();
@@ -57,14 +59,14 @@ function SetNewPassword() {
     setRepeatPasswordType(repeatPasswordType ? false : true);
   }
 
-  const onSubmit = (data) => {
-    // dispatch(setNewUserPassword(data.password))
+  const onSubmit = async (data) => {
+    console.log(data)
     const newUserPassword = {
       ...newPassword,
       link: params.link,
       password: data.password,
     }
-    // dispatch(setNewUserPassword(newUserPassword));
+    await updatePassword(newUserPassword).unwrap()
     setFormStatus(false);
     setNotificationStatus(true);
     reset();
