@@ -2,6 +2,9 @@ import { apiSlice } from "../../api/apiSlice";
 
 export const authApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
+
+        // auth part
+
         signin: builder.mutation({
             query: (credentials) => ({
                 url: "/api/signin",
@@ -61,6 +64,32 @@ export const authApi = apiSlice.injectEndpoints({
                 method: "GET",
             })
         }),
+        
+        //roles request
+
+        getRolesRequests: builder.query({
+            query: () => ({
+                url: "/api/roles-requests/",
+                method: "GET",
+            })
+        }),
+
+        rolesRequest: builder.mutation({
+            query: (credentials) => ({
+                url: "/api/requests/roles",
+                method:"POST",
+                body: {...credentials},
+            })
+        }),
+
+        rolesRespond: builder.mutation({
+            query: (credentials, id) => ({
+                url: `/api/responds/roles/${id}`,
+                method: "POST",
+                body: {...credentials}
+            })
+        }),
+
     }),
 });
 
@@ -72,4 +101,7 @@ export const {
     useCheckLinkQuery,
     useResetPasswordMutation,
     useSetNewPasswordMutation,
- } = authApi;
+    useGetRolesRequestsQuery,
+    useRolesRequestMutation,
+    useRolesRespondMutation,
+ } = authApi;;

@@ -16,5 +16,8 @@ router.get('/setpassword/:link', userController.checkResetLink)
 router.put('/setpassword/:link', userController.setNewPassword);
 router.put('/assign-password', userController.assignNewPassword);
 router.put('/update-profile', userController.updateProfile);
+router.post('/requests/roles', userController.createRolesRequest);
+router.put('/responds/roles:id', userController.rolesRespond);
+router.get('/roles-requests', userController.rolesRequests)
 
 export default router;

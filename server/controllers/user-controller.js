@@ -189,6 +189,36 @@ class UserController {
         }
     }
 
+    // requesting roles
+
+    async rolesRequests(req, res, next) {
+        try {
+            
+        } catch (error) {
+            
+        }
+    };
+
+    async createRolesRequest(req, res, next) {
+        try {
+            const {id, role} = req.body;
+            console.log(id)
+            console.log(role)
+            
+        } catch (error) {
+            
+        }
+    };
+
+    async rolesRespond(req, res, next) {
+        try{
+            
+        } catch (error) {
+            
+        }
+    };
+
+
 
 };
 
