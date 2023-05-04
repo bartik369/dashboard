@@ -25,11 +25,17 @@ export default function RoleManagement() {
 
         await roleRespond(respondStatus).unwrap()
     }
+
+    if (!getRolesRequest) {
+        return (
+            <div>
+             there is not data
+            </div>
+        )
+    }
   return (
     <div className="role-management">
-        {isLoading 
-        ? "<Loading />" 
-        : getRolesRequest.map((request, index) => (
+        {getRolesRequest.map((request, index) => (
           <div className="info" key={index}>
             <span>{request.displayname}</span>
             <span>{request.email}</span>

@@ -212,6 +212,8 @@ class UserController {
     async rolesRespond(req, res, next) {
         try {
             const { id, role, approve } = req.body;
+            const roleData = await userService.setRoleRespond(id, role, approve)
+            console.log("answer after true role", roleData)
         } catch (error) {
 
         }

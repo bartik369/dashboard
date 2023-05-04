@@ -236,7 +236,6 @@ class UserService {
     async getRolesRequests() {
         try {
             const rolesRequests = await RoleRequestModel.find()
-            console.log(rolesRequests)
             return rolesRequests
         } catch (error) {
 
@@ -260,6 +259,25 @@ class UserService {
             role: role,
         });
         roleRequest.save();
+    }
+
+    async setRoleRespond(id, role, approve) {
+
+        if (!approve) {
+            await RoleRequestModel.deleteOne({ userId: id });
+            return null
+        }
+        const user = await UserModel.findOne({ _id: id });
+
+        if (!user) {
+            return null
+        }
+        const setRole = await UserModel.findByIdAndUpdate(user._id, {
+            $push: { roles: role }
+        })
+        setRole.save();
+        await RoleRequestModel.deleteOne({ userId: id });
+
     }
 }
 
