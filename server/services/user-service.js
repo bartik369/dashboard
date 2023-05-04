@@ -1,6 +1,7 @@
 import UserModel from "../models/user-model.js";
 import TokenModel from "../models/todo-model.js"
 import ProfilModel from "../models/profile-model.js"
+import RoleRequestModel from "../models/roles-request-model.js"
 import Roles from "../models/roles-model.js"
 import ResetPasswordModel from "../models/reset-password-model.js";
 import bcrypt from "bcrypt";
@@ -230,6 +231,32 @@ class UserService {
     async getUsers() {
         const users = await UserModel.find();
         return users;
+    }
+
+    async getRolesRequests() {
+        try {
+            const rolesRequests = await RoleRequestModel.find()
+            return rolesRequests
+        } catch (error) {
+
+        }
+    }
+
+    async createRoleRequest(id, role) {
+
+        if (!id || !role) {
+            return null
+        }
+        const existRoleRequest = await RoleRequestModel.findOne({ userId: id });
+
+        if (existRoleRequest) {
+            await RoleRequestModel.deleteOne({ userId: id })
+        }
+        const roleRequest = await RoleRequestModel.create({
+            userId: id,
+            role: role,
+        });
+        roleRequest.save();
     }
 }
 

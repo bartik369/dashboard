@@ -104,7 +104,7 @@ class UserController {
     }
 
     async checkResetLink(req, res, next) {
-        try {     
+        try {
             const resetPasswordLink = req.params.link;
             console.log("link is ", resetPasswordLink)
             const userData = await userService.checkResetPasswordLink(resetPasswordLink);
@@ -193,32 +193,33 @@ class UserController {
 
     async rolesRequests(req, res, next) {
         try {
-            
+            console.log("get all request roles works")
+            rolesRequestsData = await userService.getRolesRequests()
+            console.log(rolesRequestData)
         } catch (error) {
-            
+
         }
     };
 
     async createRolesRequest(req, res, next) {
         try {
-            const {id, role} = req.body;
+            const { id, role } = req.body;
             console.log(id)
             console.log(role)
-            
+            const roleData = await userService.createRoleRequest(id, role);
+            console.log("returned data after role", roleData)
         } catch (error) {
-            
+
         }
     };
 
     async rolesRespond(req, res, next) {
-        try{
-            
+        try {
+
         } catch (error) {
-            
+
         }
     };
-
-
 
 };
 
