@@ -47,7 +47,7 @@ export const authApi = apiSlice.injectEndpoints({
             query: (credentials, link) => ({
                 url: `/api/setpassword/${link}`,
                 method: "PUT",
-                body: {...credentials}
+                body: {...credentials }
             })
         }),
 
@@ -55,7 +55,7 @@ export const authApi = apiSlice.injectEndpoints({
             query: (credentials) => ({
                 url: "/api/reset",
                 method: "POST",
-                body: {...credentials}
+                body: {...credentials }
             })
         }),
         checkLink: builder.query({
@@ -64,21 +64,21 @@ export const authApi = apiSlice.injectEndpoints({
                 method: "GET",
             })
         }),
-        
+
         //roles request
 
         getRolesRequests: builder.query({
             query: () => ({
                 url: "/api/roles-requests/",
                 method: "GET",
-            })
+            }),
         }),
 
         rolesRequest: builder.mutation({
             query: (credentials) => ({
                 url: "/api/requests/roles",
-                method:"POST",
-                body: {...credentials},
+                method: "POST",
+                body: {...credentials },
             })
         }),
 
@@ -86,17 +86,17 @@ export const authApi = apiSlice.injectEndpoints({
             query: (credentials, id) => ({
                 url: `/api/responds/roles/${id}`,
                 method: "POST",
-                body: {...credentials}
+                body: {...credentials }
             })
         }),
 
     }),
 });
 
-export const { 
-    useSigninMutation, 
-    useSignupMutation, 
-    useUpdateProfileMutation, 
+export const {
+    useSigninMutation,
+    useSignupMutation,
+    useUpdateProfileMutation,
     useUpdateUserPasswordMutation,
     useCheckLinkQuery,
     useResetPasswordMutation,
@@ -104,4 +104,4 @@ export const {
     useGetRolesRequestsQuery,
     useRolesRequestMutation,
     useRolesRespondMutation,
- } = authApi;;
+} = authApi;;

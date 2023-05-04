@@ -168,7 +168,6 @@ class UserController {
         try {
             const id = req.params.id;
             const profile = await userService.getProfile(id)
-            console.log(profile)
             return res.json(profile)
         } catch (error) {
 
@@ -194,8 +193,8 @@ class UserController {
     async rolesRequests(req, res, next) {
         try {
             console.log("get all request roles works")
-            rolesRequestsData = await userService.getRolesRequests()
-            console.log(rolesRequestData)
+            const rolesRequestsData = await userService.getRolesRequests()
+            return res.json(rolesRequestsData);
         } catch (error) {
 
         }
@@ -203,11 +202,8 @@ class UserController {
 
     async createRolesRequest(req, res, next) {
         try {
-            const { id, role } = req.body;
-            console.log(id)
-            console.log(role)
-            const roleData = await userService.createRoleRequest(id, role);
-            console.log("returned data after role", roleData)
+            const { id, displayname, email, role } = req.body;
+            const roleData = await userService.createRoleRequest(id, displayname, email, role);
         } catch (error) {
 
         }

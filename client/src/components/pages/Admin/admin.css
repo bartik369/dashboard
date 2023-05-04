@@ -63,4 +63,24 @@
 }
 
 
-/* tabs end */
+/* tabs end *
+
+/* user info */
+
+.role-management {
+    background-color: aquamarine;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.role-management span {
+    padding: 10px;
+}
+
+.btn_role {
+    background-color: cadetblue;
+    margin-right: 5px;
+    padding: 8px;
+    cursor: pointer;
+}

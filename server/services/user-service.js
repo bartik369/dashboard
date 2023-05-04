@@ -236,15 +236,16 @@ class UserService {
     async getRolesRequests() {
         try {
             const rolesRequests = await RoleRequestModel.find()
+            console.log(rolesRequests)
             return rolesRequests
         } catch (error) {
 
         }
     }
 
-    async createRoleRequest(id, role) {
+    async createRoleRequest(id, displayname, email, role) {
 
-        if (!id || !role) {
+        if (!id || !role || !displayname || !role) {
             return null
         }
         const existRoleRequest = await RoleRequestModel.findOne({ userId: id });
@@ -254,6 +255,8 @@ class UserService {
         }
         const roleRequest = await RoleRequestModel.create({
             userId: id,
+            displayname: displayname,
+            email: email,
             role: role,
         });
         roleRequest.save();

@@ -27,7 +27,6 @@ const ProfileShema = new Schema({
     },
     phone: {
         type: String,
-        unique: true,
         required: false,
         default: "",
     },

@@ -23,6 +23,8 @@ export default function RequestRoles() {
   const onSubmit = async (data) => {
     const roleRequestInfo = {
       id: user.id,
+      displayname: user.displayname,
+      email: user.email,
       role: data.role,
     }
     await makeRolesRequest(roleRequestInfo).unwrap()

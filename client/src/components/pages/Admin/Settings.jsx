@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./admin.css";
 import SystemInfo from "./SystemInfo";
-import UserInfo from "./UserInfo";
+import UserInfo from "./UserInfo/UserInfo";
 
 const Settings = () => {
   const [activeTab, setActiveTab] = useState(1);
