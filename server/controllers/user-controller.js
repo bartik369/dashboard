@@ -211,7 +211,7 @@ class UserController {
 
     async rolesRespond(req, res, next) {
         try {
-
+            const { id, role, approve } = req.body;
         } catch (error) {
 
         }

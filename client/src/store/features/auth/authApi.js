@@ -83,9 +83,9 @@ export const authApi = apiSlice.injectEndpoints({
         }),
 
         rolesRespond: builder.mutation({
-            query: (credentials, id) => ({
-                url: `/api/responds/roles/${id}`,
-                method: "POST",
+            query: (credentials) => ({
+                url: `/api/responds/roles`,
+                method: "PUT",
                 body: {...credentials }
             })
         }),
