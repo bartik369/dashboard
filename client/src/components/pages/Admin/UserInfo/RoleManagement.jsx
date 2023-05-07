@@ -9,6 +9,7 @@ export default function RoleManagement() {
     const approve =  async (request) => {
         const respondStatus = {
             id: request.userId,
+            email: request.email,
             role: request.role,
             approve: true,
         };
@@ -16,9 +17,11 @@ export default function RoleManagement() {
         await roleRespond(respondStatus).unwrap()
 
     }
-    const denay =  async (request) => {
+    const reject =  async (request) => {
         const respondStatus = {
             id: request.userId,
+            email: request.email,
+            displayname: request.displayname,
             role: request.role,
             approve: false,
         };
@@ -41,7 +44,7 @@ export default function RoleManagement() {
             <span>{request.email}</span>
             <span>{request.role}</span>
             <button className="btn_role" onClick={() =>approve(request)}>Ok</button>
-            <button className="btn_role" onClick={() => denay(request) }>No</button>
+            <button className="btn_role" onClick={() => reject(request) }>No</button>
           </div>
         ))
         }

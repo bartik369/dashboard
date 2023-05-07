@@ -95,7 +95,10 @@ class UserService {
             email,
             `${process.env.CLIENT_URL}/setpassword/${resetPasswordLink}`,
         )
-        await ResetPasswordModel.create({ userId: candidate._id, link: resetPasswordLink })
+        await ResetPasswordModel.create({
+            userId: candidate._id,
+            link: resetPasswordLink,
+        })
 
     }
 
@@ -259,12 +262,15 @@ class UserService {
             role: role,
         });
         roleRequest.save();
+        await mailService.sendRoleRequestingMail(email, role, displayname)
+
     }
 
-    async setRoleRespond(id, role, approve) {
+    async setRoleRespond(id, email, displayname, role, approve) {
 
         if (!approve) {
             await RoleRequestModel.deleteOne({ userId: id });
+            await mailService.sendRejectRoleMail(email, role, displayname)
             return null
         }
         const user = await UserModel.findOne({ _id: id });
@@ -277,6 +283,7 @@ class UserService {
         })
         setRole.save();
         await RoleRequestModel.deleteOne({ userId: id });
+        await mailService.sendApproveRoleMail(email, role, displayname)
 
     }
 }

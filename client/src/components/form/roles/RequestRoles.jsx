@@ -21,6 +21,14 @@ export default function RequestRoles() {
   const[makeRolesRequest] = useRolesRequestMutation();
 
   const onSubmit = async (data) => {
+
+    user.roles.map((item) => {
+      
+      if (item === data.role) {
+        
+      }
+    })
+
     const roleRequestInfo = {
       id: user.id,
       displayname: user.displayname,

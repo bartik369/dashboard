@@ -203,7 +203,7 @@ class UserController {
     async createRolesRequest(req, res, next) {
         try {
             const { id, displayname, email, role } = req.body;
-            const roleData = await userService.createRoleRequest(id, displayname, email, role);
+            await userService.createRoleRequest(id, displayname, email, role);
         } catch (error) {
 
         }
@@ -211,9 +211,9 @@ class UserController {
 
     async rolesRespond(req, res, next) {
         try {
-            const { id, role, approve } = req.body;
-            const roleData = await userService.setRoleRespond(id, role, approve)
-            console.log("answer after true role", roleData)
+            const { id, email, displayname, role, approve } = req.body;
+            console.log(req.body)
+            await userService.setRoleRespond(id, email, displayname, role, approve)
         } catch (error) {
 
         }

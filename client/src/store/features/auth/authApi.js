@@ -1,6 +1,7 @@
 import { apiSlice } from "../../api/apiSlice";
 
 export const authApi = apiSlice.injectEndpoints({
+    tagTypes: ['Roles'],
     endpoints: (builder) => ({
 
         // auth part
@@ -72,6 +73,8 @@ export const authApi = apiSlice.injectEndpoints({
                 url: "/api/roles-requests/",
                 method: "GET",
             }),
+            providesTags: (result, error, arg) =>
+                result ? [...result.map(({ id }) => ({ type: 'Roles', id })), 'Roles'] : ['Roles'],
         }),
 
         rolesRequest: builder.mutation({
@@ -79,7 +82,8 @@ export const authApi = apiSlice.injectEndpoints({
                 url: "/api/requests/roles",
                 method: "POST",
                 body: {...credentials },
-            })
+            }),
+            invalidatesTags: { type: 'Roles', id: 'LIST' }
         }),
 
         rolesRespond: builder.mutation({
@@ -87,7 +91,8 @@ export const authApi = apiSlice.injectEndpoints({
                 url: `/api/responds/roles`,
                 method: "PUT",
                 body: {...credentials }
-            })
+            }),
+            invalidatesTags: { type: 'Roles', id: 'LIST' }
         }),
 
     }),
