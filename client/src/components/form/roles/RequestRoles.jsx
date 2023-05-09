@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import "../../pages/Profile/profile.css";
@@ -19,25 +19,30 @@ export default function RequestRoles() {
 
   const user = useSelector(selectCurrentUser)
   const[makeRolesRequest] = useRolesRequestMutation();
+  const dbRoles = [];
+  const availableRoles = []
 
-  const onSubmit = async (data) => {
+  console.log(availableRoles)
 
-    user.roles.map((item) => {
-      
-      if (item === data.role) {
-        
-      }
-    })
+  const onSubmit = (data) => {
+        const roleRequestInfo = {
+          id: user.id,
+          displayname: user.displayname,
+          email: user.email,
+          role: data.role,
+        }
+        makeRolesRequest(roleRequestInfo).unwrap()
+        reset()
 
-    const roleRequestInfo = {
-      id: user.id,
-      displayname: user.displayname,
-      email: user.email,
-      role: data.role,
-    }
-    await makeRolesRequest(roleRequestInfo).unwrap()
-    reset()
   };
+
+  useEffect(() => {
+    userRoles.map((item) => {
+      dbRoles.push(item.value);
+    });
+    const diff = dbRoles.filter(role => !user.roles.includes(role))
+    availableRoles.push(diff);
+  }, [])
 
   return (
     <div className="roles">
@@ -55,11 +60,11 @@ export default function RequestRoles() {
             <option value="" disabled>
               {formConstants.selectUserRole}
             </option>
-            {userRoles.map((item, index) => (
-              <option key={index} name={item.name} value={item.value}>
-                {item.name}
-              </option>
-            ))}
+            {userRoles.map((item, index) =>
+                (<option key={index} name={item.name} value={item.value}>
+                    {item.name}
+                  </option>)
+              )}
           </select>
         </div>
         <SubmitButton
