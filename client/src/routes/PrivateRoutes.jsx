@@ -25,7 +25,7 @@ export default function PrivateRoutes({ allowedRoles }) {
         >
           <Header moveHeader={slideStateContainer} />
           <div className="content-container">
-            {token
+            {user?.roles?.find(role => allowedRoles?.includes(role))
               ? <Outlet /> 
               : <Navigate to="/" />
             }

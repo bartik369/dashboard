@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import "../../pages/Profile/profile.css";
 import SubmitButton from "../../UI/buttons/SubmitButton";
 import * as uiConstants from "../../../utils/constants/ui.constants";
-import * as formConstants from "../../../utils/constants/form.constants"
+import * as formConstants from "../../../utils/constants/form.constants";
 import { userRoles } from "../../../utils/data-arrays/arrays";
 import { useRolesRequestMutation } from "../../../store/features/auth/authApi";
 import { selectCurrentUser } from "../../../store/features/auth/authSlice";
@@ -17,32 +17,19 @@ export default function RequestRoles() {
     formState: { errors },
   } = useForm({});
 
-  const user = useSelector(selectCurrentUser)
-  const[makeRolesRequest] = useRolesRequestMutation();
-  const dbRoles = [];
-  const availableRoles = []
-
-  console.log(availableRoles)
+  const user = useSelector(selectCurrentUser);
+  const [makeRolesRequest] = useRolesRequestMutation();
 
   const onSubmit = (data) => {
-        const roleRequestInfo = {
-          id: user.id,
-          displayname: user.displayname,
-          email: user.email,
-          role: data.role,
-        }
-        makeRolesRequest(roleRequestInfo).unwrap()
-        reset()
-
+    const roleRequestInfo = {
+      id: user.id,
+      displayname: user.displayname,
+      email: user.email,
+      role: data.role,
+    };
+    makeRolesRequest(roleRequestInfo).unwrap();
+    reset();
   };
-
-  useEffect(() => {
-    userRoles.map((item) => {
-      dbRoles.push(item.value);
-    });
-    const diff = dbRoles.filter(role => !user.roles.includes(role))
-    availableRoles.push(diff);
-  }, [])
 
   return (
     <div className="roles">
@@ -60,17 +47,20 @@ export default function RequestRoles() {
             <option value="" disabled>
               {formConstants.selectUserRole}
             </option>
-            {userRoles.map((item, index) =>
-                (<option key={index} name={item.name} value={item.value}>
-                    {item.name}
-                  </option>)
-              )}
+            {userRoles
+              .filter((role) => !user.roles.includes(role))
+              .map((item, index) => (
+                  <option key={index} name={item} value={item}>
+                    {item}
+                  </option>
+                ))
+            }
           </select>
         </div>
         <SubmitButton
-        className={"submit-btn-medium"}
-        title={uiConstants.titleAdd}
-      />
+          className={"submit-btn-medium"}
+          title={uiConstants.titleAdd}
+        />
       </form>
     </div>
   );

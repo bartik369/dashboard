@@ -49,7 +49,4 @@ export const categoryDevice = [
     { name: 'Аксессуары', value: 'Аксессуары', iconClassName: 'bi bi-usb-drive' },
 ]
 
-export const userRoles = [
-    { name: 'Модератор', value: 'Moderator', iconClassName: 'bi bi-laptop' },
-    { name: 'Администратор', value: 'Administrator', iconClassName: 'bi bi-hdd-network' },
-]
+export const userRoles = ['Moderator', 'Administrator']
