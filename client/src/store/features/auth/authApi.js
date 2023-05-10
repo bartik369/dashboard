@@ -28,13 +28,6 @@ export const authApi = apiSlice.injectEndpoints({
                 method: "PUT",
                 body: {...credentials },
             }),
-            //     transformResponse: async(response, meta, arg) => {
-            //         if (response) {
-            //             setProfile(response)
-            //             return response;
-            //         }
-            //     },
-            // }),
         }),
         updateUserPassword: builder.mutation({
             query: (credentials) => ({

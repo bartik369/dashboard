@@ -9,13 +9,27 @@ export const deviceApi = createApi({
 
         // get devices
         getDevices: builder.query({
-            query: () => ({
-                url: "/api/devices",
+            query: (page = 6) => ({
+                url: `/api/devices?page=${page}`,
                 method: "GET",
                 providesTags: (result) =>
                     result ? [...result.map(({ _id }) => ({ type: 'Devices', _id })), 'Devices'] : ['Devices'],
             }),
         }),
+
+
+        // listPosts: build.query({
+        //     query: (page = 1) => `posts?page=${page}`,
+        //     providesTags: (result, error, page) =>
+        //       result
+        //         ? [
+        //             // Provides a tag for each post in the current page,
+        //             // as well as the 'PARTIAL-LIST' tag.
+        //             ...result.data.map(({ id }) => ({ type: 'Posts', id })),
+        //             { type: 'Posts', id: 'PARTIAL-LIST' },
+        //           ]
+        //         : [{ type: 'Posts', id: 'PARTIAL-LIST' }],
+        //   }),
 
         // get device
         getDevice: builder.query({
