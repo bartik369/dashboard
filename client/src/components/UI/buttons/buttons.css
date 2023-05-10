@@ -24,6 +24,7 @@
     color: #ffffff;
     transition: all .5s;
     font-size: 11px;
+    margin: 20px 0;
 }
 
 .submit-btn-medium:hover {

@@ -8,6 +8,7 @@ import * as formConstants from "../../../utils/constants/form.constants";
 import { userRoles } from "../../../utils/data-arrays/arrays";
 import { useRolesRequestMutation } from "../../../store/features/auth/authApi";
 import { selectCurrentUser } from "../../../store/features/auth/authSlice";
+import "../../../components/form/forms.css"
 
 export default function RequestRoles() {
   const {
@@ -33,12 +34,12 @@ export default function RequestRoles() {
 
   return (
     <div className="roles">
-      <div className="roles__titile">Запросить роль</div>
+      <div className="roles__title">Запросить роль</div>
       <form action="" className="roles-form" onSubmit={handleSubmit(onSubmit)}>
-        <div className="device-form__input">
+        <div className="role-form__input">
           {/* <i className="bi bi-hdd-stack" /> */}
           <select
-            className="device-form__select"
+            className="role-form__select"
             defaultValue=""
             {...register("role", {
               required: formConstants.requiredText,
@@ -59,7 +60,7 @@ export default function RequestRoles() {
         </div>
         <SubmitButton
           className={"submit-btn-medium"}
-          title={uiConstants.titleAdd}
+          title={formConstants.request}
         />
       </form>
     </div>

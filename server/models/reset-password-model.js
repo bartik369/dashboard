@@ -13,6 +13,11 @@ const ResetPasswordSheme = new Schema({
         type: Date,
         default: Date.now,
     },
+    expireAt: {
+        type: Date,
+        default: Date.now,
+        index: { expires: '500s' }
+    }
 });
 
 const ResetPasswordModel = mongoose.model('ResetPassword', ResetPasswordSheme);

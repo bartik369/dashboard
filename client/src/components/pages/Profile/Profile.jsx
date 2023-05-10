@@ -20,7 +20,6 @@ export default function Profile() {
   const profile = useSelector(selectUserProfile);
   const [updateProfile] = useUpdateProfileMutation();
   const [updatePassword] = useUpdateUserPasswordMutation();
-
   const [passwordType, setPasswordType] = useState(false);
   const [repeatPasswordType, setRepeatPasswordType] = useState(false)
 
@@ -229,7 +228,7 @@ export default function Profile() {
       </form>
       <div className="ext-info">
       <form className="common-form" onSubmit={handleSubmitPass(changePassword)}>
-        <div className="common-form__title">{formConstants.titleSetNewPasswordForm}</div>
+        <div className="ext-info__title">{formConstants.resetPasswordTitle}</div>
           <div className="input-layer">
             <div className="common-form__input">
               <FontAwesomeIcon icon={faLock} className="input-icon" />
@@ -302,7 +301,7 @@ export default function Profile() {
           </div>
           <SubmitButton
             className={"submit-btn-small"}
-            title={formConstants.save}
+            title={formConstants.reset}
           />
         </form>
         <div className="roles">

@@ -762,14 +762,14 @@
 
 /* form reset password profile page*/
 
-
 .common-form {
-    padding: 70px 40px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    max-width: 400px;
-    min-width: 400px;
+    max-width: 300px;
+    min-width: 300px;
     height: fit-content;
+    margin-bottom: 20px;
 }
 
 .common-form__title {
@@ -781,6 +781,17 @@
     margin-bottom: 15px;
     font-family: inherit;
 }
+
+.roles__title {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #1e293b;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: inherit;
+    display: inline-block;
+}
+
 .common-form__select {
     width: 100%;
     background-color: teal;
@@ -797,7 +808,9 @@
     transition: all .6s;
     margin-bottom: 10px;
 }
+
 .common-form input {
+    background: transparent;
     padding: 12px 40px 12px 8px;
     transition: all .5s;
     font-size: 15px;
@@ -825,7 +838,7 @@
 .common-form__input span {
     position: absolute;
     color: #8087a9;
-    background: #fff;
+    background: #fafbff;
     border-radius: 4px;
     top: 17px;
     left: 35px;
@@ -838,11 +851,56 @@
 
 .common-form__input input:focus~span {
     transform: translateX(1px) translateY(-25px);
+    background-color: #ffffff;
 }
 
-.common-form label {
+.common-form__input input:hover~span {
+    transform: translateX(1px) translateY(-25px);
+    background-color: #ffffff;
+}
+
+s .common-form label {
     padding: 5px 0;
     color: #90959e;
     font-size: 13px;
 }
 
+
+/* roles form */
+
+.roles .roles-form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 200px;
+}
+
+.roles .role-form__input {
+    width: 100%;
+    height: 35px;
+    border-radius: 10px;
+    background: #fafbff;
+    border: 1px solid #e5e7ef;
+    padding: 10px;
+    font-size: 12px;
+    outline: none;
+    -webkit-box-shadow: none;
+    display: flex;
+    align-items: center;
+    box-shadow: none;
+    color: #0a1a21;
+    transition: all .6s;
+}
+
+.role-form__select {
+    width: 100%;
+    background: #fafbff;
+    height: 20px;
+    border-radius: 5px;
+    font-size: 12px;
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: #90959e;
+    transition: all .6s;
+}

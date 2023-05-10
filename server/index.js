@@ -54,6 +54,7 @@ const start = async() => {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
+
         app.listen(PORT, () => console.log(`The server is running on ${PORT} port`))
     } catch (error) {
         console.log(error)

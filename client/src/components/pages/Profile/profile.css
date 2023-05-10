@@ -7,15 +7,15 @@
 }
 
 .profile .ext-info {
-    background-color: #6ce099;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    border-radius: 8px;
-    padding: 10px;
-    box-shadow: 0 5px 5px -5px rgb(99 108 126 / 30%);
+    background-color: #ffffff;
     width: 100%;
-    margin-bottom: 10px;
+    height: fit-content;
+    display: inline-flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 20px 10px;
+    border-radius: 8px;
+    box-shadow: 0 5px 5px -5px rgb(99 108 126 / 30%);
 }
 
 .profile .form {
@@ -57,7 +57,16 @@
 }
 
 .roles {
-    width: 300px;
-    background-color: burlywood;
+    height: fit-content;
+    padding: 10px;
+}
 
+.profile .ext-info__title {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #1e293b;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: inherit;
+    display: inline-block;
 }

@@ -30,7 +30,9 @@ export const register = "Зарегистрироваться";
 export const forgotPassword = "Забыли пароль?";
 export const accountNotExist = "Нет аккауна?";
 export const accountExist = "Уже есть аккаунт?";
-export const save = "Сохранить"
+export const save = "Сохранить";
+export const reset = "Сбросить"
+export const request = "Запросить"
 
 
 //
@@ -78,3 +80,4 @@ export const profileWorkDepartament = "Департамент";
 export const profileWorkPhone = "Номер рабочего телефона";
 export const profileWorkVocation = "Направление";
 export const selectUserRole = "Выберите роль";
+export const resetPasswordTitle = "Сбросить пароль"
