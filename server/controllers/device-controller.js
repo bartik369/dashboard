@@ -2,14 +2,40 @@ import DeviceModel from '../models/device-model.js';
 import { ObjectId } from 'mongodb';
 
 export const getDevices = async(req, res) => {
-    DeviceModel.find({}, (err, result) => {
-        if (err) {
-            res.send(err)
-        } else {
-            const total = result.length
-            res.set('X-Total-Count', total);
-            res.send(result);
-        }
+    const page = parseInt(req.query.page) - 1 || 0;
+    const limit = parseInt(req.query.limit) || 10;
+    const search = req.query.search || "";
+
+    let devices = await DeviceModel.find({
+            "$or": [
+                { title: { $regex: search, $options: "i" } },
+                { body: { $regex: search, $options: "i" } },
+            ]
+        })
+        .skip(page * limit)
+        .limit(limit)
+    let total = await DeviceModel.countDocuments({ title: { $regex: search, $options: "i" } })
+    let pageCount = Math.ceil(total / limit)
+
+
+    // DeviceModel.find({}, (err, result) => {
+    //     if (err) {
+    //         res.send(err)
+    //     } else {
+    //         const total = result.length
+    //         res.set('X-Total-Count', total);
+    //         res.send(result);
+    //     } 
+    // })
+
+    res.json({
+        devices,
+        total,
+        page: page + 1,
+        limit,
+        pageCount,
+        //   total_pages: Math.ceil(db.post.count() / per_page),
+        //   total: db.post.count(),
     })
 }
 

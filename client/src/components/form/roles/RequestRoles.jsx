@@ -59,7 +59,7 @@ export default function RequestRoles() {
           </select>
         </div>
         <SubmitButton
-          className={"submit-btn-medium"}
+          className={"submit-btn-small"}
           title={formConstants.request}
         />
       </form>

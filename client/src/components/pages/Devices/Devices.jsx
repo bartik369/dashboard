@@ -13,11 +13,14 @@ import {
 } from "../../../store/features/devices/deviceApi";
 import "../../../styles/App.css";
 import "./devices.css";
+import { faChessKnight } from "@fortawesome/free-solid-svg-icons";
 
 const Devices = () => {
   const [activeModal, setActiveModal] = useState(null);
   const [singleDevice, setSingleDevice] = useState("");
   const [page, setPage] = useState(1);
+  const [sort, setSort] = useState({sort: "searchData", order: "desc"})
+  const [search, setSearch] = useState()
   let dispatch = useDispatch();
   // const [getDevice] = useGetDeviceQuery();
   // const searchQuery = useSelector(state => state.seqrchQuery.query);
@@ -25,24 +28,26 @@ const Devices = () => {
   const [category, setCategory] = useState([]);
   let filter = [];
   const { data: device } = useGetDeviceQuery(singleDevice);
-  const { data: devices, isLoading, isFetching } = useGetDevicesQuery("pageSize=7");
+  const { data, isLoading, isFetching } = useGetDevicesQuery(page, sort, search);
   const [deleteDevice] = useDeleteDeviceMutation();
   const [addDevice] = useAddDeviceMutation();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [devicesPerPage] = useState(25);
 
-  const indexOfLastDevice = currentPage * devicesPerPage;
-  const indefOfFirstDevice = indexOfLastDevice - devicesPerPage;
+  console.log(data)
+  // const [devicesPerPage] = useState(25);
 
-  useEffect(() => {
+  // const indexOfLastDevice = currentPage * devicesPerPage;
+  // const indefOfFirstDevice = indexOfLastDevice - devicesPerPage;
+
+  // useEffect(() => {
     // filter = devices.filter((item) => {
     //   return Object.keys(item).some((request) =>
     //     String(item[request]).toLowerCase().includes(searchQuery.toLowerCase())
     //   );
     // })
     // setCategory(filter)
-  }, [devices, searchQuery, indefOfFirstDevice, indexOfLastDevice]);
+  // }, [devices, searchQuery, indefOfFirstDevice, indexOfLastDevice]);
 
   // Search device
 
@@ -77,7 +82,7 @@ const Devices = () => {
   // Create device
 
   const sortCategoryHandler = (category) => {
-    const sortedCategoryArray = devices.filter((item) => {
+    const sortedCategoryArray = data.devices.filter((item) => {
       if (item.type === category) {
         return item.type;
       }
@@ -87,7 +92,7 @@ const Devices = () => {
   };
 
   const resetHandler = () => {
-    setCategory(devices);
+    setCategory(data.devices);
   };
 
   const closeModal = () => {
@@ -105,7 +110,7 @@ const Devices = () => {
       <div className="devices-list">
         <div className="title">Список устройств</div>
         {!isFetching &&
-          devices.map((device, index) => (
+          data.devices.map((device, index) => (
             <div className="device" key={index}>
               <span>{device.type}</span>
               <span>{device.name}</span>

@@ -9,11 +9,14 @@ export const deviceApi = createApi({
 
         // get devices
         getDevices: builder.query({
-            query: (page = 6) => ({
-                url: `/api/devices?page=${page}`,
+            query: (page, sort, search) => ({
+                url: `/api/devices?sort=${sort}&page=${page}&search=${search }`,
                 method: "GET",
-                providesTags: (result) =>
-                    result ? [...result.map(({ _id }) => ({ type: 'Devices', _id })), 'Devices'] : ['Devices'],
+                // providesTags: (result, error, page) =>
+                //     result ? [
+                //         ...result.data.map(({ id }) => ({ type: 'Devices', id })),
+                //         { type: 'Devices', id: 'LIST' },
+                //     ] : [{ type: 'Devices', id: 'LIST' }],
             }),
         }),
 
