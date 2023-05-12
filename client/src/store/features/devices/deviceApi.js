@@ -9,15 +9,16 @@ export const deviceApi = createApi({
 
         // get devices
         getDevices: builder.query({
-            query: (page, sort, search) => ({
-                url: `/api/devices?sort=${sort}&page=${page}&search=${search }`,
-                method: "GET",
-                // providesTags: (result, error, page) =>
-                //     result ? [
-                //         ...result.data.map(({ id }) => ({ type: 'Devices', id })),
-                //         { type: 'Devices', id: 'LIST' },
-                //     ] : [{ type: 'Devices', id: 'LIST' }],
+            query: (urlParams) => ({
+                url: urlParams,
+                method: "GET"
+                    // providesTags: (result, error, page) =>
+                    //     result ? [
+                    //         ...result.data.map(({ id }) => ({ type: 'Devices', id })),
+                    //         { type: 'Devices', id: 'LIST' },
+                    //     ] : [{ type: 'Devices', id: 'LIST' }],
             }),
+
         }),
 
 

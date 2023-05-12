@@ -6,15 +6,28 @@ export const getDevices = async(req, res) => {
     const limit = parseInt(req.query.limit) || 10;
     const search = req.query.search || "";
 
+    // let sort = req.query.sort || "._id"
+
+    // req.query.sort ? (sort = req.query.sort.split(",")) : (sort = [sort])
+    // let sortBy = {}
+
+    // if (sort[1]) {
+    //     sortBy[sort[0]] = sort[1]
+    // } else {
+    //     sortBy[sort[0]] = "asc"
+    // }
+
     let devices = await DeviceModel.find({
-            "$or": [
-                { title: { $regex: search, $options: "i" } },
-                { body: { $regex: search, $options: "i" } },
+            $or: [
+                { type: { $regex: search, $options: "i" } },
+                { name: { $regex: search, $options: "i" } },
+                { number: { $regex: search, $options: "i" } },
+                { user: { $regex: search, $options: "i" } },
             ]
         })
         .skip(page * limit)
         .limit(limit)
-    let total = await DeviceModel.countDocuments({ title: { $regex: search, $options: "i" } })
+    let total = await DeviceModel.countDocuments({ search: { $regex: search, $options: "i" } })
     let pageCount = Math.ceil(total / limit)
 
 
