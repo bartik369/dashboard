@@ -3,21 +3,9 @@ import { ObjectId } from 'mongodb';
 
 export const getDevices = async(req, res) => {
     const page = parseInt(req.query.page) - 1 || 0;
-    const limit = parseInt(req.query.limit) || 10;
+    const limit = parseInt(req.query.limit) || 12;
     const search = req.query.search || "";
-
-    // let sort = req.query.sort || "._id"
-
-    // req.query.sort ? (sort = req.query.sort.split(",")) : (sort = [sort])
-    // let sortBy = {}
-
-    // if (sort[1]) {
-    //     sortBy[sort[0]] = sort[1]
-    // } else {
-    //     sortBy[sort[0]] = "asc"
-    // }
-
-    let devices = await DeviceModel.find({
+    let data = await DeviceModel.find({
             $or: [
                 { type: { $regex: search, $options: "i" } },
                 { name: { $regex: search, $options: "i" } },
@@ -27,8 +15,17 @@ export const getDevices = async(req, res) => {
         })
         .skip(page * limit)
         .limit(limit)
-    let total = await DeviceModel.countDocuments({ search: { $regex: search, $options: "i" } })
+    let total = await DeviceModel.countDocuments({
+            $or: [
+                { type: { $regex: search, $options: "i" } },
+                { name: { $regex: search, $options: "i" } },
+                { number: { $regex: search, $options: "i" } },
+                { user: { $regex: search, $options: "i" } },
+            ]
+        })
+        // let total = await DeviceModel.countDocuments({ search: { $regex: search, $options: "i" } })
     let pageCount = Math.ceil(total / limit)
+    console.log(total)
 
 
     // DeviceModel.find({}, (err, result) => {
@@ -42,7 +39,7 @@ export const getDevices = async(req, res) => {
     // })
 
     res.json({
-        devices,
+        data,
         total,
         page: page + 1,
         limit,

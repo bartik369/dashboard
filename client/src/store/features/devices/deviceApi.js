@@ -11,12 +11,12 @@ export const deviceApi = createApi({
         getDevices: builder.query({
             query: (urlParams) => ({
                 url: urlParams,
-                method: "GET"
-                    // providesTags: (result, error, page) =>
-                    //     result ? [
-                    //         ...result.data.map(({ id }) => ({ type: 'Devices', id })),
-                    //         { type: 'Devices', id: 'LIST' },
-                    //     ] : [{ type: 'Devices', id: 'LIST' }],
+                method: "GET",
+                // providesTags: (result, error, page) =>
+                //     result ? [
+                //         ...result.data.map(({ id }) => ({ type: 'Devices', id })),
+                //         { type: 'Devices', id: 'LIST' },
+                //     ] : [{ type: 'Devices', id: 'LIST' }],
             }),
 
         }),

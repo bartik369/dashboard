@@ -13,7 +13,7 @@ const Chart = () => {
     }, []);
 
     const CanvasJSChart = CanvasJSReact.CanvasJSChart;
-    const {data = [], isLoading} = useGetDevicesQuery()
+    const {data, isLoading} = useGetDevicesQuery()
     // const {devices} = useSelector(state => state.devices)
     const nameArray = [];
     let dispatch = useDispatch();

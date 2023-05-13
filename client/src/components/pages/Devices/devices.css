@@ -155,3 +155,9 @@
 .category-menu__item:hover.category-menu__item i {
     color: #ffffff;
 }
+
+.pages {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
