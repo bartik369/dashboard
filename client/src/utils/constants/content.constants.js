@@ -15,6 +15,6 @@ export const deviceDateAdded = "Дата добавления";
 export const openTodos = "Открыть задачи"
 
 
-export const prev = "< Назад";
-export const next = "Вперед >";
+export const prev = "<<";
+export const next = ">>";
 export const breakLabel = "..."

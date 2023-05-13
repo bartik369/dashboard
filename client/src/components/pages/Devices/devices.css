@@ -161,3 +161,35 @@
     justify-content: center;
     margin-top: 20px;
 }
+
+.pagination {
+    display: flex;
+    padding: 10px;
+}
+
+.page-item {
+    background-color: #ffffff;
+    margin: 5px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-item:hover .page-link {
+    color: #ffffff;
+}
+
+.page-link {
+    height: fit-content;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.pages .active,
+.page-item:hover {
+    background-color: rgb(0, 139, 118);
+    color: #ffffff;
+}
