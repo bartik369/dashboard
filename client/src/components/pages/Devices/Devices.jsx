@@ -90,10 +90,13 @@ const Devices = () => {
         {/* <UpdateDeviceForm update={updateDeviceData} device={device} /> */}
       </Modal>
       <div className="devices-list">
-        <div className="title">Список устройств</div>
-       <form onSubmit={handleSearch}>
+      <div className="title">Список устройств</div>
+      <div className="devices-list__search">
+      <form className="search" onSubmit={handleSearch}>
+      <i className="bi bi-search"/>
        <input type="text" onChange={(e) => handleSearch(e)}/>
        </form>
+      </div>
         {!isFetching &&
           data.data.map((device, index) => (
             <div className="device" key={index}>
