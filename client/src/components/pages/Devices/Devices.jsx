@@ -22,17 +22,17 @@ const Devices = () => {
   const [search, setSearch] = useState("")
   const [totalPage, setTotalPage] = useState(0)
   const urlParams = `/api/devices?page=${page}&search=${search}`
-  // const { data: device } = useGetDeviceQuery(singleDevice);
-  const { data, isFetching, isLoading } = useGetDevicesQuery(urlParams);
+  const { data: device } = useGetDeviceQuery(singleDevice);
+  const { data: devices, isFetching, isLoading } = useGetDevicesQuery(urlParams);
   const [deleteDevice] = useDeleteDeviceMutation();
   const [addDevice] = useAddDeviceMutation();
 
 
   useEffect(() => {
-    if (data) {
-      setTotalPage(data.pageCount)
+    if (devices) {
+      setTotalPage(devices.pageCount)
     }
-  }, [data])
+  }, [devices])
 
   const createDevice = (newDevice) => {
     // dispatch(addDevice(newDevice));
@@ -98,7 +98,7 @@ const Devices = () => {
        </form>
       </div>
         {!isFetching &&
-          data.data.map((device, index) => (
+          devices.data.map((device, index) => (
             <div className="device" key={index}>
               <span>{device.type}</span>
               <span>{device.name}</span>

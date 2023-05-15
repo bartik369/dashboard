@@ -1,59 +1,33 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import CanvasJSReact from "../../lib/canvas/canvasjs.react";
 import * as uiConstants from "../../utils/constants/ui.constants";
-import { useGetDevicesQuery } from "../../store/features/devices/deviceApi";
+import { useGetBasicDevicesQuery } from "../../store/features/devices/deviceApi";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import "../widgets/widgets.css";
 
 const DeviceHistory = () => {
-    const CanvasJSChart = CanvasJSReact.CanvasJSChart;
-    const {data = [], isLoading} = useGetDevicesQuery()
+    const {data, isLoading} = useGetBasicDevicesQuery()
     // const {devices} = useSelector(state => state.devices)
     const nameArray = [];
-    let newArray = [];
+    let historyArray = [];
     let count = [];
 
-    const getDevicesCount = () => {
-        data.map((item) => {
-            nameArray.push(item.addTime.split(' ')[0]);
-        });
-        nameArray.map((sum) => {
-            count[sum] = (count[sum] || 0) + 1
-        });
-        Object.keys(count).map(function(x) {
-            newArray.push({y: count[x], label: x})
-        })
-    }
-    getDevicesCount()
+    if (data) {
 
-    const options = {
-        theme: "light2",
-		animationEnabled: true,
-		exportEnabled: true,
-        axisX: {
-            titleFontColor: "#555a6b",
-			lineColor: "#6D78AD",
-			labelFontColor: "#4c926b",
-            title: uiConstants.moveDate,
-            fontFamily: "calibri",
-            titleFontSize: 15,
-        },
-        axisY: {
-            titleFontColor: "#555a6b",
-			lineColor: "#6D78AD",
-			labelFontColor: "#555a6b",
-            title: uiConstants.amount,
-            fontFamily: "calibri",
-            titleFontSize: 15,
-        },
-        data: [
-            {
-                type: "area",
-				xValueFormatString: "DD/MM/YYYY",
-                dataPoints:[...newArray]
-            }
-        ]
+            data.map((item) => {
+                nameArray.push(item.addTime.split(' ')[0]);
+            });
+            nameArray.map((sum) => {
+                count[sum] = (count[sum] || 0) + 1
+            });
+            Object.keys(count).map(function(x) {
+              historyArray.push({y: count[x], label: x})
+            })
+        
+    
     }
+
+    console.log(historyArray)
 
     return (
         <div className="widget-item">
@@ -61,7 +35,26 @@ const DeviceHistory = () => {
              <div className="icon-title"><i className="bi bi-graph-up"></i></div>
              <div className="widget-item__title">{uiConstants.titleMoveChart}</div>
              </div>
-            <CanvasJSChart options = {options} />
+             <ResponsiveContainer width="100%" height={260}>
+          <AreaChart
+            width={400}
+            height={260}
+            data={historyArray}
+            syncId="anyId"
+            margin={{
+              top: 10,
+              right: 30,
+              left: 0,
+              bottom: 0,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="label" />
+            <YAxis dataKey="y" />
+            <Tooltip />
+            <Area type="monotone" dataKey="y" stroke="#82ca9d" fill="#82ca9d" />
+          </AreaChart>
+        </ResponsiveContainer>
         </div>
     )
 }

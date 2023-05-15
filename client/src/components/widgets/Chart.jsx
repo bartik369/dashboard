@@ -1,65 +1,50 @@
 import React, {useEffect} from "react";
 import { loadDevices } from "../../store/actions/devicesActions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import * as uiConstants from "../../utils/constants/ui.constants";
-import CanvasJSReact from "../../lib/canvas/canvasjs.react";
-import { useGetDevicesQuery } from "../../store/features/devices/deviceApi";
+import { useGetBasicDevicesQuery } from "../../store/features/devices/deviceApi";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  Brush,
+  AreaChart,
+  Area,
+  ResponsiveContainer,
+} from 'recharts';
 import "../widgets/widgets.css";
 
 const Chart = () => {
-
-    useEffect(() => {
-        dispatch(loadDevices());
-    }, []);
-
-    const CanvasJSChart = CanvasJSReact.CanvasJSChart;
-    const {data, isLoading} = useGetDevicesQuery()
+    const {data: devices, isLoading} = useGetBasicDevicesQuery()
     // const {devices} = useSelector(state => state.devices)
     const nameArray = [];
     let dispatch = useDispatch();
     let newArray = [];
     let count = [];
 
+    console.log(devices)
+
     const getDevicesCount = () => {
-        data.map((item) => {
+        devices.map((item) => {
             nameArray.push(item.type);
         });
         nameArray.map((sum) => {
             count[sum] = (count[sum] || 0) + 1
         });
         Object.keys(count).map(function(x) {
-            newArray.push({y: count[x], label: x})
+            newArray.push({count: count[x], name: x})
         })
     }
-    getDevicesCount()
- 
-    const options = {
-        animationEnabled: true,
-        theme: "light2",
-        axisX: {
-            titleFontColor: "#555a6b",
-			lineColor: "#6D78AD",
-			labelFontColor: "#555a6b",
-            title: uiConstants.category,
-            fontFamily: "calibri",
-            titleFontSize: 15,
-        },
-        axisY: {
-			titleFontColor: "#555a6b",
-			lineColor: "#6D78AD",
-			labelFontColor: "#555a6b",
-            title: uiConstants.amount,
-            fontFamily: "calibri",
-            titleFontSize: 15,
-        },
-        data: [
-            {
-                type: "bar",
-                indexLabelLineThickness: 1,
-                dataPoints:[...newArray]
-            }
-        ]
-    };
+
+    if (devices) {
+      getDevicesCount()
+    }
+
+    console.log(newArray)
 
     return (
         <div className="widget-item">
@@ -67,7 +52,28 @@ const Chart = () => {
           <div className="icon-title"><i className="bi bi-list-columns"></i></div>
           <div className="widget-item__title">{uiConstants.titleDeviceChart}</div>
           </div>
-            <CanvasJSChart options = {options} />
+            {
+              <ResponsiveContainer width="100%" height={260}>
+              <AreaChart
+                width={400}
+                height={260}
+                data={newArray}
+                syncId="anyId"
+                margin={{
+                  top: 10,
+                  right: 30,
+                  left: 0,
+                  bottom: 0,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Area type="monotone" dataKey="count" stroke="#8884d8" fill="#8884d8" />
+              </AreaChart>
+            </ResponsiveContainer>
+            }
         </div>
     )
 }

@@ -20,6 +20,18 @@ export const deviceApi = createApi({
             }),
 
         }),
+        getBasicDevices: builder.query({
+            query: () => ({
+                url: "/api/basic-devices",
+                method: "GET",
+                providesTags: (result, error, page) =>
+                    result ? [
+                        ...result.data.map(({ id }) => ({ type: 'Devices', id })),
+                        { type: 'Devices', id: 'LIST' },
+                    ] : [{ type: 'Devices', id: 'LIST' }],
+            }),
+
+        }),
 
 
         // listPosts: build.query({
@@ -81,4 +93,5 @@ export const {
     useUpdateDeviceMutation,
     useGetDeviceQuery,
     useGetDevicesQuery,
+    useGetBasicDevicesQuery,
 } = deviceApi;

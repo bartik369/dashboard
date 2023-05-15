@@ -52,6 +52,18 @@ export const getDevices = async(req, res) => {
     })
 }
 
+export const getBasicDevices = async(req, res) => {
+    DeviceModel.find({}, (err, result) => {
+        if (err) {
+            res.send(err)
+        } else {
+            const total = result.length
+            res.set('X-Total-Count', total);
+            res.send(result);
+        }
+    })
+}
+
 export const getDevice = async(req, res) => {
     const id = new ObjectId(req.params.id);
     DeviceModel.find({ _id: id }, (err, result) => {

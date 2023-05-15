@@ -1,17 +1,11 @@
 import React from "react";
 import * as contentConstants from "../../utils/constants/content.constants";
-import { useSelector } from "react-redux";
-import { useGetDevicesQuery } from "../../store/features/devices/deviceApi";
+import { useGetBasicDevicesQuery } from "../../store/features/devices/deviceApi";
 import "../widgets/widgets.css";
 
 
 const LastDevices = () => {
-
-    // const {devices} = useSelector(state => state.devices)
-    const { data = [], isLoading } = useGetDevicesQuery()
-    const arrayDevices = [...data];
-    const reverseArrayDevices = arrayDevices.reverse().slice(0, 6);
-    
+    const { data, isLoading } = useGetBasicDevicesQuery()
     return (
         <div className="widget-item">
           <div className="wrapper-title">
@@ -29,7 +23,7 @@ const LastDevices = () => {
                   </tr>
               </thead>
               <tbody>
-                  {reverseArrayDevices.map((device, index) => (
+                  {data && data.map((device, index) => (
                       <tr key={index}>
                           <td>{device.type}</td>
                           <td>{device.name}</td>
@@ -37,7 +31,7 @@ const LastDevices = () => {
                           <td>{device.user}</td>
                           <td>{device.addTime}</td>
                       </tr>
-                  ))}
+                  )).reverse().slice(0, 6)}
               </tbody>
           </table>
         </div>
