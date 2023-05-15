@@ -70,7 +70,7 @@ const Chart = () => {
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                <Area type="monotone" dataKey="count" stroke="#8884d8" fill="#8884d8" />
+                <Area type="monotone" dataKey="count" stroke="#848fd8" fill="#848fd8" />
               </AreaChart>
             </ResponsiveContainer>
             }

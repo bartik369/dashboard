@@ -21,7 +21,7 @@ const DeviceHistory = () => {
                 count[sum] = (count[sum] || 0) + 1
             });
             Object.keys(count).map(function(x) {
-              historyArray.push({y: count[x], label: x})
+              historyArray.push({count: count[x], label: x})
             })
         
     
@@ -50,9 +50,9 @@ const DeviceHistory = () => {
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="label" />
-            <YAxis dataKey="y" />
+            <YAxis dataKey="count" />
             <Tooltip />
-            <Area type="monotone" dataKey="y" stroke="#82ca9d" fill="#82ca9d" />
+            <Area type="monotone" dataKey="count" stroke="#82ca9d" fill="#82ca9d" />
           </AreaChart>
         </ResponsiveContainer>
         </div>
