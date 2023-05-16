@@ -15,7 +15,6 @@ export const getTodo = async(req, res, next) => {
     const id = new ObjectId(req.params.id);
     try {
         const todoData = await ToDoModel.find({ _id: id })
-        console.log(...todoData)
         return res.json(...todoData);
     } catch (error) {
         next(error)
@@ -50,7 +49,7 @@ export const createTodo = async(req, res) => {
 
 export const deleteTodo = async(req, res) => {
     const id = req.params.id;
-
+    console.log(id)
     try {
         await ToDoModel.findByIdAndDelete(id).exec();
         res.send({
@@ -63,6 +62,8 @@ export const deleteTodo = async(req, res) => {
 
 export const updateTodo = async(req, res) => {
     if (!req.body) return res.sendStatus(400);
+
+    console.log(req.body)
     const id = req.params.id;
     const title = req.body.title;
     const description = req.body.description;

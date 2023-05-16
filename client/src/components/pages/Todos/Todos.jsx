@@ -7,7 +7,7 @@ import UpdateTodoForm from "../../form/update-todo/UpdateTodoForm";
 import TodoButton from "../../UI/buttons/TodoButton";
 import { breakpoints } from "../../../utils/data-arrays/arrays";
 import * as uiConstants from "../../../utils/constants/ui.constants";
-import { useGetTodosQuery, useGetTodoQuery } from "../../../store/features/todos/todoApi";
+import { useGetTodosQuery, useGetTodoQuery, useUpdateTodoMutation, useDeleteTodoMutation } from "../../../store/features/todos/todoApi";
 import { selectCurrentUser } from "../../../store/features/auth/authSlice";
 import AddButton from "../../UI/buttons/AddButton";
 import "../Todos/Todos.css";
@@ -18,12 +18,13 @@ const Todos = () => {
   const [deleteId, setDeleteId] = useState();
   const [idTodo, setIdTodo] = useState("")
   const [activeModal, setActiveModal] = useState(null);
+  const [updateTodo] = useUpdateTodoMutation()
+  const [deleteTodo] = useDeleteTodoMutation()
   const {data: todos, isLoading} = useGetTodosQuery();
   const {data: todo} = useGetTodoQuery(idTodo);
   const user = useSelector(selectCurrentUser);
   const dateNow = Date.now();
 
-  console.log(idTodo)
 
   const newTodoHandler = () => {
     setActiveModal("create");
@@ -35,8 +36,7 @@ const Todos = () => {
   }
 
   const handleTodoDelete = (id) => {
-    // dispatch(deleteTodo(id));
-    setDeleteId(id);
+    deleteTodo(id)
   }
 
   // Update todo
@@ -48,7 +48,7 @@ const Todos = () => {
   }
 
   const updateTodoData = (updatedData) => {
-    // dispatch(updateTodo(updatedData, updatedData.id));
+    updateTodo(updatedData)
     setActiveModal(null);
   }
 

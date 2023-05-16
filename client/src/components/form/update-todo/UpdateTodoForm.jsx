@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { useUpdateTodoMutation } from "../../../store/features/todos/todoApi";
 import { useForm } from "react-hook-form";
 import SubmitButton from "../../UI/buttons/SubmitButton";
@@ -8,7 +7,6 @@ import DatePicker from "react-datepicker";
 import ru from "date-fns/locale/ru";
 import "../../form/forms.css";
 import "react-datepicker/dist/react-datepicker.css";
-import { faCircleRight } from "@fortawesome/free-solid-svg-icons";
 
 const UpdateTodoForm = ({ todo, update }) => {
   
@@ -21,22 +19,13 @@ const UpdateTodoForm = ({ todo, update }) => {
     endTime: "",
     user: "",
   });
-  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(loadTodos());
-  //   setUpdatedTodo(todo)
-  //   reset(todo);
-  // }, [todo]);
+  useEffect(() => {
+    setUpdatedTodo(todo)
+  }, [todo])
 
-  const [updateTodo] = useUpdateTodoMutation()
+  console.log(updatedTodo)
 
-  // useEffect(() => {
-  //   setUpdatedTodo(todo)
-  //   reset(todo);
-  // }, [todo])
-
-  
   const {
     register,
     reset,
@@ -58,6 +47,8 @@ const UpdateTodoForm = ({ todo, update }) => {
       endTime: updatedTodo.endTime,
       user: updatedTodo.user,
     };
+
+    console.log(updateTodoData)
     update(updateTodoData);
     reset();
   };
@@ -112,11 +103,11 @@ const UpdateTodoForm = ({ todo, update }) => {
             <DatePicker
               name="starttime"
               required={true}
-              selected={Date.parse(updatedTodo.startTime)}
               onChange={(date) => handleStartTime(date)}
               selectsStart
-              startDate={Date.parse(updatedTodo.startTime)}
-              endDate={Date.parse(updatedTodo.endTime)}
+              startDate={Date.parse(todo.startTime)}
+              endDate={Date.parse(todo.endTime)}
+              selected={Date.parse(updatedTodo.startTime)}
               className="date-input"
               placeholderText="Дата начала"
               showTimeSelect
@@ -134,12 +125,12 @@ const UpdateTodoForm = ({ todo, update }) => {
             <DatePicker
               name="endtime"
               required={true}
-              selected={Date.parse(updatedTodo.endTime)}
               onChange={(date) => handleEndTime(date)}
               selectsEnd
-              startDate={Date.parse(updatedTodo.startTime)}
-              endDate={Date.parse(updatedTodo.endTime)}
+              startDate={Date.parse(todo.startTime)}
+              endDate={Date.parse(todo.endTime)}
               minDate={Date.parse(updatedTodo.startTime)}
+              selected={Date.parse(updatedTodo.endTime)}
               className="date-input"
               placeholderText="Дата завершения"
               showTimeSelect

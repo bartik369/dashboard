@@ -44,20 +44,19 @@ export const todoApi = createApi({
 
         //delete todo
         deleteTodo: builder.mutation({
-            query: ({ id }) => ({
+            query: (id) => ({
                 url: `/todo/${id}`,
                 method: "DELETE",
-                body: id,
             }),
             invalidatesTags: (result, error, id) => [{ type: 'Todos', id }],
         }),
 
         //update todo
         updateTodo: builder.mutation({
-            query: (id, todo) => ({
-                url: `/todo/${id}`,
+            query: ({ _id, ...body }) => ({
+                url: `/todo/${_id}`,
                 method: "PUT",
-                body: todo,
+                body: body,
             }),
             invalidatesTags: (result, error, { id }) => [{ type: 'Todos', id }],
         }),
