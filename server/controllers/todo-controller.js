@@ -11,15 +11,15 @@ export const getTodos = async(req, res) => {
     })
 }
 
-export const getTodo = async(req, res) => {
+export const getTodo = async(req, res, next) => {
     const id = new ObjectId(req.params.id);
-    ToDoModel.find({ _id: id }, (err, result) => {
-        if (err) {
-            res.send(err);
-        } else {
-            res.send(result);
-        }
-    })
+    try {
+        const todoData = await ToDoModel.find({ _id: id })
+        console.log(...todoData)
+        return res.json(...todoData);
+    } catch (error) {
+        next(error)
+    }
 }
 
 export const createTodo = async(req, res) => {

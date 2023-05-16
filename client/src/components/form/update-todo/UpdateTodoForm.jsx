@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { loadTodos } from "../../../store/actions/todosActions";
+import { useUpdateTodoMutation } from "../../../store/features/todos/todoApi";
 import { useForm } from "react-hook-form";
 import SubmitButton from "../../UI/buttons/SubmitButton";
 import * as formConstants from "../../../utils/constants/form.constants";
@@ -8,10 +8,10 @@ import DatePicker from "react-datepicker";
 import ru from "date-fns/locale/ru";
 import "../../form/forms.css";
 import "react-datepicker/dist/react-datepicker.css";
+import { faCircleRight } from "@fortawesome/free-solid-svg-icons";
 
-const UpdateTodoForm = ({ update }) => {
+const UpdateTodoForm = ({ todo, update }) => {
   
-  const todo = useSelector((state) => state.todo.todo);
   const [updatedTodo, setUpdatedTodo] = useState({
     id: "",
     title: "",
@@ -23,18 +23,20 @@ const UpdateTodoForm = ({ update }) => {
   });
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(loadTodos());
-    setUpdatedTodo(todo)
-    reset(todo);
-  }, [todo]);
+  // useEffect(() => {
+  //   dispatch(loadTodos());
+  //   setUpdatedTodo(todo)
+  //   reset(todo);
+  // }, [todo]);
+
+  const [updateTodo] = useUpdateTodoMutation()
 
   // useEffect(() => {
   //   setUpdatedTodo(todo)
   //   reset(todo);
   // }, [todo])
 
-  console.log("up")
+  
   const {
     register,
     reset,

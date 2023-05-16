@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  deleteTodo,
-  getSingleTodo,
-  loadTodos,
-  updateTodo,
-  addTodo,
-} from "../../../store/actions/todosActions";
+import { useSelector } from "react-redux";
 import AddTodoForm from "../../form/add-todo/AddTodoForm";
 import moment from "moment";
 import Modal from "../../UI/modal/Modal";
@@ -14,7 +7,7 @@ import UpdateTodoForm from "../../form/update-todo/UpdateTodoForm";
 import TodoButton from "../../UI/buttons/TodoButton";
 import { breakpoints } from "../../../utils/data-arrays/arrays";
 import * as uiConstants from "../../../utils/constants/ui.constants";
-import { useGetTodosQuery } from "../../../store/features/todos/todoApi";
+import { useGetTodosQuery, useGetTodoQuery } from "../../../store/features/todos/todoApi";
 import { selectCurrentUser } from "../../../store/features/auth/authSlice";
 import AddButton from "../../UI/buttons/AddButton";
 import "../Todos/Todos.css";
@@ -23,59 +16,52 @@ import Masonry from "react-masonry-css";
 
 const Todos = () => {
   const [deleteId, setDeleteId] = useState();
+  const [idTodo, setIdTodo] = useState("")
   const [activeModal, setActiveModal] = useState(null);
-  const dispatch = useDispatch();
-  const {data = [], isLoading} = useGetTodosQuery()
-  // const { todos } = useSelector((state) => state.todos);
-  // const user = useSelector((state) => state.auth.auth.user);
+  const {data: todos, isLoading} = useGetTodosQuery();
+  const {data: todo} = useGetTodoQuery(idTodo);
+  const user = useSelector(selectCurrentUser);
   const dateNow = Date.now();
 
-  useEffect(() => {
-    dispatch(loadTodos());
-  }, [dispatch])
+  console.log(idTodo)
 
-  
   const newTodoHandler = () => {
     setActiveModal("create");
   }
 
-  useEffect(() => {
-    console.log(data)
-    console.log(selectCurrentUser)
-  }, [data])
-
   const createTodo = (newTodo) => {
-    dispatch(addTodo(newTodo));
+    // dispatch(addTodo(newTodo));
     setActiveModal(null);
   }
 
   const handleTodoDelete = (id) => {
-    dispatch(deleteTodo(id));
+    // dispatch(deleteTodo(id));
     setDeleteId(id);
   }
 
   // Update todo
 
   const handleTodoUpdate = (id) => {
-    dispatch(getSingleTodo(id));
+    // dispatch(getSingleTodo(id));
+    setIdTodo(id)
     setActiveModal("update");
   }
 
   const updateTodoData = (updatedData) => {
-    dispatch(updateTodo(updatedData, updatedData.id));
+    // dispatch(updateTodo(updatedData, updatedData.id));
     setActiveModal(null);
   }
 
   const handleTodoComplete = (id) => {
-    const indexOfDoneItem = data.find((item) => item._id === id);
+    const indexOfDoneItem = todos.find((item) => item._id === id);
     indexOfDoneItem.status = "done";
-    dispatch(updateTodo(indexOfDoneItem, indexOfDoneItem._id));
+    // dispatch(updateTodo(indexOfDoneItem, indexOfDoneItem._id));
   }
 
   const handleTodoReopen = (id) => {
-    const indexOfReopenItem = data.find((item) => item._id === id);
+    const indexOfReopenItem = todos.find((item) => item._id === id);
     indexOfReopenItem.status = "inprocess";
-    dispatch(updateTodo(indexOfReopenItem, indexOfReopenItem._id));
+    // dispatch(updateTodo(indexOfReopenItem, indexOfReopenItem._id));
   }
 
   const closeModal = () => {
@@ -89,8 +75,8 @@ const Todos = () => {
           {activeModal === "create" ? 
             <AddTodoForm create={createTodo} /> : null
           } 
-          {activeModal === "update" ? 
-           <UpdateTodoForm update={updateTodoData} /> : null
+          {(activeModal === "update" && todo) ? 
+           <UpdateTodoForm  todo={todo} update={updateTodoData} /> : null
           }
         </Modal>
       }
@@ -107,11 +93,9 @@ const Todos = () => {
         className="my-masonry-grid"
         columnClassName="my-masonry-grid_column"
       >
-        {data.map((todo, index) => {
-          console.log(todo.status)
+        {todos && todos.map((todo, index) => {
 
-          if ((todo.user === selectCurrentUser.id)) {
-
+          if ((todo.user === user.id)) {
           const startTodoDate = moment(todo.startTime).format("DD.MM.YYYY HH:mm");
           const endTodoDate = Date.parse(todo.endTime);
           const checkStatus = endTodoDate <= dateNow && todo.status !== "done";

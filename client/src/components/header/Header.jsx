@@ -53,13 +53,13 @@ const Header = ({ moveHeader }) => {
     <header className="header">
       <div className={!moveHeader ? "header__inner" : "header__slided"}>
         <div className="header__search">
-          {location.pathname === "/devices" && (
-            <SearchData
+          {/* {location.pathname === "/devices" && ( */}
+            {<SearchData
               placeholder="Поиск..."
               value={searchData}
               onChange={(e) => setSearchData(e.target.value)}
             />
-          )}
+          }
         </div>
         <div className="header__menu">
         </div>

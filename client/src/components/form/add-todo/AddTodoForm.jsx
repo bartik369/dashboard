@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import ru from "date-fns/locale/ru";
+import { selectCurrentUser } from "../../../store/features/auth/authSlice";
 import SubmitButton from "../../UI/buttons/SubmitButton";
 import * as formConstants from "../../../utils/constants/form.constants";
 import "react-datepicker/dist/react-datepicker.css";
@@ -19,7 +20,7 @@ const AddTodoForm = ({ create }) => {
     user: "",
   })
 
-  const user = useSelector((state) => state.auth.auth.user);
+  const user = useSelector(selectCurrentUser);
 
   const {
     register,

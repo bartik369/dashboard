@@ -21,6 +21,6 @@ const ToDoScheme = new mongoose.Schema({
     }
 });
 
-const ToDo = mongoose.model("TodoData", ToDoScheme);
+const ToDo = mongoose.model("Todos", ToDoScheme);
 
 export default ToDo;
