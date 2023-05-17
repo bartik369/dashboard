@@ -14,13 +14,10 @@ export const todoApi = createApi({
                 method: "GET",
             }),
             providesTags: (result) =>
-                // is result available?
-                result ? // successful query
-                [
+                result ? [
                     ...result.map(({ id }) => ({ type: 'Todos', id })),
                     { type: 'Todos', id: 'LIST' },
-                ] : // an error occurred, but we still want to refetch this query when `{ type: 'Posts', id: 'LIST' }` is invalidated
-                [{ type: 'Todos', id: 'LIST' }],
+                ] : [{ type: 'Todos', id: 'LIST' }],
         }),
 
         // get todo

@@ -14,13 +14,10 @@ export const deviceApi = createApi({
                 method: "GET",
             }),
             providesTags: (result) =>
-                // is result available?
-                result ? // successful query
-                [
-                    ...result.map(({ id }) => ({ type: 'Devices', id })),
+                result ? [
+                    result.data.map(({ id }) => ({ type: 'Devices', id })),
                     { type: 'Devices', id: 'LIST' },
-                ] : // an error occurred, but we still want to refetch this query when `{ type: 'Posts', id: 'LIST' }` is invalidated
-                [{ type: 'Devices', id: 'LIST' }],
+                ] : [{ type: 'Devices', id: 'LIST' }],
         }),
 
         getBasicDevices: builder.query({
