@@ -40,6 +40,7 @@ const AddTodoForm = ({ create }) => {
   };
   
   const onSubmit = (data) => {
+    console.log("click")
     const newTodo = {
       ...todo,
       id: Date.now(),

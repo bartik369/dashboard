@@ -12,11 +12,14 @@ export const deviceApi = createApi({
             query: (urlParams) => ({
                 url: urlParams,
                 method: "GET",
-                // providesTags: (result, error, page) =>
-                //     result ? [
-                //         ...result.data.map(({ id }) => ({ type: 'Devices', id })),
-                //         { type: 'Devices', id: 'LIST' },
-                //     ] : [{ type: 'Devices', id: 'LIST' }],
+                providesTags: (result) =>
+                    // is result available?
+                    result ? // successful query
+                    [
+                        ...result.map(({ id }) => ({ type: 'Devices', id })),
+                        { type: 'Devices', id: 'LIST' },
+                    ] : // an error occurred, but we still want to refetch this query when `{ type: 'Posts', id: 'LIST' }` is invalidated
+                    [{ type: 'Devices', id: 'LIST' }],
             }),
 
         }),
@@ -24,28 +27,9 @@ export const deviceApi = createApi({
             query: () => ({
                 url: "/api/basic-devices",
                 method: "GET",
-                providesTags: (result, error, page) =>
-                    result ? [
-                        ...result.data.map(({ id }) => ({ type: 'Devices', id })),
-                        { type: 'Devices', id: 'LIST' },
-                    ] : [{ type: 'Devices', id: 'LIST' }],
             }),
 
         }),
-
-
-        // listPosts: build.query({
-        //     query: (page = 1) => `posts?page=${page}`,
-        //     providesTags: (result, error, page) =>
-        //       result
-        //         ? [
-        //             // Provides a tag for each post in the current page,
-        //             // as well as the 'PARTIAL-LIST' tag.
-        //             ...result.data.map(({ id }) => ({ type: 'Posts', id })),
-        //             { type: 'Posts', id: 'PARTIAL-LIST' },
-        //           ]
-        //         : [{ type: 'Posts', id: 'PARTIAL-LIST' }],
-        //   }),
 
         // get device
         getDevice: builder.query({
@@ -62,7 +46,7 @@ export const deviceApi = createApi({
                 url: "/api/add",
                 method: "POST",
                 body: device,
-                invalidatesTags: [{ type: 'Devices', _id: 'LIST' }]
+                invalidatesTags: [{ type: 'Devices', id: 'LIST' }],
             }),
         }),
 
@@ -71,7 +55,7 @@ export const deviceApi = createApi({
             query: (id) => ({
                 url: `/api/device/${id}`,
                 method: "DELETE",
-                invalidatesTags: [{ type: 'Devices', _id: 'LIST' }]
+                invalidatesTags: [{ type: 'Devices', id: 'LIST' }],
             }),
         }),
 
@@ -81,7 +65,7 @@ export const deviceApi = createApi({
                 url: `/api/device/${id}`,
                 method: "PUT",
                 todo,
-                invalidatesTags: [{ type: 'Devices', _id: 'LIST' }]
+                invalidatesTags: [{ type: 'Devices', id: 'LIST' }],
             }),
         }),
     }),

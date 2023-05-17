@@ -22,6 +22,7 @@ export const getTodo = async(req, res, next) => {
 }
 
 export const createTodo = async(req, res) => {
+    console.log(req.body)
     const title = req.body.title;
     const description = req.body.description;
     const status = req.body.status;

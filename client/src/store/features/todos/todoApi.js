@@ -35,7 +35,7 @@ export const todoApi = createApi({
         // add todo
         addTodo: builder.mutation({
             query: (todo) => ({
-                url: "/api/todos",
+                url: "/api/newtodo",
                 method: "POST",
                 body: todo,
             }),
@@ -48,7 +48,7 @@ export const todoApi = createApi({
                 url: `/todo/${id}`,
                 method: "DELETE",
             }),
-            invalidatesTags: (result, error, id) => [{ type: 'Todos', id }],
+            invalidatesTags: [{ type: 'Todos', id: 'LIST' }],
         }),
 
         //update todo
@@ -58,7 +58,7 @@ export const todoApi = createApi({
                 method: "PUT",
                 body: body,
             }),
-            invalidatesTags: (result, error, { id }) => [{ type: 'Todos', id }],
+            invalidatesTags: [{ type: 'Todos', id: 'LIST' }],
         }),
     }),
 });
