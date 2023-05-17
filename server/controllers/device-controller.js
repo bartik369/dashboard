@@ -64,14 +64,14 @@ export const getBasicDevices = async(req, res) => {
     })
 }
 
-export const getDevice = async(req, res) => {
+export const getDevice = async(req, res, next) => {
     const id = new ObjectId(req.params.id);
-    DeviceModel.find({ _id: id }, (err, result) => {
-        if (err) {
-            res.send(err)
-        }
-        res.send(result);
-    })
+    try {
+        const deviceData = await DeviceModel.find({ _id: id })
+        return res.json(...deviceData)
+    } catch (error) {
+        next(error)
+    }
 }
 
 export const createDevice = async(req, res) => {
@@ -112,7 +112,7 @@ export const deleteDevice = async(req, res) => {
 
 
 export const updateDevice = async(req, res) => {
-    const id = req.params.id;
+    const id = req.body.id;
     const type = req.body.type;
     const name = req.body.name;
     const number = req.body.number;

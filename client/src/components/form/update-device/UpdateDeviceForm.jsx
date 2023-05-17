@@ -11,9 +11,6 @@ import "../../form/forms.css";
 
 const UpdateDeviceForm = ({update, device}) => {
 
-  // const device = useSelector((state) => state.device.device);
-  const [updateDevice] = useUpdateDeviceMutation();
-
   const [updateDev, setUpdateDev] = useState({
     id: "",
     type: "",
@@ -22,6 +19,8 @@ const UpdateDeviceForm = ({update, device}) => {
     user: "",
     addTime: "",
   });
+
+  console.log(device)
 
 
   useEffect(() => {
@@ -39,7 +38,6 @@ const UpdateDeviceForm = ({update, device}) => {
   });
 
   const onSubmit = (data) => {
-    console.log(data)
     const date = new Date();
     const deviceTime = date.toLocaleDateString() + " " + date.toLocaleTimeString("en-GB");
     const updateDeviceData = {

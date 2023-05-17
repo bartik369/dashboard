@@ -47,8 +47,6 @@ const UpdateTodoForm = ({ todo, update }) => {
       endTime: updatedTodo.endTime,
       user: updatedTodo.user,
     };
-
-    console.log(updateTodoData)
     update(updateTodoData);
     reset();
   };

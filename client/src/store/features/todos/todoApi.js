@@ -10,7 +10,7 @@ export const todoApi = createApi({
         // get todos
         getTodos: builder.query({
             query: () => ({
-                url: "api/todos",
+                url: "/api/todos",
                 method: "GET",
             }),
             providesTags: (result) =>
@@ -45,7 +45,7 @@ export const todoApi = createApi({
         //delete todo
         deleteTodo: builder.mutation({
             query: (id) => ({
-                url: `/todo/${id}`,
+                url: `/api/todo/${id}`,
                 method: "DELETE",
             }),
             invalidatesTags: [{ type: 'Todos', id: 'LIST' }],
@@ -54,7 +54,7 @@ export const todoApi = createApi({
         //update todo
         updateTodo: builder.mutation({
             query: ({ _id, ...body }) => ({
-                url: `/todo/${_id}`,
+                url: `/api/todo/${_id}`,
                 method: "PUT",
                 body: body,
             }),

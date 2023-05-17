@@ -12,23 +12,22 @@ export const deviceApi = createApi({
             query: (urlParams) => ({
                 url: urlParams,
                 method: "GET",
-                providesTags: (result) =>
-                    // is result available?
-                    result ? // successful query
-                    [
-                        ...result.map(({ id }) => ({ type: 'Devices', id })),
-                        { type: 'Devices', id: 'LIST' },
-                    ] : // an error occurred, but we still want to refetch this query when `{ type: 'Posts', id: 'LIST' }` is invalidated
-                    [{ type: 'Devices', id: 'LIST' }],
             }),
-
+            providesTags: (result) =>
+                // is result available?
+                result ? // successful query
+                [
+                    ...result.map(({ id }) => ({ type: 'Devices', id })),
+                    { type: 'Devices', id: 'LIST' },
+                ] : // an error occurred, but we still want to refetch this query when `{ type: 'Posts', id: 'LIST' }` is invalidated
+                [{ type: 'Devices', id: 'LIST' }],
         }),
+
         getBasicDevices: builder.query({
             query: () => ({
                 url: "/api/basic-devices",
                 method: "GET",
             }),
-
         }),
 
         // get device
@@ -46,8 +45,8 @@ export const deviceApi = createApi({
                 url: "/api/add",
                 method: "POST",
                 body: device,
-                invalidatesTags: [{ type: 'Devices', id: 'LIST' }],
             }),
+            invalidatesTags: [{ type: 'Devices', id: 'LIST' }],
         }),
 
         //delete device
@@ -55,18 +54,18 @@ export const deviceApi = createApi({
             query: (id) => ({
                 url: `/api/device/${id}`,
                 method: "DELETE",
-                invalidatesTags: [{ type: 'Devices', id: 'LIST' }],
             }),
+            invalidatesTags: [{ type: 'Devices', id: 'LIST' }],
         }),
 
         // //update device
         updateDevice: builder.mutation({
-            query: ({ id, todo }) => ({
-                url: `/api/device/${id}`,
+            query: ({ _id, ...body }) => ({
+                url: `/api/device/${_id}`,
                 method: "PUT",
-                todo,
-                invalidatesTags: [{ type: 'Devices', id: 'LIST' }],
+                body: body,
             }),
+            invalidatesTags: [{ type: 'Devices', id: 'LIST' }],
         }),
     }),
 });

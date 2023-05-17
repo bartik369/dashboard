@@ -9,6 +9,7 @@ import {
   useGetDevicesQuery,
   useDeleteDeviceMutation,
   useAddDeviceMutation,
+  useUpdateDeviceMutation,
 } from "../../../store/features/devices/deviceApi";
 import * as contentConstants from "../../../utils/constants/content.constants"
 import "../../../styles/App.css";
@@ -26,6 +27,7 @@ const Devices = () => {
   const { data: devices, isFetching, isLoading } = useGetDevicesQuery(urlParams);
   const [deleteDevice] = useDeleteDeviceMutation();
   const [addDevice] = useAddDeviceMutation();
+  const [updateDevice] = useUpdateDeviceMutation();
 
 
   useEffect(() => {
@@ -34,16 +36,16 @@ const Devices = () => {
     }
   }, [devices])
 
-  const createDevice = (newDevice) => {
+  const createDevice = async (newDevice) => {
     // dispatch(addDevice(newDevice));
-    addDevice(newDevice);
+    await addDevice(newDevice).unwrap();
   };
 
   // Delete device
 
-  // function removeDevice(id) {
-  //   dispatch(deleteDevice(id));
-  // }
+  const removeDevice = async (id) => {
+    await deleteDevice(id).unwrap()
+  }
 
   // Update device
 
@@ -53,10 +55,10 @@ const Devices = () => {
     // dispatch(geteDevice(id));
   };
 
-  const updateDeviceData = (updateData) => {
-    // dispatch(updateDevice(updateData, updateData.id));
+  const updateDeviceInfo = async (updateDeviceData) => {
+    await updateDevice(updateDeviceData).unwrap()
     setActiveModal(false);
-  };
+  }
 
   // Create device
 
@@ -87,7 +89,7 @@ const Devices = () => {
         <CategoryMenu sortCategory={sortCategoryHandler} reset={resetHandler} />
       </div>
       <Modal active={activeModal} close={closeModal}>
-        {/* <UpdateDeviceForm update={updateDeviceData} device={device} /> */}
+        <UpdateDeviceForm update={updateDeviceInfo} device={device} />
       </Modal>
       <div className="devices-list">
       <div className="title">Список устройств</div>
@@ -109,7 +111,7 @@ const Devices = () => {
                 <button
                   className="delete-btn"
                   title="Удалить"
-                  onClick={() => deleteDevice(device._id)}
+                  onClick={() => removeDevice(device._id)}
                 >
                   <i className="bi bi-trash3"></i>
                   <span>Удалить</span>
@@ -118,9 +120,7 @@ const Devices = () => {
                 <button
                   className="update-btn"
                   title="Обновить"
-                  // onClick={() => handleUpdateDeviceInfo(device._id)}>
-                  // onClick={() => handleUpdateDeviceInfo(device._id)}
-                >
+                  onClick={() => handleUpdateDeviceInfo(device._id)}>  
                   <i className="bi bi-arrow-repeat"></i>
                   <span>Обновить</span>
                 </button>
