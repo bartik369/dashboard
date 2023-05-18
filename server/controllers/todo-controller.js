@@ -22,7 +22,6 @@ export const getTodo = async(req, res, next) => {
 }
 
 export const createTodo = async(req, res) => {
-    console.log(req.body)
     const title = req.body.title;
     const description = req.body.description;
     const status = req.body.status;
@@ -42,7 +41,6 @@ export const createTodo = async(req, res) => {
     try {
         await todo.save();
         res.send(todo);
-        console.log('Todo data has been added');
     } catch (error) {
         console.log(`There is an error ${error}`)
     }
@@ -62,9 +60,8 @@ export const deleteTodo = async(req, res) => {
 }
 
 export const updateTodo = async(req, res) => {
-    if (!req.body) return res.sendStatus(400);
 
-    console.log(req.body)
+    if (!req.body) return res.sendStatus(400);
     const id = req.params.id;
     const title = req.body.title;
     const description = req.body.description;

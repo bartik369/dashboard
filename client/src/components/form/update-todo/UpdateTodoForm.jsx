@@ -24,8 +24,6 @@ const UpdateTodoForm = ({ todo, update }) => {
     setUpdatedTodo(todo)
   }, [todo])
 
-  console.log(updatedTodo)
-
   const {
     register,
     reset,

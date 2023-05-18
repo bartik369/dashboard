@@ -59,16 +59,18 @@ const Todos = () => {
     setActiveModal(null);
   }
 
-  const handleTodoComplete = (id) => {
-    const indexOfDoneItem = todos.find((item) => item._id === id);
-    indexOfDoneItem.status = "done";
-    // dispatch(updateTodo(indexOfDoneItem, indexOfDoneItem._id));
+  const handleTodoComplete = async(id) => {
+    const completedTodo = todos.find((item) => item._id === id);
+    const setTodoStatus = {...completedTodo}
+    setTodoStatus.status = "done"
+    await updateTodo(setTodoStatus).unwrap()
   }
 
-  const handleTodoReopen = (id) => {
-    const indexOfReopenItem = todos.find((item) => item._id === id);
-    indexOfReopenItem.status = "inprocess";
-    // dispatch(updateTodo(indexOfReopenItem, indexOfReopenItem._id));
+  const handleTodoReopen = async(id) => {
+    const reopenTodo = todos.find((item) => item._id === id);
+    const setTodoStatus = {...reopenTodo}
+    setTodoStatus.status = "inprocess";
+    await updateTodo(setTodoStatus).unwrap()
   }
 
   const closeModal = () => {
