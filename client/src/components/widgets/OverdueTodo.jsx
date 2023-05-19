@@ -7,7 +7,6 @@ import emtyImageAttention from "../../assets/portal/empty-attention.jpg";
 import CountdownTimer from "../../components/timer/CountdownTimer";
 import * as contentConstants from "../../utils/constants/content.constants";
 import * as uiConstants from "../../utils/constants/ui.constants";
-import { loadTodos } from "../../store/actions/todosActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetTodosQuery } from "../../store/features/todos/todoApi";
 import { selectCurrentUser } from "../../store/features/auth/authSlice";
@@ -24,7 +23,7 @@ const OverdueTodo = () => {
   const attentionTodos = [];
 
   useEffect(() => {
-    dispatch(loadTodos());
+   
   }, [dispatch]);
 
   data.map((todo) => {

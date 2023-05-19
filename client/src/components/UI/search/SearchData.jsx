@@ -1,8 +1,5 @@
 import {React, useState} from "react";
-import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { setSearchQuery } from "../../../store/actions/searchDataAction";
-import { deleteSearchQuery } from "../../../store/actions/searchDataAction";
 import './SearchData.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faXmark} from '@fortawesome/free-solid-svg-icons';
@@ -21,7 +18,7 @@ const SearchData = ({...props}) => {
     });
 
     const deleteSearch = () => {
-        dispatch(deleteSearchQuery());
+        
     }
 
     return (

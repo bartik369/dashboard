@@ -1,5 +1,4 @@
 import React, {useEffect} from "react";
-import { loadDevices } from "../../store/actions/devicesActions";
 import { useDispatch} from "react-redux";
 import * as uiConstants from "../../utils/constants/ui.constants";
 import { useGetBasicDevicesQuery } from "../../store/features/devices/deviceApi";
