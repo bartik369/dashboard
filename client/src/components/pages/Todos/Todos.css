@@ -51,6 +51,7 @@
     padding: 10px 30px 25px 40px;
     height: fit-content;
     max-width: 300px;
+    min-width: 250px;
     display: flex;
     flex-direction: column;
     text-align: center;

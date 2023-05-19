@@ -40,7 +40,6 @@ const AddTodoForm = ({ create }) => {
   };
   
   const onSubmit = (data) => {
-    console.log("click")
     const newTodo = {
       ...todo,
       id: Date.now(),
@@ -115,7 +114,7 @@ const AddTodoForm = ({ create }) => {
           </div>
         </div>
         <div className="end">
-        <i class="bi bi-calendar-check"></i>
+        <i className="bi bi-calendar-check"></i>
           <div className="date">
             <DatePicker
               name="endtime"

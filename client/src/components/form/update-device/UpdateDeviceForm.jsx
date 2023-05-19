@@ -20,9 +20,6 @@ const UpdateDeviceForm = ({update, device}) => {
     addTime: "",
   });
 
-  console.log(device)
-
-
   useEffect(() => {
     reset(device)
   }, [device]);
@@ -37,7 +34,7 @@ const UpdateDeviceForm = ({update, device}) => {
     defaultValues: device,
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async(data) => {
     const date = new Date();
     const deviceTime = date.toLocaleDateString() + " " + date.toLocaleTimeString("en-GB");
     const updateDeviceData = {
@@ -49,7 +46,7 @@ const UpdateDeviceForm = ({update, device}) => {
       user: data.user,
       addTime: deviceTime,
     };
-    update(updateDeviceData);
+    await update(updateDeviceData).unwrap();
     reset();
   };
 

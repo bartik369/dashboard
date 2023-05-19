@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { useSelector } from "react-redux";
 import AddTodoForm from "../../form/add-todo/AddTodoForm";
 import moment from "moment";
@@ -7,6 +7,7 @@ import UpdateTodoForm from "../../form/update-todo/UpdateTodoForm";
 import TodoButton from "../../UI/buttons/TodoButton";
 import { breakpoints } from "../../../utils/data-arrays/arrays";
 import * as uiConstants from "../../../utils/constants/ui.constants";
+import * as contentConstants from "../../../utils/constants/content.constants";
 import { 
   useGetTodosQuery, 
   useGetTodoQuery, 
@@ -34,7 +35,7 @@ const Todos = () => {
 
 
   const newTodoHandler = () => {
-    setActiveModal("create");
+    setActiveModal(contentConstants.create);
   }
 
   const createTodo = async (newTodo) => {
@@ -43,33 +44,33 @@ const Todos = () => {
   }
 
   const handleTodoDelete = (id) => {
+    setDeleteId(id)
     deleteTodo(id)
   }
 
   // Update todo
 
   const handleTodoUpdate = (id) => {
-    // dispatch(getSingleTodo(id));
     setIdTodo(id)
-    setActiveModal("update");
+    setActiveModal(contentConstants.update);
   }
 
-  const updateTodoData = (updatedData) => {
-    updateTodo(updatedData)
+  const updateTodoData = async (updatedData) => {
+    await updateTodo(updatedData).unwrap()
     setActiveModal(null);
   }
 
   const handleTodoComplete = async(id) => {
     const completedTodo = todos.find((item) => item._id === id);
     const setTodoStatus = {...completedTodo}
-    setTodoStatus.status = "done"
+    setTodoStatus.status = contentConstants.doneStatus
     await updateTodo(setTodoStatus).unwrap()
   }
 
   const handleTodoReopen = async(id) => {
     const reopenTodo = todos.find((item) => item._id === id);
     const setTodoStatus = {...reopenTodo}
-    setTodoStatus.status = "inprocess";
+    setTodoStatus.status = contentConstants.inProcessStatus;
     await updateTodo(setTodoStatus).unwrap()
   }
 
@@ -81,10 +82,10 @@ const Todos = () => {
     <div className="todos">
       {activeModal && 
         <Modal active={activeModal} close={closeModal}>
-          {activeModal === "create" ? 
+          {activeModal === contentConstants.create ? 
             <AddTodoForm create={createTodo} /> : null
           } 
-          {(activeModal === "update" && todo) ? 
+          {(activeModal === contentConstants.update && todo) ? 
            <UpdateTodoForm  todo={todo} update={updateTodoData} /> : null
           }
         </Modal>
@@ -107,18 +108,18 @@ const Todos = () => {
           if ((todo.user === user.id)) {
           const startTodoDate = moment(todo.startTime).format("DD.MM.YYYY HH:mm");
           const endTodoDate = Date.parse(todo.endTime);
-          const checkStatus = endTodoDate <= dateNow && todo.status !== "done";
+          const checkStatus = endTodoDate <= dateNow && todo.status !== contentConstants.doneStatus;
 
           return (
             <div className={`todo-item
-            ${endTodoDate <= dateNow && todo.status !== "done" ? "overdue" : ""}
-            ${todo.status === "done" ? "done" : ""}
+            ${endTodoDate <= dateNow && todo.status !== contentConstants.doneStatus ? contentConstants.overdue : ""}
+            ${todo.status === contentConstants.doneStatus ? contentConstants.doneStatus : ""}
             ${deleteId === todo._id ? "delete-animation" : ""}`}
               key={index}
             >
-              <div className={`todo-item__back ${checkStatus ? "overdue" : ""}`}></div>
+              <div className={`todo-item__back ${checkStatus ? contentConstants.overdue : ""}`}></div>
               <div className={"todo-item__inner"}>
-                <div className={`icon-done ${todo.status === "done" ? "completed" : ""}`}>
+                <div className={`icon-done ${todo.status === contentConstants.doneStatus ? contentConstants.completed : ""}`}>
                   <i className="bi bi-check-all"></i>
                 </div>
                 <div className="todo-item__title">{todo.title}</div>

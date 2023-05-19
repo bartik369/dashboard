@@ -11,14 +11,14 @@ import {
   useAddDeviceMutation,
   useUpdateDeviceMutation,
 } from "../../../store/features/devices/deviceApi";
-import * as contentConstants from "../../../utils/constants/content.constants"
+import * as contentConstants from "../../../utils/constants/content.constants";
+import * as uiConstants from "../../../utils/constants/ui.constants"
 import "../../../styles/App.css";
 import "./devices.css";
 
 const Devices = () => {
   const [activeModal, setActiveModal] = useState(null);
   const [singleDevice, setSingleDevice] = useState("");
-  const [category, setCategory] = useState("");
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("")
   const [totalPage, setTotalPage] = useState(0)
@@ -28,7 +28,6 @@ const Devices = () => {
   const [deleteDevice] = useDeleteDeviceMutation();
   const [addDevice] = useAddDeviceMutation();
   const [updateDevice] = useUpdateDeviceMutation();
-
 
   useEffect(() => {
     if (devices) {
@@ -52,7 +51,6 @@ const Devices = () => {
   const handleUpdateDeviceInfo = (id) => {
     setActiveModal(true);
     setSingleDevice(id);
-    // dispatch(geteDevice(id));
   };
 
   const updateDeviceInfo = async (updateDeviceData) => {
@@ -64,10 +62,6 @@ const Devices = () => {
 
   const sortCategoryHandler = (category) => {
     setSearch(category)
-  };
-
-  const resetHandler = () => {
-    // setCategory(devices.devices);
   };
 
   const closeModal = () => {
@@ -86,13 +80,13 @@ const Devices = () => {
   return (
     <div className="content-container__inner">
       <div className="devices-category">
-        <CategoryMenu sortCategory={sortCategoryHandler} reset={resetHandler} />
+        <CategoryMenu sortCategory={sortCategoryHandler} />
       </div>
       <Modal active={activeModal} close={closeModal}>
         <UpdateDeviceForm update={updateDeviceInfo} device={device} />
       </Modal>
       <div className="devices-list">
-      <div className="title">Список устройств</div>
+      <div className="title">{contentConstants.devicesTitle}</div>
       <div className="devices-list__search">
       <form className="search" onSubmit={handleSearch}>
       <i className="bi bi-search"/>
@@ -110,19 +104,19 @@ const Devices = () => {
               <div className="device-btns">
                 <button
                   className="delete-btn"
-                  title="Удалить"
+                  title={uiConstants.del}
                   onClick={() => removeDevice(device._id)}
                 >
                   <i className="bi bi-trash3"></i>
-                  <span>Удалить</span>
+                  <span>{uiConstants.del}</span>
                 </button>
                 <div className="line"></div>
                 <button
                   className="update-btn"
-                  title="Обновить"
+                  title={uiConstants.update}
                   onClick={() => handleUpdateDeviceInfo(device._id)}>  
                   <i className="bi bi-arrow-repeat"></i>
-                  <span>Обновить</span>
+                  <span>{uiConstants.update}</span>
                 </button>
               </div>
             </div>

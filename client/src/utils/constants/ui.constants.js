@@ -23,3 +23,9 @@ export const amount = "Количество";
 export const moveDate = "Дата выдачи";
 export const titleDeviceChart = "Статиcтика по оборудованию";
 export const titleMoveChart = "Cтатиcтика выданного оборудования";
+
+// button
+
+export const add = "Добавить";
+export const del = "Удалить";
+export const update = "Обновить";

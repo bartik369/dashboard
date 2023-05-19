@@ -7,7 +7,7 @@ import * as REGEX from "../../../utils/constants/regex.constants";
 import { deviceTypes } from "../../../utils/data-arrays/arrays";
 import "../forms.css";
 
-export default function AddDevice({create}) {
+export default function AddDevice({ create }) {
 
   const [device, setDevice] = useState({
     id: "",
@@ -20,20 +20,17 @@ export default function AddDevice({create}) {
 
   const {
     register,
-    control,
     formState: { errors },
     handleSubmit,
     reset,
     watch,
   } = useForm({
-    mode: "all",
+    mode: "onSubmit",
   })
 
   const watchFields = watch({name: "name", number: "number", user: "user"});
 
   const onSubmit = (data) => {
-
-    console.log(data)
     const date = new Date();
     const deviceTime =
       date.toLocaleDateString() + " " + date.toLocaleTimeString("ru-RU");
@@ -47,11 +44,8 @@ export default function AddDevice({create}) {
       addTime: deviceTime,
     };
     create(newDevice);
-    // dispatch(addDevice(newDevice));
     reset();
   }
-
-  console.log("check memory");
 
   return (
     
