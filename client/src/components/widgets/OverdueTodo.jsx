@@ -14,7 +14,6 @@ import "../timer/timer.css";
 
 const OverdueTodo = () => {
 
-  // const {todos} = useSelector(state => state.todos);
   const {data = [], isLoading} = useGetTodosQuery();
   
   const user = useSelector(selectCurrentUser);
