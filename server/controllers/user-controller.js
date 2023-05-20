@@ -1,8 +1,4 @@
 import userService from "../services/user-service.js";
-import ApiError from "../exceptions/api-error.js";
-import tokenService from "../services/token-service.js";
-
-
 
 class UserController {
     async registration(req, res, next) {

@@ -5,10 +5,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import deviceRoutes from './routes/devices.js';
-import todoRoutes from './routes/todos.js';
+import todoRoutes from './routes/todoRouter.js';
 import authRoutes from './routes/authRouter.js';
-import { updateDevice } from './controllers/device-controller.js';
-import { updateTodo } from './controllers/todo-controller.js';
 import errorMiddleware from './middlewares/error-middleware.js'
 
 
@@ -29,23 +27,23 @@ app.use(errorMiddleware);
 
 
 // Get
-app.get('/devices', deviceRoutes);
-app.get('/todos', todoRoutes);
+// app.get('/devices', deviceRoutes);
+// app.get('/todos', todoRoutes);
 
-app.get('/device/:id', deviceRoutes);
-app.get('/todo/:id', todoRoutes)
+// app.get('/device/:id', deviceRoutes);
+// app.get('/todo/:id', todoRoutes)
 
 // Post
-app.post('/insert', deviceRoutes);
-app.post('/newtodo/', todoRoutes)
+// app.post('/insert', deviceRoutes);
+// app.post('/newtodo/', todoRoutes)
 
 //Delete
-app.delete('/device/:id', deviceRoutes)
-app.delete('/todo/:id', todoRoutes)
+// app.delete('/device/:id', deviceRoutes)
+// app.delete('/todo/:id', todoRoutes)
 
 //Update
-app.put('/device/:id', updateDevice);
-app.put('/todo/:id', updateTodo)
+// app.put('/device/:id', updateDevice);
+// app.put('/todo/:id', updateTodo)
 
 
 const start = async() => {

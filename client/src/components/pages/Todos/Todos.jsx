@@ -33,7 +33,6 @@ const Todos = () => {
   const user = useSelector(selectCurrentUser);
   const dateNow = Date.now();
 
-
   const newTodoHandler = () => {
     setActiveModal(contentConstants.create);
   }
@@ -47,6 +46,8 @@ const Todos = () => {
     setDeleteId(id)
     deleteTodo(id)
   }
+
+  console.log(todo)
 
   // Update todo
 
