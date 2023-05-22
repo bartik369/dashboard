@@ -31,7 +31,6 @@ export const useValidateAccessToken = () => {
             });
 
             if (response.data) {
-
                 try {
                     const profile = await axios.get(`${ENV.HOSTNAME}api/profile/${response.data.user.id}`)
                     dispatch(setProfile({...profile.data,

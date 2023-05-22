@@ -12,12 +12,13 @@ import { faLock} from "@fortawesome/free-solid-svg-icons";
 import "../../form/forms.css";
 import "./profile.css";
 import { selectCurrentUser, selectUserProfile } from "../../../store/features/auth/authSlice";
-import { useUpdateProfileMutation, useUpdateUserPasswordMutation } from "../../../store/features/auth/authApi";
+import { useGetProfileQuery, useUpdateProfileMutation, useUpdateUserPasswordMutation } from "../../../store/features/auth/authApi";
 import RequestRoles from "../../form/roles/RequestRoles";
 
 export default function Profile() {
+  // const profile = useSelector(selectUserProfile);
   const user = useSelector(selectCurrentUser);
-  const profile = useSelector(selectUserProfile);
+  const {data: profile} = useGetProfileQuery(user.id)
   const [updateProfile] = useUpdateProfileMutation();
   const [updatePassword] = useUpdateUserPasswordMutation();
   const [passwordType, setPasswordType] = useState(false);
@@ -42,6 +43,7 @@ export default function Profile() {
   } = useForm({
     mode: "onSubmit",
   });
+  console.log(profile)
 
   const password = useRef({});
   password.current = watch("password", "");
@@ -87,7 +89,7 @@ export default function Profile() {
     reset();
   };
 
-  return (
+  if (profile) return (
     <div className="profile">
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
         <div className="profile__main-info">

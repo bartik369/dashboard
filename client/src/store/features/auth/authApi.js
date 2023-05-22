@@ -22,6 +22,13 @@ export const authApi = apiSlice.injectEndpoints({
             }),
         }),
 
+        getProfile: builder.query({
+            query: (id) => ({
+                url: `/profile/${id}`,
+                method: "GET",
+            }),
+        }),
+
         updateProfile: builder.mutation({
             query: (credentials) => ({
                 url: "/api/update-profile",
@@ -102,4 +109,5 @@ export const {
     useGetRolesRequestsQuery,
     useRolesRequestMutation,
     useRolesRespondMutation,
+    useGetProfileQuery,
 } = authApi;;
