@@ -5,11 +5,6 @@ class UserController {
         try {
             const { displayname, email, password, description, city, birthday, phone, work } = req.body;
             const userData = await userService.registration(displayname, email, password, description, city, birthday, phone, work);
-            // res.cookie('refreshToken', userData.refreshToken, {
-            //     maxAge: 30 * 24 * 60 * 60 * 1000,
-            //     httpOnly: true,
-            //     httpsOnly: true,
-            // });
             return res.json(userData);
         } catch (err) {
             next(err);
@@ -20,7 +15,6 @@ class UserController {
         try {
             const { email, password } = req.body;
             const userData = await userService.login(email, password);
-            console.log(userData)
             res.cookie('accessToken', userData.accessToken, {
                 maxAge: 15 * 60 * 1000,
                 httpOnly: true,
@@ -33,7 +27,6 @@ class UserController {
                 secure: true,
                 sameSite: "none",
             });
-            console.log("userdata from back", userData)
             return res.json(userData)
 
         } catch (err) {
@@ -43,9 +36,7 @@ class UserController {
 
     async logout(req, res, next) {
         try {
-            // const { refreshToken } = req.cookies;
             const { cookie } = req.headers;
-            // const accessToken = cookie.split("accessToken=")[1];
             const refreshToken = cookie.split("refreshToken=")[1].split(";")[0];
             await userService.logout(refreshToken);
             res.clearCookie('accessToken');

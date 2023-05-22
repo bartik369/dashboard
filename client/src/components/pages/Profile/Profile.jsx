@@ -42,7 +42,6 @@ export default function Profile() {
   } = useForm({
     mode: "onSubmit",
   });
-  console.log(profile)
 
   const password = useRef({});
   password.current = watch("password", "");

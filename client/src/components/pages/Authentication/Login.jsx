@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../../store/features/auth/authSlice"; 
 import { useSigninMutation } from "../../../store/features/auth/authApi";
@@ -21,10 +21,30 @@ export default function Login() {
     watch,
     setError,
   } = useForm({
-    mode: "onBlur",
+    mode: "onSubmit"
   });
 
-  const [signin, {isLoading}] = useSigninMutation()
+  const [signin, {isLoading, error}] = useSigninMutation()
+  
+  useEffect(() => {
+
+    if (error) {
+      error.data.errors.map((item) => {
+        if (item.email) {
+          setError("email", {
+            type: "manual",
+            message: item.email,
+          });
+        } else if (item.password) {
+          setError("password", {
+            type: "manual",
+            message: item.password,
+          });
+        }
+      })
+    }
+  }, [error])
+
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -46,15 +66,12 @@ export default function Login() {
         alert("Unauthorized")
       }
     }
-    // dispatch(loginUser(userLoginData, setError, navigate));
   }
 
   const showPassword = (e) => {
     e.preventDefault();
     setPasswordType(passwordType ? false : true);
   }
-
-  console.log("check memory");
 
   return (
     <div className="main">
