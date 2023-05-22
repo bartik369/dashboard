@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SubmitButton from "../../UI/buttons/SubmitButton";
 import SendPasswordLink from "../../notifications/SendPasswordLink";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
 import { useResetPasswordMutation } from "../../../store/features/auth/authApi";
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as formConstants from "../../../utils/constants/form.constants";
@@ -24,17 +23,28 @@ function ResetPassword() {
     setError,
     watch,
   } = useForm({
-    mode: "onBlur",
+    mode: "onSumbit",
   });
 
   const [notificationStatus, setNotificationStatus] = useState(false);
   const [animationPaperAirplane, setAnimationPaperAirplane] = useState(false);
   const [formStatus, setFormStatus] = useState(true);
-  const [sendLinkToResetPass] = useResetPasswordMutation()
-
-
-  const dispatch = useDispatch();
+  const [sendLinkToResetPass, {error}] = useResetPasswordMutation()
   const watchFields = watch({ email: "email" });
+
+  useEffect(() => {
+
+    if (error) {
+      error.data.errors.map((item) => {
+        if (item.email) {
+          setError("email", {
+            type: "manual",
+            message: item.email,
+          });
+        } 
+      })
+    }
+  }, [error])
 
   const animationSignup = () => {
     setAnimationPaperAirplane(true);
@@ -49,17 +59,8 @@ function ResetPassword() {
     const resetPasswordData = {
       email: data.email,
     };
-
     await sendLinkToResetPass(resetPasswordData).unwrap()
-
-    // dispatch(
-    //   updateUserPassword(
-    //     resetPasswordData,
-    //     setError,
-    //     setFormStatus,
-    //     animationSignup
-    //   )
-    // );
+    animationSignup()
   };
 
   return (

@@ -1,7 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import SuccessRegister from "../../notifications/SuccessRegister";
 import SubmitButton from "../../UI/buttons/SubmitButton";
-import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useSignupMutation } from "../../../store/features/auth/authApi";
 import * as REGEX from "../../../utils/constants/regex.constants";
@@ -38,7 +37,21 @@ export default function Signup() {
     avatar: "",
   });
 
-  const [signup, {isLoading}] = useSignupMutation()
+  const [signup, {isLoading, error}] = useSignupMutation()
+
+  useEffect(() => {
+
+    if (error) {
+      error.data.errors.map((item) => {
+        if (item.email) {
+          setError("email", {
+            type: "manual",
+            message: item.email,
+          });
+        }
+      })
+    }
+  }, [error]) 
 
   const {
     register,
@@ -50,8 +63,6 @@ export default function Signup() {
   } = useForm({
     mode: "onBlur",
   });
-
-  const dispatch = useDispatch();
 
   const password = useRef({});
   password.current = watch("password", "");
@@ -71,7 +82,7 @@ export default function Signup() {
     reset();
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const newUser = {
       ...userInfo,
       displayname: data.displayname,
@@ -88,9 +99,9 @@ export default function Signup() {
     },
     avatar: "",
     };
-    setUserInfo(newUser);
-    signup(newUser);
-      animationSignup()
+    // setUserInfo(newUser);
+    await signup(newUser).unwrap()
+    animationSignup()
   };
 
   const showPassword = (e) => {
