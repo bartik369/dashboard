@@ -24,9 +24,10 @@ export const authApi = apiSlice.injectEndpoints({
 
         getProfile: builder.query({
             query: (id) => ({
-                url: `/profile/${id}`,
+                url: `/api//profile/${id}`,
                 method: "GET",
             }),
+            transformErrorResponse: (response, meta, arg) => response.status,
         }),
 
         updateProfile: builder.mutation({

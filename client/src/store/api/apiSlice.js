@@ -32,10 +32,10 @@ export const useValidateAccessToken = () => {
 
             if (response.data) {
                 try {
-                    const profile = await axios.get(`${ENV.HOSTNAME}api/profile/${response.data.user.id}`)
-                    dispatch(setProfile({...profile.data,
-                        profile: profile.data,
-                    }))
+                    // const profile = await axios.get(`${ENV.HOSTNAME}api/profile/${response.data.user.id}`)
+                    // dispatch(setProfile({...profile.data,
+                    //     profile: profile.data,
+                    // }))
                     dispatch(setCredentials({...response.data,
                         user: response.data.user,
                         token: response.data.accessToken,

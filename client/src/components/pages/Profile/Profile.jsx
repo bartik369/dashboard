@@ -6,17 +6,16 @@ import * as formConstants from "../../../utils/constants/form.constants";
 import * as REGEX from "../../../utils/constants/regex.constants";
 import * as uiConstants from "../../../utils/constants/ui.constants";
 import SubmitButton from "../../UI/buttons/SubmitButton";
+import { selectCurrentUser } from "../../../store/features/auth/authSlice";
+import { useUpdateProfileMutation, useUpdateUserPasswordMutation, useGetProfileQuery } from "../../../store/features/auth/authApi";
+import RequestRoles from "../../form/roles/RequestRoles";
 import profileImage from "../../../assets/users/developer-profile.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock} from "@fortawesome/free-solid-svg-icons";
 import "../../form/forms.css";
 import "./profile.css";
-import { selectCurrentUser, selectUserProfile } from "../../../store/features/auth/authSlice";
-import { useGetProfileQuery, useUpdateProfileMutation, useUpdateUserPasswordMutation } from "../../../store/features/auth/authApi";
-import RequestRoles from "../../form/roles/RequestRoles";
 
 export default function Profile() {
-  // const profile = useSelector(selectUserProfile);
   const user = useSelector(selectCurrentUser);
   const {data: profile} = useGetProfileQuery(user.id)
   const [updateProfile] = useUpdateProfileMutation();
