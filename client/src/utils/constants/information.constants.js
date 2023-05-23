@@ -10,3 +10,7 @@ export const titleSetPassword = "Пароль изменен";
 export const textSetPassword = "Пароль успешно изменен. Теперь Вы можете войти в систему с новым паролем."
 export const titleRigistration = "Регистрация успешна";
 export const textRigistration = "Вы успешно зарегистрировались. На Вашу почту было отправлено письмо с ссылкой для активации Вашего аккаунта.";
+
+// alerts
+
+export const notExistOverdueTodos = "Просроченных задач нет"

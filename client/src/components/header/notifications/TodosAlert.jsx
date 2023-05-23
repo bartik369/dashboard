@@ -1,16 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import * as contentConstants from "../../../utils/constants/content.constants"
+import * as contentConstants from "../../../utils/constants/content.constants";
+import * as infoConstants from "../../../utils/constants/information.constants";
 import "./notifications.css";
 
 export default function TodosAlert({todos, user}) {
 
     return (
       <div className="todo-alert">
-        {/* <div className="todo-alert__title">{contentConstants.overdueTodosTitle}</div>
+        <div className="todo-alert__title">{contentConstants.overdueTodosTitle}</div>
         <div className="todo-alert__items">
-          {todos.map((todo, index) => {
+          {todos.length > 0 ? todos.map((todo, index) => {
             if (Date.parse(todo.endTime) <= Date.now() 
             && todo.status !== "done" && todo.user === user.id) {
               return (
@@ -27,11 +28,11 @@ export default function TodosAlert({todos, user}) {
                 </div>
               );
             }
-          })}
+          }) : infoConstants.notExistOverdueTodos}
         </div>
         <button className="submit-btn-medium">
           <Link to="/todos">{contentConstants.openTodos}</Link>
-        </button> */}
+        </button>
       </div>
     );
 }

@@ -4,12 +4,12 @@ import SearchData from "../UI/search/SearchData";
 import { setSearchQuery } from "../../store/features/search/searchSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileMenu from "../profile-menu/ProfileMenu";
-import useravatar from "../../assets/users/profile-avatar.jpg";
-import "./header.css";
 import TodosAlert from "./notifications/TodosAlert";
 import { useLocation } from "react-router-dom";
 import { useGetTodosQuery } from "../../store/features/todos/todoApi";
 import { selectCurrentUser, selectCurrentToken} from "../../store/features/auth/authSlice";
+import useravatar from "../../assets/users/profile-avatar.jpg";
+import "./header.css";
 
 
 const Header = ({ moveHeader }) => {
@@ -18,6 +18,7 @@ const Header = ({ moveHeader }) => {
   const [todosDropMenu, setTodosDropMenu] = useState(false);
   const [countMessages, setCountMessages] = useState(5);
   const [countTodos, setCountTodos] = useState(0);
+  const [overdueTodos, setOverdueTodos] = useState([])
   const overTodos = [];
   const location = useLocation();
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const Header = ({ moveHeader }) => {
       if (Date.parse(todo.endTime) <= Date.now() && todo.status !== "done" && todo.user === user.id) {
         overTodos.push(todo);
       }
+      setOverdueTodos(overTodos)
       setCountTodos(overTodos.length);
     })
   }, [data])
@@ -82,7 +84,7 @@ const Header = ({ moveHeader }) => {
                 }
               >
                 <TodosAlert
-                  todos={data}
+                  todos={overdueTodos}
                   user={user}
                   className={
                     todosDropMenu

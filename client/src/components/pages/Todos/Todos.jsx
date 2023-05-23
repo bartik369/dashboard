@@ -29,7 +29,7 @@ const Todos = () => {
   const [deleteTodo] = useDeleteTodoMutation()
   const [addTodo] = useAddTodoMutation()
   const {data: todos, isLoading} = useGetTodosQuery();
-  const {data: todo} = useGetTodoQuery(idTodo);
+  const {data: todo, refetch} = useGetTodoQuery(idTodo);
   const user = useSelector(selectCurrentUser);
   const dateNow = Date.now();
 
