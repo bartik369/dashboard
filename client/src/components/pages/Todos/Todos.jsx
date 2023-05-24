@@ -28,8 +28,8 @@ const Todos = () => {
   const [updateTodo] = useUpdateTodoMutation()
   const [deleteTodo] = useDeleteTodoMutation()
   const [addTodo] = useAddTodoMutation()
-  const {data: todos, isLoading} = useGetTodosQuery();
-  const {data: todo, refetch} = useGetTodoQuery(idTodo);
+  const {data: todos, isLoading } = useGetTodosQuery();
+  const {currentData: todo } = useGetTodoQuery(idTodo);
   const user = useSelector(selectCurrentUser);
   const dateNow = Date.now();
 
@@ -46,8 +46,6 @@ const Todos = () => {
     setDeleteId(id)
     deleteTodo(id)
   }
-
-  console.log(todo)
 
   // Update todo
 
