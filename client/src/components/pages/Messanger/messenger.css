@@ -36,6 +36,13 @@
     width: 100%;
 }
 
+.left-main__top .search input {
+    height: 40px;
+    padding: 5px 15px 5px 25px;
+    background-color: rgb(64, 165, 131);
+    width: 100%;
+}
+
 .left-main__middle {
     background-color: lightgray;
 }
@@ -48,11 +55,23 @@
     background-color: lightsalmon;
 }
 
-.left-main__top .search input {
-    height: 40px;
-    padding: 5px 15px 5px 25px;
-    background-color: rgb(64, 165, 131);
-    width: 100%;
+.contacts .contacts__items {}
+
+.contacts .contacts__item {
+    background-color: rgb(241, 125, 229);
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.contacts .contacts__item .contact__name {
+    font-size: 18px;
+}
+
+.contacts .contacts__item .contact__email {
+    font-size: 12px;
 }
 
 .left-main__bottom {

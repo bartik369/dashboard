@@ -29,7 +29,12 @@ export const authApi = apiSlice.injectEndpoints({
             }),
             transformErrorResponse: (response, meta, arg) => response.status,
         }),
-
+        getUsers: builder.query({
+            query: () => ({
+                url: "/api/users",
+                method: "GET"
+            })
+        }),
         updateProfile: builder.mutation({
             query: (credentials) => ({
                 url: "/api/update-profile",
@@ -111,4 +116,5 @@ export const {
     useRolesRequestMutation,
     useRolesRespondMutation,
     useGetProfileQuery,
+    useGetUsersQuery,
 } = authApi;;
