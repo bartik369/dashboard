@@ -3,16 +3,71 @@
     background-color: darkolivegreen;
 }
 
-.messenger__chats {
-    height: 100vh;
-    width: 250px;
+.messenger .left-main {
+    width: 300px;
+    height: 90vh;
     background-color: blanchedalmond;
     padding: 15px;
+    position: relative;
 }
 
-.messenger__messages {
-    height: 100vh;
+.messenger .right-main {
     width: 100%;
     background-color: dimgray;
     padding: 20px;
+}
+
+.left-main__top {
+    background-color: darkolivegreen;
+}
+
+.left-main__top .menu {
+    height: 50px;
+    background-color: rgb(140, 112, 148);
+    width: 100%;
+}
+
+.left-main__top .search {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(136, 136, 218);
+    width: 100%;
+}
+
+.left-main__middle {
+    background-color: lightgray;
+}
+
+.left-main__middle .chat {
+    background-color: moccasin;
+}
+
+.left-main__middle .contacts {
+    background-color: lightsalmon;
+}
+
+.left-main__top .search input {
+    height: 40px;
+    padding: 5px 15px 5px 25px;
+    background-color: rgb(64, 165, 131);
+    width: 100%;
+}
+
+.left-main__bottom {
+    bottom: 20px;
+    right: 20px;
+    position: absolute;
+}
+
+.left-main__bottom .add {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: rgb(41, 207, 22);
+}
+
+.switch-disable {
+    display: none;
 }
