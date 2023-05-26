@@ -3,9 +3,7 @@ import { apiSlice } from "../../api/apiSlice";
 export const authApi = apiSlice.injectEndpoints({
     tagTypes: ['Roles'],
     endpoints: (builder) => ({
-
         // auth part
-
         signin: builder.mutation({
             query: (credentials) => ({
                 url: "/api/signin",
