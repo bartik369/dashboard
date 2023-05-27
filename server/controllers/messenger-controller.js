@@ -1,3 +1,5 @@
+import messengerService from "../services/messenger-service.js"
+
 class MessengerController {
 
     async getChats(req, res, next) {
@@ -16,7 +18,9 @@ class MessengerController {
     }
     async createChat(req, res, next) {
         try {
-
+            const { sender, recipient } = req.body;
+            const newChatData = await messengerService.createChat(sender, recipient)
+            console.log(newChatData)
         } catch (error) {
 
         }

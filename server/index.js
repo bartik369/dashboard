@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import deviceRoutes from './routes/deviceRouter.js';
 import todoRoutes from './routes/todoRouter.js';
 import authRoutes from './routes/authRouter.js';
+import messengerRoutes from './routes/messengerRouter.js'
 import errorMiddleware from './middlewares/error-middleware.js'
 
 
@@ -22,7 +23,7 @@ app.use(cors({
 
 }));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/api', authRoutes, deviceRoutes, todoRoutes);
+app.use('/api', authRoutes, deviceRoutes, todoRoutes, messengerRoutes);
 app.use(errorMiddleware);
 
 const start = async() => {

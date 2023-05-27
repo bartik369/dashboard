@@ -2,11 +2,11 @@ import React from "react";
 import { useGetUsersQuery } from "../../../store/features/auth/authApi";
 import "./messenger.css";
 
-function Contacts() {
+function Contacts({recipientId}) {
   const { data: contacts } = useGetUsersQuery();
 
   const contactHandler = (id) => {
-    console.log(id)
+    recipientId(id)
   };
   return (
     <div>

@@ -13,3 +13,5 @@ router.get('/messages/:id', messenderController.getMessage)
 router.post('/add-message', messenderController.addMessage)
 router.delete('/message/:id', messenderController.deleteMessage)
 router.put('/message/:id', messenderController.updateMessage)
+
+export default router;
