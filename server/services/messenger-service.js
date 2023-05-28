@@ -1,9 +1,16 @@
 import ConversationModel from "../models/messenger/conversation-model.js";
 
 class MessengerService {
-    async getChats() {
+    async getChats(email) {
         try {
+            const chats = await ConversationModel.find({
+                participants: { $all: email }
+            })
 
+            if (!chats) {
+                return null
+            }
+            return chats
         } catch (error) {
 
         }
@@ -22,7 +29,7 @@ class MessengerService {
             })
 
             if (chat) {
-                return "uje est  chat"
+                return null
             }
             const newChat = await new ConversationModel({
                 participants: [sender, recipient]

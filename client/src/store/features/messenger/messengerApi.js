@@ -22,14 +22,14 @@ export const messengerApi = apiSlice.injectEndpoints({
 
         // get chats
         getChats: builder.query({
-            query: () => ({
-                url: "",
-                method: "",
+            query: (email) => ({
+                url: `/api/chats/${email}`,
+                method: "GET",
             }),
         }),
 
         // delete chat
-        getChat: builder.query({
+        deleteChat: builder.query({
             query: () => ({
                 url: "",
                 method: "",
@@ -78,4 +78,7 @@ export const messengerApi = apiSlice.injectEndpoints({
     }),
 });
 
-export const { useCreateChatMutation } = messengerApi;
+export const {
+    useCreateChatMutation,
+    useGetChatsQuery,
+} = messengerApi;

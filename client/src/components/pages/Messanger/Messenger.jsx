@@ -20,12 +20,12 @@ const Messenger = () => {
     const newChatHandler = () => {
         setSwitchLeftInfo(true)
     }
-    const createChatHandler = async (recipientId) => {
+    const createChatHandler = async (recipientEmail) => {
       const newChatInfo = {
         ...newChat,
         id: Date.now(),
-        sender: user.id,
-        recipient: recipientId,
+        sender: user.email,
+        recipient: recipientEmail,
       }
       await createChat(newChatInfo).unwrap()
     }
@@ -44,7 +44,7 @@ const Messenger = () => {
             <Chats />
           </div>
           <div className={switchLeftInfo ? "contacts" : "switch-disable"}>
-            <Contacts recipientId={createChatHandler}/>
+            <Contacts recipientEmail={createChatHandler}/>
           </div>
         </div>
         <div className="left-main__bottom">
