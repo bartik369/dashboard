@@ -6,8 +6,16 @@ class MessengerController {
         try {
             const email = req.params.email
             const chatsData = await messengerService.getChats(email);
-            console.log(chatsData)
-            return res.json(chatsData)
+            const recipients = []
+            chatsData.map((item) => {
+                item.participants.filter((recipient) => {
+
+                    if (recipient !== email) {
+                        recipients.push(recipient)
+                    }
+                });
+            })
+            return res.json(recipients)
 
         } catch (error) {
 
@@ -25,9 +33,7 @@ class MessengerController {
             const { sender, recipient } = req.body;
             const newChatData = await messengerService.createChat(sender, recipient)
             return res.json(newChatData)
-        } catch (error) {
-
-        }
+        } catch (error) {}
     }
     async deleteChat(req, res, next) {
         try {
