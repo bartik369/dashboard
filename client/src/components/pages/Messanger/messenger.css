@@ -90,3 +90,58 @@
 .switch-disable {
     display: none;
 }
+
+.chats .chats__items {
+    background-color: burlywood;
+}
+
+.chats .chats__item {
+    background-color: rgb(136, 138, 175);
+    padding: 7px 9px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.chats .active__chat {
+    background-color: brown;
+    padding: 7px 9px;
+}
+
+.chats .chats__item .active {
+    background-color: rgb(94, 171, 70);
+}
+
+.messages {
+    background-color: darkcyan;
+    height: 80vh;
+    position: relative;
+}
+
+.messages .messages__items {}
+
+.messages textarea {
+    background-color: rgb(216, 216, 216);
+    width: 100%;
+    min-height: 120px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #b8b8b8;
+}
+
+.messages .messages__input {
+    width: 100%;
+    background-color: aquamarine;
+    position: absolute;
+    display: flex;
+    bottom: 20px;
+    flex-direction: column;
+}
+
+.messages .send-btn {
+    background-color: blue;
+    width: fit-content;
+    padding: 7px 12px;
+    right: 20px;
+    color: aliceblue;
+    align-self: flex-end;
+}
