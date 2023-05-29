@@ -4,7 +4,7 @@ import messenderController from "../controllers/messenger-controller.js";
 const router = express.Router();
 
 router.get('/chats/:email', messenderController.getChats)
-router.get('/chat/:id', messenderController.getChat)
+router.post('/chat', messenderController.getChat)
 router.post('/create-chat', messenderController.createChat)
 router.delete('/chat/:id', messenderController.deleteChat)
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../../store/features/auth/authSlice";
-import { useGetChatsQuery } from "../../../store/features/messenger/messengerApi";
+import { useGetChatsQuery, useGetChatMutation } from "../../../store/features/messenger/messengerApi";
 import "./messenger.css";
 
 export default function Chats() {
@@ -9,30 +9,41 @@ export default function Chats() {
   const { data: chats, isLoading } = useGetChatsQuery(user.email);
   const [activeChat, setActiveChat] = useState({
     id: 0,
-    email: ""
-  })
+    emailFrom: "",
+    emailTo: "",
+  });
+  const [getChat, {data: chat}] = useGetChatMutation()
 
   useEffect(() => {
     chats && chats.map((email, index) => {
-
       if (index === 0) {
         setActiveChat({
           ...activeChat,
           id: index,
-          email: email,
+          emailFrom: user.email,
+          emailTo: email,
         })
+        const chatData = {
+          emailFrom: user.email,
+          emailTo: email,
+        }
+        getChat(chatData)
       }
     })
   }, [chats]);
 
-  console.log(activeChat)
-
-  const activeChatHandler = (email, index) => {
+  const activeChatHandler = async(email, index) => {
     setActiveChat({
       ...activeChat,
       id : index,
-      email: email,
+      emailFrom: email,
+      emailTo: user.email
     })
+    const chatData = {
+      emailFrom: email,
+      emailTo: user.email
+    }
+    await getChat(chatData).unwrap()
   };
 
   return (

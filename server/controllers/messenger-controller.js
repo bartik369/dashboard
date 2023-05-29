@@ -23,6 +23,8 @@ class MessengerController {
     }
     async getChat(req, res, next) {
         try {
+            const { emailFrom, emailTo } = req.body;
+            console.log(emailFrom, emailTo)
 
         } catch (error) {
 
