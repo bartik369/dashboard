@@ -24,8 +24,12 @@ class MessengerController {
     async getChat(req, res, next) {
         try {
             const { emailFrom, emailTo } = req.body;
-            console.log(emailFrom, emailTo)
+            const chatData = await messengerService.getChat(emailFrom, emailTo);
 
+            if (!chatData) {
+                return null
+            }
+            return res.json(chatData);
         } catch (error) {
 
         }
@@ -60,6 +64,9 @@ class MessengerController {
     }
     async addMessage(req, res, next) {
         try {
+            console.log(req.body)
+            const { id, senderName, senderEmail, content } = req.body;
+            const messageData = await messengerService.addMessage(id, senderName, senderEmail, content);
 
         } catch (error) {
 

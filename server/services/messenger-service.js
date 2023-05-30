@@ -1,4 +1,5 @@
 import ConversationModel from "../models/messenger/conversation-model.js";
+import MessageModel from "../models/messenger/messages-model.js"
 
 class MessengerService {
     async getChats(email) {
@@ -15,8 +16,16 @@ class MessengerService {
 
         }
     }
-    async getChat() {
+    async getChat(emailFrom, emailTo) {
         try {
+            const chatData = await ConversationModel.findOne({
+                participants: { $all: [emailFrom, emailTo] }
+            })
+
+            if (!chatData) {
+                return null
+            }
+            return chatData._id
 
         } catch (error) {
 
@@ -63,8 +72,15 @@ class MessengerService {
 
         }
     }
-    async addMessage() {
+    async addMessage(id, senderName, senderEmail, content) {
         try {
+            const message = new MessageModel({
+                senderName: senderName,
+                senderEmail: senderEmail,
+                content: content,
+                converstationId: id,
+            })
+            await message.save()
 
         } catch (error) {
 

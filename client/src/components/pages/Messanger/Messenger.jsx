@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { selectCurrentUser } from "../../../store/features/auth/authSlice";
-import { useCreateChatMutation } from "../../../store/features/messenger/messengerApi";
+import {
+  useCreateChatMutation,
+  useGetChatMutation,
+  useGetChatsQuery,
+} from "../../../store/features/messenger/messengerApi";
 import "./messenger.css";
 import Chats from "./Chats";
 import Contacts from "./Contacts";
@@ -8,27 +12,64 @@ import { useSelector } from "react-redux";
 import Messages from "./Messages";
 
 const Messenger = () => {
-    const user = useSelector(selectCurrentUser)
-    const [switchLeftInfo, setSwitchLeftInfo] = useState(false)
-    const [createChat] = useCreateChatMutation()
-    const [newChat, setNewChat] = useState({
-      id: "",
-      sender: "",
-      recipient: "",
-    })
+  const user = useSelector(selectCurrentUser);
+  const { data: chats, isLoading } = useGetChatsQuery(user.email);
+  const [getChat, {data: chat}] = useGetChatMutation()
+  const [switchLeftInfo, setSwitchLeftInfo] = useState(false);
+  const [createChat] = useCreateChatMutation();
+  const [newChat, setNewChat] = useState({
+    sender: "",
+    recipient: "",
+  });
+  const [activeChat, setActiveChat] = useState({
+    id: 0,
+    emailFrom: "",
+    emailTo: "",
+  });
 
-    const newChatHandler = () => {
-        setSwitchLeftInfo(true)
-    }
-    const createChatHandler = async (recipientEmail) => {
-      const newChatInfo = {
-        ...newChat,
-        id: Date.now(),
-        sender: user.email,
-        recipient: recipientEmail,
+  useEffect(() => {
+    chats && chats.map((email, index) => {
+      if (index === 0) {
+        setActiveChat({
+          ...activeChat,
+          id: index,
+          emailFrom: user.email,
+          emailTo: email,
+        })
+        const chatData = {
+          emailFrom: user.email,
+          emailTo: email,
+        }
+        getChat(chatData)
       }
-      await createChat(newChatInfo).unwrap()
+    })
+  }, [chats]);
+
+  const newChatHandler = () => {
+    setSwitchLeftInfo(true);
+  };
+  const createChatHandler = async (recipientEmail) => {
+    const newChatInfo = {
+      ...newChat,
+      sender: user.email,
+      recipient: recipientEmail,
+    };
+    await createChat(newChatInfo).unwrap();
+  };
+
+  const activeChatHandler = async(email, index) => {
+    setActiveChat({
+      ...activeChat,
+      id : index,
+      emailFrom: email,
+      emailTo: user.email
+    })
+    const chatData = {
+      emailFrom: email,
+      emailTo: user.email
     }
+    await getChat(chatData).unwrap()
+  };
 
   return (
     <div className="messenger">
@@ -41,15 +82,17 @@ const Messenger = () => {
         </div>
         <div className="left-main__middle">
           <div className={!switchLeftInfo ? "chats" : "switch-disable"}>
-            <Chats />
+            <Chats active={activeChatHandler} chats={chats} activeChat={activeChat}/>
           </div>
           <div className={switchLeftInfo ? "contacts" : "switch-disable"}>
-            <Contacts recipientEmail={createChatHandler}/>
+            <Contacts recipientEmail={createChatHandler} />
           </div>
         </div>
         <div className="left-main__bottom">
           <div className="create-chat">
-            <button className="add" onClick={() => newChatHandler()}>New chat</button>
+            <button className="add" onClick={() => newChatHandler()}>
+              New chat
+            </button>
           </div>
         </div>
       </div>
@@ -57,7 +100,7 @@ const Messenger = () => {
         <div className="right-main__top"></div>
         <div className="right-main__middle">
           <div className="messages">
-            <Messages />
+            <Messages chatId={chat} user={user}/>
           </div>
         </div>
         <div className="right-main__bottom"></div>

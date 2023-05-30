@@ -55,9 +55,10 @@ export const messengerApi = apiSlice.injectEndpoints({
 
         //add message
         addMessage: builder.mutation({
-            query: () => ({
-                url: "",
-                method: "",
+            query: (body) => ({
+                url: "/api/add-message",
+                method: "POST",
+                body: {...body },
             }),
         }),
 
@@ -83,4 +84,5 @@ export const {
     useCreateChatMutation,
     useGetChatsQuery,
     useGetChatMutation,
+    useAddMessageMutation,
 } = messengerApi;
