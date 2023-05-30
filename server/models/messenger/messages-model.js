@@ -9,7 +9,7 @@ const MessagesSchema = new Schema({
     },
     senderEmail: {
         type: String,
-        unique: true,
+        unique: false,
         required: true,
     },
     content: {

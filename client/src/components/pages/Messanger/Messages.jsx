@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {useAddMessageMutation} from "../../../store/features/messenger/messengerApi"
+import React, {useEffect, useState} from "react";
+import {useAddMessageMutation, useGetMessagesQuery} from "../../../store/features/messenger/messengerApi"
 import * as formConstants from "../../../utils/constants/form.constants"
 import {useForm} from "react-hook-form"
 
@@ -11,6 +11,9 @@ function Messages({chatId, user}) {
     senderName: "",
     content: "",
   })
+  const {data: messages} = useGetMessagesQuery(chatId)
+
+  console.log(messages)
   
   const {
     register,

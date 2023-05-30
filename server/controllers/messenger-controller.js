@@ -50,6 +50,9 @@ class MessengerController {
     }
     async getMessages(req, res, next) {
         try {
+            const id = req.params.id
+            const dataMessages = await messengerService.getMessages(id);
+            return res.json(dataMessages)
 
         } catch (error) {
 
@@ -64,7 +67,6 @@ class MessengerController {
     }
     async addMessage(req, res, next) {
         try {
-            console.log(req.body)
             const { id, senderName, senderEmail, content } = req.body;
             const messageData = await messengerService.addMessage(id, senderName, senderEmail, content);
 
