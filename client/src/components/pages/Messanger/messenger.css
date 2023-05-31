@@ -117,7 +117,50 @@
     position: relative;
 }
 
-.messages .messages__items {}
+.messages .messages__items {
+    display: flex;
+    flex-direction: column;
+}
+
+.messages .messages__from {
+    height: 50px;
+    width: 90%;
+    background-color: brown;
+    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+}
+
+.messages__from .text {
+    background-color: antiquewhite;
+}
+
+.messages__from .sender {
+    background-color: rgb(104, 68, 140);
+}
+
+.messages__from .time {
+    background-color: rgb(222, 163, 85);
+}
+
+.messages .messages__to {
+    height: 50px;
+    width: 90%;
+    background-color: rgb(92, 17, 107);
+    align-self: flex-start;
+}
+
+.messages__to .text {
+    background-color: antiquewhite;
+}
+
+.messages__to .sender {
+    background-color: rgb(104, 68, 140);
+}
+
+.messages__to .time {
+    background-color: rgb(222, 163, 85);
+}
 
 .messages textarea {
     background-color: rgb(216, 216, 216);

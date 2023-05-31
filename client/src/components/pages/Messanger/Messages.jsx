@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useAddMessageMutation, useGetMessagesQuery} from "../../../store/features/messenger/messengerApi"
 import * as formConstants from "../../../utils/constants/form.constants"
 import {useForm} from "react-hook-form"
+import moment from "moment";
 
 function Messages({chatId, user}) {
 
@@ -13,8 +14,6 @@ function Messages({chatId, user}) {
   })
   const {data: messages} = useGetMessagesQuery(chatId)
 
-  console.log(messages)
-  
   const {
     register,
     handleSubmit,
@@ -37,10 +36,30 @@ const onSubmit = async(data) => {
 }
 
   console.log(chatId)
+  console.log(messages)
   return (
     <div>
       <div className="messages__items">
-        список сообщений
+          {messages && messages.map((item, index) => {
+
+            if (item.senderEmail !== user.email) {
+              return (
+                <div className="messages__to">
+                  <div className="sender">{item.senderName}</div>
+                  <div className="text">{item.content}</div>
+                  <div className="time">{moment(item.time).format("DD.MM.YYYY HH:mm")}</div>
+                </div>
+              )
+            } else if (item.senderEmail === user.email) {
+              return (
+                <div className="messages__from">
+                  <div className="sender">{item.senderName}</div>
+                  <div className="text">{item.content}</div>
+                  <div className="time">{moment(item.time).format("DD.MM.YYYY HH:mm")}</div>
+                </div>
+              )
+            }
+          })}
       </div>
       <form className="messages__ form" onSubmit={handleSubmit(onSubmit)}>
         <textarea
