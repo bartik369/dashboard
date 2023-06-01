@@ -75,7 +75,6 @@ const Messenger = () => {
     <div className="messenger">
       <div className="left-main">
         <div className="left-main__top">
-          <div className="menu"></div>
           <div className="search">
             <input type="text" />
           </div>
@@ -99,11 +98,8 @@ const Messenger = () => {
       <div className="right-main">
         <div className="right-main__top"></div>
         <div className="right-main__middle">
-          <div className="messages">
             <Messages chatId={chat} user={user}/>
-          </div>
         </div>
-        <div className="right-main__bottom"></div>
       </div>
     </div>
   );

@@ -1,30 +1,24 @@
 .messenger {
     display: flex;
-    background-color: darkolivegreen;
+    background-color: green;
+    padding: 5px;
 }
 
 .messenger .left-main {
-    width: 300px;
-    height: 90vh;
-    background-color: blanchedalmond;
+    background-color: rgb(190, 0, 0);
     padding: 15px;
     position: relative;
+    width: 350px;
 }
 
 .messenger .right-main {
     width: 100%;
-    background-color: dimgray;
-    padding: 20px;
+    background-color: rgb(184, 23, 216);
+    padding: 5px;
 }
 
 .left-main__top {
     background-color: darkolivegreen;
-}
-
-.left-main__top .menu {
-    height: 50px;
-    background-color: rgb(140, 112, 148);
-    width: 100%;
 }
 
 .left-main__top .search {
@@ -112,27 +106,54 @@
 }
 
 .messages {
-    background-color: darkcyan;
-    height: 80vh;
+    background-color: rgb(151, 238, 158);
+    display: flex;
+    flex-direction: column;
     position: relative;
+    overflow: hidden;
 }
 
 .messages .messages__items {
     display: flex;
+    overflow: auto;
     flex-direction: column;
+    height: 70vh;
+    padding: 20px 0 20px 40px;
+    margin-bottom: 15px;
 }
 
-.messages .messages__from {
-    height: 50px;
-    width: 90%;
+.messages .messages__form {
+    height: fit-content;
+    padding: 5px;
+    width: 100%;
+    border: 5px solid #3508fc;
     background-color: brown;
     align-self: flex-end;
     display: flex;
     flex-direction: column;
 }
 
+.messages .messages__form input {
+    background-color: rgb(255, 109, 11);
+    padding: 7px 15px;
+    height: 40px;
+    border-radius: 12px;
+    margin-bottom: 7px;
+}
+
+.messages .messages__from {
+    height: auto;
+    width: fit-content;
+    align-self: flex-end;
+    margin-bottom: 15px;
+    padding-right: 40px;
+}
+
 .messages__from .text {
-    background-color: antiquewhite;
+    border-radius: 8px;
+    max-width: 550px;
+    padding: 18px 26px;
+    background-color: rgb(255, 255, 255);
 }
 
 .messages__from .sender {
@@ -144,10 +165,12 @@
 }
 
 .messages .messages__to {
-    height: 50px;
-    width: 90%;
+    height: auto;
+    width: fit-content;
+    max-width: 550px;
     background-color: rgb(92, 17, 107);
     align-self: flex-start;
+    margin-bottom: 15px;
 }
 
 .messages__to .text {
@@ -160,15 +183,6 @@
 
 .messages__to .time {
     background-color: rgb(222, 163, 85);
-}
-
-.messages textarea {
-    background-color: rgb(216, 216, 216);
-    width: 100%;
-    min-height: 120px;
-    padding: 20px;
-    margin-bottom: 20px;
-    border: 1px solid #b8b8b8;
 }
 
 .messages .messages__input {

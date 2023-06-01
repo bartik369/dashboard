@@ -38,7 +38,7 @@ const onSubmit = async(data) => {
   console.log(chatId)
   console.log(messages)
   return (
-    <div>
+    <div className="messages">
       <div className="messages__items">
           {messages && messages.map((item, index) => {
 
@@ -61,8 +61,8 @@ const onSubmit = async(data) => {
             }
           })}
       </div>
-      <form className="messages__ form" onSubmit={handleSubmit(onSubmit)}>
-        <textarea
+      <form className="messages__form" onSubmit={handleSubmit(onSubmit)}>
+        <input
         type="text"
         name="message"
         {...register("message", {
@@ -71,7 +71,6 @@ const onSubmit = async(data) => {
         />
         <button className="send-btn">Send</button>
       </form>
-        
     </div>
   )
 }
