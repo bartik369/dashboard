@@ -1,4 +1,5 @@
-import messengerService from "../services/messenger-service.js"
+import messengerService from "../services/messenger-service.js";
+import userService from "../services/user-service.js"
 
 class MessengerController {
 
@@ -15,7 +16,8 @@ class MessengerController {
                     }
                 });
             })
-            return res.json(recipients)
+            const usersData = await messengerService.getRecipientsInfo(recipients)
+            return res.json(usersData)
 
         } catch (error) {
 
@@ -43,7 +45,13 @@ class MessengerController {
     }
     async deleteChat(req, res, next) {
         try {
+            // const id = req.params.id
+            // const chatData = await messengerService.deleteChat(id)
 
+            // if (!chatData) {
+
+            // }
+            // return res.json(chatData)
         } catch (error) {
 
         }
@@ -52,6 +60,7 @@ class MessengerController {
         try {
             const id = req.params.id
             const dataMessages = await messengerService.getMessages(id);
+            console.log(dataMessages)
             return res.json(dataMessages)
 
         } catch (error) {
@@ -69,6 +78,7 @@ class MessengerController {
         try {
             const { id, senderName, senderEmail, content } = req.body;
             const messageData = await messengerService.addMessage(id, senderName, senderEmail, content);
+            return res.json(messageData)
 
         } catch (error) {
 

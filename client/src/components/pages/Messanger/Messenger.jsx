@@ -28,17 +28,18 @@ const Messenger = () => {
   });
 
   useEffect(() => {
-    chats && chats.map((email, index) => {
+    chats && chats.map((item, index) => {
+      
       if (index === 0) {
         setActiveChat({
           ...activeChat,
           id: index,
           emailFrom: user.email,
-          emailTo: email,
+          emailTo: item.email,
         })
         const chatData = {
           emailFrom: user.email,
-          emailTo: email,
+          emailTo: item.email,
         }
         getChat(chatData)
       }
@@ -55,6 +56,7 @@ const Messenger = () => {
       recipient: recipientEmail,
     };
     await createChat(newChatInfo).unwrap();
+    setSwitchLeftInfo(false)
   };
 
   const activeChatHandler = async(email, index) => {
@@ -69,7 +71,7 @@ const Messenger = () => {
       emailTo: user.email
     }
     await getChat(chatData).unwrap()
-  };
+  }; 
 
   return (
     <div className="messenger">

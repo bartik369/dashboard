@@ -6,6 +6,7 @@ import moment from "moment";
 
 function Messages({chatId, user}) {
 
+
   const [message, setMessage] = useState({
     id: "",
     senderName: "",
@@ -24,6 +25,7 @@ function Messages({chatId, user}) {
 
   const [addMessage] = useAddMessageMutation()
 
+
 const onSubmit = async(data) => {
   const messageData = {
     ...message,
@@ -33,18 +35,18 @@ const onSubmit = async(data) => {
     content: data.message,
   }
   await addMessage(messageData).unwrap();
+  reset()
 }
 
-  console.log(chatId)
-  console.log(messages)
   return (
     <div className="messages">
       <div className="messages__items">
+          {!messages && "nothing"}
           {messages && messages.map((item, index) => {
 
             if (item.senderEmail !== user.email) {
               return (
-                <div className="messages__to">
+                <div className="messages__to" key={index}>
                   <div className="sender">{item.senderName}</div>
                   <div className="text">{item.content}</div>
                   <div className="time">{moment(item.time).format("DD.MM.YYYY HH:mm")}</div>
@@ -52,7 +54,7 @@ const onSubmit = async(data) => {
               )
             } else if (item.senderEmail === user.email) {
               return (
-                <div className="messages__from">
+                <div className="messages__from" key={index}>
                   <div className="sender">{item.senderName}</div>
                   <div className="text">{item.content}</div>
                   <div className="time">{moment(item.time).format("DD.MM.YYYY HH:mm")}</div>

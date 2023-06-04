@@ -1,5 +1,6 @@
 import ConversationModel from "../models/messenger/conversation-model.js";
 import MessageModel from "../models/messenger/messages-model.js"
+import UserModel from "../models/user-model.js"
 
 class MessengerService {
     async getChats(email) {
@@ -45,6 +46,18 @@ class MessengerService {
             })
             await newChat.save()
             return newChat
+
+        } catch (error) {
+
+        }
+    }
+
+    async getRecipientsInfo(recipients) {
+        try {
+            const users = await UserModel.find({
+                email: recipients
+            })
+            return users
 
         } catch (error) {
 

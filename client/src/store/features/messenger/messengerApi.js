@@ -1,15 +1,23 @@
-import { apiSlice } from "../../api/apiSlice";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import ENV from "../../../env.config";
 
-export const messengerApi = apiSlice.injectEndpoints({
-    tagTypes: ["Messages"],
+export const messengerApi = createApi({
+    reducerPath: "messengerApi",
+    baseQuery: fetchBaseQuery({ baseUrl: ENV.HOSTNAME }),
+    tagTypes: ["Chats", "Messages"],
     endpoints: (builder) => ({
-        // create chat
-        createChat: builder.mutation({
-            query: (body) => ({
-                url: "/api/create-chat",
-                method: "POST",
-                body: {...body },
+
+        // get chats
+        getChats: builder.query({
+            query: (email) => ({
+                url: `/api/chats/${email}`,
+                method: "GET",
             }),
+            providesTags: (result) =>
+                result ? [
+                    ...result.map(({ id }) => ({ type: 'Chats', id })),
+                    { type: 'Chats', id: 'LIST' },
+                ] : [{ type: 'Chats', id: 'LIST' }],
         }),
 
         // get chat
@@ -21,12 +29,14 @@ export const messengerApi = apiSlice.injectEndpoints({
             }),
         }),
 
-        // get chats
-        getChats: builder.query({
-            query: (email) => ({
-                url: `/api/chats/${email}`,
-                method: "GET",
+        // create chat
+        createChat: builder.mutation({
+            query: (body) => ({
+                url: "/api/create-chat",
+                method: "POST",
+                body: {...body },
             }),
+            invalidatesTags: [{ type: 'Chats', id: 'LIST' }],
         }),
 
         // delete chat
@@ -51,15 +61,22 @@ export const messengerApi = apiSlice.injectEndpoints({
                 url: `/api/messages/${id}`,
                 method: "GET",
             }),
+            providesTags: (result) =>
+                result ? [
+                    ...result.map(({ id }) => ({ type: 'Messages', id })),
+                    { type: 'Messages', id: 'LIST' },
+                ] : [{ type: 'Messages', id: 'LIST' }],
         }),
+
 
         //add message
         addMessage: builder.mutation({
             query: (body) => ({
                 url: "/api/add-message",
                 method: "POST",
-                body: {...body },
+                body: body,
             }),
+            invalidatesTags: [{ type: 'Messages', id: 'LIST' }],
         }),
 
         // delete message
