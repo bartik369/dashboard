@@ -45,8 +45,8 @@ class MessengerController {
     }
     async deleteChat(req, res, next) {
         try {
-            // const id = req.params.id
-            // const chatData = await messengerService.deleteChat(id)
+            const id = req.params.id
+                // const chatData = await messengerService.deleteChat(id)
 
             // if (!chatData) {
 
@@ -60,7 +60,6 @@ class MessengerController {
         try {
             const id = req.params.id
             const dataMessages = await messengerService.getMessages(id);
-            console.log(dataMessages)
             return res.json(dataMessages)
 
         } catch (error) {

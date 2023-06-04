@@ -1,25 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import "./messenger.css";
 
-export default function Chats({active, chats, activeChat}) {
-
+export default function Chats({ active, chats, activeChat }) {
 
   return (
     <div>
-      <ul className="chats__items">
+      <div className="chats__items">
         {chats &&
           chats.map((item, index) => {
             return (
-              <li
-                className={`chats__item ${activeChat.id == index && 'active__chat'}`}
+              <div
+                className={`chats__item ${
+                  activeChat.id == index && "active__chat"
+                }`}
                 key={index}
                 onClick={() => active(item.email, index)}
               >
-                {item.displayname}
-              </li>
+                <div className="name">{item.displayname}</div>
+                <div className="email">{item.email}</div>
+              </div>
             );
           })}
-      </ul>
+      </div>
     </div>
   );
 }

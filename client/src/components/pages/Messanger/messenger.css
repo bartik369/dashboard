@@ -75,6 +75,10 @@
     background-color: rgb(41, 207, 22);
 }
 
+.right-main__top .chat-menu {
+    display: none;
+}
+
 .switch-disable {
     display: none;
 }
@@ -84,11 +88,13 @@
 .chats .chats__item {
     background-color: rgb(255, 255, 255);
     box-shadow: rgba(120, 131, 167, 0.2) 0px 4px 12px;
-    font-size: 17px;
-    color: black;
     padding: 12px 15px;
     margin-bottom: 10px;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
 }
 
 .chats .active__chat {
@@ -98,6 +104,86 @@
 
 .chats .chats__item .active {
     background-color: rgb(94, 171, 70);
+}
+
+.chats .chats__item .name {
+    font-size: 17px;
+    color: black;
+}
+
+.chats .chats__item .email {
+    font-size: 12px;
+    color: black;
+}
+
+.chats .chats__item .menu-btn {
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    position: absolute;
+    right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(241, 241, 241);
+    color: #343333;
+}
+
+.bi-three-dots-vertical {
+    font-size: 24px;
+    color: #ebf1f7;
+}
+
+.bi-trash3 {
+    margin-right: 5px;
+    color: #ebf1f7;
+}
+
+.chats .chats__item .menu-btn:hover {
+    background-color: rgb(124, 116, 178);
+    color: #121212;
+}
+
+.right-main__top {
+    display: flex;
+    position: relative;
+    display: flex;
+    height: 50px;
+    width: 100%;
+    background-color: #2f8af2;
+}
+
+.right-main__drop {
+    position: absolute;
+    top: 12px;
+    right: 20px;
+}
+
+.right-main__top .menu__items {
+    display: none;
+}
+
+.right-main__top .menu__item {
+    width: 100%;
+    height: fit-content;
+    background-color: #d366e1;
+    padding: 8px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.right-main__top .active {
+    display: flex;
+    justify-content: center;
+    z-index: 3;
+    position: absolute;
+    right: 20px;
+    width: 150px;
+    min-height: 100px;
+    height: fit-content;
+    background-color: rgb(227, 227, 227);
 }
 
 .messages {
@@ -111,10 +197,14 @@
     display: flex;
     overflow: auto;
     flex-direction: column;
-    height: calc(80vh - 40px);
+    height: calc(80vh - 70px);
     padding: 20px 0 20px 40px;
     margin-bottom: 15px;
     border-bottom: 1px solid #6b6b6b;
+}
+
+.right-main__top .menu__item {
+    display: flex;
 }
 
 .messages .messages__form {

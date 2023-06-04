@@ -4,19 +4,22 @@ import {
   useCreateChatMutation,
   useGetChatMutation,
   useGetChatsQuery,
+  useDeleteChatMutation,
 } from "../../../store/features/messenger/messengerApi";
-import "./messenger.css";
 import Chats from "./Chats";
 import Contacts from "./Contacts";
 import { useSelector } from "react-redux";
 import Messages from "./Messages";
+import ChatMenu from "./ChatMenu";
+import "./messenger.css";
 
 const Messenger = () => {
   const user = useSelector(selectCurrentUser);
   const { data: chats, isLoading } = useGetChatsQuery(user.email);
-  const [getChat, {data: chat}] = useGetChatMutation()
+  const [getChat, { data: chat }] = useGetChatMutation();
   const [switchLeftInfo, setSwitchLeftInfo] = useState(false);
   const [createChat] = useCreateChatMutation();
+  const [delChat] = useDeleteChatMutation()
   const [newChat, setNewChat] = useState({
     sender: "",
     recipient: "",
@@ -26,29 +29,31 @@ const Messenger = () => {
     emailFrom: "",
     emailTo: "",
   });
+  const [dropMenu, setDropMenu] = useState(false);
 
   useEffect(() => {
-    chats && chats.map((item, index) => {
-      
-      if (index === 0) {
-        setActiveChat({
-          ...activeChat,
-          id: index,
-          emailFrom: user.email,
-          emailTo: item.email,
-        })
-        const chatData = {
-          emailFrom: user.email,
-          emailTo: item.email,
+    chats &&
+      chats.map((item, index) => {
+        if (index === 0) {
+          setActiveChat({
+            ...activeChat,
+            id: index,
+            emailFrom: user.email,
+            emailTo: item.email,
+          });
+          const chatData = {
+            emailFrom: user.email,
+            emailTo: item.email,
+          };
+          getChat(chatData);
         }
-        getChat(chatData)
-      }
-    })
+      });
   }, [chats]);
 
   const newChatHandler = () => {
     setSwitchLeftInfo(true);
   };
+
   const createChatHandler = async (recipientEmail) => {
     const newChatInfo = {
       ...newChat,
@@ -56,22 +61,36 @@ const Messenger = () => {
       recipient: recipientEmail,
     };
     await createChat(newChatInfo).unwrap();
-    setSwitchLeftInfo(false)
+    setSwitchLeftInfo(false);
   };
 
-  const activeChatHandler = async(email, index) => {
+  const activeChatHandler = async (email, index) => {
     setActiveChat({
       ...activeChat,
-      id : index,
+      id: index,
       emailFrom: email,
-      emailTo: user.email
-    })
+      emailTo: user.email,
+    });
     const chatData = {
       emailFrom: email,
-      emailTo: user.email
-    }
-    await getChat(chatData).unwrap()
-  }; 
+      emailTo: user.email,
+    };
+    await getChat(chatData).unwrap();
+  };
+
+  const deleteHandler = async() => {
+    await delChat(chat).unwrap()
+  }
+  
+
+  const chatHandler = (e) => {
+    e.stopPropagation();
+    setDropMenu(!dropMenu);
+  };
+
+  // window.addEventListener("click", () => {
+  //   setDropMenu(false);
+  // });
 
   return (
     <div className="messenger">
@@ -83,7 +102,11 @@ const Messenger = () => {
         </div>
         <div className="left-main__middle">
           <div className={!switchLeftInfo ? "chats" : "switch-disable"}>
-            <Chats active={activeChatHandler} chats={chats} activeChat={activeChat}/>
+            <Chats
+              active={activeChatHandler}
+              chats={chats}
+              activeChat={activeChat}
+            />
           </div>
           <div className={switchLeftInfo ? "contacts" : "switch-disable"}>
             <Contacts recipientEmail={createChatHandler} />
@@ -98,9 +121,16 @@ const Messenger = () => {
         </div>
       </div>
       <div className="right-main">
-        <div className="right-main__top"></div>
+        <div className="right-main__top">
+          <div className="right-main__drop">
+          <div className="menu-btn" onClick={(e) => chatHandler(e)}>
+            <i className="bi bi-three-dots-vertical" />
+          </div>
+          <ChatMenu dropMenu={dropMenu} deleteChat={deleteHandler} />
+          </div>
+        </div>
         <div className="right-main__middle">
-            <Messages chatId={chat} user={user}/>
+          <Messages chatId={chat} user={user} />
         </div>
       </div>
     </div>
