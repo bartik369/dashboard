@@ -114,21 +114,24 @@ class MessengerService {
     async addMessage(id, to, senderName, senderEmail, content) {
         try {
             const chat = await ConversationModel.findOne({
-                visible: { $all: [to, senderName] }
+                visible: { $all: [to, senderEmail] }
             })
 
             if (!chat) {
-                await ConversationModel.findByIdAndUpdate({ _id: id }, {
+                const addVis = await ConversationModel.findByIdAndUpdate({ _id: id }, {
                     $push: { visible: to }
                 })
-                const message = new MessageModel({
-                    senderName: senderName,
-                    senderEmail: senderEmail,
-                    content: content,
-                    converstationId: id,
-                })
-                await message.save()
-                return message
+
+                if (addVis) {
+                    const message = new MessageModel({
+                        senderName: senderName,
+                        senderEmail: senderEmail,
+                        content: content,
+                        converstationId: id,
+                    })
+                    await message.save()
+                    return message
+                }
             } else {
                 const message = new MessageModel({
                     senderName: senderName,

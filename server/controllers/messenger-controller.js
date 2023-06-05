@@ -78,7 +78,6 @@ class MessengerController {
     async addMessage(req, res, next) {
         try {
             const { id, to, senderName, senderEmail, content } = req.body;
-            console.log("message to:", to)
             const messageData = await messengerService.addMessage(id, to, senderName, senderEmail, content);
             console.log("messageData", messageData)
             return res.json(messageData)
