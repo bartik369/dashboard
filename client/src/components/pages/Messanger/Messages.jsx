@@ -7,10 +7,11 @@ import * as formConstants from "../../../utils/constants/form.constants"
 import {useForm} from "react-hook-form"
 import moment from "moment";
 
-function Messages({chatId, user}) {
+function Messages({chatId, user, to}) {
 
   const [message, setMessage] = useState({
     id: "",
+    to: "",
     senderName: "",
     senderName: "",
     content: "",
@@ -32,6 +33,7 @@ const onSubmit = async(data) => {
   const messageData = {
     ...message,
     id: chatId,
+    to:to.emailTo,
     senderName: user.displayname,
     senderEmail: user.email,
     content: data.message,

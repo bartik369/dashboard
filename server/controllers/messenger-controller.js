@@ -6,6 +6,7 @@ class MessengerController {
     async getChats(req, res, next) {
         try {
             const email = req.params.email
+            console.log(email)
             const chatsData = await messengerService.getChats(email);
             const recipients = []
             chatsData.map((item) => {
@@ -45,13 +46,14 @@ class MessengerController {
     }
     async deleteChat(req, res, next) {
         try {
-            const id = req.params.id
-                // const chatData = await messengerService.deleteChat(id)
+            const { id, email } = req.body
+            const chatData = await messengerService.deleteChat(id, email);
+            console.log(chatData)
 
-            // if (!chatData) {
+            if (!chatData) {
 
-            // }
-            // return res.json(chatData)
+            }
+            return res.json(chatData)
         } catch (error) {
 
         }
@@ -75,8 +77,10 @@ class MessengerController {
     }
     async addMessage(req, res, next) {
         try {
-            const { id, senderName, senderEmail, content } = req.body;
-            const messageData = await messengerService.addMessage(id, senderName, senderEmail, content);
+            const { id, to, senderName, senderEmail, content } = req.body;
+            console.log("message to:", to)
+            const messageData = await messengerService.addMessage(id, to, senderName, senderEmail, content);
+            console.log("messageData", messageData)
             return res.json(messageData)
 
         } catch (error) {

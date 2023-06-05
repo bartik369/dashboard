@@ -6,7 +6,8 @@ class MessengerService {
     async getChats(email) {
         try {
             const chats = await ConversationModel.find({
-                participants: { $all: email }
+                // participants: { $all: email }
+                visible: { $all: email }
             })
 
             if (!chats) {
@@ -39,13 +40,18 @@ class MessengerService {
             })
 
             if (chat) {
-                return null
+                const disableVisible = await ConversationModel.findByIdAndUpdate(chat._id, {
+                    $push: { visible: sender }
+                })
+                return disableVisible
+            } else {
+                const newChat = await new ConversationModel({
+                    participants: [sender, recipient],
+                    visible: [sender, recipient],
+                });
+                await newChat.save()
+                return newChat
             }
-            const newChat = await new ConversationModel({
-                participants: [sender, recipient]
-            })
-            await newChat.save()
-            return newChat
 
         } catch (error) {
 
@@ -63,9 +69,27 @@ class MessengerService {
 
         }
     }
-    async deleteChat() {
+    async deleteChat(id, email) {
         try {
+            const existChat = await ConversationModel.findById(id)
 
+            if (!existChat) {
+                return null
+            } else if (existChat.visible.length > 1) {
+                const disableVisible = await ConversationModel.findByIdAndUpdate(id, {
+                    $pull: { visible: email }
+                })
+                return disableVisible
+            } else if (existChat.visible.length === 1) {
+                const chat = await ConversationModel.findByIdAndDelete(id)
+                const messages = await MessageModel.deleteMany({ converstationId: id })
+                return (chat, messages)
+            }
+
+
+            // const chat = await ConversationModel.findByIdAndDelete(id)
+            // const messages = await MessageModel.deleteMany({ converstationId: id })
+            // return (chat, messages)
         } catch (error) {
 
         }
@@ -87,15 +111,35 @@ class MessengerService {
 
         }
     }
-    async addMessage(id, senderName, senderEmail, content) {
+    async addMessage(id, to, senderName, senderEmail, content) {
         try {
-            const message = new MessageModel({
-                senderName: senderName,
-                senderEmail: senderEmail,
-                content: content,
-                converstationId: id,
+            const chat = await ConversationModel.findOne({
+                visible: { $all: [to, senderName] }
             })
-            await message.save()
+
+            if (!chat) {
+                await ConversationModel.findByIdAndUpdate({ _id: id }, {
+                    $push: { visible: to }
+                })
+                const message = new MessageModel({
+                    senderName: senderName,
+                    senderEmail: senderEmail,
+                    content: content,
+                    converstationId: id,
+                })
+                await message.save()
+                return message
+            } else {
+                const message = new MessageModel({
+                    senderName: senderName,
+                    senderEmail: senderEmail,
+                    content: content,
+                    converstationId: id,
+                })
+                await message.save()
+                return message
+            }
+
 
         } catch (error) {
 

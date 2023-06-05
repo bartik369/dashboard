@@ -22,7 +22,7 @@ const MessagesSchema = new Schema({
     },
     converstationId: {
         type: String,
-        unique: true,
+        unique: false,
         required: true,
     }
 });

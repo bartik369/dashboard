@@ -41,10 +41,12 @@ export const messengerApi = createApi({
 
         // delete chat
         deleteChat: builder.mutation({
-            query: (id) => ({
-                url: `/api/chat/${id}`,
+            query: (body) => ({
+                url: `/api/chat`,
                 method: "DELETE",
+                body: {...body },
             }),
+            invalidatesTags: [{ type: 'Chats', id: 'LIST' }],
         }),
 
         //get message

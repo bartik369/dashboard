@@ -31,6 +31,8 @@ const Messenger = () => {
   });
   const [dropMenu, setDropMenu] = useState(false);
 
+  console.log("cgat id is:", chat)
+
   useEffect(() => {
     chats &&
       chats.map((item, index) => {
@@ -78,8 +80,13 @@ const Messenger = () => {
     await getChat(chatData).unwrap();
   };
 
+
   const deleteHandler = async() => {
-    await delChat(chat).unwrap()
+    const chatData = {
+      id: chat,
+      email: user.email
+    }
+    await delChat(chatData).unwrap()
   }
   
 
@@ -130,7 +137,7 @@ const Messenger = () => {
           </div>
         </div>
         <div className="right-main__middle">
-          <Messages chatId={chat} user={user} />
+          <Messages to={activeChat} chatId={chat} user={user} />
         </div>
       </div>
     </div>

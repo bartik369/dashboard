@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const ConversationSchema = new Schema({
-    participants: []
+    participants: [],
+    visible: [],
 });
 
 const Conversation = mongoose.model('Conversation', ConversationSchema);
