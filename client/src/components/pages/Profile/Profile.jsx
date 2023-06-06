@@ -12,6 +12,7 @@ import RequestRoles from "../../form/roles/RequestRoles";
 import profileImage from "../../../assets/users/developer-profile.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock} from "@fortawesome/free-solid-svg-icons";
+import defaultAvatar from "../../../assets/users/avatars/default-avatar.png"
 import "../../form/forms.css";
 import "./profile.css";
 
@@ -46,7 +47,6 @@ export default function Profile() {
   const password = useRef({});
   password.current = watch("password", "");
   const watchFields = watch({password: "password", confirmPassword: "confirmPassword"});
-
 
   
   const showPassword = (e) => {
@@ -92,7 +92,7 @@ export default function Profile() {
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
         <div className="profile__main-info">
           <div className="profile__image">
-            <img src={profileImage} />
+            <img src= {user.profilePictureUrl ? user.profilePictureUrl : defaultAvatar } alt="" />
           </div>
           <input
             className="content-form__input"

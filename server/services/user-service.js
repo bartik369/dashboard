@@ -10,6 +10,8 @@ import mailService from "./mail-service.js";
 import tokenService from "./token-service.js";
 import UserDto from "../dtos/user-dto.js";
 import ApiError from "../exceptions/api-error.js";
+import dotenv from 'dotenv';
+dotenv.config();
 
 class UserService {
     async registration(displayname, email, password, description, city, birthday, phone, work) {
@@ -24,6 +26,7 @@ class UserService {
         const userRoles = await Roles.findOne({ value: "User" })
 
         const user = await UserModel.create({
+            profilePictureUrl: "",
             displayname,
             email,
             password: hashPassword,
@@ -242,6 +245,7 @@ class UserService {
             return null
         }
         return {
+            avatar: user.profilePictureUrl,
             id: user._id,
             displayname: user.displayname,
             email: user.email,

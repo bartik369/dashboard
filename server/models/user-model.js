@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const UserScheme = new Schema({
+    profilePictureUrl: {
+        type: String,
+        unique: false,
+        required: false,
+    },
     displayname: {
         type: String,
         unique: false,

@@ -1,4 +1,5 @@
 export default class UserDto {
+    profilePictureUrl
     displayname;
     email;
     id;
@@ -6,7 +7,8 @@ export default class UserDto {
     roles;
 
     constructor(model) {
-        this.displayname = model.displayname;
+        this.profilePictureUrl = model.profilePictureUrl,
+            this.displayname = model.displayname;
         this.email = model.email;
         this.id = model._id;
         this.isActivated = model.isActivated;

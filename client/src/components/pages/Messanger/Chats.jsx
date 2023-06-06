@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import defaultAvatar from "../../../assets/users/avatars/default-avatar.png"
 import "./messenger.css";
 
 export default function Chats({ active, chats, activeChat }) {
@@ -16,8 +17,11 @@ export default function Chats({ active, chats, activeChat }) {
                 key={index}
                 onClick={() => active(item.email, index)}
               >
-                <div className="name">{item.displayname}</div>
-                <div className="email">{item.email}</div>
+                <div className="avatar"><img src={item.profilePictureUrl ? item.profilePictureUrl : defaultAvatar} alt="" /></div>
+                <div className="user-info">
+                  <div className="name">{item.displayname}</div>
+                  <div className="email">{item.email}</div>
+                </div>
               </div>
             );
           })}

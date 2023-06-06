@@ -130,9 +130,7 @@ const Messenger = () => {
       </div>
       <div className="right-main">
         <div className="right-main__top">
-          <div className="recipient-info">
             <RecipientInfo recipientInfo={recipientInfo}/>
-          </div>
           <div className="drop-menu">
           <div className="menu-btn" onClick={(e) => chatHandler(e)}>
             <i className="bi bi-three-dots-vertical" />
