@@ -235,6 +235,19 @@ class UserService {
         const users = await UserModel.find();
         return users;
     }
+    async getUser(email) {
+        const user = await UserModel.findOne({ email });
+
+        if (!user) {
+            return null
+        }
+        return {
+            id: user._id,
+            displayname: user.displayname,
+            email: user.email,
+            roles: user.roles
+        };
+    }
 
     async getRolesRequests() {
         try {

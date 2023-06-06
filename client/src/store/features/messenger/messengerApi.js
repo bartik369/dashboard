@@ -27,6 +27,7 @@ export const messengerApi = createApi({
                 method: "POST",
                 body: {...body }
             }),
+            invalidatesTags: [{ type: 'Chats', id: 'LIST' }],
         }),
 
         // create chat
@@ -46,7 +47,7 @@ export const messengerApi = createApi({
                 method: "DELETE",
                 body: {...body },
             }),
-            invalidatesTags: [{ type: 'Chats', id: 'LIST' }],
+            invalidatesTags: [{ type: ['Chats'], id: 'LIST' }],
         }),
 
         //get message
@@ -55,6 +56,7 @@ export const messengerApi = createApi({
                 url: "",
                 method: "",
             }),
+            invalidatesTags: [{ type: 'Messages', id: 'LIST' }],
         }),
 
         //get messages
@@ -87,6 +89,7 @@ export const messengerApi = createApi({
                 url: "",
                 method: "",
             }),
+            invalidatesTags: [{ type: 'Messages', id: 'LIST' }],
         }),
 
         // update message
@@ -95,6 +98,7 @@ export const messengerApi = createApi({
                 url: "",
                 method: "",
             }),
+            invalidatesTags: [{ type: 'Messages', id: 'LIST' }],
         }),
     }),
 });

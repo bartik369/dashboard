@@ -8,6 +8,7 @@ function Contacts({recipientEmail}) {
   const contactHandler = (email) => {
     recipientEmail(email)
   };
+ 
   return (
     <div>
       <h1>Contacts</h1>

@@ -145,7 +145,9 @@ class UserController {
 
     async getUser(req, res, next) {
         try {
-            const user = await userService.getUser();
+            const email = req.params.email
+            const userData = await userService.getUser(email);
+            return res.json(userData)
         } catch (error) {
 
         }

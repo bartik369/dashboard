@@ -8,7 +8,7 @@ router.get('/logout', userController.logout);
 router.get('/activate/:link', userController.activate);
 router.get('/refresh', userController.refresh);
 router.get('/users', userController.getUsers);
-router.get('/user/:id', userController.getUser);
+router.get('/user/:email', userController.getUser);
 router.get('/profile/:id', userController.getProfile)
 router.get('/auth', userController.checkCookie);
 router.post('/reset', userController.resetPassword);

@@ -6,12 +6,14 @@ import {
   useGetChatsQuery,
   useDeleteChatMutation,
 } from "../../../store/features/messenger/messengerApi";
+import { useGetUserQuery } from "../../../store/features/auth/authApi";
 import Chats from "./Chats";
 import Contacts from "./Contacts";
 import { useSelector } from "react-redux";
 import Messages from "./Messages";
 import ChatMenu from "./ChatMenu";
 import "./messenger.css";
+import RecipientInfo from "./RecipientInfo";
 
 const Messenger = () => {
   const user = useSelector(selectCurrentUser);
@@ -29,9 +31,8 @@ const Messenger = () => {
     emailFrom: "",
     emailTo: "",
   });
+  const {data: recipientInfo} = useGetUserQuery(activeChat.emailTo)
   const [dropMenu, setDropMenu] = useState(false);
-
-  console.log("cgat id is:", chat)
 
   useEffect(() => {
     chats &&
@@ -129,7 +130,10 @@ const Messenger = () => {
       </div>
       <div className="right-main">
         <div className="right-main__top">
-          <div className="right-main__drop">
+          <div className="recipient-info">
+            <RecipientInfo recipientInfo={recipientInfo}/>
+          </div>
+          <div className="drop-menu">
           <div className="menu-btn" onClick={(e) => chatHandler(e)}>
             <i className="bi bi-three-dots-vertical" />
           </div>
