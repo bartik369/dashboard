@@ -100,6 +100,16 @@ class MessengerController {
 
         }
     }
+    async markMessage(req, res, next) {
+        try {
+            const { conversationId, emailFrom, emailTo } = req.body;
+            console.log(first)
+            const messageData = await messengerService.markMessage(conversationId, emailFrom, emailTo)
+            console.log(messageData)
+        } catch (error) {
+
+        }
+    }
 }
 
 

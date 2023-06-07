@@ -24,6 +24,10 @@ const MessagesSchema = new Schema({
         type: String,
         unique: false,
         required: true,
+    },
+    read: {
+        type: Boolean,
+        default: false,
     }
 });
 

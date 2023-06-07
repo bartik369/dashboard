@@ -162,6 +162,22 @@ class MessengerService {
 
         }
     }
+    async markMessage(conversationId, emailFrom) {
+        try {
+            const messages = MessageModel.updateMany({
+                $and: [
+                    { conversationId: conversationId },
+                    { senderEmail: emailFrom },
+                ]
+            }, { read: true })
+
+            if (!messages) {
+                return null
+            }
+        } catch (error) {
+
+        }
+    }
 }
 
 export default new MessengerService();

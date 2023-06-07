@@ -100,6 +100,15 @@ export const messengerApi = createApi({
             }),
             invalidatesTags: [{ type: 'Messages', id: 'LIST' }],
         }),
+
+        markMessage: builder.mutation({
+            query: (body) => ({
+                url: "/api/mark-message/",
+                method: "POST",
+                body: body,
+            }),
+            invalidatesTags: [{ type: 'Messages', id: 'LIST' }],
+        }),
     }),
 });
 
@@ -110,4 +119,5 @@ export const {
     useAddMessageMutation,
     useGetMessagesQuery,
     useDeleteChatMutation,
+    useMarkMessageMutation,
 } = messengerApi;

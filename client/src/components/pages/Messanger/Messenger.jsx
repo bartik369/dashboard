@@ -5,6 +5,7 @@ import {
   useGetChatMutation,
   useGetChatsQuery,
   useDeleteChatMutation,
+  useMarkMessageMutation,
 } from "../../../store/features/messenger/messengerApi";
 import { useGetUserQuery } from "../../../store/features/auth/authApi";
 import Chats from "./Chats";
@@ -19,6 +20,7 @@ const Messenger = () => {
   const user = useSelector(selectCurrentUser);
   const { data: chats, isLoading } = useGetChatsQuery(user.email);
   const [getChat, { data: chat }] = useGetChatMutation();
+  const [markAsRead] = useMarkMessageMutation()
   const [switchLeftInfo, setSwitchLeftInfo] = useState(false);
   const [createChat] = useCreateChatMutation();
   const [delChat] = useDeleteChatMutation()
@@ -77,8 +79,10 @@ const Messenger = () => {
     const chatData = {
       emailFrom: email,
       emailTo: user.email,
+      conversationId: chat,
     };
     await getChat(chatData).unwrap();
+    await markAsRead(chatData).unwrap()
   };
 
 

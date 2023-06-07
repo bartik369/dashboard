@@ -13,5 +13,6 @@ router.get('/messages/:id', messenderController.getMessage)
 router.post('/add-message', messenderController.addMessage)
 router.delete('/message/:id', messenderController.deleteMessage)
 router.put('/message/:id', messenderController.updateMessage)
+router.post('/mark-message/', messenderController.markMessage)
 
 export default router;
