@@ -28,6 +28,8 @@ function Messages({chatId, user, to}) {
 
   const [addMessage] = useAddMessageMutation()
 
+  console.log(messages)
+
 
 const onSubmit = async(data) => {
   const messageData = {

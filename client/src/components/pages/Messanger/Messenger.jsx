@@ -135,7 +135,7 @@ const Messenger = () => {
           <div className="menu-btn" onClick={(e) => chatHandler(e)}>
             <i className="bi bi-three-dots-vertical" />
           </div>
-          <ChatMenu dropMenu={dropMenu} deleteChat={deleteHandler} />
+          <ChatMenu dropMenu={dropMenu} deleteChat={deleteHandler} setDropMenu={setDropMenu}/>
           </div>
         </div>
         <div className="right-main__middle">

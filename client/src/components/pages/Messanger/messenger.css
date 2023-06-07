@@ -6,6 +6,7 @@
     padding: 20px;
     position: relative;
     width: 350px;
+    background-color: #f5f7fb;
 }
 
 .messenger .right-main {
@@ -46,20 +47,34 @@
 .contacts .contacts__items {}
 
 .contacts .contacts__item {
-    background-color: rgb(241, 125, 229);
     padding: 10px;
     cursor: pointer;
     display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
-.contacts .contacts__item .contact__name {
+.contacts .contacts__item .avatar {
+    width: 35px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.contacts .contacts__item .avatar img {
+    width: 100%;
+}
+
+.contacts .contacts__item .info {
+    display: flex;
+    flex-direction: column;
+}
+
+.contacts .contacts__item .info .name {
     font-size: 18px;
 }
 
-.contacts .contacts__item .contact__email {
-    font-size: 12px;
+.contacts .contacts__item .info .email {
+    font-size: 10px;
 }
 
 .left-main__bottom {
@@ -82,7 +97,6 @@
 .right-main__top .recipient-info {
     display: flex;
     align-items: center;
-    background-color: chocolate;
 }
 
 .right-main__top .recipient-info .avatar {
@@ -94,6 +108,11 @@
 .right-main__top .recipient-info .avatar img {
     width: 100%;
     border-radius: 50%;
+}
+
+.right-main__top .recipient-info .displayname {
+    font-size: 16px;
+    color: #ffffff;
 }
 
 .switch-disable {
@@ -124,8 +143,8 @@
 }
 
 .chats .chats__item .avatar {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
 }
 
 .chats .chats__item .avatar img {
@@ -144,7 +163,7 @@
 }
 
 .chats .chats__item .email {
-    font-size: 12px;
+    font-size: 11px;
     color: black;
 }
 
@@ -180,8 +199,9 @@
     display: flex;
     position: relative;
     display: flex;
-    height: 50px;
+    height: 55px;
     width: 100%;
+    padding: 7px 20px;
     background-color: #2f8af2;
 }
 
@@ -312,7 +332,7 @@
 
 .messages__to .time {
     font-size: 10px;
-    color: #6b6b6b;
+    color: #bdc8d8;
 }
 
 .messages .messages__input {
