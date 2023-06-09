@@ -82,7 +82,6 @@ class UserController {
     async resetPassword(req, res, next) {
         try {
             const { email } = req.body;
-            console.log(email)
             const userData = await userService.resetPassword(email)
             return res.json(userData);
         } catch (error) {
@@ -93,9 +92,7 @@ class UserController {
     async checkResetLink(req, res, next) {
         try {
             const resetPasswordLink = req.params.link;
-            console.log("link is ", resetPasswordLink)
             const userData = await userService.checkResetPasswordLink(resetPasswordLink);
-            console.log(userData)
             return res.json(userData)
         } catch (error) {
             next(error)
@@ -116,8 +113,7 @@ class UserController {
         try {
             const { email, password } = req.body;
             const userData = await userService.assignUserPassword(email, password)
-            console.log("userData", userData)
-                // return userData
+            return userData
         } catch (error) {
             next(error)
         }
@@ -156,7 +152,6 @@ class UserController {
         try {
             const id = req.params.id;
             const profile = await userService.getProfile(id)
-            console.log(profile)
             return res.json(profile)
         } catch (error) {
 
