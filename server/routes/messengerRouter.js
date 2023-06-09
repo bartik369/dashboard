@@ -7,6 +7,7 @@ router.get('/chats/:email', messenderController.getChats)
 router.post('/chat', messenderController.getChat)
 router.post('/create-chat', messenderController.createChat)
 router.delete('/chat/', messenderController.deleteChat)
+router.post('/active-chat/', messenderController.setActiveChat)
 
 router.get('/messages/:id', messenderController.getMessages)
 router.get('/messages/:id', messenderController.getMessage)

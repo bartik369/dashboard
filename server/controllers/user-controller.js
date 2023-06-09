@@ -105,10 +105,8 @@ class UserController {
     async setNewPassword(req, res, next) {
         try {
             const { link, password } = req.body;
-            console.log(link)
-            console.log("password", password)
             const userData = await userService.setNewUserPassword(link, password)
-            return userData
+            return res.json(userData)
         } catch (error) {
             next(error)
         }

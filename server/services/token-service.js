@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import tokenModel from '../models/token-model.js';
+import tokenModel from '../models/users/token-model.js';
 
 
 class TokenService {
@@ -20,7 +20,7 @@ class TokenService {
             const userData = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
             return userData;
         } catch (error) {
-           console.log(error)
+            console.log(error)
         }
     };
 

@@ -27,7 +27,7 @@ export const messengerApi = createApi({
                 method: "POST",
                 body: {...body }
             }),
-            invalidatesTags: [{ type: 'Chats', id: 'LIST' }],
+            invalidatesTags: [{ type: 'Messages', id: 'LIST' }, { type: 'Chats', id: 'LIST' }],
         }),
 
         // create chat
@@ -46,6 +46,15 @@ export const messengerApi = createApi({
                 url: `/api/chat`,
                 method: "DELETE",
                 body: {...body },
+            }),
+            invalidatesTags: [{ type: ['Chats'], id: 'LIST' }],
+        }),
+
+        setActiveChat: builder.mutation({
+            query: (body) => ({
+                url: "/api/active-chat",
+                method: "POST",
+                body: body,
             }),
             invalidatesTags: [{ type: ['Chats'], id: 'LIST' }],
         }),
@@ -70,6 +79,7 @@ export const messengerApi = createApi({
                     ...result.map(({ id }) => ({ type: 'Messages', id })),
                     { type: 'Messages', id: 'LIST' },
                 ] : [{ type: 'Messages', id: 'LIST' }],
+            invalidatesTags: [{ type: ['Messages'], id: 'LIST' }],
         }),
 
 
@@ -116,6 +126,7 @@ export const {
     useCreateChatMutation,
     useGetChatsQuery,
     useGetChatMutation,
+    useSetActiveChatMutation,
     useAddMessageMutation,
     useGetMessagesQuery,
     useDeleteChatMutation,

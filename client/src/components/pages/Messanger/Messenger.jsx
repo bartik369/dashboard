@@ -6,6 +6,7 @@ import {
   useGetChatsQuery,
   useDeleteChatMutation,
   useMarkMessageMutation,
+  useSetActiveChatMutation,
 } from "../../../store/features/messenger/messengerApi";
 import { useGetUserQuery } from "../../../store/features/auth/authApi";
 import Chats from "./Chats";
@@ -28,21 +29,21 @@ const Messenger = () => {
     sender: "",
     recipient: "",
   });
-  const [activeChat, setActiveChat] = useState({
-    id: 0,
-    emailFrom: "",
-    emailTo: "",
-  });
-  const {data: recipientInfo} = useGetUserQuery(activeChat.emailTo)
+  const [activeChat, setActiveChat] = useState();
+  // const {data: recipientInfo} = useGetUserQuery(activeChat.emailTo)
+  const [addActiveChat] = useSetActiveChatMutation()
   const [dropMenu, setDropMenu] = useState(false);
+
+  console.log(chats)
 
   useEffect(() => {
     chats &&
       chats.map((item, index) => {
+        console.log(index)
         if (index === 0) {
           setActiveChat({
             ...activeChat,
-            id: index,
+            id: chat,
             emailFrom: user.email,
             emailTo: item.email,
           });
@@ -54,6 +55,8 @@ const Messenger = () => {
         }
       });
   }, [chats]);
+
+  console.log(chat)
 
   const newChatHandler = () => {
     setSwitchLeftInfo(true);
@@ -67,21 +70,23 @@ const Messenger = () => {
     };
     await createChat(newChatInfo).unwrap();
     setSwitchLeftInfo(false);
+    await addActiveChat(chat).unwrap()
   };
 
   const activeChatHandler = async (email, index) => {
-    setActiveChat({
-      ...activeChat,
-      id: index,
-      emailFrom: email,
-      emailTo: user.email,
-    });
+    // setActiveChat({
+    //   ...activeChat,
+    //   id: index,
+    //   emailFrom: email,
+    //   emailTo: user.email,
+    // });
     const chatData = {
       emailFrom: email,
       emailTo: user.email,
       conversationId: chat,
     };
     await getChat(chatData).unwrap();
+    await addActiveChat(chatData).unwrap()
     await markAsRead(chatData).unwrap()
   };
 
@@ -117,7 +122,7 @@ const Messenger = () => {
             <Chats
               active={activeChatHandler}
               chats={chats}
-              activeChat={activeChat}
+              // activeChat={activeChat}
             />
           </div>
           <div className={switchLeftInfo ? "contacts" : "switch-disable"}>
@@ -134,7 +139,8 @@ const Messenger = () => {
       </div>
       <div className="right-main">
         <div className="right-main__top">
-            <RecipientInfo recipientInfo={recipientInfo}/>
+            <RecipientInfo />
+            {/* <RecipientInfo recipientInfo={recipientInfo}/> */}
           <div className="drop-menu">
           <div className="menu-btn" onClick={(e) => chatHandler(e)}>
             <i className="bi bi-three-dots-vertical" />
@@ -143,7 +149,9 @@ const Messenger = () => {
           </div>
         </div>
         <div className="right-main__middle">
-          <Messages to={activeChat} chatId={chat} user={user} />
+          <Messages  chatId={chat} user={user} />
+          {/* <Messages to={activeChat} chatId={chat} user={user} /> */}
+
         </div>
       </div>
     </div>

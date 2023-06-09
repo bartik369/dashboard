@@ -280,11 +280,27 @@
 }
 
 .messages .messages__from {
-    height: auto;
+    display: flex;
+    flex-direction: row;
     width: fit-content;
     align-self: flex-end;
+    align-items: center;
     margin-bottom: 15px;
     padding-right: 40px;
+}
+
+.messages .messages__from .read-status {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.messages .messages__from .message-info {
+    display: flex;
+    flex-direction: column;
+    margin-right: 2px;
 }
 
 .messages__from .text {
@@ -305,6 +321,16 @@
 .messages__from .time {
     font-size: 10px;
     color: #6b6b6b;
+}
+
+.messages__from .bi-check {
+    font-size: 18px;
+    color: #bdc8d8;
+}
+
+.messages__from .bi-check-all {
+    font-size: 18px;
+    color: #2e73da;
 }
 
 .messages .messages__to {

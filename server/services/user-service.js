@@ -1,9 +1,10 @@
-import UserModel from "../models/user-model.js";
-import TokenModel from "../models/todo-model.js"
-import ProfilModel from "../models/profile-model.js"
-import RoleRequestModel from "../models/roles-request-model.js"
-import Roles from "../models/roles-model.js"
-import ResetPasswordModel from "../models/reset-password-model.js";
+import UserModel from "../models/users/user-model.js";
+import PasswordModel from "../models/users/password-model.js"
+import LinkModel from "../models/users/activation-link-model.js"
+import ProfilModel from "../models/users/profile-model.js"
+import RoleRequestModel from "../models/users/roles-request-model.js"
+import Roles from "../models/users/roles-model.js"
+import ResetPasswordModel from "../models/users/reset-password-model.js";
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import mailService from "./mail-service.js";
@@ -29,10 +30,16 @@ class UserService {
             profilePictureUrl: "",
             displayname,
             email,
-            password: hashPassword,
-            activationLink,
             roles: [userRoles.value]
         });
+        await PasswordModel.create({
+            userId: user._id,
+            password: hashPassword,
+        })
+        await LinkModel.create({
+            userId: user._id,
+            activationLink: activationLink,
+        })
         await ProfilModel.create({
             userId: user._id,
             description,
@@ -56,8 +63,9 @@ class UserService {
         if (!user) {
             throw ApiError.EmailError("Пользователь с таким email не найден");
         }
+        const checkUserPassword = await PasswordModel.findOne({ userId: user._id })
 
-        const isPasswordEquals = await bcrypt.compare(password, user.password);
+        const isPasswordEquals = await bcrypt.compare(password, checkUserPassword.password);
 
         if (!isPasswordEquals) {
             throw ApiError.PasswordError("Неверный пароль");
@@ -121,20 +129,18 @@ class UserService {
 
     async setNewUserPassword(link, password) {
         try {
-            const user = await ResetPasswordModel.findOne({ link })
+            const dataLink = await ResetPasswordModel.findOne({ link: link })
 
-            if (!user) {
-                throw ApiError.BadRequest("Непредвиденная ошибка");
-            }
-            const data = await UserModel.findById(user.userId);
-
-            if (!data) {
-                throw ApiError.BadRequest("Непредвиденная ошибка");
+            if (!dataLink) {
+                return null
             }
             const hashPassword = await bcrypt.hash(password, 7);
-            data.password = hashPassword
-            await data.save()
+            const passwordData = await PasswordModel.findOneAndUpdate({ userId: dataLink.userId }, {
+                password: hashPassword
+            });
+            await passwordData.save();
             await ResetPasswordModel.deleteOne({ link })
+            return passwordData
         } catch (error) {
 
         }

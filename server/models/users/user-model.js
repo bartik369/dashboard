@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-const UserScheme = new Schema({
+const UserSchema = new Schema({
     profilePictureUrl: {
         type: String,
         unique: false,
@@ -17,17 +17,9 @@ const UserScheme = new Schema({
         unique: true,
         required: true,
     },
-
-    password: {
-        type: String,
-        required: true,
-    },
     isActivated: {
         type: Boolean,
         default: false,
-    },
-    activationLink: {
-        type: String,
     },
     roles: [{
         type: String,
@@ -35,5 +27,5 @@ const UserScheme = new Schema({
     }],
 });
 
-const User = mongoose.model('User', UserScheme);
+const User = mongoose.model('User', UserSchema);
 export default User;

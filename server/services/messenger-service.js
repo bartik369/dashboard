@@ -1,6 +1,6 @@
 import ConversationModel from "../models/messenger/conversation-model.js";
 import MessageModel from "../models/messenger/messages-model.js"
-import UserModel from "../models/user-model.js"
+import UserModel from "../models/users/user-model.js"
 
 class MessengerService {
     async getChats(email) {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import defaultAvatar from "../../../assets/users/avatars/default-avatar.png"
 import "./messenger.css";
 
-export default function Chats({ active, chats, activeChat }) {
+export default function Chats({ active, chats }) {
 
   return (
     <div>
@@ -12,7 +12,7 @@ export default function Chats({ active, chats, activeChat }) {
             return (
               <div
                 className={`chats__item ${
-                  activeChat.id == index && "active__chat"
+                  chats.active && "active__chat"
                 }`}
                 key={index}
                 onClick={() => active(item.email, index)}

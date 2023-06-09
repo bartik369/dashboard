@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-const ResetPasswordSheme = new Schema({
+const ResetPasswordShema = new Schema({
     userId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
@@ -20,5 +20,5 @@ const ResetPasswordSheme = new Schema({
     }
 });
 
-const ResetPasswordModel = mongoose.model('ResetPassword', ResetPasswordSheme);
+const ResetPasswordModel = mongoose.model('ResetPassword', ResetPasswordShema);
 export default ResetPasswordModel;
