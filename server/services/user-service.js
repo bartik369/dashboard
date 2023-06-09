@@ -146,6 +146,25 @@ class UserService {
         }
     }
 
+    async assignUserPassword(email, password) {
+        try {
+            const user = await UserModel.findOne({ email });
+
+            if (!user) {
+                throw ApiError.BadRequest("Непредвиденная ошибка")
+            }
+            const hashPassword = await bcrypt.hash(password, 7)
+            const passwordData = await PasswordModel.findOneAndUpdate({ userId: user._id }, {
+                password: hashPassword
+            });
+            await passwordData.save()
+            return passwordData
+
+        } catch (error) {
+
+        }
+    }
+
     async updateProfile(id, email, description, city, birthday, phone, work) {
         try {
             const profileInfo = await ProfilModel.findById(id);
@@ -177,8 +196,11 @@ class UserService {
                 throw ApiError.BadRequest("Непредвиденная ошибка")
             }
             const hashPassword = await bcrypt.hash(password, 7)
-            user.password = hashPassword;
-            await user.save()
+            const setPassword = await PasswordModel.findOneAndUpdate({ userId: user._id }, {
+                password: hashPassword
+            })
+            await setPassword.save()
+            return setPassword
 
         } catch (error) {
 

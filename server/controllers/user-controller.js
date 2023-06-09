@@ -115,8 +115,9 @@ class UserController {
     async assignNewPassword(req, res, next) {
         try {
             const { email, password } = req.body;
-            const userData = await userService.assignUserPassword(email, password);
-            return userData
+            const userData = await userService.assignUserPassword(email, password)
+            console.log("userData", userData)
+                // return userData
         } catch (error) {
             next(error)
         }
