@@ -8,7 +8,7 @@ export default function Chats({ active, chats }) {
     <div>
       <div className="chats__items">
         {chats &&
-          chats.map((item, index) => {
+          chats.users.map((item, index) => {
             return (
               <div
                 className={`chats__item ${

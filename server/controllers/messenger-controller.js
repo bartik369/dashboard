@@ -15,10 +15,9 @@ class MessengerController {
                         recipients.push(recipient)
                     }
                 });
-            })
+            });
             const usersData = await messengerService.getRecipientsInfo(recipients)
-            console.log("info o userax", usersData)
-            return res.json(usersData)
+            return res.json({ users: usersData, conversations: chatsData })
 
         } catch (error) {
 

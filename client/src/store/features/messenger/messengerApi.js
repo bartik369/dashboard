@@ -14,11 +14,10 @@ export const messengerApi = createApi({
                 method: "GET",
             }),
             providesTags: (result) =>
-                console.log(result)
-                // result ? [
-                //     result.map(({ id }) => ({ type: 'Chats', id })),
-                //     { type: 'Chats', id: 'LIST' },
-                // ] : [{ type: 'Chats', id: 'LIST' }],
+                result ? [
+                    ...result.users.map(({ id }) => ({ type: 'Chats', id })),
+                    { type: 'Chats', id: 'LIST' },
+                ] : [{ type: 'Chats', id: 'LIST' }],
 
         }),
 

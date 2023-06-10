@@ -34,9 +34,11 @@ const Messenger = () => {
   const [addActiveChat] = useSetActiveChatMutation()
   const [dropMenu, setDropMenu] = useState(false);
 
+  console.log(chats)
+
   useEffect(() => {
     chats &&
-      chats.map((item, index) => {
+      chats.users.map((item, index) => {
         console.log(index)
         if (index === 0) {
           setActiveChat({
