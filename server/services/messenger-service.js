@@ -63,12 +63,29 @@ class MessengerService {
             const users = await UserModel.find({
                 email: recipients
             })
+            const chats = await ConversationModel.find({
+
+            })
             return users
 
         } catch (error) {
 
         }
     }
+    async setActiveChat(conversationId) {
+        try {
+            const chat = await ConversationModel.findOneAndUpdate({ conversationId }, {
+                active: true,
+            });
+
+            await chat.save()
+            return chat
+
+        } catch (error) {
+
+        }
+    }
+
     async deleteChat(id, email) {
         try {
             const existChat = await ConversationModel.findById(id)

@@ -34,8 +34,6 @@ const Messenger = () => {
   const [addActiveChat] = useSetActiveChatMutation()
   const [dropMenu, setDropMenu] = useState(false);
 
-  console.log(chats)
-
   useEffect(() => {
     chats &&
       chats.map((item, index) => {
@@ -55,8 +53,6 @@ const Messenger = () => {
         }
       });
   }, [chats]);
-
-  console.log(chat)
 
   const newChatHandler = () => {
     setSwitchLeftInfo(true);
@@ -149,7 +145,7 @@ const Messenger = () => {
           </div>
         </div>
         <div className="right-main__middle">
-          <Messages  chatId={chat} user={user} />
+          <Messages chatId={chat} user={user} />
           {/* <Messages to={activeChat} chatId={chat} user={user} /> */}
 
         </div>

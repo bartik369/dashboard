@@ -29,11 +29,12 @@ function Messages({ chatId, user, to }) {
     const messageData = {
       ...message,
       id: chatId,
-      to: to.emailTo,
+      to: to,
       senderName: user.displayname,
       senderEmail: user.email,
       content: data.message,
     };
+    console.log(messageData)
     await addMessage(messageData).unwrap();
     reset();
   };
