@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 
-const ChatMenu = ({dropMenu, deleteChat, setDropMenu}) => {
+const ConversationMenu = ({dropMenu, deleteChat, setDropMenu}) => {
 const menuRef = useRef();
 
 useEffect(() => {
@@ -22,4 +22,4 @@ useEffect(() => {
   )
 }
 
-export default ChatMenu
+export default ConversationMenu

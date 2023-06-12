@@ -1,104 +1,116 @@
 import React, { useState, useEffect } from "react";
 import { selectCurrentUser } from "../../../store/features/auth/authSlice";
 import {
-  useCreateChatMutation,
-  useGetChatMutation,
-  useGetChatsQuery,
-  useDeleteChatMutation,
+  useCreateConversationMutation,
+  useGetConversationsQuery,
+  useGetConversationMutation,
+  useGetParticipantsQuery,
+  useDeleteConversationMutation,
   useMarkMessageMutation,
-  useSetActiveChatMutation,
+  useSetActiveConversationMutation,
 } from "../../../store/features/messenger/messengerApi";
 import { useGetUserQuery } from "../../../store/features/auth/authApi";
-import Chats from "./Chats";
+import Conversations from "./Conversations";
 import Contacts from "./Contacts";
 import { useSelector } from "react-redux";
 import Messages from "./Messages";
-import ChatMenu from "./ChatMenu";
+import ConversationMenu from "./ConversationMenu";
 import "./messenger.css";
 import RecipientInfo from "./RecipientInfo";
 
 const Messenger = () => {
   const user = useSelector(selectCurrentUser);
-  const { data: chats, isLoading } = useGetChatsQuery(user.email);
-  const [getChat, { data: chat }] = useGetChatMutation();
+  const { data: participants, isLoading } = useGetParticipantsQuery(user.id);
+  const {data: conversations } = useGetConversationsQuery(user.id);
+  const [getConversation, { data: conversationId }] = useGetConversationMutation();
   const [markAsRead] = useMarkMessageMutation()
   const [switchLeftInfo, setSwitchLeftInfo] = useState(false);
-  const [createChat] = useCreateChatMutation();
-  const [delChat] = useDeleteChatMutation()
+  const [createConversation] = useCreateConversationMutation();
+  const [deleteConversation] = useDeleteConversationMutation()
   const [newChat, setNewChat] = useState({
-    sender: "",
-    recipient: "",
+    creatorId: "",
+    recipientId: "",
   });
-  const [activeChat, setActiveChat] = useState();
+  const [activeChat, setActiveChat] = useState({
+    recipientId: "",
+    creatorId: "",
+  });
   // const {data: recipientInfo} = useGetUserQuery(activeChat.emailTo)
-  const [addActiveChat] = useSetActiveChatMutation()
+  const [addActiveConversation] = useSetActiveConversationMutation()
   const [dropMenu, setDropMenu] = useState(false);
 
-  console.log(chats)
-
   useEffect(() => {
-    chats &&
-      chats.users.map((item, index) => {
-        console.log(index)
-        if (index === 0) {
-          setActiveChat({
-            ...activeChat,
-            id: chat,
-            emailFrom: user.email,
-            emailTo: item.email,
-          });
-          const chatData = {
-            emailFrom: user.email,
-            emailTo: item.email,
-          };
-          getChat(chatData);
-        }
-      });
-  }, [chats]);
+    participants && participants.map((item) => {
 
-  const newChatHandler = () => {
+      if (item.active) {
+        setActiveChat(item._id)
+      }
+    })
+  }, [participants]);
+
+  // useEffect(() => {
+  //   chats &&
+  //     chats.users.map((item, index) => {
+  //       console.log(index)
+  //       if (index === 0) {
+  //         setActiveChat({
+  //           ...activeChat,
+  //           id: chat,
+  //           emailFrom: user.email,
+  //           emailTo: item.email,
+  //         });
+  //         const chatData = {
+  //           emailFrom: user.email,
+  //           emailTo: item.email,
+  //         };
+  //         getChat(chatData);
+  //       }
+  //     });
+  // }, [chats]);
+
+  const newConversationHandler = () => {
     setSwitchLeftInfo(true);
   };
 
-  const createChatHandler = async (recipientEmail) => {
-    const newChatInfo = {
+  const createConversationHandler = async (id) => {
+    const newConversationInfo = {
       ...newChat,
-      sender: user.email,
-      recipient: recipientEmail,
+      creatorId: user.id,
+      recipientId: id,
     };
-    await createChat(newChatInfo).unwrap();
+    await createConversation(newConversationInfo).unwrap();
     setSwitchLeftInfo(false);
-    await addActiveChat(chat).unwrap()
+    await addActiveConversation(conversationId).unwrap()
   };
 
-  const activeChatHandler = async (email, index) => {
-    // setActiveChat({
-    //   ...activeChat,
-    //   id: index,
-    //   emailFrom: email,
-    //   emailTo: user.email,
-    // });
+  const activeConversationHandler = async (id) => {
+    console.log(id)
+    setActiveChat({
+      ...activeChat,
+      recipientId: id,
+      creatorId: user.id,
+    });
     const chatData = {
-      emailFrom: email,
-      emailTo: user.email,
-      conversationId: chat,
+      recipientId: id,
+      creatorId: user.id,
+      conversationId: conversationId,
     };
-    await getChat(chatData).unwrap();
-    await addActiveChat(chatData).unwrap()
+    await getConversation(chatData).unwrap();
+    await addActiveConversation(chatData).unwrap()
     await markAsRead(chatData).unwrap()
   };
 
 
   const deleteHandler = async() => {
     const chatData = {
-      id: chat,
+      conversationId: conversationId,
       email: user.email
     }
-    await delChat(chatData).unwrap()
+    await deleteConversation(chatData).unwrap()
   }
   
 
-  const chatHandler = (e) => {
+  const ConversationHandler = (e) => {
     e.stopPropagation();
     setDropMenu(!dropMenu);
   };
@@ -117,19 +129,19 @@ const Messenger = () => {
         </div>
         <div className="left-main__middle">
           <div className={!switchLeftInfo ? "chats" : "switch-disable"}>
-            <Chats
-              active={activeChatHandler}
-              chats={chats}
-              // activeChat={activeChat}
+            <Conversations
+              active={activeConversationHandler}
+              participants={participants}
+              activeChat={activeChat}
             />
           </div>
           <div className={switchLeftInfo ? "contacts" : "switch-disable"}>
-            <Contacts recipientEmail={createChatHandler} />
+            <Contacts recipientId={createConversationHandler} />
           </div>
         </div>
         <div className="left-main__bottom">
           <div className="create-chat">
-            <button className="add" onClick={() => newChatHandler()}>
+            <button className="add" onClick={() => newConversationHandler()}>
               New chat
             </button>
           </div>
@@ -140,15 +152,14 @@ const Messenger = () => {
             <RecipientInfo />
             {/* <RecipientInfo recipientInfo={recipientInfo}/> */}
           <div className="drop-menu">
-          <div className="menu-btn" onClick={(e) => chatHandler(e)}>
+          <div className="menu-btn" onClick={(e) => ConversationHandler(e)}>
             <i className="bi bi-three-dots-vertical" />
           </div>
-          <ChatMenu dropMenu={dropMenu} deleteChat={deleteHandler} setDropMenu={setDropMenu}/>
+          <ConversationMenu dropMenu={dropMenu} deleteChat={deleteHandler} setDropMenu={setDropMenu}/>
           </div>
         </div>
         <div className="right-main__middle">
-          <Messages chatId={chat} user={user} />
-          {/* <Messages to={activeChat} chatId={chat} user={user} /> */}
+          <Messages conversationId={conversationId} user={user} recipientId={activeChat} />
 
         </div>
       </div>

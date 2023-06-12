@@ -1,10 +1,10 @@
-import UserModel from "../models/users/user-model.js";
-import PasswordModel from "../models/users/password-model.js"
-import LinkModel from "../models/users/activation-link-model.js"
-import ProfilModel from "../models/users/profile-model.js"
-import RoleRequestModel from "../models/users/roles-request-model.js"
-import Roles from "../models/users/roles-model.js"
-import ResetPasswordModel from "../models/users/reset-password-model.js";
+import UserModel from "../models/users/user.js";
+import PasswordModel from "../models/users/password.js"
+import LinkModel from "../models/users/activation-link.js"
+import ProfilModel from "../models/users/profile.js"
+import RoleRequestModel from "../models/users/roles-request.js"
+import Roles from "../models/users/roles.js"
+import ResetPasswordModel from "../models/users/reset-password.js";
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import mailService from "./mail-service.js";

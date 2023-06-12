@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const MessagesSchema = new Schema({
-    senderName: {
+    conversationId: {
         type: String,
         unique: false,
         required: true,
     },
-    senderEmail: {
+    senderId: {
         type: String,
         unique: false,
         required: true,
@@ -16,14 +16,13 @@ const MessagesSchema = new Schema({
         type: String,
         required: true,
     },
-    time: {
+    createdAt: {
         type: Date,
         default: Date.now
     },
-    converstationId: {
-        type: String,
-        unique: false,
-        required: true,
+    updatedAt: {
+        type: Date,
+        default: Date.now
     },
     read: {
         type: Boolean,

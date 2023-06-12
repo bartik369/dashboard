@@ -1,24 +1,50 @@
-import ConversationModel from "../models/messenger/conversation-model.js";
-import MessageModel from "../models/messenger/messages-model.js"
-import UserModel from "../models/users/user-model.js"
+import ConversationModel from "../models/messenger/conversation.js";
+import ParticipantsModel from "../models/messenger/participants.js";
+import MessageModel from "../models/messenger/messages.js"
+import UserModel from "../models/users/user.js"
 
 class MessengerService {
-    async getChats(email) {
+    async getParticipants(id) {
         try {
-            const chats = await ConversationModel.find({
-                // participants: { $all: email }
-                visible: { $all: email }
-            })
+            const conversation = await ConversationModel.find({ creatorId: id });
 
-            if (!chats) {
+            if (!conversation) {
                 return null
             }
-            return chats
+            const participants = await ParticipantsModel.find({
+                visible: { $all: id }
+            })
+
+            if (!participants) {
+                return null
+            }
+            return participants
         } catch (error) {
 
         }
     }
-    async getChat(emailFrom, emailTo) {
+    async getConversations(id) {
+        try {
+            const participants = await ParticipantsModel.find({
+                visible: { $all: id }
+            })
+
+            if (!participants) {
+                return null
+            }
+            const conversationArray = []
+            participants.map((item) => {
+                conversationArray.push(item.conversationId)
+            });
+            const conversations = await ConversationModel.find({
+                _id: { $in: conversationArray }
+            });
+            return conversations
+        } catch (error) {
+
+        }
+    }
+    async getConversation(emailFrom, emailTo) {
         try {
             const chatData = await ConversationModel.findOne({
                 participants: { $all: [emailFrom, emailTo] }
@@ -33,24 +59,28 @@ class MessengerService {
 
         }
     }
-    async createChat(sender, recipient) {
+    async createConversation(creatorId, recipientId) {
         try {
-            const chat = await ConversationModel.findOne({
-                participants: { $all: [sender, recipient] }
+            const participants = await ParticipantsModel.findOne({
+                participants: { $all: [creatorId, recipientId] }
             })
 
-            if (chat) {
-                const disableVisible = await ConversationModel.findByIdAndUpdate(chat._id, {
+            if (participants) {
+                const disableVisible = await ParticipantsModel.findByIdAndUpdate(chat._id, {
                     $push: { visible: sender }
                 })
                 return disableVisible
             } else {
-                const newChat = await new ConversationModel({
-                    participants: [sender, recipient],
-                    visible: [sender, recipient],
-                });
-                await newChat.save()
-                return newChat
+                const newConversation = await new ConversationModel({
+                    creatorId: creatorId,
+                })
+                await newConversation.save()
+                const participants = await ParticipantsModel({
+                    participants: [creatorId, recipientId],
+                    visible: [creatorId, recipientId],
+                    conversationId: newConversation._id
+                })
+                await participants.save()
             }
 
         } catch (error) {
@@ -61,10 +91,7 @@ class MessengerService {
     async getRecipientsInfo(recipients) {
         try {
             const users = await UserModel.find({
-                email: recipients
-            })
-            const chats = await ConversationModel.find({
-
+                _id: recipients
             })
             return users
 
@@ -72,7 +99,16 @@ class MessengerService {
 
         }
     }
-    async setActiveChat(conversationId) {
+    async getConversationStatus(email) {
+        try {
+
+
+        } catch (error) {
+
+        }
+    }
+
+    async setActiveConversation(conversationId) {
         try {
             const chat = await ConversationModel.findOneAndUpdate({ conversationId }, {
                 active: true,
@@ -86,7 +122,7 @@ class MessengerService {
         }
     }
 
-    async deleteChat(id, email) {
+    async deleteConversation(id, email) {
         try {
             const existChat = await ConversationModel.findById(id)
 
@@ -128,33 +164,31 @@ class MessengerService {
 
         }
     }
-    async addMessage(id, to, senderName, senderEmail, content) {
+    async addMessage(conversationId, senderId, recipientId, content) {
         try {
-            const chat = await ConversationModel.findOne({
-                visible: { $all: [to, senderEmail] }
+            const participants = await ParticipantsModel.findOne({
+                visible: { $all: [recipientId, senderId] }
             })
 
-            if (!chat) {
-                const addVis = await ConversationModel.findByIdAndUpdate({ _id: id }, {
-                    $push: { visible: to }
+            if (!participants) {
+                const addVis = await ParticipantsModel.findByIdAndUpdate({ conversationId: conversationId }, {
+                    $push: { visible: recipientId }
                 })
 
                 if (addVis) {
                     const message = new MessageModel({
-                        senderName: senderName,
-                        senderEmail: senderEmail,
+                        conversationId: conversationId,
+                        senderId: senderId,
                         content: content,
-                        converstationId: id,
                     })
                     await message.save()
                     return message
                 }
             } else {
                 const message = new MessageModel({
-                    senderName: senderName,
-                    senderEmail: senderEmail,
+                    conversationId: conversationId,
+                    senderId: senderId,
                     content: content,
-                    converstationId: id,
                 })
                 await message.save()
                 return message

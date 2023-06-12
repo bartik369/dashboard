@@ -4,60 +4,73 @@ import ENV from "../../../env.config";
 export const messengerApi = createApi({
     reducerPath: "messengerApi",
     baseQuery: fetchBaseQuery({ baseUrl: ENV.HOSTNAME }),
-    tagTypes: ["Chats", "Messages"],
+    tagTypes: ["Conversations", "Messages"],
     endpoints: (builder) => ({
 
-        // get chats
-        getChats: builder.query({
-            query: (email) => ({
-                url: `/api/chats/${email}`,
+        // get Conversations
+        getParticipants: builder.query({
+            query: (id) => ({
+                url: `/api/participants/${id}`,
                 method: "GET",
             }),
             providesTags: (result) =>
                 result ? [
-                    ...result.users.map(({ id }) => ({ type: 'Chats', id })),
+                    ...result.map(({ id }) => ({ type: 'Chats', id })),
+                    { type: 'Chats', id: 'LIST' },
+                ] : [{ type: 'Chats', id: 'LIST' }],
+
+        }),
+        // get Conversations
+        getConversations: builder.query({
+            query: (id) => ({
+                url: `/api/conversations/${id}`,
+                method: "GET",
+            }),
+            providesTags: (result) =>
+                result ? [
+                    ...result.map(({ id }) => ({ type: 'Chats', id })),
                     { type: 'Chats', id: 'LIST' },
                 ] : [{ type: 'Chats', id: 'LIST' }],
 
         }),
 
-        // get chat
-        getChat: builder.mutation({
+        // get Conversation
+        getConversation: builder.mutation({
             query: (body) => ({
-                url: `/api/chat/`,
+                url: `/api/conversation/`,
                 method: "POST",
                 body: {...body }
             }),
             invalidatesTags: [{ type: 'Messages', id: 'LIST' }, { type: 'Chats', id: 'LIST' }],
         }),
 
-        // create chat
-        createChat: builder.mutation({
+        // create Conversation
+        createConversation: builder.mutation({
             query: (body) => ({
-                url: "/api/create-chat",
+                url: "/api/new-conversation",
                 method: "POST",
                 body: {...body },
             }),
-            invalidatesTags: [{ type: 'Chats', id: 'LIST' }],
+            invalidatesTags: [{ type: 'Conversations', id: 'LIST' }],
         }),
 
-        // delete chat
-        deleteChat: builder.mutation({
+        // delete Conversation
+        deleteConversation: builder.mutation({
             query: (body) => ({
-                url: `/api/chat`,
+                url: `/api/conversation`,
                 method: "DELETE",
                 body: {...body },
             }),
-            invalidatesTags: [{ type: ['Chats'], id: 'LIST' }],
+            invalidatesTags: [{ type: ['Conversations'], id: 'LIST' }],
         }),
 
-        setActiveChat: builder.mutation({
+        setActiveConversation: builder.mutation({
             query: (body) => ({
-                url: "/api/active-chat",
+                url: "/api/active-conversation",
                 method: "POST",
                 body: body,
             }),
-            invalidatesTags: [{ type: ['Chats'], id: 'LIST' }],
+            invalidatesTags: [{ type: ['Conversations'], id: 'LIST' }],
         }),
 
         //get message
@@ -124,12 +137,13 @@ export const messengerApi = createApi({
 });
 
 export const {
-    useCreateChatMutation,
-    useGetChatsQuery,
-    useGetChatMutation,
-    useSetActiveChatMutation,
+    useCreateConversationMutation,
+    useGetParticipantsQuery,
+    useGetConversationsQuery,
+    useGetConversationMutation,
+    useSetActiveConversationMutation,
     useAddMessageMutation,
     useGetMessagesQuery,
-    useDeleteChatMutation,
+    useDeleteConversationMutation,
     useMarkMessageMutation,
 } = messengerApi;

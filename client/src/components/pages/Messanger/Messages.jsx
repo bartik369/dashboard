@@ -7,31 +7,29 @@ import * as formConstants from "../../../utils/constants/form.constants";
 import { useForm } from "react-hook-form";
 import moment from "moment";
 
-function Messages({ chatId, user, to }) {
+function Messages({ conversationId, user, recipientId }) {
   const [message, setMessage] = useState({
-    id: "",
-    to: "",
-    senderName: "",
-    senderName: "",
+    conversationId: "",
+    senderId: "",
     content: "",
   });
-  const { data: messages } = useGetMessagesQuery(chatId);
+  const { data: messages } = useGetMessagesQuery(conversationId);
 
   const { register, handleSubmit, reset } = useForm({
     mode: "onSubmit",
   });
 
   const [addMessage] = useAddMessageMutation();
+  console.log(user)
 
   console.log(messages);
 
   const onSubmit = async (data) => {
     const messageData = {
       ...message,
-      id: chatId,
-      to: to,
-      senderName: user.displayname,
-      senderEmail: user.email,
+      conversationId: conversationId,
+      senderId: user.id,
+      recipientId: recipientId.recipientId,
       content: data.message,
     };
     console.log(messageData)
@@ -45,7 +43,8 @@ function Messages({ chatId, user, to }) {
         {!messages && "nothing"}
         {messages &&
           messages.map((item, index) => {
-            if (item.senderEmail !== user.email) {
+            console.log(item)
+            if (item.senderId !== user.id) {
               return (
                 <div className="messages__to" key={index}>
                   <div className="sender">{item.senderName}</div>
@@ -55,7 +54,7 @@ function Messages({ chatId, user, to }) {
                   </div>
                 </div>
               );
-            } else if (item.senderEmail === user.email) {
+            } else if (item.senderId === user.id) {
               return (
                 <div className="messages__from" key={index}>
                   <div className="message-info">

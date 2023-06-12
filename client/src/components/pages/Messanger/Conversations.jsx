@@ -2,20 +2,17 @@ import React, { useState } from "react";
 import defaultAvatar from "../../../assets/users/avatars/default-avatar.png"
 import "./messenger.css";
 
-export default function Chats({ active, chats }) {
+export default function Conversations({ active, participants, activeChat }) {
 
   return (
     <div>
       <div className="chats__items">
-        {chats &&
-          chats.users.map((item, index) => {
+        {participants && participants.map((item, index) => { 
             return (
               <div
-                className={`chats__item ${
-                  chats.active && "active__chat"
-                }`}
+                className={"chats__item"}
                 key={index}
-                onClick={() => active(item.email, index)}
+                onClick={() => active(item._id)}
               >
                 <div className="avatar"><img src={item.profilePictureUrl ? item.profilePictureUrl : defaultAvatar} alt="" /></div>
                 <div className="user-info">
