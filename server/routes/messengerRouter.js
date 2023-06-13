@@ -5,10 +5,11 @@ const router = express.Router();
 
 router.get('/participants/:id', messenderController.getParticipants)
 router.get('/conversations/:id', messenderController.getConversatios)
+router.get('/active-conversation/:id', messenderController.getActiveConversation)
 router.post('/conversation', messenderController.getConversation)
 router.post('/new-conversation', messenderController.createConversation)
 router.delete('/conversation/', messenderController.deleteConversation)
-router.post('/active-conversation/', messenderController.setActiveConversation)
+router.post('/set-active/', messenderController.setActiveConversation)
 
 router.get('/messages/:id', messenderController.getMessages)
 router.get('/messages/:id', messenderController.getMessage)

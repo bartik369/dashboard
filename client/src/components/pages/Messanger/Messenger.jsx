@@ -8,8 +8,8 @@ import {
   useDeleteConversationMutation,
   useMarkMessageMutation,
   useSetActiveConversationMutation,
+  useGetActiveConversationQuery,
 } from "../../../store/features/messenger/messengerApi";
-import { useGetUserQuery } from "../../../store/features/auth/authApi";
 import Conversations from "./Conversations";
 import Contacts from "./Contacts";
 import { useSelector } from "react-redux";
@@ -17,21 +17,24 @@ import Messages from "./Messages";
 import ConversationMenu from "./ConversationMenu";
 import "./messenger.css";
 import RecipientInfo from "./RecipientInfo";
+import { get } from "react-hook-form";
 
 const Messenger = () => {
   const user = useSelector(selectCurrentUser);
   const { data: participants, isLoading } = useGetParticipantsQuery(user.id);
   const {data: conversations } = useGetConversationsQuery(user.id);
+  const { data: activeConversationId } = useGetActiveConversationQuery(user.id)
   const [getConversation, { data: conversationId }] = useGetConversationMutation();
   const [markAsRead] = useMarkMessageMutation()
-  const [switchLeftInfo, setSwitchLeftInfo] = useState(false);
   const [createConversation] = useCreateConversationMutation();
   const [deleteConversation] = useDeleteConversationMutation()
+  const [switchLeftInfo, setSwitchLeftInfo] = useState(false);
   const [newChat, setNewChat] = useState({
     creatorId: "",
     recipientId: "",
   });
   const [activeChat, setActiveChat] = useState({
+    id: 0,
     recipientId: "",
     creatorId: "",
   });
@@ -39,34 +42,41 @@ const Messenger = () => {
   const [addActiveConversation] = useSetActiveConversationMutation()
   const [dropMenu, setDropMenu] = useState(false);
 
-  useEffect(() => {
-    participants && participants.map((item) => {
+  console.log("last edited", activeConversationId)
 
-      if (item.active) {
-        setActiveChat(item._id)
-      }
-    })
-  }, [participants]);
 
   // useEffect(() => {
-  //   chats &&
-  //     chats.users.map((item, index) => {
-  //       console.log(index)
+  //   participants && participants.map((item) => {
+
+  //     if (item.active) {
+  //       setActiveChat(item._id)
+  //     }
+  //   })
+  // }, [participants]);
+
+  console.log(activeChat)
+  console.log(conversationId)
+
+
+  // useEffect(() => {
+  //   conversations &&
+  //   conversations.map((item, index) => {
   //       if (index === 0) {
   //         setActiveChat({
   //           ...activeChat,
-  //           id: chat,
-  //           emailFrom: user.email,
-  //           emailTo: item.email,
+  //           id: conversationId,
+  //           creatorId: user.id,
+  //           recipientId: item._id,
   //         });
   //         const chatData = {
-  //           emailFrom: user.email,
-  //           emailTo: item.email,
+  //           conversationId: conversationId,
+  //           creatorId: user.id,
+  //           recipientId: item._id,
   //         };
-  //         getChat(chatData);
+  //         getConversation(chatData);
   //       }
   //     });
-  // }, [chats]);
+  // }, [conversations]);
 
   const newConversationHandler = () => {
     setSwitchLeftInfo(true);
@@ -84,7 +94,6 @@ const Messenger = () => {
   };
 
   const activeConversationHandler = async (id) => {
-    console.log(id)
     setActiveChat({
       ...activeChat,
       recipientId: id,

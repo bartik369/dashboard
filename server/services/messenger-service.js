@@ -44,10 +44,29 @@ class MessengerService {
 
         }
     }
-    async getConversation(emailFrom, emailTo) {
+    async getActiveConversation(id) {
         try {
-            const chatData = await ConversationModel.findOne({
-                participants: { $all: [emailFrom, emailTo] }
+            const participants = await ParticipantsModel.find({
+                visible: { $all: id }
+            });
+            const conversationsArray = []
+            participants.map((item) => {
+                conversationsArray.push(item.conversationId)
+            })
+            const activeConverstation = await ConversationModel.findOne({
+                _id: { $in: conversationsArray }
+            }).sort({ updatedAt: -1 });
+
+            return activeConverstation
+
+        } catch (error) {
+
+        }
+    }
+    async getConversation(creatorId, recipientId) {
+        try {
+            const chatData = await ParticipantsModel.findOne({
+                participants: { $all: [creatorId, recipientId] }
             })
 
             if (!chatData) {

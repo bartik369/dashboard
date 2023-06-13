@@ -23,6 +23,26 @@ class MessengerController {
 
         }
     }
+    async getActiveConversation(req, res, next) {
+        try {
+            const id = req.params.id
+            const conversationsData = await messengerService.getActiveConversation(id);
+            return res.json(conversationsData)
+
+        } catch (error) {
+
+        }
+    }
+    async getConversatios(req, res, next) {
+        try {
+            const id = req.params.id
+            const conversationsData = await messengerService.getConversations(id);
+            return res.json(conversationsData)
+
+        } catch (error) {
+
+        }
+    }
     async getConversatios(req, res, next) {
         try {
             const id = req.params.id
@@ -35,12 +55,13 @@ class MessengerController {
     }
     async getConversation(req, res, next) {
         try {
-            const { emailFrom, emailTo, conversationId } = req.body;
-            const chatData = await messengerService.getConversation(emailFrom, emailTo);
+            const { creatorId, recipientId, conversationId } = req.body;
+            const chatData = await messengerService.getConversation(creatorId, recipientId, conversationId);
 
             if (!chatData) {
                 return null
             }
+            console.log(chatData)
             return res.json(chatData);
         } catch (error) {
 
@@ -50,8 +71,7 @@ class MessengerController {
         try {
             const { creatorId, recipientId } = req.body;
             const newChatData = await messengerService.createConversation(creatorId, recipientId)
-            console.log("create", newChatData)
-                // return res.json(newChatData)
+            return res.json(newChatData)
         } catch (error) {}
     }
     async deleteConversation(req, res, next) {

@@ -18,11 +18,7 @@ function Messages({ conversationId, user, recipientId }) {
   const { register, handleSubmit, reset } = useForm({
     mode: "onSubmit",
   });
-
   const [addMessage] = useAddMessageMutation();
-  console.log(user)
-
-  console.log(messages);
 
   const onSubmit = async (data) => {
     const messageData = {
@@ -43,7 +39,6 @@ function Messages({ conversationId, user, recipientId }) {
         {!messages && "nothing"}
         {messages &&
           messages.map((item, index) => {
-            console.log(item)
             if (item.senderId !== user.id) {
               return (
                 <div className="messages__to" key={index}>
