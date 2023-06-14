@@ -52,27 +52,31 @@ class MessengerService {
             const conversationsArray = []
             participants.map((item) => {
                 conversationsArray.push(item.conversationId)
-            })
+            });
             const activeConverstation = await ConversationModel.findOne({
                 _id: { $in: conversationsArray }
             }).sort({ updatedAt: -1 });
 
-            return activeConverstation
+            const contacts = await ParticipantsModel.findOne({
+                conversationId: activeConverstation._id,
+            });
 
+            return contacts
         } catch (error) {
 
         }
     }
     async getConversation(creatorId, recipientId) {
         try {
-            const chatData = await ParticipantsModel.findOne({
+            const participantsData = await ParticipantsModel.findOne({
                 participants: { $all: [creatorId, recipientId] }
             })
+            const converstationData = await ConversationModel.findByIdAndUpdate({
+                _id: participantsData.conversationId
+            }, { updatedAt: new Date() })
+            await converstationData.save()
 
-            if (!chatData) {
-                return null
-            }
-            return chatData._id
+            return participantsData
 
         } catch (error) {
 
@@ -127,19 +131,19 @@ class MessengerService {
         }
     }
 
-    async setActiveConversation(conversationId) {
-        try {
-            const chat = await ConversationModel.findOneAndUpdate({ conversationId }, {
-                active: true,
-            });
+    // async setActiveConversation(conversationId) {
+    //     try {
+    //         const chat = await ConversationModel.findOneAndUpdate({ conversationId }, {
+    //             active: true,
+    //         });
 
-            await chat.save()
-            return chat
+    //         await chat.save()
+    //         return chat
 
-        } catch (error) {
+    //     } catch (error) {
 
-        }
-    }
+    //     }
+    // }
 
     async deleteConversation(id, email) {
         try {
@@ -205,7 +209,7 @@ class MessengerService {
                 }
             } else {
                 const message = new MessageModel({
-                    conversationId: conversationId,
+                    conversationId: participants.conversationId,
                     senderId: senderId,
                     content: content,
                 })

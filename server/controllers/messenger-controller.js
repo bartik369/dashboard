@@ -1,158 +1,149 @@
 import messengerService from "../services/messenger-service.js";
-import userService from "../services/user-service.js"
+import userService from "../services/user-service.js";
 
 class MessengerController {
-
     async getParticipants(req, res, next) {
         try {
-            const id = req.params.id
+            const id = req.params.id;
             const conversationData = await messengerService.getParticipants(id);
-            const recipients = []
+            const recipients = [];
             conversationData.map((item) => {
                 item.participants.filter((recipient) => {
-
                     if (recipient !== id) {
-                        recipients.push(recipient)
+                        recipients.push(recipient);
                     }
                 });
             });
-            const participantsData = await messengerService.getRecipientsInfo(recipients)
-            return res.json(participantsData)
-
-        } catch (error) {
-
-        }
+            const participantsData = await messengerService.getRecipientsInfo(
+                recipients
+            );
+            return res.json(participantsData);
+        } catch (error) {}
     }
+
     async getActiveConversation(req, res, next) {
         try {
-            const id = req.params.id
-            const conversationsData = await messengerService.getActiveConversation(id);
-            return res.json(conversationsData)
-
-        } catch (error) {
-
-        }
+            const id = req.params.id;
+            const conversationsData = await messengerService.getActiveConversation(
+                id
+            );
+            conversationsData.visible.filter((contact) => {
+                if (contact !== id) {
+                    return res.json(contact);
+                }
+            });
+        } catch (error) {}
     }
+
     async getConversatios(req, res, next) {
         try {
-            const id = req.params.id
+            const id = req.params.id;
             const conversationsData = await messengerService.getConversations(id);
-            return res.json(conversationsData)
-
-        } catch (error) {
-
-        }
+            return res.json(conversationsData);
+        } catch (error) {}
     }
-    async getConversatios(req, res, next) {
-        try {
-            const id = req.params.id
-            const conversationsData = await messengerService.getConversations(id);
-            return res.json(conversationsData)
 
-        } catch (error) {
+    // async getConversatios(req, res, next) {
+    //     try {
+    //         const id = req.params.id;
+    //         const conversationsData = await messengerService.getConversations(id);
+    //         return res.json(conversationsData);
+    //     } catch (error) {}
+    // }
 
-        }
-    }
     async getConversation(req, res, next) {
         try {
-            const { creatorId, recipientId, conversationId } = req.body;
-            const chatData = await messengerService.getConversation(creatorId, recipientId, conversationId);
+            const { creatorId, recipientId } = req.body
+            const conversationData = await messengerService.getConversation(
+                creatorId,
+                recipientId,
+            );
 
-            if (!chatData) {
-                return null
+            if (!conversationData) {
+                return null;
             }
-            console.log(chatData)
-            return res.json(chatData);
-        } catch (error) {
-
-        }
+            return res.json(conversationData);
+        } catch (error) {}
     }
+
     async createConversation(req, res, next) {
         try {
             const { creatorId, recipientId } = req.body;
-            const newChatData = await messengerService.createConversation(creatorId, recipientId)
-            return res.json(newChatData)
+            const newChatData = await messengerService.createConversation(
+                creatorId,
+                recipientId
+            );
+            return res.json(newChatData);
         } catch (error) {}
     }
+
     async deleteConversation(req, res, next) {
         try {
-            const { id, email } = req.body
+            const { id, email } = req.body;
             const chatData = await messengerService.deleteConversation(id, email);
 
-            if (!chatData) {
-
-            }
-            return res.json(chatData)
-        } catch (error) {
-
-        }
+            if (!chatData) {}
+            return res.json(chatData);
+        } catch (error) {}
     }
 
-    async setActiveConversation(req, res, next) {
-        try {
-            const { conversationId } = req.body
-            const chatData = await messengerService.setActiveConversation(conversationId)
-            return res.json(chatData)
-        } catch (error) {
+    // async setActiveConversation(req, res, next) {
+    //     try {
+    //         console.log(req.body)
+    //         const { conversationId } = req.body;
+    //         const chatData = await messengerService.setActiveConversation(
+    //             conversationId
+    //         );
+    //         return res.json(chatData);
+    //     } catch (error) {}
+    // }
 
-        }
-    }
     async getMessages(req, res, next) {
         try {
-            const id = req.params.id
+            const id = req.params.id;
             const dataMessages = await messengerService.getMessages(id);
-            return res.json(dataMessages)
-
-        } catch (error) {
-
-        }
+            return res.json(dataMessages);
+        } catch (error) {}
     }
+
     async getMessage(req, res, next) {
-        try {
-
-        } catch (error) {
-
-        }
+        try {} catch (error) {}
     }
+
     async addMessage(req, res, next) {
         try {
             const { conversationId, senderId, recipientId, content } = req.body;
-            console.log(req.body)
-            const messageData = await messengerService.addMessage(conversationId, senderId, recipientId, content);
-            return res.json(messageData)
-
-        } catch (error) {
-
-        }
+            console.log(req.body);
+            const messageData = await messengerService.addMessage(
+                conversationId,
+                senderId,
+                recipientId,
+                content
+            );
+            return res.json(messageData);
+        } catch (error) {}
     }
+
     async deleteMessage(req, res, next) {
-        try {
-
-        } catch (error) {
-
-        }
+        try {} catch (error) {}
     }
+
     async updateMessage(req, res, next) {
-        try {
-
-        } catch (error) {
-
-        }
+        try {} catch (error) {}
     }
+
     async markMessage(req, res, next) {
         try {
             const { conversationId, emailFrom } = req.body;
-            const messageData = await messengerService.markMessage(conversationId, emailFrom)
+            const messageData = await messengerService.markMessage(
+                conversationId,
+                emailFrom
+            );
 
-            if (!messageData) {
-
-            }
-            return res.json(messageData)
-        } catch (error) {
-
-        }
+            if (!messageData) {}
+            return res.json(messageData);
+        } catch (error) {}
     }
 }
 
-
-export default new MessengerController()
+export default new MessengerController();

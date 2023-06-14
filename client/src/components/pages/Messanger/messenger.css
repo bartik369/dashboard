@@ -136,6 +136,12 @@
 .chats .active__chat {
     background-color: brown;
     padding: 12px 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
 }
 
 .chats .chats__item .active {
@@ -150,6 +156,21 @@
 .chats .chats__item .avatar img {
     width: 100%;
     border-radius: 50%;
+}
+
+.chats .active__chat .avatar {
+    width: 35px;
+    height: 35px;
+}
+
+.chats .active__chat .avatar img {
+    width: 100%;
+    border-radius: 50%;
+}
+
+.chats .active__chat .user-info {
+    background-color: aliceblue;
+    margin-left: 10px;
 }
 
 .chats .chats__item .user-info {

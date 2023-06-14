@@ -9,7 +9,7 @@ router.get('/active-conversation/:id', messenderController.getActiveConversation
 router.post('/conversation', messenderController.getConversation)
 router.post('/new-conversation', messenderController.createConversation)
 router.delete('/conversation/', messenderController.deleteConversation)
-router.post('/set-active/', messenderController.setActiveConversation)
+    // router.post('/set-active/', messenderController.setActiveConversation)
 
 router.get('/messages/:id', messenderController.getMessages)
 router.get('/messages/:id', messenderController.getMessage)

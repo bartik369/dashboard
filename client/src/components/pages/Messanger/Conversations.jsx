@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import defaultAvatar from "../../../assets/users/avatars/default-avatar.png"
 import "./messenger.css";
 
-export default function Conversations({ active, participants, activeChat }) {
+export default function Conversations({ active, participants, activeConversation}) {
 
   return (
     <div>
@@ -10,7 +10,7 @@ export default function Conversations({ active, participants, activeChat }) {
         {participants && participants.map((item, index) => { 
             return (
               <div
-                className={"chats__item"}
+                className={activeConversation.recipientId !== item._id ? "chats__item" : "active__chat"}
                 key={index}
                 onClick={() => active(item._id)}
               >

@@ -2,12 +2,10 @@ import React, { useState, useEffect } from "react";
 import { selectCurrentUser } from "../../../store/features/auth/authSlice";
 import {
   useCreateConversationMutation,
-  useGetConversationsQuery,
   useGetConversationMutation,
   useGetParticipantsQuery,
   useDeleteConversationMutation,
   useMarkMessageMutation,
-  useSetActiveConversationMutation,
   useGetActiveConversationQuery,
 } from "../../../store/features/messenger/messengerApi";
 import Conversations from "./Conversations";
@@ -17,96 +15,61 @@ import Messages from "./Messages";
 import ConversationMenu from "./ConversationMenu";
 import "./messenger.css";
 import RecipientInfo from "./RecipientInfo";
-import { get } from "react-hook-form";
 
 const Messenger = () => {
   const user = useSelector(selectCurrentUser);
   const { data: participants, isLoading } = useGetParticipantsQuery(user.id);
-  const {data: conversations } = useGetConversationsQuery(user.id);
-  const { data: activeConversationId } = useGetActiveConversationQuery(user.id)
+  const{ data: activeConversationId } = useGetActiveConversationQuery(user.id)
   const [getConversation, { data: conversationId }] = useGetConversationMutation();
   const [markAsRead] = useMarkMessageMutation()
   const [createConversation] = useCreateConversationMutation();
   const [deleteConversation] = useDeleteConversationMutation()
   const [switchLeftInfo, setSwitchLeftInfo] = useState(false);
-  const [newChat, setNewChat] = useState({
-    creatorId: "",
-    recipientId: "",
-  });
-  const [activeChat, setActiveChat] = useState({
-    id: 0,
-    recipientId: "",
-    creatorId: "",
-  });
   // const {data: recipientInfo} = useGetUserQuery(activeChat.emailTo)
-  const [addActiveConversation] = useSetActiveConversationMutation()
+  // const [addActiveConversation] = useSetActiveConversationMutation()
   const [dropMenu, setDropMenu] = useState(false);
-
-  console.log("last edited", activeConversationId)
-
-
-  // useEffect(() => {
-  //   participants && participants.map((item) => {
-
-  //     if (item.active) {
-  //       setActiveChat(item._id)
-  //     }
-  //   })
-  // }, [participants]);
-
-  console.log(activeChat)
-  console.log(conversationId)
-
-
-  // useEffect(() => {
-  //   conversations &&
-  //   conversations.map((item, index) => {
-  //       if (index === 0) {
-  //         setActiveChat({
-  //           ...activeChat,
-  //           id: conversationId,
-  //           creatorId: user.id,
-  //           recipientId: item._id,
-  //         });
-  //         const chatData = {
-  //           conversationId: conversationId,
-  //           creatorId: user.id,
-  //           recipientId: item._id,
-  //         };
-  //         getConversation(chatData);
-  //       }
-  //     });
-  // }, [conversations]);
+  const [activeConversation, setactiveConversation] = useState({
+    recipientId: "",
+    creatorId: "",
+  });
 
   const newConversationHandler = () => {
     setSwitchLeftInfo(true);
   };
 
+  useEffect(() => {
+    activeConversationId && setactiveConversation({recipientId: activeConversationId})
+  }, [activeConversationId])
+
+  console.log(conversationId)
+
+
   const createConversationHandler = async (id) => {
     const newConversationInfo = {
-      ...newChat,
       creatorId: user.id,
       recipientId: id,
     };
     await createConversation(newConversationInfo).unwrap();
+    setactiveConversation({recipientId: id})
     setSwitchLeftInfo(false);
-    await addActiveConversation(conversationId).unwrap()
+    // await addActiveConversation(conversationId).unwrap()
   };
 
   const activeConversationHandler = async (id) => {
-    setActiveChat({
-      ...activeChat,
+    const conversationData = {
+      ...activeConversation,
       recipientId: id,
       creatorId: user.id,
-    });
-    const chatData = {
-      recipientId: id,
-      creatorId: user.id,
-      conversationId: conversationId,
-    };
-    await getConversation(chatData).unwrap();
-    await addActiveConversation(chatData).unwrap()
-    await markAsRead(chatData).unwrap()
+    }
+    setactiveConversation({recipientId: id})
+
+    // const chatData = {
+    //   recipientId: id,
+    //   creatorId: user.id,
+    //   conversationId: conversationId,
+    // };
+    await getConversation(conversationData).unwrap();
+    // await markAsRead(chatData).unwrap()
   };
 
 
@@ -141,7 +104,7 @@ const Messenger = () => {
             <Conversations
               active={activeConversationHandler}
               participants={participants}
-              activeChat={activeChat}
+              activeConversation={activeConversation}
             />
           </div>
           <div className={switchLeftInfo ? "contacts" : "switch-disable"}>
@@ -168,7 +131,7 @@ const Messenger = () => {
           </div>
         </div>
         <div className="right-main__middle">
-          <Messages conversationId={conversationId} user={user} recipientId={activeChat} />
+          <Messages conversationId={conversationId} user={user} recipientId={activeConversation} />
 
         </div>
       </div>
