@@ -172,7 +172,7 @@ class MessengerService {
     }
     async getMessages(id) {
         try {
-            const messages = await MessageModel.find({ converstationId: id })
+            const messages = await MessageModel.find({ conversationId: id })
             return messages
 
         } catch (error) {

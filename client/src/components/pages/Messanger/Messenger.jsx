@@ -6,7 +6,7 @@ import {
   useGetParticipantsQuery,
   useDeleteConversationMutation,
   useMarkMessageMutation,
-  useGetActiveConversationQuery,
+  useGetActiveConversationUserQuery,
 } from "../../../store/features/messenger/messengerApi";
 import Conversations from "./Conversations";
 import Contacts from "./Contacts";
@@ -16,33 +16,52 @@ import ConversationMenu from "./ConversationMenu";
 import "./messenger.css";
 import RecipientInfo from "./RecipientInfo";
 
+
+
 const Messenger = () => {
   const user = useSelector(selectCurrentUser);
-  const { data: participants, isLoading } = useGetParticipantsQuery(user.id);
-  const{ data: activeConversationId } = useGetActiveConversationQuery(user.id)
-  const [getConversation, { data: conversationId }] = useGetConversationMutation();
+  const { data: participants} = useGetParticipantsQuery(user.id);
+  const{ data: activeConversationUserId } = useGetActiveConversationUserQuery(user.id)
+  const [getConversation, {data: conversationId}] = useGetConversationMutation();
   const [markAsRead] = useMarkMessageMutation()
-  const [createConversation] = useCreateConversationMutation();
+  const [createConversation, {data: newIdInfo}] = useCreateConversationMutation();
   const [deleteConversation] = useDeleteConversationMutation()
   const [switchLeftInfo, setSwitchLeftInfo] = useState(false);
   // const {data: recipientInfo} = useGetUserQuery(activeChat.emailTo)
   // const [addActiveConversation] = useSetActiveConversationMutation()
   const [dropMenu, setDropMenu] = useState(false);
-  const [activeConversation, setactiveConversation] = useState({
+  const [activeConversation, setActiveConversation] = useState({
     recipientId: "",
     creatorId: "",
   });
+  const [activeConversationId, setActiveConversationId] = useState("")
+
+// useEffect(() => {
+//    if (newIdInfo) { 
+//      setActiveConversationId(newIdInfo)}
+//      else {
+//       setActiveConversationId(conversationId)
+//      }
+// }, [conversationId, newIdInfo])
+
+  console.log("active Id", conversationId)
+
+  useEffect(() => {
+
+    if (activeConversationUserId) {
+      setActiveConversation({recipientId: activeConversationUserId})
+    }
+    const conversationData = {
+      ...activeConversation,
+      recipientId: activeConversationUserId,
+      creatorId: user.id,
+    }
+    getConversation(conversationData);
+  }, [activeConversationUserId])
 
   const newConversationHandler = () => {
     setSwitchLeftInfo(true);
   };
-
-  useEffect(() => {
-    activeConversationId && setactiveConversation({recipientId: activeConversationId})
-  }, [activeConversationId])
-
-  console.log(conversationId)
-
 
   const createConversationHandler = async (id) => {
     const newConversationInfo = {
@@ -50,26 +69,26 @@ const Messenger = () => {
       recipientId: id,
     };
     await createConversation(newConversationInfo).unwrap();
-    setactiveConversation({recipientId: id})
+    setActiveConversation({recipientId: id})
     setSwitchLeftInfo(false);
-    // await addActiveConversation(conversationId).unwrap()
+    setActiveConversationId(newIdInfo)
+    const conversationData = {
+          ...activeConversation,
+          recipientId: activeConversationUserId,
+          creatorId: user.id,
+    }
+    await getConversation(conversationData).unwrap();
   };
 
   const activeConversationHandler = async (id) => {
+    setActiveConversation({recipientId: id})
     const conversationData = {
       ...activeConversation,
       recipientId: id,
       creatorId: user.id,
     }
-    setactiveConversation({recipientId: id})
-
-    // const chatData = {
-    //   recipientId: id,
-    //   creatorId: user.id,
-    //   conversationId: conversationId,
-    // };
     await getConversation(conversationData).unwrap();
-    // await markAsRead(chatData).unwrap()
+    // await markAsRead(chatData).unwrap() 
   };
 
 
@@ -87,9 +106,6 @@ const Messenger = () => {
     setDropMenu(!dropMenu);
   };
 
-  // window.addEventListener("click", () => {
-  //   setDropMenu(false);
-  // });
 
   return (
     <div className="messenger">

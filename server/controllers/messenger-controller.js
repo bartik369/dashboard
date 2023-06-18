@@ -22,18 +22,26 @@ class MessengerController {
     }
 
     async getActiveConversation(req, res, next) {
-        try {
-            const id = req.params.id;
-            const conversationsData = await messengerService.getActiveConversation(
-                id
-            );
-            conversationsData.visible.filter((contact) => {
-                if (contact !== id) {
-                    return res.json(contact);
-                }
-            });
-        } catch (error) {}
-    }
+            try {
+                const id = req.params.id;
+                const conversationsData = await messengerService.getActiveConversation(
+                    id
+                );
+                conversationsData.visible.filter((contact) => {
+                    if (contact !== id) {
+                        return res.json(contact);
+                    }
+                });
+            } catch (error) {}
+        }
+        // async setActiveConversation(req, res, next) {
+        //     try {
+        //         const { creatorId, recipientId } = req.body
+        //         const conversationData = await messengerService.setActiveConversation(creatorId, recipientId);
+        //         console.log(conversationData)
+
+    //     } catch (error) {}
+    // }
 
     async getConversatios(req, res, next) {
         try {
@@ -62,7 +70,8 @@ class MessengerController {
             if (!conversationData) {
                 return null;
             }
-            return res.json(conversationData);
+            console.log("get connversation after create", conversationData.conversationId)
+            return res.json(conversationData.conversationId);
         } catch (error) {}
     }
 
@@ -73,6 +82,7 @@ class MessengerController {
                 creatorId,
                 recipientId
             );
+            console.log("response", newChatData)
             return res.json(newChatData);
         } catch (error) {}
     }
@@ -86,28 +96,22 @@ class MessengerController {
             return res.json(chatData);
         } catch (error) {}
     }
-
-    // async setActiveConversation(req, res, next) {
-    //     try {
-    //         console.log(req.body)
-    //         const { conversationId } = req.body;
-    //         const chatData = await messengerService.setActiveConversation(
-    //             conversationId
-    //         );
-    //         return res.json(chatData);
-    //     } catch (error) {}
-    // }
-
     async getMessages(req, res, next) {
         try {
             const id = req.params.id;
+            console.log("id for message", id)
             const dataMessages = await messengerService.getMessages(id);
+            console.log(dataMessages)
             return res.json(dataMessages);
         } catch (error) {}
     }
 
     async getMessage(req, res, next) {
-        try {} catch (error) {}
+        try {
+
+        } catch (error) {
+
+        }
     }
 
     async addMessage(req, res, next) {
