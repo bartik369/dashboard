@@ -24,7 +24,7 @@ const Messenger = () => {
   const{ data: activeConversationUserId } = useGetActiveConversationUserQuery(user.id)
   const [getConversation, {data: conversationId, isLoading}] = useGetConversationMutation();
   const [markAsRead] = useMarkMessageMutation()
-  const [createConversation, {data: newIdInfo}] = useCreateConversationMutation();
+  const [createConversation] = useCreateConversationMutation();
   const [deleteConversation] = useDeleteConversationMutation()
   const [switchLeftInfo, setSwitchLeftInfo] = useState(false);
   // const {data: recipientInfo} = useGetUserQuery(activeChat.emailTo)
@@ -34,10 +34,6 @@ const Messenger = () => {
     recipientId: "",
     creatorId: "",
   });
-  const [activeConversationId, setActiveConversationId] = useState("")
-
-  console.log("conversationId", conversationId)
-  console.log("newIdInfo", newIdInfo)
 
   useEffect(() => {
 
@@ -84,14 +80,14 @@ const Messenger = () => {
       creatorId: user.id,
     }
     await getConversation(conversationData).unwrap();
-    // await markAsRead(chatData).unwrap() 
+    await markAsRead(conversationData).unwrap() 
   };
 
 
   const deleteHandler = async() => {
     const chatData = {
       conversationId: conversationId,
-      email: user.email
+      initiatorEmail: user.email
     }
     await deleteConversation(chatData).unwrap()
   }

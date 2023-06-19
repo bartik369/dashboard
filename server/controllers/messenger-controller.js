@@ -5,6 +5,7 @@ class MessengerController {
     async getParticipants(req, res, next) {
         try {
             const id = req.params.id;
+            console.log(id)
             const conversationData = await messengerService.getParticipants(id);
             const recipients = [];
             conversationData.map((item) => {
@@ -22,26 +23,18 @@ class MessengerController {
     }
 
     async getActiveConversation(req, res, next) {
-            try {
-                const id = req.params.id;
-                const conversationsData = await messengerService.getActiveConversation(
-                    id
-                );
-                conversationsData.visible.filter((contact) => {
-                    if (contact !== id) {
-                        return res.json(contact);
-                    }
-                });
-            } catch (error) {}
-        }
-        // async setActiveConversation(req, res, next) {
-        //     try {
-        //         const { creatorId, recipientId } = req.body
-        //         const conversationData = await messengerService.setActiveConversation(creatorId, recipientId);
-        //         console.log(conversationData)
-
-    //     } catch (error) {}
-    // }
+        try {
+            const id = req.params.id;
+            const conversationsData = await messengerService.getActiveConversation(
+                id
+            );
+            conversationsData.visible.filter((contact) => {
+                if (contact !== id) {
+                    return res.json(contact);
+                }
+            });
+        } catch (error) {}
+    }
 
     async getConversatios(req, res, next) {
         try {
@@ -77,7 +70,7 @@ class MessengerController {
     async createConversation(req, res, next) {
         try {
             const { creatorId, recipientId } = req.body;
-            console.log(req.body)
+            console.log("data for create chat", req.body)
             const newChatData = await messengerService.createConversation(
                 creatorId,
                 recipientId
@@ -88,17 +81,17 @@ class MessengerController {
 
     async deleteConversation(req, res, next) {
         try {
-            const { id, email } = req.body;
-            const chatData = await messengerService.deleteConversation(id, email);
-
-            if (!chatData) {}
-            return res.json(chatData);
+            const { conversationId, initiatorEmail } = req.body;
+            console.log("data for delete", req.body)
+            const participantsData = await messengerService.deleteConversation(conversationId, initiatorEmail);
+            if (!participantsData) {}
+            console.log("from delete service", participantsData)
+            return res.json(participantsData);
         } catch (error) {}
     }
     async getMessages(req, res, next) {
         try {
             const id = req.params.id;
-            console.log("id for message", id)
             const dataMessages = await messengerService.getMessages(id);
             console.log(dataMessages)
             return res.json(dataMessages);
@@ -116,7 +109,7 @@ class MessengerController {
     async addMessage(req, res, next) {
         try {
             const { conversationId, senderId, recipientId, content } = req.body;
-            console.log(req.body);
+            console.log("add message data", req.body);
             const messageData = await messengerService.addMessage(
                 conversationId,
                 senderId,
@@ -137,11 +130,10 @@ class MessengerController {
 
     async markMessage(req, res, next) {
         try {
-            const { conversationId, emailFrom } = req.body;
-            const messageData = await messengerService.markMessage(
-                conversationId,
-                emailFrom
-            );
+            const { creatorId, recipientId } = req.body;
+            console.log("data for mark as read", req.body)
+            const messageData = await messengerService.markMessage(creatorId, recipientId);
+            console.log("respomse from mark", messageData)
 
             if (!messageData) {}
             return res.json(messageData);
