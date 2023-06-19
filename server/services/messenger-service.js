@@ -104,6 +104,7 @@ class MessengerService {
                     conversationId: newConversation._id
                 })
                 await participants.save()
+                return participants.conversationId
             }
 
         } catch (error) {

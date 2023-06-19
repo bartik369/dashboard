@@ -22,7 +22,7 @@ const Messenger = () => {
   const user = useSelector(selectCurrentUser);
   const { data: participants} = useGetParticipantsQuery(user.id);
   const{ data: activeConversationUserId } = useGetActiveConversationUserQuery(user.id)
-  const [getConversation, {data: conversationId}] = useGetConversationMutation();
+  const [getConversation, {data: conversationId, isLoading}] = useGetConversationMutation();
   const [markAsRead] = useMarkMessageMutation()
   const [createConversation, {data: newIdInfo}] = useCreateConversationMutation();
   const [deleteConversation] = useDeleteConversationMutation()
@@ -36,15 +36,8 @@ const Messenger = () => {
   });
   const [activeConversationId, setActiveConversationId] = useState("")
 
-// useEffect(() => {
-//    if (newIdInfo) { 
-//      setActiveConversationId(newIdInfo)}
-//      else {
-//       setActiveConversationId(conversationId)
-//      }
-// }, [conversationId, newIdInfo])
-
-  console.log("active Id", conversationId)
+  console.log("conversationId", conversationId)
+  console.log("newIdInfo", newIdInfo)
 
   useEffect(() => {
 
@@ -63,6 +56,8 @@ const Messenger = () => {
     setSwitchLeftInfo(true);
   };
 
+  // Create conversation 
+
   const createConversationHandler = async (id) => {
     const newConversationInfo = {
       creatorId: user.id,
@@ -71,14 +66,15 @@ const Messenger = () => {
     await createConversation(newConversationInfo).unwrap();
     setActiveConversation({recipientId: id})
     setSwitchLeftInfo(false);
-    setActiveConversationId(newIdInfo)
     const conversationData = {
           ...activeConversation,
-          recipientId: activeConversationUserId,
+          recipientId: id,
           creatorId: user.id,
     }
     await getConversation(conversationData).unwrap();
   };
+
+  // Set active conversation
 
   const activeConversationHandler = async (id) => {
     setActiveConversation({recipientId: id})

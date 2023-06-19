@@ -70,7 +70,6 @@ class MessengerController {
             if (!conversationData) {
                 return null;
             }
-            console.log("get connversation after create", conversationData.conversationId)
             return res.json(conversationData.conversationId);
         } catch (error) {}
     }
@@ -78,11 +77,11 @@ class MessengerController {
     async createConversation(req, res, next) {
         try {
             const { creatorId, recipientId } = req.body;
+            console.log(req.body)
             const newChatData = await messengerService.createConversation(
                 creatorId,
                 recipientId
             );
-            console.log("response", newChatData)
             return res.json(newChatData);
         } catch (error) {}
     }
