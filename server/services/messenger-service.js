@@ -153,8 +153,15 @@ class MessengerService {
             return messages;
         } catch (error) {}
     }
-    async getMessage() {
-        try {} catch (error) {}
+    async getMessage(id) {
+        try {
+            const message = await MessageModel.findById(id);
+
+            if (!message) {
+                return null
+            }
+            return message
+        } catch (error) {}
     }
     async addMessage(conversationId, senderId, recipientId, content) {
         try {

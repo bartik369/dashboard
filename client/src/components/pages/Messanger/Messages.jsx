@@ -3,6 +3,7 @@ import {
   useAddMessageMutation,
   useGetMessagesQuery,
   useDeleteMessageMutation,
+  useGetMessageQuery,
 } from "../../../store/features/messenger/messengerApi";
 import * as formConstants from "../../../utils/constants/form.constants";
 import { useForm } from "react-hook-form";
@@ -17,13 +18,17 @@ function Messages({ conversationId, user, recipientId }) {
   });
 
   const [messageMenu, setMessageMenu] = useState("");
+  const [messageId, setMessageId] = useState("")
   const { data: messages } = useGetMessagesQuery(conversationId);
   const [addMessage] = useAddMessageMutation();
   const [deleteMessage] = useDeleteMessageMutation()
+  const {data: messageInfo} = useGetMessageQuery(messageId)
 
   const { register, handleSubmit, reset } = useForm({
     mode: "onSubmit",
   });
+
+  console.log(messageInfo)
 
   const onSubmit = async (data) => {
     const messageData = {
@@ -44,8 +49,8 @@ function Messages({ conversationId, user, recipientId }) {
   const deleteMessageHandler = (id) => {
     deleteMessage(id)
   }
-  const editeMessageHandler = (id) => {
-    console.log("update", id)
+  const editeMessageHandler = async (id) => {
+    setMessageId(id)
   }
 
 

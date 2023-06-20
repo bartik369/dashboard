@@ -88,7 +88,9 @@ class MessengerController {
 
     async getMessage(req, res, next) {
         try {
-
+            const id = req.params.id;
+            const messageData = await messengerService.getMessage(id);
+            return res.json(messageData)
         } catch (error) {
 
         }
