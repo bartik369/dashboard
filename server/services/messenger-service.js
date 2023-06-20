@@ -114,6 +114,11 @@ class MessengerService {
 
     async deleteConversation(conversationId, initiatorEmail) {
         try {
+            const conversation = await ConversationModel.findOne({ _id: conversationId });
+
+            if (!conversation) {
+                return null
+            }
             const user = await UserModel.findOne({ email: initiatorEmail });
 
             if (!user) {
@@ -135,24 +140,11 @@ class MessengerService {
                 await disableVisible.save();
 
             } else if (participants.visible.length === 1) {
-
-                const deleteConversation = await ConversationModel.deleteOne({
-                    converstationId: participants.conversationId,
-                });
-                const deleteParticipants = await ParticipantsModel.deleteOne({
-                    converstationId: participants.conversationId,
-                });
-                const deleteMessages = await MessageModel.deleteMany({
-                    converstationId: conversationId,
-                });
-                // const conversation = await ConversationModel.findByIdAndDelete(id)
-                // const messages = await MessageModel.deleteMany({ converstationId: id })
+                await MessageModel.deleteMany({ conversationId: conversation._id });
+                await ParticipantsModel.deleteOne({ conversationId: conversation._id })
+                await ConversationModel.findByIdAndDelete(conversation._id)
                 return deleteParticipants, deleteConversation, deleteMessages;
             }
-
-            // const chat = await ConversationModel.findByIdAndDelete(id)
-            // const messages = await MessageModel.deleteMany({ converstationId: id })
-            // return (chat, messages)
         } catch (error) {}
     }
     async getMessages(id) {

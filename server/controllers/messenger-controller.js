@@ -44,14 +44,6 @@ class MessengerController {
         } catch (error) {}
     }
 
-    // async getConversatios(req, res, next) {
-    //     try {
-    //         const id = req.params.id;
-    //         const conversationsData = await messengerService.getConversations(id);
-    //         return res.json(conversationsData);
-    //     } catch (error) {}
-    // }
-
     async getConversation(req, res, next) {
         try {
             const { creatorId, recipientId } = req.body
@@ -70,7 +62,6 @@ class MessengerController {
     async createConversation(req, res, next) {
         try {
             const { creatorId, recipientId } = req.body;
-            console.log("data for create chat", req.body)
             const newChatData = await messengerService.createConversation(
                 creatorId,
                 recipientId
@@ -82,10 +73,8 @@ class MessengerController {
     async deleteConversation(req, res, next) {
         try {
             const { conversationId, initiatorEmail } = req.body;
-            console.log("data for delete", req.body)
             const participantsData = await messengerService.deleteConversation(conversationId, initiatorEmail);
             if (!participantsData) {}
-            console.log("from delete service", participantsData)
             return res.json(participantsData);
         } catch (error) {}
     }
@@ -93,7 +82,6 @@ class MessengerController {
         try {
             const id = req.params.id;
             const dataMessages = await messengerService.getMessages(id);
-            console.log(dataMessages)
             return res.json(dataMessages);
         } catch (error) {}
     }
@@ -109,7 +97,6 @@ class MessengerController {
     async addMessage(req, res, next) {
         try {
             const { conversationId, senderId, recipientId, content } = req.body;
-            console.log("add message data", req.body);
             const messageData = await messengerService.addMessage(
                 conversationId,
                 senderId,
@@ -131,9 +118,7 @@ class MessengerController {
     async markMessage(req, res, next) {
         try {
             const { creatorId, recipientId } = req.body;
-            console.log("data for mark as read", req.body)
             const messageData = await messengerService.markMessage(creatorId, recipientId);
-            console.log("respomse from mark", messageData)
 
             if (!messageData) {}
             return res.json(messageData);
