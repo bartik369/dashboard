@@ -108,7 +108,14 @@ class MessengerController {
     }
 
     async deleteMessage(req, res, next) {
-        try {} catch (error) {}
+        try {
+            const id = req.params.id
+            const messageData = await messengerService.deleteMessage(id)
+            return res.json(messageData)
+
+        } catch (error) {
+
+        }
     }
 
     async updateMessage(req, res, next) {

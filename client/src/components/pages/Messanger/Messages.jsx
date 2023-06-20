@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   useAddMessageMutation,
   useGetMessagesQuery,
+  useDeleteMessageMutation,
 } from "../../../store/features/messenger/messengerApi";
 import * as formConstants from "../../../utils/constants/form.constants";
 import { useForm } from "react-hook-form";
@@ -14,12 +15,15 @@ function Messages({ conversationId, user, recipientId }) {
     senderId: "",
     content: "",
   });
+
+  const [messageMenu, setMessageMenu] = useState("");
   const { data: messages } = useGetMessagesQuery(conversationId);
+  const [addMessage] = useAddMessageMutation();
+  const [deleteMessage] = useDeleteMessageMutation()
 
   const { register, handleSubmit, reset } = useForm({
     mode: "onSubmit",
   });
-  const [addMessage] = useAddMessageMutation();
 
   const onSubmit = async (data) => {
     const messageData = {
@@ -33,6 +37,17 @@ function Messages({ conversationId, user, recipientId }) {
     await addMessage(messageData).unwrap();
     reset();
   };
+  const messageMenuHandler = (id) => {
+    setMessageMenu(id)
+  }
+
+  const deleteMessageHandler = (id) => {
+    deleteMessage(id)
+  }
+  const editeMessageHandler = (id) => {
+    console.log("update", id)
+  }
+
 
   return (
     <div className="messages">
@@ -53,7 +68,19 @@ function Messages({ conversationId, user, recipientId }) {
             } else if (item.senderId === user.id) {
               return (
                 <div className="messages__from" key={index}>
-                  <div className="message-info">
+                    <div className={
+                    item._id === messageMenu 
+                    ? "actions" 
+                    : "hidden-message-menu"}
+                    >
+                      <div className="delete">
+                      <i className="bi bi-trash3" onClick={() => deleteMessageHandler(item._id)}/>
+                      </div>
+                      <div className="edite">
+                      <i className="bi bi-pencil" onClick={() => editeMessageHandler(item._id)}/>
+                      </div>
+                  </div>
+                  <div className="message-info" onClick={() => messageMenuHandler(item._id)}>
                     <div className="sender">{item.senderName}</div>
                     <div className="text">{item.content}</div>
                     <div className="time">

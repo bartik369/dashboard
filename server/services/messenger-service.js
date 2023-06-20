@@ -189,8 +189,17 @@ class MessengerService {
             }
         } catch (error) {}
     }
-    async deleteMessage() {
-        try {} catch (error) {}
+    async deleteMessage(id) {
+        try {
+            const message = await MessageModel.findByIdAndDelete(id)
+
+            if (!message) {
+                return null
+            }
+            return message
+        } catch (error) {
+
+        }
     }
     async updateMessage() {
         try {} catch (error) {}

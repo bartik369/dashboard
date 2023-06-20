@@ -110,9 +110,9 @@ export const messengerApi = createApi({
 
         // delete message
         deleteMessage: builder.mutation({
-            query: () => ({
-                url: "",
-                method: "",
+            query: (id) => ({
+                url: `/api/message/${id}`,
+                method: "DELETE",
             }),
             invalidatesTags: [{ type: 'Messages', id: 'LIST' }],
         }),
@@ -147,4 +147,5 @@ export const {
     useGetMessagesQuery,
     useDeleteConversationMutation,
     useMarkMessageMutation,
+    useDeleteMessageMutation,
 } = messengerApi;
