@@ -168,19 +168,29 @@
     border-radius: 50%;
 }
 
+.chats .active__chat .name {
+    font-size: 17px;
+    margin-bottom: 3px;
+    color: black;
+}
+
+.chats .active__chat .email {
+    font-size: 11px;
+    color: black;
+}
+
 .chats .active__chat .user-info {
-    background-color: aliceblue;
     margin-left: 10px;
 }
 
 .chats .chats__item .user-info {
-    background-color: aliceblue;
     margin-left: 10px;
 }
 
 .chats .chats__item .name {
     font-size: 17px;
     color: black;
+    margin-bottom: 3px;
 }
 
 .chats .chats__item .email {
@@ -188,7 +198,7 @@
     color: black;
 }
 
-.chats .chats__item .menu-btn {
+.chats .active__chat .chats .chats__item .menu-btn {
     width: 27px;
     height: 27px;
     border-radius: 50%;
