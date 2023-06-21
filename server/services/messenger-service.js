@@ -208,8 +208,18 @@ class MessengerService {
 
         }
     }
-    async updateMessage() {
-        try {} catch (error) {}
+    async updateMessage(id, content) {
+        try {
+            const message = await MessageModel.findByIdAndUpdate(id, {
+                content: content,
+            });
+
+            if (!message) { return null }
+            await message.save()
+            return message
+        } catch (error) {
+
+        }
     }
     async markMessage(creatorId, recipientId) {
         try {

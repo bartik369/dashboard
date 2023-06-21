@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   useAddMessageMutation,
   useGetMessagesQuery,
+  useUpdateMessageMutation,
   useDeleteMessageMutation,
   useGetMessageQuery,
 } from "../../../store/features/messenger/messengerApi";
@@ -10,38 +11,55 @@ import { useForm } from "react-hook-form";
 import moment from "moment";
 
 function Messages({ conversationId, user, recipientId }) {
-
-  const [message, setMessage] = useState({
-    conversationId: "",
-    senderId: "",
-    content: "",
-  });
-
   const [messageMenu, setMessageMenu] = useState("");
   const [messageId, setMessageId] = useState("")
   const { data: messages } = useGetMessagesQuery(conversationId);
   const [addMessage] = useAddMessageMutation();
   const [deleteMessage] = useDeleteMessageMutation()
-  const {data: messageInfo} = useGetMessageQuery(messageId)
-
+  const [updateMessage] = useUpdateMessageMutation()
+  const {currentData: messageInfo} = useGetMessageQuery(messageId)
+  const [message, setMessage] = useState({
+    id: "",
+    conversationId: "",
+    senderId: "",
+    content: "",
+  });
+  const [updateStatus,  setUpdateStatus] = useState(false)
   const { register, handleSubmit, reset } = useForm({
     mode: "onSubmit",
-  });
+  }); 
 
-  console.log(messageInfo)
+  useEffect(() => {
+    messageInfo && setMessage({
+      id: messageInfo._id,
+      conversationId: messageInfo.conversationId,
+      senderId: messageInfo.senderId,
+      content: messageInfo.content,
+    })
+  }, [messageInfo]);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async () => {
     const messageData = {
       ...message,
+      id: messageId,
       conversationId: conversationId,
       senderId: user.id,
       recipientId: recipientId.recipientId,
-      content: data.message,
+      content: message.content,
     };
-    console.log(messageData)
-    await addMessage(messageData).unwrap();
+
+    if (updateStatus) {
+      await updateMessage(messageData).unwrap()
+    } else {
+      await addMessage(messageData).unwrap();
+    }
     reset();
   };
+
+  const updateMessageHandler = (e) => {
+    setMessage({content: e.target.value})
+  }
+
   const messageMenuHandler = (id) => {
     setMessageMenu(id)
   }
@@ -50,8 +68,13 @@ function Messages({ conversationId, user, recipientId }) {
     deleteMessage(id)
   }
   const editeMessageHandler = async (id) => {
+    setUpdateStatus(true)
     setMessageId(id)
   }
+
+  window.addEventListener("click", () => {
+    setMessageMenu(false);
+  });
 
 
   return (
@@ -72,7 +95,7 @@ function Messages({ conversationId, user, recipientId }) {
               );
             } else if (item.senderId === user.id) {
               return (
-                <div className="messages__from" key={index}>
+                <div className="messages__from" key={index} onClick={(e) => e.stopPropagation()}>
                     <div className={
                     item._id === messageMenu 
                     ? "actions" 
@@ -103,8 +126,11 @@ function Messages({ conversationId, user, recipientId }) {
       <form className="messages__form" onSubmit={handleSubmit(onSubmit)}>
         <input
           type="text"
-          name="message"
-          {...register("message", {
+          name="content"
+          value={message.content}
+          {...register("content", {
+            onChange: (e) => { updateMessageHandler(e) }
+          }, {
             required: formConstants.requiredText,
           })}
         />

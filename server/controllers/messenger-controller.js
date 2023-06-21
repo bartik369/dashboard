@@ -121,7 +121,14 @@ class MessengerController {
     }
 
     async updateMessage(req, res, next) {
-        try {} catch (error) {}
+        try {
+            const id = req.params.id;
+            const { content } = req.body;
+            const messageData = await messengerService.updateMessage(id, content)
+            return res.json(messageData)
+        } catch (error) {
+
+        }
     }
 
     async markMessage(req, res, next) {
