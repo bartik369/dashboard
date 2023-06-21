@@ -5,7 +5,6 @@ class MessengerController {
     async getParticipants(req, res, next) {
         try {
             const id = req.params.id;
-            console.log(id)
             const conversationData = await messengerService.getParticipants(id);
             const recipients = [];
             conversationData.map((item) => {

@@ -212,6 +212,7 @@ class MessengerService {
         try {
             const message = await MessageModel.findByIdAndUpdate(id, {
                 content: content,
+                updatedAt: new Date(),
             });
 
             if (!message) { return null }

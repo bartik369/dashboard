@@ -53,7 +53,8 @@ function Messages({ conversationId, user, recipientId }) {
     } else {
       await addMessage(messageData).unwrap();
     }
-    reset();
+    setMessage({content: ""})
+    setUpdateStatus(false);
   };
 
   const updateMessageHandler = (e) => {
@@ -83,13 +84,14 @@ function Messages({ conversationId, user, recipientId }) {
         {!messages && "nothing"}
         {messages &&
           messages.map((item, index) => {
+            console.log(item.updatedAt)
             if (item.senderId !== user.id) {
               return (
                 <div className="messages__to" key={index}>
                   <div className="sender">{item.senderName}</div>
                   <div className="text">{item.content}</div>
                   <div className="time">
-                    {moment(item.time).format("DD.MM.YYYY HH:mm")}
+                    {moment(item.updatedAt).format("DD.MM.YYYY HH:mm")}
                   </div>
                 </div>
               );
@@ -112,7 +114,7 @@ function Messages({ conversationId, user, recipientId }) {
                     <div className="sender">{item.senderName}</div>
                     <div className="text">{item.content}</div>
                     <div className="time">
-                      {moment(item.time).format("DD.MM.YYYY HH:mm")}
+                      {moment(item.updatedAt).format("DD.MM.YYYY HH:mm")}
                     </div>
                   </div>
                   <div className="read-status">
@@ -134,7 +136,7 @@ function Messages({ conversationId, user, recipientId }) {
             required: formConstants.requiredText,
           })}
         />
-        <button className="send-btn">Send</button>
+        <button className="send-btn">{updateStatus ? formConstants.update : formConstants.send}</button>
       </form>
     </div>
   );
