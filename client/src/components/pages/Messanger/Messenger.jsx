@@ -140,7 +140,6 @@ const Messenger = () => {
         </div>
         <div className="right-main__middle">
           <Messages conversationId={conversationId} user={user} recipientId={activeConversation} />
-
         </div>
       </div>
     </div>

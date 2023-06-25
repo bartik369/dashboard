@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   useAddMessageMutation,
   useGetMessagesQuery,
@@ -25,7 +25,7 @@ function Messages({ conversationId, user, recipientId }) {
     content: "",
   });
   const [updateStatus,  setUpdateStatus] = useState(false)
-  const { register, handleSubmit, reset } = useForm({
+  const { register, handleSubmit } = useForm({
     mode: "onSubmit",
   }); 
 
@@ -53,7 +53,7 @@ function Messages({ conversationId, user, recipientId }) {
     } else {
       await addMessage(messageData).unwrap();
     }
-    setMessage({content: ""})
+    setMessage({content: ""});
     setUpdateStatus(false);
   };
 
@@ -67,16 +67,19 @@ function Messages({ conversationId, user, recipientId }) {
 
   const deleteMessageHandler = (id) => {
     deleteMessage(id)
+     setMessage({content: ""});
   }
   const editeMessageHandler = async (id) => {
     setUpdateStatus(true)
     setMessageId(id)
   }
 
-  window.addEventListener("click", () => {
-    setMessageMenu(false);
-  });
+  // window.addEventListener("click", () => {
+  //   setMessageMenu(false);
+  //   setMessage({content: ""});
+  // });
 
+  console.log("message test mem")
 
   return (
     <div className="messages">
@@ -84,7 +87,6 @@ function Messages({ conversationId, user, recipientId }) {
         {!messages && "nothing"}
         {messages &&
           messages.map((item, index) => {
-            console.log(item.updatedAt)
             if (item.senderId !== user.id) {
               return (
                 <div className="messages__to" key={index}>
@@ -125,7 +127,9 @@ function Messages({ conversationId, user, recipientId }) {
             }
           })}
       </div>
-      <form className="messages__form" onSubmit={handleSubmit(onSubmit)}>
+      <form className="messages__form" 
+      onSubmit={handleSubmit(onSubmit)}
+      onClick={(e) => e.stopPropagation()}>
         <input
           type="text"
           name="content"

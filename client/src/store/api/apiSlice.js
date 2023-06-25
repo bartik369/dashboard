@@ -1,12 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { setCredentials, logOut, setProfile } from "../features/auth/authSlice";
+import { setCredentials } from "../features/auth/authSlice";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import ENV from "../../env.config";
 
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: ENV.HOSTNAME,
+    baseUrl: "/message/",
     credentials: "include",
     prepareHeaders: (headers, { getState }) => {
         const token = getState().auth.token;
@@ -32,10 +32,6 @@ export const useValidateAccessToken = () => {
 
             if (response.data) {
                 try {
-                    // const profile = await axios.get(`${ENV.HOSTNAME}api/profile/${response.data.user.id}`)
-                    // dispatch(setProfile({...profile.data,
-                    //     profile: profile.data,
-                    // }))
                     dispatch(setCredentials({...response.data,
                         user: response.data.user,
                         token: response.data.accessToken,

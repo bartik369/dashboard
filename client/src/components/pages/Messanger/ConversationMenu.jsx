@@ -12,6 +12,8 @@ useEffect(() => {
   document.addEventListener("mousedown", outsideClickhandler)
 }, [])
 
+console.log("conversation menu test mem")
+
   return (
     <div className={dropMenu ? "active" : "menu__items"} ref={menuRef}>
         <div onClick={() => deleteChat()} className="menu__item">

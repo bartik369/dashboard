@@ -13,7 +13,7 @@ router.delete('/conversation/', messenderController.deleteConversation)
 
 router.get('/messages/:id', messenderController.getMessages)
 router.get('/message/:id', messenderController.getMessage)
-router.post('/add-message', messenderController.addMessage)
+router.post('/add-message/', messenderController.addMessage)
 router.delete('/message/:id', messenderController.deleteMessage)
 router.put('/message/:id', messenderController.updateMessage)
 router.post('/mark-message/', messenderController.markMessage)

@@ -4,6 +4,8 @@ import "./messenger.css";
 
 export default function Conversations({ active, participants, activeConversation}) {
 
+  console.log("conversations test mem")
+
   return (
     <div>
       <div className="chats__items">

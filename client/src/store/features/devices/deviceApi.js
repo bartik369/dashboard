@@ -32,7 +32,7 @@ export const deviceApi = createApi({
             query: (id) => ({
                 url: `/api/device/${id}`,
                 method: "GET",
-                // invalidatesTags: [{ type: 'Devices', id: 'LIST'}]
+
             }),
         }),
 

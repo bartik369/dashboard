@@ -4,11 +4,13 @@ import defaultAvatar from "../../../assets/users/avatars/default-avatar.png"
 import "./messenger.css";
 
 function Contacts({recipientId}) {
-  const { data: contacts } = useGetUsersQuery();
 
+  const { data: contacts } = useGetUsersQuery();
   const contactHandler = (id) => {
     recipientId(id)
   };
+
+  console.log("contacts test mem")
  
   return (
     <div>
