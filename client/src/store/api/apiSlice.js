@@ -6,7 +6,7 @@ import ENV from "../../env.config";
 
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: "/message/",
+    baseUrl: ENV.HOSTNAME,
     credentials: "include",
     prepareHeaders: (headers, { getState }) => {
         const token = getState().auth.token;

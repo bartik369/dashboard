@@ -4,7 +4,7 @@ import {
   useGetMessagesQuery,
   useUpdateMessageMutation,
   useDeleteMessageMutation,
-  useGetMessageQuery,
+  useGetMessageMutation,
 } from "../../../store/features/messenger/messengerApi";
 import * as formConstants from "../../../utils/constants/form.constants";
 import { useForm } from "react-hook-form";
@@ -17,7 +17,7 @@ function Messages({ conversationId, user, recipientId }) {
   const [addMessage] = useAddMessageMutation();
   const [deleteMessage] = useDeleteMessageMutation()
   const [updateMessage] = useUpdateMessageMutation()
-  const {currentData: messageInfo} = useGetMessageQuery(messageId)
+  const [getMessage, {data: messageInfo}] = useGetMessageMutation()
   const [message, setMessage] = useState({
     id: "",
     conversationId: "",
@@ -72,6 +72,7 @@ function Messages({ conversationId, user, recipientId }) {
   const editeMessageHandler = async (id) => {
     setUpdateStatus(true)
     setMessageId(id)
+    await getMessage({ id: id }).unwrap()
   }
 
   // window.addEventListener("click", () => {
