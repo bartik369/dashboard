@@ -56,7 +56,7 @@ class DeviceController {
 
     async getDevice(req, res, next) {
         try {
-            const id = new ObjectId(req.params.id);
+            const { id } = req.body;
             const deviceData = await deviceService.getDevice(id)
 
             if (!deviceData) {

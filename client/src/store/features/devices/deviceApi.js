@@ -28,11 +28,11 @@ export const deviceApi = createApi({
         }),
 
         // get device
-        getDevice: builder.query({
-            query: (id) => ({
-                url: `/api/device/${id}`,
-                method: "GET",
-
+        getDevice: builder.mutation({
+            query: (body) => ({
+                url: `/api/device/`,
+                method: "POST",
+                body: {...body }
             }),
         }),
 
@@ -71,7 +71,7 @@ export const {
     useAddDeviceMutation,
     useDeleteDeviceMutation,
     useUpdateDeviceMutation,
-    useGetDeviceQuery,
+    useGetDeviceMutation,
     useGetDevicesQuery,
     useGetBasicDevicesQuery,
 } = deviceApi;

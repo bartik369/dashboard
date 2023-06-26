@@ -46,7 +46,7 @@ const UpdateDeviceForm = ({update, device}) => {
       user: data.user,
       addTime: deviceTime,
     };
-    await update(updateDeviceData).unwrap();
+    await update(updateDeviceData);
     reset();
   };
 

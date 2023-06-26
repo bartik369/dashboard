@@ -5,7 +5,7 @@ import UpdateDeviceForm from "../../form/update-device/UpdateDeviceForm";
 import AddDevice from "../../form/add-device/AddDevice";
 import CategoryMenu from "./CategoryMenu";
 import {
-  useGetDeviceQuery,
+  useGetDeviceMutation,
   useGetDevicesQuery,
   useDeleteDeviceMutation,
   useAddDeviceMutation,
@@ -18,12 +18,11 @@ import "./devices.css";
 
 const Devices = () => {
   const [activeModal, setActiveModal] = useState(null);
-  const [singleDevice, setSingleDevice] = useState("");
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("")
   const [totalPage, setTotalPage] = useState(0)
   const urlParams = `/api/devices?page=${page}&search=${search}`
-  const { data: device } = useGetDeviceQuery(singleDevice);
+  const [getDevice, { data: device }] = useGetDeviceMutation();
   const { data: devices, isFetching, isLoading } = useGetDevicesQuery(urlParams);
   const [deleteDevice] = useDeleteDeviceMutation();
   const [addDevice] = useAddDeviceMutation();
@@ -48,9 +47,9 @@ const Devices = () => {
 
   // Update device
 
-  const handleUpdateDeviceInfo = (id) => {
+  const handleUpdateDeviceInfo = async (id) => {
     setActiveModal(true);
-    setSingleDevice(id);
+    await getDevice({id: id}).unwrap()
   };
 
   const updateDeviceInfo = async (updateDeviceData) => {
