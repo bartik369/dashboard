@@ -10,7 +10,7 @@ import * as uiConstants from "../../../utils/constants/ui.constants";
 import * as contentConstants from "../../../utils/constants/content.constants";
 import { 
   useGetTodosQuery, 
-  useGetTodoQuery, 
+  useGetTodoMutation, 
   useUpdateTodoMutation, 
   useDeleteTodoMutation,
   useAddTodoMutation,
@@ -23,13 +23,12 @@ import Masonry from "react-masonry-css";
 
 const Todos = () => {
   const [deleteId, setDeleteId] = useState();
-  const [idTodo, setIdTodo] = useState("")
   const [activeModal, setActiveModal] = useState(null);
   const [updateTodo] = useUpdateTodoMutation()
   const [deleteTodo] = useDeleteTodoMutation()
   const [addTodo] = useAddTodoMutation()
-  const {data: todos, isLoading } = useGetTodosQuery();
-  const {currentData: todo } = useGetTodoQuery(idTodo);
+  const {data: todos} = useGetTodosQuery();
+  const [getTodo, {data: todo }] = useGetTodoMutation();
   const user = useSelector(selectCurrentUser);
   const dateNow = Date.now();
 
@@ -49,9 +48,9 @@ const Todos = () => {
 
   // Update todo
 
-  const handleTodoUpdate = (id) => {
-    setIdTodo(id)
+  const handleTodoUpdate =  async(id) => {
     setActiveModal(contentConstants.update);
+    await getTodo({id: id})
   }
 
   const updateTodoData = async (updatedData) => {
