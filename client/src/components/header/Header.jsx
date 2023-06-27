@@ -1,70 +1,82 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import SearchData from "../UI/search/SearchData";
 // import { setSearchQuery } from "../../store/actions/searchDataAction";
 import { setSearchQuery } from "../../store/features/search/searchSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileMenu from "../profile-menu/ProfileMenu";
 import TodosAlert from "./notifications/TodosAlert";
-import { useLocation } from "react-router-dom";
 import { useGetTodosQuery } from "../../store/features/todos/todoApi";
-import { selectCurrentUser, selectCurrentToken} from "../../store/features/auth/authSlice";
+import {
+  selectCurrentUser,
+  selectCurrentToken,
+} from "../../store/features/auth/authSlice";
 import useravatar from "../../assets/users/profile-avatar.jpg";
 import "./header.css";
-
 
 const Header = ({ moveHeader }) => {
   const [searchData, setSearchData] = useState("");
   const [userMenu, setUserMenu] = useState(false);
   const [todosDropMenu, setTodosDropMenu] = useState(false);
+  // const [profileDropMenu, setProfileDropMenu] = useState(false);
   const [countMessages, setCountMessages] = useState(5);
   const [countTodos, setCountTodos] = useState(0);
-  const [overdueTodos, setOverdueTodos] = useState([])
+  const [overdueTodos, setOverdueTodos] = useState([]);
   const overTodos = [];
-  const location = useLocation();
   const dispatch = useDispatch();
   const token = useSelector(selectCurrentToken);
   const user = useSelector(selectCurrentUser);
-  const {data = [], isLoading} = useGetTodosQuery();
+  const { data = [] } = useGetTodosQuery();
+  const todoMenuRef = useRef();
+  const profileMenuRef = useRef();
 
   useEffect(() => {
     data.map((todo) => {
-      if (Date.parse(todo.endTime) <= Date.now() && todo.status !== "done" && todo.user === user.id) {
+      if (
+        Date.parse(todo.endTime) <= Date.now() &&
+        todo.status !== "done" &&
+        todo.user === user.id
+      ) {
         overTodos.push(todo);
       }
-      setOverdueTodos(overTodos)
+      setOverdueTodos(overTodos);
       setCountTodos(overTodos.length);
-    })
-  }, [data])
+    });
+  }, [data]);
 
   useEffect(() => {
-    dispatch(setSearchQuery(searchData));
-  }, [searchData]);
+    const outsideClickhandler = (e) => {
+
+      if (!todoMenuRef.current.contains(e.target)) {
+        setTodosDropMenu(false);
+      } 
+
+      if (!profileMenuRef.current.contains(e.target)) {
+        setUserMenu(false);
+      }
+    };
+    document.addEventListener("mousedown", outsideClickhandler);
+  }, []);
 
   const userMenuHandler = () =>
     userMenu ? setUserMenu(false) : setUserMenu(true);
 
-  const todosNotificationHandler = () => 
+  const todosNotificationHandler = () =>
     todosDropMenu ? setTodosDropMenu(false) : setTodosDropMenu(true);
-
-  window.addEventListener("click", () => {
-    setUserMenu(false);
-    setTodosDropMenu(false);
-  });
 
   return (
     <header className="header">
       <div className={!moveHeader ? "header__inner" : "header__slided"}>
         <div className="header__search">
           {/* {location.pathname === "/devices" && ( */}
-            {<SearchData
+          {
+            <SearchData
               placeholder="Поиск..."
               value={searchData}
               onChange={(e) => setSearchData(e.target.value)}
             />
           }
         </div>
-        <div className="header__menu">
-        </div>
+        <div className="header__menu"></div>
         <div
           className="header__user-panel"
           onClick={(e) => e.stopPropagation()}
@@ -82,6 +94,8 @@ const Header = ({ moveHeader }) => {
                     ? "todos-notification__dropmenu"
                     : "todos-notification__dropmenu-disabled"
                 }
+                ref={todoMenuRef}
+                onClick={(e) => e.stopPropagation()}
               >
                 <TodosAlert
                   todos={overdueTodos}
@@ -105,7 +119,13 @@ const Header = ({ moveHeader }) => {
             alt=""
             onClick={userMenuHandler}
           />
-          <div className="drop-menu">{userMenu && <ProfileMenu user={user} token={token} />}</div>
+          <div
+            className={userMenu ? "profile-menu": "profile-menu-disabled"}
+            ref={profileMenuRef}
+            onClick={(e) => e.stopPropagation()}
+          >
+          <ProfileMenu user={user} token={token} />
+          </div>
         </div>
       </div>
     </header>

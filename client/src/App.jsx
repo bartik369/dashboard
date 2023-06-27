@@ -24,7 +24,7 @@ function App() {
 
   const token = useSelector(selectCurrentToken);
   const validateAccessToken = useValidateAccessToken()
-  const navigate = useNavigate()
+
 
   useEffect(() => {
     const verifyAccessToken = async () => {

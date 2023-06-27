@@ -17,7 +17,7 @@ export default function ProfileMenu({user, token}) {
   };
 
   return (
-    <div className="profile-menu">
+    <div>
       <div className="profile__userinfo">
         <div className="username">{user.email}</div>
         <div className="description">web designer</div>

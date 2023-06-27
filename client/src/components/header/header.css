@@ -130,12 +130,6 @@
     display: flex;
 }
 
-.drop-menu {
-    top: 43px;
-    position: absolute;
-    right: 0px;
-}
-
 .header__user-panel .user-avatar {
     width: 33px;
     height: auto;

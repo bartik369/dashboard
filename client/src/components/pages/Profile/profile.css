@@ -70,3 +70,13 @@
     font-family: inherit;
     display: inline-block;
 }
+
+.profile-menu {
+    top: 43px;
+    position: absolute;
+    right: 0px;
+}
+
+.profile-menu-disabled {
+    display: none;
+}

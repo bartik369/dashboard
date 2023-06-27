@@ -17,13 +17,12 @@ class TodoController {
     }
     async getTodo(req, res, next) {
         try {
-            const id = new ObjectId(req.params.id);
+            const { id } = req.body;
             const todoData = await todoService.getTodo(id)
 
             if (!todoData) {
 
             }
-
             return res.json(...todoData)
         } catch (error) {
             next(error)

@@ -3,14 +3,14 @@ import React, {useEffect, useRef} from 'react';
 const ConversationMenu = ({dropMenu, deleteChat, setDropMenu}) => {
 const menuRef = useRef();
 
-useEffect(() => {
-  const outsideClickhandler = (e) => {
-     if (!menuRef.current.contains(e.target)) {
-       setDropMenu(false)
-     }
-  }
-  document.addEventListener("mousedown", outsideClickhandler)
-}, [])
+// useEffect(() => {
+//   const outsideClickhandler = (e) => {
+//      if (!menuRef.current.contains(e.target)) {
+//        setDropMenu(false)
+//      }
+//   }
+//   document.addEventListener("mousedown", outsideClickhandler)
+// }, [])
 
 console.log("conversation menu test mem")
 
