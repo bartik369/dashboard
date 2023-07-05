@@ -28,6 +28,10 @@ function Messages({ conversationId, user, recipientId }) {
   const { register, handleSubmit } = useForm({
     mode: "onSubmit",
   }); 
+  const messageMenuRef = useRef({});
+
+  console.log("message menu", messageMenu)
+  console.log("message Id", messageId)
 
   useEffect(() => {
     messageInfo && setMessage({
@@ -37,6 +41,21 @@ function Messages({ conversationId, user, recipientId }) {
       content: messageInfo.content,
     })
   }, [messageInfo]);
+
+  useEffect(() => {
+    const outsideClickhandler = (e) => {
+
+      if (messageMenuRef.current) {
+        Object.values(messageMenuRef).map((item) => {
+           if (item !== e.target) {
+            setMessageMenu("")
+           }
+        })
+      }
+    } 
+    document.addEventListener("click", outsideClickhandler);
+  }, []);
+
 
   const onSubmit = async () => {
     const messageData = {
@@ -65,20 +84,16 @@ function Messages({ conversationId, user, recipientId }) {
     setMessageMenu(id)
   }
 
-  const deleteMessageHandler = (id) => {
-    deleteMessage(id)
-     setMessage({content: ""});
+  const deleteMessageHandler = async(id) => {
+    await deleteMessage(id).unwrap()
+    setMessage({content: ""});
+    setMessageMenu("")
   }
   const editeMessageHandler = async (id) => {
     setUpdateStatus(true)
     setMessageId(id)
     await getMessage({ id: id }).unwrap()
   }
-
-  // window.addEventListener("click", () => {
-  //   setMessageMenu(false);
-  //   setMessage({content: ""});
-  // });
 
   console.log("message test mem")
 
@@ -100,18 +115,17 @@ function Messages({ conversationId, user, recipientId }) {
               );
             } else if (item.senderId === user.id) {
               return (
-                <div className="messages__from" key={index} onClick={(e) => e.stopPropagation()}>
-                    <div className={
-                    item._id === messageMenu 
-                    ? "actions" 
-                    : "hidden-message-menu"}
-                    >
-                      <div className="delete">
-                      <i className="bi bi-trash3" onClick={() => deleteMessageHandler(item._id)}/>
-                      </div>
-                      <div className="edite">
-                      <i className="bi bi-pencil" onClick={() => editeMessageHandler(item._id)}/>
-                      </div>
+                <div className="messages__from"
+                key={index} 
+                ref={elem => messageMenuRef.current[index] = elem}>
+                  <div onClick={e => e.stopPropagation()}>
+                    <div className={`message-menu ${item._id === messageMenu 
+                    ? "active" 
+                    : "inactive"}`}>
+                      <i className="bi bi-trash3" 
+                      onClick={() => deleteMessageHandler(item._id)}/>
+                      <i className="bi bi-pencil"
+                      onClick={() => editeMessageHandler(item._id)}/>
                   </div>
                   <div className="message-info" onClick={() => messageMenuHandler(item._id)}>
                     <div className="sender">{item.senderName}</div>
@@ -123,20 +137,20 @@ function Messages({ conversationId, user, recipientId }) {
                   <div className="read-status">
                     <i className={item.read ? "bi bi-check-all" : "bi bi-check"} />
                   </div>
+                  </div>
                 </div>
               );
             }
           })}
       </div>
       <form className="messages__form" 
-      onSubmit={handleSubmit(onSubmit)}
-      onClick={(e) => e.stopPropagation()}>
+      onSubmit={handleSubmit(onSubmit)}  onClick={(e) => e.stopPropagation()}>
         <input
           type="text"
           name="content"
           value={message.content}
           {...register("content", {
-            onChange: (e) => { updateMessageHandler(e) }
+            onChange: (e) => { updateMessageHandler(e) },
           }, {
             required: formConstants.requiredText,
           })}

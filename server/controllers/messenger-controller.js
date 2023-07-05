@@ -81,6 +81,7 @@ class MessengerController {
         try {
             const id = req.params.id;
             const dataMessages = await messengerService.getMessages(id);
+            console.log("messages for one", dataMessages)
             return res.json(dataMessages);
         } catch (error) {}
     }
