@@ -30,9 +30,6 @@ function Messages({ conversationId, user, recipientId }) {
   }); 
   const messageMenuRef = useRef({});
 
-  console.log("message menu", messageMenu)
-  console.log("message Id", messageId)
-
   useEffect(() => {
     messageInfo && setMessage({
       id: messageInfo._id,
@@ -49,6 +46,7 @@ function Messages({ conversationId, user, recipientId }) {
         Object.values(messageMenuRef).map((item) => {
            if (item !== e.target) {
             setMessageMenu("")
+            setMessage({content: ""});
            }
         })
       }
@@ -74,6 +72,7 @@ function Messages({ conversationId, user, recipientId }) {
     }
     setMessage({content: ""});
     setUpdateStatus(false);
+    setMessageMenu("")
   };
 
   const updateMessageHandler = (e) => {
@@ -118,7 +117,7 @@ function Messages({ conversationId, user, recipientId }) {
                 <div className="messages__from"
                 key={index} 
                 ref={elem => messageMenuRef.current[index] = elem}>
-                  <div onClick={e => e.stopPropagation()}>
+                  <div className="message" onClick={e => e.stopPropagation()}>
                     <div className={`message-menu ${item._id === messageMenu 
                     ? "active" 
                     : "inactive"}`}>

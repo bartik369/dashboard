@@ -14,23 +14,24 @@
     background-color: #ffffff;
 }
 
-.left-main__top {
-    background-color: darkolivegreen;
-}
+.left-main__top {}
 
 .left-main__top .search {
     height: 50px;
+    padding: 5px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(136, 136, 218);
     width: 100%;
 }
 
 .left-main__top .search input {
     height: 40px;
     padding: 5px 15px 5px 25px;
-    background-color: rgb(64, 165, 131);
+    border-radius: 5px;
+    background-color: #fff;
+    border: 1px solid #eaedf1;
     width: 100%;
 }
 
@@ -123,7 +124,7 @@
 
 .chats .chats__item {
     background-color: rgb(255, 255, 255);
-    box-shadow: rgba(120, 131, 167, 0.2) 0px 4px 12px;
+    box-shadow: 0 5px 5px -5px rgba(120, 131, 167, 0.2);
     padding: 12px 15px;
     margin-bottom: 10px;
     cursor: pointer;
@@ -134,7 +135,8 @@
 }
 
 .chats .active__chat {
-    background-color: brown;
+    background-color: #a7e1cf;
+    box-shadow: 0 5px 5px -5px rgba(120, 167, 140, 0.2);
     padding: 12px 15px;
     margin-bottom: 10px;
     cursor: pointer;
@@ -300,6 +302,13 @@
     align-items: center;
 }
 
+.messages__from .message {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
 .messages__from .delete {
     background-color: #d366e1;
     padding: 5px;
@@ -321,15 +330,11 @@
 }
 
 .messages .messages__from {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
     width: fit-content;
     align-self: flex-end;
     position: relative;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     padding-right: 40px;
-    background-color: cornflowerblue;
 }
 
 .messages .message-menu {
@@ -339,11 +344,9 @@
     right: 60px;
     top: -23px;
     cursor: pointer;
-    background-color: cyan;
 }
 
 .messages .message-menu.active {
-    background-color: rgb(226, 43, 104);
     opacity: 1;
     visibility: visible;
 }
@@ -357,17 +360,19 @@
     display: none;
 }
 
-.actions .bi-pencil {
+.message-menu .bi-pencil {
     color: #343333;
+    padding: 2px;
     font-size: 15px;
-    background-color: #2c86ee;
+    cursor: pointer;
 }
 
-.actions .bi-trash3 {
-    background-color: brown;
+.message-menu .bi-trash3 {
+    padding: 2px;
     color: #343333;
     font-size: 15px;
-    margin-right: 14px;
+    margin-right: 7px;
+    cursor: pointer;
 }
 
 .messages .messages__from .read-status {
@@ -388,7 +393,7 @@
     border-radius: 8px;
     max-width: 550px;
     padding: 18px 26px;
-    margin-bottom: 10px;
+    margin-bottom: 7px;
     color: #fff;
     background-color: #2c86ee;
     box-shadow: rgba(86, 105, 165, 0.2) 0px 4px 12px;
