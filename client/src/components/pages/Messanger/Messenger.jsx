@@ -104,7 +104,7 @@ const Messenger = () => {
       <div className="left-main">
         <div className="left-main__top">
           <div className="search">
-            <input type="text" />
+            <input type="text" placeholder="Поиск..."/>
           </div>
         </div>
         <div className="left-main__middle">

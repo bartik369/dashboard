@@ -47,6 +47,7 @@ function Messages({ conversationId, user, recipientId }) {
            if (item !== e.target) {
             setMessageMenu("")
             setMessage({content: ""});
+            setUpdateStatus(false)
            }
         })
       }

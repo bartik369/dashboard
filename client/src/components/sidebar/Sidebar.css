@@ -149,7 +149,7 @@
     border-radius: 3px;
     color: #fff;
     padding: 10px 14px;
-    background: #26bea6;
+    background: #05c186;
     transition: opacity .7s ease-in;
     box-shadow: 0 4px 4px 0 rgba(38, 190, 166, .2), 0 8px 8px 0 rgba(38, 190, 166, .2), 0 16px 16px 0 rgba(38, 190, 166, .2), 0 32px 32px 0 rgba(38, 190, 166, .2), 0 64px 64px 0 rgba(38, 190, 166, .2), 0 128px 128px 0 rgba(38, 190, 166, .2);
 }

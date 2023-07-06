@@ -132,11 +132,13 @@
     align-items: center;
     position: relative;
     overflow: hidden;
+    border-radius: 5px;
+    transition: all .7s;
 }
 
-.chats .active__chat {
-    background-color: #a7e1cf;
-    box-shadow: 0 5px 5px -5px rgba(120, 167, 140, 0.2);
+.chats .chats__item:hover {
+    background-color: #54d2aa;
+    box-shadow: 0 8px 8px -8px rgba(109, 189, 144, 0.7);
     padding: 12px 15px;
     margin-bottom: 10px;
     cursor: pointer;
@@ -144,6 +146,21 @@
     align-items: center;
     position: relative;
     overflow: hidden;
+    border-radius: 5px;
+}
+
+.chats .active__chat {
+    background-color: #54d2aa;
+    box-shadow: 0 8px 8px -8px rgba(109, 189, 144, 0.7);
+    padding: 12px 15px;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
 }
 
 .chats .chats__item .active {
@@ -361,7 +378,7 @@
 }
 
 .message-menu .bi-pencil {
-    color: #343333;
+    color: #767d87;
     padding: 2px;
     font-size: 15px;
     cursor: pointer;
@@ -369,9 +386,9 @@
 
 .message-menu .bi-trash3 {
     padding: 2px;
-    color: #343333;
+    color: #767d87;
     font-size: 15px;
-    margin-right: 7px;
+    margin-right: 5px;
     cursor: pointer;
 }
 
@@ -434,7 +451,8 @@
     margin-bottom: 10px;
     color: #5f6c81;
     background-color: #f6f9fb;
-    box-shadow: rgba(120, 131, 167, 0.2) 0px 4px 12px;
+    /* box-shadow: rgba(120, 131, 167, 0.2) 0px 4px 12px; */
+    box-shadow: 0 8px 8px -8px rgba(120, 131, 167, 0.2);
 }
 
 .messages__to .sender {
