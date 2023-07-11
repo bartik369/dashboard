@@ -1,11 +1,12 @@
 import React from "react";
-import { useGetUsersQuery } from "../../../store/features/auth/authApi";
+import { useGetUsersQuery, useGetProfilesQuery } from "../../../store/features/auth/authApi";
 import defaultAvatar from "../../../assets/users/avatars/default-avatar.png"
 import "./messenger.css";
 
 function Contacts({recipientId}) {
 
   const { data: contacts } = useGetUsersQuery();
+  const {data: profiles} = useGetProfilesQuery()
   const contactHandler = (id) => {
     recipientId(id)
   };
@@ -16,15 +17,15 @@ function Contacts({recipientId}) {
     <div>
       <h1>Contacts</h1>
       <div className="contacts__items">
-        {contacts &&
-          contacts.map((item, index) => {
+        {profiles &&
+          profiles.map((item, index) => {
             return (
               <div
                 className="contacts__item"
                 key={index}
-                onClick={() => contactHandler(item._id)}>
+                onClick={() => contactHandler(item.userId)}>
                 <div className="avatar">
-                <img src= {contacts.profilePictureUrl ? contacts.profilePictureUrl : defaultAvatar } alt="" />
+                <img src= {profiles.avatar ? profiles.avatar : defaultAvatar } alt="" />
                 </div>
                 <div className="info">
                 <span className="name">{item.displayname}</span>

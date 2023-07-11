@@ -80,3 +80,13 @@
 .profile-menu-disabled {
     display: none;
 }
+
+.hidden-btn {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}

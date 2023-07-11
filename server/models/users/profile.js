@@ -7,6 +7,11 @@ const ProfileShema = new Schema({
         unique: true,
         required: true,
     },
+    displayname: {
+        type: String,
+        unique: false,
+        required: true,
+    },
     description: {
         type: String,
         unique: false,

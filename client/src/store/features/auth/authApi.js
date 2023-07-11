@@ -20,6 +20,13 @@ export const authApi = apiSlice.injectEndpoints({
             }),
         }),
 
+        getProfiles: builder.query({
+            query: () => ({
+                url: "/api/profiles",
+                method: "GET"
+            })
+        }),
+
         getProfile: builder.query({
             query: (id) => ({
                 url: `/api/profile/${id}`,
@@ -42,10 +49,18 @@ export const authApi = apiSlice.injectEndpoints({
         updateProfile: builder.mutation({
             query: (credentials) => ({
                 url: "/api/update-profile",
-                method: "PUT",
+                mode: 'cors',
+                method: "POST",
                 body: {...credentials },
             }),
         }),
+        // updateProfilePhoto: builder.mutation({
+        //     query: (body) => ({
+        //         url: "/api/update-avatar",
+        //         method: "POST",
+        //         body: {...body },
+        //     }),
+        // }),
         updateUserPassword: builder.mutation({
             query: (credentials) => ({
                 url: "/api/assign-password",
@@ -112,6 +127,7 @@ export const {
     useSigninMutation,
     useSignupMutation,
     useUpdateProfileMutation,
+    useUpdateProfilePhotoMutation,
     useUpdateUserPasswordMutation,
     useCheckLinkQuery,
     useResetPasswordMutation,
@@ -120,6 +136,7 @@ export const {
     useRolesRequestMutation,
     useRolesRespondMutation,
     useGetProfileQuery,
+    useGetProfilesQuery,
     useGetUsersQuery,
     useGetUserQuery,
 } = authApi;;

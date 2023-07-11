@@ -1,4 +1,7 @@
 import userService from "../services/user-service.js";
+import { v4 as uuidv4 } from "uuid";
+import fs from "fs"
+import dotenv from 'dotenv';
 
 class UserController {
     async registration(req, res, next) {
@@ -121,13 +124,43 @@ class UserController {
 
     async updateProfile(req, res, next) {
         try {
-            const { id, email, description, city, birthday, phone, work } = req.body;
-            const profileData = await userService.updateProfile(id, email, description, city, birthday, phone, work)
+
+            const { id, email, description, city, birthday, phone, work, file } = req.body
+            const profileData = await userService.updateProfile(id, email, description, city, birthday, phone, work, file)
             return profileData
         } catch (error) {
             next()
         }
     }
+
+    // async updateProfilePhoto(req, res, next) {
+    //     try {
+    //         const { file, id } = req.body
+    //             // let newFile = file.split("data:image/png;base64,");
+    //             // const uploadPath = `../client/src/assets/users/avatars/` + newFile + '.png '
+    //             // if (file) {
+    //             //     file.mv(uploadPath, function(err) {
+
+    //         //         if (err) {
+    //         //             console.log("something went wrong")
+    //         //             return res.status(500).send(err);
+    //         //         } else {
+    //         //             // fs.rename(`../client/src/assets/users/avatars/${file.name}`,
+    //         //             //     `../client/src/assets/users/avatars/${newName}` + '.png', () => {
+    //         //             //         console.log("File uploaded and renamed")
+    //         //             //     });
+    //         //         }
+    //         //     })
+    //         // }
+    //         // let filePath = `${newName}` + '.png'
+    //         await userService.updateProfilePhoto(id, file);
+    //         return res.json(userData)
+
+    //     } catch (error) {
+    //         next()
+    //     }
+    // }
+
 
     async getUsers(req, res, next) {
         try {
@@ -158,6 +191,17 @@ class UserController {
         }
     }
 
+    async getProfiles(req, res, next) {
+        try {
+            const profilesData = await userService.getProfiles()
+            console.log(profilesData)
+            return res.json(profilesData)
+        } catch (error) {
+
+        }
+    }
+
+
 
     async checkCookie(req, res, next) {
         try {
@@ -176,7 +220,6 @@ class UserController {
 
     async rolesRequests(req, res, next) {
         try {
-            console.log("get all request roles works")
             const rolesRequestsData = await userService.getRolesRequests()
             return res.json(rolesRequestsData);
         } catch (error) {
@@ -196,7 +239,6 @@ class UserController {
     async rolesRespond(req, res, next) {
         try {
             const { id, email, displayname, role, approve } = req.body;
-            console.log(req.body)
             await userService.setRoleRespond(id, email, displayname, role, approve)
         } catch (error) {
 

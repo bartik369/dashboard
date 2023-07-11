@@ -2,16 +2,6 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const UserSchema = new Schema({
-    profilePictureUrl: {
-        type: String,
-        unique: false,
-        required: false,
-    },
-    displayname: {
-        type: String,
-        unique: false,
-        required: true,
-    },
     email: {
         type: String,
         unique: true,

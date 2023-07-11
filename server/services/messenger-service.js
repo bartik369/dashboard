@@ -2,6 +2,7 @@ import ConversationModel from "../models/messenger/conversation.js";
 import ParticipantsModel from "../models/messenger/participants.js";
 import MessageModel from "../models/messenger/messages.js";
 import UserModel from "../models/users/user.js";
+import ProfileModel from "../models/users/profile.js"
 
 class MessengerService {
     async getParticipants(id) {
@@ -105,9 +106,7 @@ class MessengerService {
 
     async getRecipientsInfo(recipients) {
         try {
-            const users = await UserModel.find({
-                _id: recipients,
-            });
+            const users = await ProfileModel.find({ userId: recipients });
             return users;
         } catch (error) {}
     }

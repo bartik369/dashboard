@@ -35,6 +35,8 @@ const Messenger = () => {
     creatorId: "",
   });
 
+  console.log(participants)
+
   useEffect(() => {
 
     if (activeConversationUserId) {

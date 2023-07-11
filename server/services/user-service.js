@@ -1,7 +1,7 @@
 import UserModel from "../models/users/user.js";
 import PasswordModel from "../models/users/password.js"
 import LinkModel from "../models/users/activation-link.js"
-import ProfilModel from "../models/users/profile.js"
+import ProfileModel from "../models/users/profile.js"
 import RoleRequestModel from "../models/users/roles-request.js"
 import Roles from "../models/users/roles.js"
 import ResetPasswordModel from "../models/users/reset-password.js";
@@ -27,8 +27,6 @@ class UserService {
         const userRoles = await Roles.findOne({ value: "User" })
 
         const user = await UserModel.create({
-            profilePictureUrl: "",
-            displayname,
             email,
             roles: [userRoles.value]
         });
@@ -40,8 +38,9 @@ class UserService {
             userId: user._id,
             activationLink: activationLink,
         })
-        await ProfilModel.create({
+        await ProfileModel.create({
             userId: user._id,
+            displayname,
             description,
             city,
             birthday,
@@ -165,19 +164,20 @@ class UserService {
         }
     }
 
-    async updateProfile(id, email, description, city, birthday, phone, work) {
+    async updateProfile(id, email, description, city, birthday, phone, work, avatar) {
         try {
-            const profileInfo = await ProfilModel.findById(id);
+            const profileInfo = await ProfileModel.findById(id);
             if (!profileInfo) {
                 throw ApiError.UnauthorizedError();
             }
 
-            const profileData = await ProfilModel.findByIdAndUpdate(profileInfo._id, {
+            const profileData = await ProfileModel.findByIdAndUpdate(profileInfo._id, {
                 description: description,
                 city: city,
                 birthday: birthday,
                 phone: phone,
                 work: work,
+                avatar: avatar,
             }, (err, docs) => err ? console.log("error", err) : console.log("docs", docs));
 
             await profileData.update()
@@ -185,7 +185,17 @@ class UserService {
         } catch (error) {
 
         }
+    }
+    async updateProfilePhoto(id, filePath) {
+        try {
+            const profileData = await ProfileModel.findOneAndUpdate({ userId: id }, {
+                avatar: filePath,
+            });
+            await profileData.save()
+            return profileData
+        } catch (error) {
 
+        }
     }
 
     async assignUserPassword(email, password) {
@@ -254,7 +264,7 @@ class UserService {
         if (!user) {
             throw ApiError.BadRequest()
         }
-        const profile = await ProfilModel.findOne({ userId: user._id })
+        const profile = await ProfileModel.findOne({ userId: user._id })
 
         if (!profile) {
             throw ApiError.BadRequest()
@@ -266,6 +276,10 @@ class UserService {
         const users = await UserModel.find();
         return users;
     }
+    async getProfiles() {
+        const profiles = await ProfileModel.find();
+        return profiles;
+    }
     async getUser(email) {
         const user = await UserModel.findOne({ email });
 
@@ -273,9 +287,7 @@ class UserService {
             return null
         }
         return {
-            avatar: user.profilePictureUrl,
             id: user._id,
-            displayname: user.displayname,
             email: user.email,
             roles: user.roles
         };
