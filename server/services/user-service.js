@@ -164,20 +164,25 @@ class UserService {
         }
     }
 
-    async updateProfile(id, email, description, city, birthday, phone, work, avatar) {
+    async updateProfile(id, displayname, description, city, birthday, phone, departament, workPhone, vocation, file) {
         try {
             const profileInfo = await ProfileModel.findById(id);
             if (!profileInfo) {
                 throw ApiError.UnauthorizedError();
             }
 
-            const profileData = await ProfileModel.findByIdAndUpdate(profileInfo._id, {
+            const profileData = await ProfileModel.findByIdAndUpdate(profileInfo.id, {
+                displayname: displayname,
                 description: description,
                 city: city,
                 birthday: birthday,
                 phone: phone,
-                work: work,
-                avatar: avatar,
+                work: {
+                    departament: departament,
+                    workPhone: workPhone,
+                    vocation: vocation,
+                },
+                avatar: file,
             }, (err, docs) => err ? console.log("error", err) : console.log("docs", docs));
 
             await profileData.update()

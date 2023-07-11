@@ -45,24 +45,7 @@ export default function Profile() {
       };
     });
   };
-
-  // const uploadProfilePhoto = async () => {
-
-  //   if (selectedFile.base64URL) {
-  //     const formData = new FormData()
-  //     formData.append("file", selectedFile.base64URL )
-  //     formData.append('id',user.id)
-  //     const res =  await fetch(`${ENV.HOSTNAME}api/update-avatar`, {
-  //       method: 'POST',
-  //       headers:{
-  //         mode: 'no-cors'
-  //       },
-  //       body: formData,
-  //     })
-  //     const data = await res.json()
-  //     // await updateProfilePhoto(formData).unwrap()
-  //   }
-  // }
+  console.log(selectedFile)
 
   const {
     control,
@@ -108,7 +91,7 @@ export default function Profile() {
       ...profile,
       id: profile._id,
       displayname: data.displayname,
-      email: data.email,
+      // email: data.email,
       description: data.description,
       city: data.city,
       birthday: data.birthday,
@@ -120,35 +103,42 @@ export default function Profile() {
       },
     };
 
-    if (selectedFile) {
       const formData = new FormData();
       formData.append("file", selectedFile)
 
-      for(let key in updatedProfileInfo) {
-        if(typeof(updatedProfileInfo[key]) === 'work') {
-          for (let subKey in updatedProfileInfo[key]) {
-            formData.append(`${key}.${subKey}`, updatedProfileInfo[key][subKey]);
+      // for(let key in updatedProfileInfo) {
+      //   if (typeof(updatedProfileInfo[key]) === 'object') {
+
+      //     for (let subKey in updatedProfileInfo[key]) {
+      //       // formData.append(`${key},${subKey}`, updatedProfileInfo[key][subKey]);
+      //       formData.append(`${updatedProfileInfo[key]}${subKey}`, updatedProfileInfo[key][subKey]);
+      //     }
+      //   }
+      //   else {
+      //     formData.append(key, updatedProfileInfo[key]);
+      //   }
+      // }
+
+      for(let dataKey in updatedProfileInfo) {
+        if (dataKey === 'work') {
+          for (let previewKey in updatedProfileInfo[dataKey]) {
+            formData.append(previewKey, updatedProfileInfo[dataKey][previewKey]);
           }
         }
         else {
-          formData.append(key, updatedProfileInfo[key]);
+          formData.append(dataKey, updatedProfileInfo[dataKey]);
         }
       }
 
-      // Object.keys(updatedProfileInfo).forEach(function(key) {
-      //   formData.append(key, updatedProfileInfo[key]);
-      // });
-  
+
+
       const res = await fetch(`${ENV.HOSTNAME}api/update-profile`, {
         method: "POST",
         body: formData,
       });
       await res.json();
       // await updateProfilePhoto(formData).unwrap()
-
-
-    reset();
-  };
+     reset();
 }
   const changePassword = async (data) => {
     const updatedPassword = {
@@ -188,7 +178,7 @@ export default function Profile() {
               placeholder={formConstants.yourName}
               type="text"
               name="displayname"
-              defaultValue={user.displayname}
+              defaultValue={profile.displayname}
               {...register("displayname", {})}
             />
             <div className="form-error">
@@ -198,21 +188,6 @@ export default function Profile() {
                 </p>
               )}
             </div>
-            <input
-              className="content-form__input"
-              placeholder={formConstants.yourEmail}
-              type="text"
-              name="email"
-              defaultValue={user.email}
-              {...register("email", {})}
-            />
-            <div className="form-error">
-              {errors.email && (
-                <p>{errors.email.message || formConstants.unknownError}</p>
-              )}
-            </div>
-          </div>
-          <div className="profile__additional-info">
             <textarea
               className="content-form__input"
               placeholder={formConstants.profileDescription}
@@ -228,7 +203,21 @@ export default function Profile() {
                 </p>
               )}
             </div>
-
+            {/* <input
+              className="content-form__input"
+              placeholder={formConstants.yourEmail}
+              type="text"
+              name="email"
+              defaultValue={user.email}
+              {...register("email", {})}
+            />
+            <div className="form-error">
+              {errors.email && (
+                <p>{errors.email.message || formConstants.unknownError}</p>
+              )}
+            </div> */}
+          </div>
+          <div className="profile__additional-info">
             <input
               className="content-form__input"
               placeholder={formConstants.profileCity}
