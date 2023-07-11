@@ -14,9 +14,7 @@ class MessengerController {
                     }
                 });
             });
-            console.log("recipients", recipients)
             const participantsData = await messengerService.getRecipientsInfo(recipients);
-            console.log("participantsData", participantsData)
             return res.json(participantsData);
         } catch (error) {}
     }
@@ -46,7 +44,6 @@ class MessengerController {
     async getConversation(req, res, next) {
         try {
             const { creatorId, recipientId } = req.body
-            console.log("active", creatorId, recipientId)
             const conversationData = await messengerService.getConversation(
                 creatorId,
                 recipientId,
@@ -83,7 +80,6 @@ class MessengerController {
         try {
             const id = req.params.id;
             const dataMessages = await messengerService.getMessages(id);
-            console.log("messages for one", dataMessages)
             return res.json(dataMessages);
         } catch (error) {}
     }

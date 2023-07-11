@@ -81,7 +81,9 @@ class MessengerService {
                 participants: { $all: [creatorId, recipientId] },
             });
 
-            if (participants) {
+            if (participants && participants.visible.length > 1) {
+                return null
+            } else if (participants && participants.visible.length < 2) {
                 const enableVisible = await ParticipantsModel.findByIdAndUpdate(
                     participants._id, {
                         $push: { visible: creatorId },
