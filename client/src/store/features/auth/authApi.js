@@ -24,7 +24,7 @@ export const authApi = apiSlice.injectEndpoints({
             query: () => ({
                 url: "/api/profiles",
                 method: "GET"
-            })
+            }),
         }),
 
         getProfile: builder.query({
@@ -47,11 +47,10 @@ export const authApi = apiSlice.injectEndpoints({
             })
         }),
         updateProfile: builder.mutation({
-            query: (credentials) => ({
+            query: (body) => ({
                 url: "/api/update-profile",
-                mode: 'cors',
                 method: "POST",
-                body: {...credentials },
+                body: {...body },
             }),
         }),
         // updateProfilePhoto: builder.mutation({

@@ -10,7 +10,7 @@ import { useRolesRequestMutation } from "../../../store/features/auth/authApi";
 import { selectCurrentUser } from "../../../store/features/auth/authSlice";
 import "../../../components/form/forms.css"
 
-export default function RequestRoles() {
+export default function RequestRoles({profile}) {
   const {
     register,
     handleSubmit,
@@ -24,7 +24,7 @@ export default function RequestRoles() {
   const onSubmit = (data) => {
     const roleRequestInfo = {
       id: user.id,
-      displayname: user.displayname,
+      displayname: profile.displayname,
       email: user.email,
       role: data.role,
     };

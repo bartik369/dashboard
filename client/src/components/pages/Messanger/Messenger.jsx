@@ -4,6 +4,7 @@ import {
   useCreateConversationMutation,
   useGetConversationMutation,
   useGetParticipantsQuery,
+  useGetLastMessagesMutation,
   useDeleteConversationMutation,
   useMarkMessageMutation,
   useGetActiveConversationUserQuery,
@@ -16,26 +17,22 @@ import ConversationMenu from "./ConversationMenu";
 import "./messenger.css";
 import RecipientInfo from "./RecipientInfo";
 
-
-
 const Messenger = () => {
   const user = useSelector(selectCurrentUser);
   const { data: participants} = useGetParticipantsQuery(user.id);
   const{ data: activeConversationUserId } = useGetActiveConversationUserQuery(user.id)
   const [getConversation, {data: conversationId, isLoading}] = useGetConversationMutation();
+  const [getLastMessages, {data: lastMessages}] = useGetLastMessagesMutation()
   const [markAsRead] = useMarkMessageMutation()
   const [createConversation] = useCreateConversationMutation();
   const [deleteConversation] = useDeleteConversationMutation()
   const [switchLeftInfo, setSwitchLeftInfo] = useState(false);
   // const {data: recipientInfo} = useGetUserQuery(activeChat.emailTo)
-  // const [addActiveConversation] = useSetActiveConversationMutation()
   const [dropMenu, setDropMenu] = useState(false);
   const [activeConversation, setActiveConversation] = useState({
     recipientId: "",
     creatorId: "",
   });
-
-  console.log(participants)
 
   useEffect(() => {
 
@@ -49,6 +46,12 @@ const Messenger = () => {
     }
     getConversation(conversationData);
   }, [activeConversationUserId])
+
+  useEffect(() => {
+      if (user) {
+        getLastMessages({id: user.id})
+      }
+  }, [])
 
   const newConversationHandler = () => {
     setSwitchLeftInfo(true);

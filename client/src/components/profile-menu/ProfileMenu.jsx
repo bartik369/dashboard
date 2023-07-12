@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { signout } from "../../store/api/apiSlice";
 import { logOut } from "../../store/features/auth/authSlice";
 import "./profilemenu.css";
+import "../header/header.css"
 
 export default function ProfileMenu({user, token}) {
 

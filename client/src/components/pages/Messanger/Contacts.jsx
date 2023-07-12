@@ -25,7 +25,7 @@ function Contacts({recipientId}) {
                 key={index}
                 onClick={() => contactHandler(item.userId)}>
                 <div className="avatar">
-                <img src= {profiles.avatar ? profiles.avatar : defaultAvatar } alt="" />
+                <img src= {item.avatar ? item.avatar : defaultAvatar } alt="" />
                 </div>
                 <div className="info">
                 <span className="name">{item.displayname}</span>

@@ -2,15 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import SearchData from "../UI/search/SearchData";
 // import { setSearchQuery } from "../../store/actions/searchDataAction";
 import { setSearchQuery } from "../../store/features/search/searchSlice";
-import { useDispatch, useSelector } from "react-redux";
+import {useSelector } from "react-redux";
 import ProfileMenu from "../profile-menu/ProfileMenu";
 import TodosAlert from "./notifications/TodosAlert";
 import { useGetTodosQuery } from "../../store/features/todos/todoApi";
-import {
-  selectCurrentUser,
-  selectCurrentToken,
-} from "../../store/features/auth/authSlice";
-import useravatar from "../../assets/users/profile-avatar.jpg";
+import { useGetProfileQuery } from "../../store/features/auth/authApi";
+import { selectCurrentUser, selectCurrentToken } from "../../store/features/auth/authSlice";
+
+import defaultA from "../../assets/users/avatars/default-avatar.png";
 import "./header.css";
 
 const Header = ({ moveHeader }) => {
@@ -22,9 +21,9 @@ const Header = ({ moveHeader }) => {
   const [countTodos, setCountTodos] = useState(0);
   const [overdueTodos, setOverdueTodos] = useState([]);
   const overTodos = [];
-  const dispatch = useDispatch();
   const token = useSelector(selectCurrentToken);
   const user = useSelector(selectCurrentUser);
+  const {data: profile} = useGetProfileQuery(user.id)
   const { data = [] } = useGetTodosQuery();
   const todoMenuRef = useRef();
   const profileMenuRef = useRef();
@@ -113,12 +112,9 @@ const Header = ({ moveHeader }) => {
               <i className="bi bi-chat"></i>
             </div>
           </div>
-          <img
-            className="user-avatar"
-            src={useravatar}
-            alt=""
-            onClick={userMenuHandler}
-          />
+          <div className="user-avatar" onClick={userMenuHandler}>
+          <img src={profile ? profile.avatar : defaultA} alt=""/>
+          </div>
           <div
             className={userMenu ? "profile-menu": "profile-menu-disabled"}
             ref={profileMenuRef}

@@ -94,6 +94,17 @@ class MessengerController {
         }
     }
 
+    async getLastMessages(req, res, next) {
+        try {
+            const { id } = req.body;
+            const lastMessagesData = await messengerService.getLastMessages(id)
+            console.log(lastMessagesData)
+            return res.json(lastMessagesData)
+        } catch (error) {
+
+        }
+    }
+
     async addMessage(req, res, next) {
         try {
             const { conversationId, senderId, recipientId, content } = req.body;

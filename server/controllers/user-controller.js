@@ -124,11 +124,8 @@ class UserController {
 
     async updateProfile(req, res, next) {
         try {
-            const { id, displayname, description, city, birthday, phone, departament, workPhone, vocation, file } = req.body
-            console.log(id)
-                // console.log(id, description, city, birthday, phone, departament, workPhone, vocation)
+            const { id, displayname, description, city, birthday, phone, departament, workPhone, vocation, file } = req.body;
             const profileData = await userService.updateProfile(id, displayname, description, city, birthday, phone, departament, workPhone, vocation, file)
-            console.log(profileData)
             return profileData
         } catch (error) {
             next()
@@ -196,14 +193,11 @@ class UserController {
     async getProfiles(req, res, next) {
         try {
             const profilesData = await userService.getProfiles()
-            console.log(profilesData)
             return res.json(profilesData)
         } catch (error) {
 
         }
     }
-
-
 
     async checkCookie(req, res, next) {
         try {

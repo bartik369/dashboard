@@ -131,8 +131,14 @@
 }
 
 .header__user-panel .user-avatar {
-    width: 33px;
-    height: auto;
+    width: 37px;
+    height: 37px;
     cursor: pointer;
+}
+
+.user-avatar img {
+    object-fit: cover;
     border-radius: 50%;
+    width: 100%;
+    height: 100%;
 }

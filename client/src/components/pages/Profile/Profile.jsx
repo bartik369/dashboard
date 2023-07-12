@@ -1,42 +1,49 @@
-import React, { useState, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState, useRef, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import InputMask from "react-input-mask";
 import * as formConstants from "../../../utils/constants/form.constants";
 import * as REGEX from "../../../utils/constants/regex.constants";
-import * as uiConstants from "../../../utils/constants/ui.constants";
 import SubmitButton from "../../UI/buttons/SubmitButton";
 import { selectCurrentUser } from "../../../store/features/auth/authSlice";
-import {
-  useUpdateProfileMutation,
-  useUpdateUserPasswordMutation,
-  useGetProfileQuery,
+import { useUpdateProfileMutation, useUpdateUserPasswordMutation, useGetProfileQuery,
 } from "../../../store/features/auth/authApi";
 import RequestRoles from "../../form/roles/RequestRoles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { faLock, faRoute } from "@fortawesome/free-solid-svg-icons";
 import defaultAvatar from "../../../assets/users/avatars/default-avatar.png";
 import "../../form/forms.css";
 import "./profile.css";
 import ENV from "../../../env.config";
+import seven from "../../../assets/users/avatars/777.png"
 
 export default function Profile() {
   const user = useSelector(selectCurrentUser);
   const { data: profile } = useGetProfileQuery(user.id);
-  const [updateProfile] = useUpdateProfileMutation();
   const [updatePassword] = useUpdateUserPasswordMutation();
   const [passwordType, setPasswordType] = useState(false);
   const [repeatPasswordType, setRepeatPasswordType] = useState(false);
   const [selectedFile, setSelectedFile] = useState("");
   const profilePicPickerRef = useRef(null);
 
+  useEffect(() => {
+
+    if (profile) {
+      setSelectedFile(profile.avatar)
+    }
+ }, [profile])
+
+ console.log("profile memory")
+
+ const pickProfilePhoto = () => {
+  profilePicPickerRef.current.click();
+};
+
   const selectProfilePhoto = (e) => {
     let file = e.target.files[0];
-
     return new Promise((resolve) => {
       let baseURL = "";
       let reader = new FileReader();
-
       reader.readAsDataURL(file);
       reader.onload = () => {
         baseURL = reader.result;
@@ -45,7 +52,6 @@ export default function Profile() {
       };
     });
   };
-  console.log(selectedFile)
 
   const {
     control,
@@ -62,7 +68,6 @@ export default function Profile() {
     watch,
     formState: { errors: errorsPass },
     handleSubmit: handleSubmitPass,
-    reset: resetPass,
   } = useForm({
     mode: "onSubmit",
   });
@@ -84,7 +89,14 @@ export default function Profile() {
     setRepeatPasswordType(repeatPasswordType ? false : true);
   };
 
-  console.log(profile && profile.work)
+  const changePassword = async (data) => {
+    const updatedPassword = {
+      email: user.email,
+      password: data.password,
+    };
+    await updatePassword(updatedPassword).unwrap();
+    reset();
+  };
 
   const onSubmit = async (data) => {
     const updatedProfileInfo = {
@@ -106,20 +118,8 @@ export default function Profile() {
       const formData = new FormData();
       formData.append("file", selectedFile)
 
-      // for(let key in updatedProfileInfo) {
-      //   if (typeof(updatedProfileInfo[key]) === 'object') {
-
-      //     for (let subKey in updatedProfileInfo[key]) {
-      //       // formData.append(`${key},${subKey}`, updatedProfileInfo[key][subKey]);
-      //       formData.append(`${updatedProfileInfo[key]}${subKey}`, updatedProfileInfo[key][subKey]);
-      //     }
-      //   }
-      //   else {
-      //     formData.append(key, updatedProfileInfo[key]);
-      //   }
-      // }
-
-      for(let dataKey in updatedProfileInfo) {
+      for (let dataKey in updatedProfileInfo) {
+        
         if (dataKey === 'work') {
           for (let previewKey in updatedProfileInfo[dataKey]) {
             formData.append(previewKey, updatedProfileInfo[dataKey][previewKey]);
@@ -129,29 +129,12 @@ export default function Profile() {
           formData.append(dataKey, updatedProfileInfo[dataKey]);
         }
       }
-
-
-
       const res = await fetch(`${ENV.HOSTNAME}api/update-profile`, {
         method: "POST",
         body: formData,
       });
-      await res.json();
-      // await updateProfilePhoto(formData).unwrap()
      reset();
 }
-  const changePassword = async (data) => {
-    const updatedPassword = {
-      email: user.email,
-      password: data.password,
-    };
-    await updatePassword(updatedPassword).unwrap();
-    reset();
-  };
-
-  const pickProfilePhoto = () => {
-    profilePicPickerRef.current.click();
-  };
 
   if (profile)
     return (
@@ -160,19 +143,15 @@ export default function Profile() {
           <div className="profile__main-info">
             <div className="profile__image">
               <input
-                accept="image/*,.png,.jpg"
+                accept="image/*"
                 type="file"
                 onChange={selectProfilePhoto}
                 className="hidden-btn"
                 ref={profilePicPickerRef}
               />
-              {/* <button onClick={uploadProfilePhoto}>Upload</button> */}
-              <img
-                onClick={pickProfilePhoto}
-                src={profile.avatar ? profile.avatar : defaultAvatar}
-                alt=""
-              />
+              <img onClick={pickProfilePhoto} src={selectedFile ? selectedFile : defaultAvatar} alt=""/>
             </div>
+            <div>
             <input
               className="content-form__input"
               placeholder={formConstants.yourName}
@@ -196,6 +175,7 @@ export default function Profile() {
               defaultValue={profile.description}
               {...register("description", {})}
             />
+            </div>
             <div className="form-error">
               {errors.description && (
                 <p>
@@ -400,7 +380,7 @@ export default function Profile() {
             />
           </form>
           <div className="roles">
-            <RequestRoles />
+            <RequestRoles profile={profile}/>
           </div>
         </div>
       </div>

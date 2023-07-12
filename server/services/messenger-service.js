@@ -41,6 +41,7 @@ class MessengerService {
             return conversations;
         } catch (error) {}
     }
+
     async getActiveConversation(id) {
         try {
             const participants = await ParticipantsModel.find({
@@ -61,6 +62,7 @@ class MessengerService {
             return contacts;
         } catch (error) {}
     }
+
     async getConversation(creatorId, recipientId) {
         try {
             const participantsData = await ParticipantsModel.findOne({
@@ -148,12 +150,34 @@ class MessengerService {
             }
         } catch (error) {}
     }
+
     async getMessages(id) {
         try {
             const messages = await MessageModel.find({ conversationId: id });
             return messages;
         } catch (error) {}
     }
+
+    async getLastMessages(id) {
+        try {
+            const user = await UserModel.findById(id)
+
+            if (!user) {
+                return null
+            }
+            const conversationsData = await ParticipantsModel.find({
+                visible: { $all: user.id },
+            });
+            const lastMessagesData = await MessageModel.findOne(conversationsData.conversationId).sort({ createdAt: -1 })
+
+
+            // const activeConverstation = await ConversationModel.findOne({
+            //     _id: { $in: conversationsArray },
+            // }).sort({ updatedAt: -1 });
+            return lastMessagesData
+        } catch (error) {}
+    }
+
     async getMessage(id) {
         try {
             const message = await MessageModel.findById(id);
@@ -164,6 +188,7 @@ class MessengerService {
             return message
         } catch (error) {}
     }
+
     async addMessage(conversationId, senderId, recipientId, content) {
         try {
             const participants = await ParticipantsModel.findOne({

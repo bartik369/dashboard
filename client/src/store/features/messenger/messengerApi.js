@@ -98,6 +98,15 @@ export const messengerApi = createApi({
             invalidatesTags: [{ type: ['Messages'], id: 'LIST' }],
         }),
 
+        getLastMessages: builder.mutation({
+            query: (body) => ({
+                url: `/api/last-messages/`,
+                method: "POST",
+                body: body,
+            }),
+        }),
+
+
 
         //add message
         addMessage: builder.mutation({
@@ -147,6 +156,7 @@ export const {
     useGetConversationMutation,
     useAddMessageMutation,
     useGetMessagesQuery,
+    useGetLastMessagesMutation,
     useUpdateMessageMutation,
     useDeleteConversationMutation,
     useMarkMessageMutation,

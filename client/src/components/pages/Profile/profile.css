@@ -44,16 +44,20 @@
 
 .profile__image {
     text-align: center;
-    padding: 10px 0 40px;
+    width: 100%;
+    height: 300px;
+    margin-bottom: 20px;
+    overflow: hidden;
 }
 
 .profile__image img {
+    object-fit: cover;
     width: 100%;
-    max-width: 450px;
+    height: 100%;
 }
 
 .profile__main-info textarea {
-    min-height: 150px;
+    height: 100px;
 }
 
 .roles {

@@ -23,7 +23,7 @@ export default function Conversations({ active, participants, activeConversation
                 key={index}
                 onClick={() => active(item.userId)}
               >
-                <div className="avatar"><img src={profile.avatar ? profile.avatar : defaultAvatar} alt="" /></div>
+                <div className="avatar"><img src={item.avatar ? item.avatar : defaultAvatar} alt="" /></div>
                 <div className="user-info">
                   <div className="name">{item.displayname}</div>
                   <div className="email">{item.email}</div>

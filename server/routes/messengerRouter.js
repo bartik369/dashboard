@@ -12,6 +12,7 @@ router.delete('/conversation/', messenderController.deleteConversation)
     // router.post('/set-active/', messenderController.setActiveConversation)
 
 router.get('/messages/:id', messenderController.getMessages)
+router.post('/last-messages/', messenderController.getLastMessages)
 router.post('/message/', messenderController.getMessage)
 router.post('/add-message/', messenderController.addMessage)
 router.delete('/message/:id', messenderController.deleteMessage)
