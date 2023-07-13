@@ -168,13 +168,162 @@ class MessengerService {
             const conversationsData = await ParticipantsModel.find({
                 visible: { $all: user.id },
             });
-            const lastMessagesData = await MessageModel.findOne(conversationsData.conversationId).sort({ createdAt: -1 })
+
+            const idInfo = []
+            conversationsData.map((item) => {
+                idInfo.push(item.conversationId)
+            })
+
+            const lastMessagesData = await MessageModel.find({
+                conversationId: { $in: idInfo },
+            })
+            const step1 = await MessageModel.aggregate([{
+                    $match: { "conversationId": { $in: idInfo } }
+                },
+                {
+                    "$project": {
+                        conversationId: 1,
+                        content: 1,
+                        createdAt: 1,
+                        updatedAt: 1,
+                        senderId: 1,
+                    }
+                },
+                // {
+                //     $unwind: "$conversationId"
+                // },
+                {
+                    $sort: {
+                        "conversationId": 1
+                    }
+                },
+                {
+                    $group: {
+                        _id: "$_id",
+                        "conversationId": {
+                            $push: "$conversationId"
+                        },
+                        "content": {
+                            "$first": "$content"
+                        },
+                        "createdAt": {
+                            "$first": "$createdAt"
+                        },
+                        "updatedAt": {
+                            "$first": "$createdAt"
+                        },
+                        "senderId": {
+                            "$first": "$senderId"
+                        },
+                    }
+                },
+                {
+                    "$sort": {
+                        "updatedAt": -1
+                    }
+                },
+                {
+                    "$group": {
+                        "_id": "$conversationId",
+                        "content": {
+                            "$first": "$content"
+                        },
+                        "createdAt": {
+                            "$first": "$createdAt"
+                        },
+                        "updatedAt": {
+                            "$first": "$createdAt"
+                        },
+                        "senderId": {
+                            "$first": "$senderId"
+                        },
+                    }
+                }
+            ])
 
 
-            // const activeConverstation = await ConversationModel.findOne({
-            //     _id: { $in: conversationsArray },
-            // }).sort({ updatedAt: -1 });
-            return lastMessagesData
+
+            // [
+            //     {
+            //       $match: {
+            //         $or: [
+            //           {
+            //             "toUser": 123
+            //           },
+            //           {
+            //             "fromUser": 123
+            //           }
+            //         ]
+            //       }
+            //     },
+            //     {
+            //       "$project": {
+            //         toUser: 1,
+            //         fromUser: 1,
+            //         message: 1,
+            //         timeStamp: 1,
+            //         fromToUser: [
+            //           "$fromUser",
+            //           "$toUser"
+            //         ]
+            //       }
+            //     },
+            //     {
+            //       $unwind: "$fromToUser"
+            //     },
+            //     {
+            //       $sort: {
+            //         "fromToUser": 1
+            //       }
+            //     },
+            //     {
+            //       $group: {
+            //         _id: "$_id",
+            //         "fromToUser": {
+            //           $push: "$fromToUser"
+            //         },
+            //         "fromUser": {
+            //           "$first": "$fromUser"
+            //         },
+            //         "toUser": {
+            //           "$first": "$toUser"
+            //         },
+            //         "message": {
+            //           "$first": "$message"
+            //         },
+            //         "timeStamp": {
+            //           "$first": "$timeStamp"
+            //         }
+            //       }
+            //     },
+            //     {
+            //       "$sort": {
+            //         "timeStamp": -1
+            //       }
+            //     },
+            //     {
+            //       "$group": {
+            //         "_id": "$fromToUser",
+            //         "fromUser": {
+            //           "$first": "$fromUser"
+            //         },
+            //         "toUser": {
+            //           "$first": "$toUser"
+            //         },
+            //         "message": {
+            //           "$first": "$message"
+            //         },
+            //         "timeStamp": {
+            //           "$first": "$timeStamp"
+            //         }
+            //       }
+            //     }
+            //   ]
+
+
+
+
+            return step1
         } catch (error) {}
     }
 
@@ -193,7 +342,7 @@ class MessengerService {
         try {
             const participants = await ParticipantsModel.findOne({
                 visible: { $all: [recipientId, senderId] },
-            });
+            })
 
             if (!participants) {
                 const addVis = await ParticipantsModel.findOneAndUpdate({
