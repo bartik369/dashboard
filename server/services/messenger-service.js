@@ -173,11 +173,7 @@ class MessengerService {
             conversationsData.map((item) => {
                 idInfo.push(item.conversationId)
             })
-
-            const lastMessagesData = await MessageModel.find({
-                conversationId: { $in: idInfo },
-            })
-            const step1 = await MessageModel.aggregate([{
+            const lastMessagesData = await MessageModel.aggregate([{
                     $match: { "conversationId": { $in: idInfo } }
                 },
                 {
@@ -187,6 +183,7 @@ class MessengerService {
                         createdAt: 1,
                         updatedAt: 1,
                         senderId: 1,
+                        recipientId: 1,
                     }
                 },
                 // {
@@ -200,9 +197,7 @@ class MessengerService {
                 {
                     $group: {
                         _id: "$_id",
-                        "conversationId": {
-                            $push: "$conversationId"
-                        },
+                        "conversationId": { $push: "$conversationId" },
                         "content": {
                             "$first": "$content"
                         },
@@ -214,6 +209,9 @@ class MessengerService {
                         },
                         "senderId": {
                             "$first": "$senderId"
+                        },
+                        "recipientId": {
+                            "$first": "$recipientId"
                         },
                     }
                 },
@@ -237,93 +235,13 @@ class MessengerService {
                         "senderId": {
                             "$first": "$senderId"
                         },
+                        "recipientId": {
+                            "$first": "$recipientId"
+                        },
                     }
                 }
             ])
-
-
-
-            // [
-            //     {
-            //       $match: {
-            //         $or: [
-            //           {
-            //             "toUser": 123
-            //           },
-            //           {
-            //             "fromUser": 123
-            //           }
-            //         ]
-            //       }
-            //     },
-            //     {
-            //       "$project": {
-            //         toUser: 1,
-            //         fromUser: 1,
-            //         message: 1,
-            //         timeStamp: 1,
-            //         fromToUser: [
-            //           "$fromUser",
-            //           "$toUser"
-            //         ]
-            //       }
-            //     },
-            //     {
-            //       $unwind: "$fromToUser"
-            //     },
-            //     {
-            //       $sort: {
-            //         "fromToUser": 1
-            //       }
-            //     },
-            //     {
-            //       $group: {
-            //         _id: "$_id",
-            //         "fromToUser": {
-            //           $push: "$fromToUser"
-            //         },
-            //         "fromUser": {
-            //           "$first": "$fromUser"
-            //         },
-            //         "toUser": {
-            //           "$first": "$toUser"
-            //         },
-            //         "message": {
-            //           "$first": "$message"
-            //         },
-            //         "timeStamp": {
-            //           "$first": "$timeStamp"
-            //         }
-            //       }
-            //     },
-            //     {
-            //       "$sort": {
-            //         "timeStamp": -1
-            //       }
-            //     },
-            //     {
-            //       "$group": {
-            //         "_id": "$fromToUser",
-            //         "fromUser": {
-            //           "$first": "$fromUser"
-            //         },
-            //         "toUser": {
-            //           "$first": "$toUser"
-            //         },
-            //         "message": {
-            //           "$first": "$message"
-            //         },
-            //         "timeStamp": {
-            //           "$first": "$timeStamp"
-            //         }
-            //       }
-            //     }
-            //   ]
-
-
-
-
-            return step1
+            return lastMessagesData
         } catch (error) {}
     }
 
@@ -364,6 +282,7 @@ class MessengerService {
                 const message = new MessageModel({
                     conversationId: participants.conversationId,
                     senderId: senderId,
+                    recipientId: recipientId,
                     content: content,
                 });
                 await message.save();

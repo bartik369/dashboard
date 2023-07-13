@@ -13,8 +13,26 @@ class MessengerController {
                         recipients.push(recipient);
                     }
                 });
+
             });
+
             const participantsData = await messengerService.getRecipientsInfo(recipients);
+            const newData = []
+
+
+
+            // var a1 = [6,3,5,1,2];
+            // var a2 = [1,2,4];
+            // var result = [];
+
+            // a2.forEach(function(item) {
+            //     var index = a1.indexOf(item);
+            //     if (index !== -1) {
+            //         result.push(index);
+            //     }
+            // });
+
+
             return res.json(participantsData);
         } catch (error) {}
     }
@@ -59,7 +77,6 @@ class MessengerController {
     async createConversation(req, res, next) {
         try {
             const { creatorId, recipientId } = req.body;
-            console.log(creatorId, recipientId)
             const newChatData = await messengerService.createConversation(
                 creatorId,
                 recipientId
@@ -98,7 +115,6 @@ class MessengerController {
         try {
             const { id } = req.body;
             const lastMessagesData = await messengerService.getLastMessages(id)
-            console.log(lastMessagesData)
             return res.json(lastMessagesData)
         } catch (error) {
 

@@ -12,6 +12,10 @@ const MessagesSchema = new Schema({
         unique: false,
         required: true,
     },
+    recipientId: {
+        type: String,
+        required: true,
+    },
     content: {
         type: String,
         required: true,

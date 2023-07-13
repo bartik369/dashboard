@@ -2,7 +2,10 @@ import React from "react";
 import defaultAvatar from "../../../assets/users/avatars/default-avatar.png";
 import "./messenger.css";
 
-export default function Conversations({ active, participants, activeConversation }) {
+export default function Conversations({ active, participants, activeConversation, lastMessages}) {
+
+  console.log(participants && participants)
+
   if (participants) {
     return (
       <div>
@@ -23,7 +26,18 @@ export default function Conversations({ active, participants, activeConversation
                 </div>
                 <div className="user-info">
                   <div className="name">{item.displayname}</div>
-                  <div className="email">{item.email}</div>
+                  {/* <div className="email">{item.email}</div> */}
+                  <div className="chat-text">
+                  {lastMessages && lastMessages.map((text) => {
+              
+
+                    if ((text.senderId  === item.userId) || ((text.recipientId  === item.userId))) {
+                      return (
+                        <div>{text.content}</div>
+                       )
+                    }
+                  })}
+                  </div>
                 </div>
               </div>
             );

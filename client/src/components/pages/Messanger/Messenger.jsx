@@ -57,6 +57,7 @@ const Messenger = () => {
     setSwitchLeftInfo(true);
   };
 
+
   // Create conversation 
 
   const createConversationHandler = async (id) => {
@@ -118,6 +119,7 @@ const Messenger = () => {
               active={activeConversationHandler}
               participants={participants}
               activeConversation={activeConversation}
+              lastMessages={lastMessages && lastMessages}
             />
           </div>
           <div className={switchLeftInfo ? "contacts" : "switch-disable"}>
