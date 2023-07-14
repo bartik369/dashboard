@@ -375,14 +375,14 @@
     display: flex;
     align-items: center;
     background-color: #ebf1f7;
-    border-radius: 12px;
+    border-radius: 8px;
 }
 
 .messages .messages__form input {
     right: 10%;
     width: 100%;
     background-color: transparent;
-    padding: 14px 30px 14px 20px;
+    padding: 11px 30px 11px 20px;
     height: auto;
 }
 
@@ -533,7 +533,7 @@
 
 .bi-send,
 .bi-arrow-clockwise {
-    font-size: 22px;
+    font-size: 21px;
     font-weight: bold;
     color: #343434;
 }
