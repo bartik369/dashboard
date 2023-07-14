@@ -128,9 +128,7 @@ const Messenger = () => {
         </div>
         <div className="left-main__bottom">
           <div className="create-chat">
-            <button className="add" onClick={() => newConversationHandler()}>
-              New chat
-            </button>
+            <i className="bi bi-plus-square-fill" onClick={() => newConversationHandler()}/>
           </div>
         </div>
       </div>

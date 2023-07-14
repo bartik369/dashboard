@@ -178,13 +178,14 @@ class MessengerService {
                 {
                     "$project": {
                         conversationId: 1,
-                        content: 1,
+                        content: { $substr: ["$content", 0, 47] },
                         createdAt: 1,
                         updatedAt: 1,
                         senderId: 1,
                         recipientId: 1,
                     }
                 },
+                // intro: { $substr: [ "$fullText", 0, 100 ] },
                 // {
                 //     $unwind: "$conversationId"
                 // },

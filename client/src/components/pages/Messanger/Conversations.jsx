@@ -5,8 +5,6 @@ import "./messenger.css";
 
 export default function Conversations({ active, participants, activeConversation, lastMessages}) {
 
-  console.log(participants && participants)
-
   if (participants) {
     return (
       <div>
@@ -19,7 +17,7 @@ export default function Conversations({ active, participants, activeConversation
                     ? "chats__item"
                     : "active__chat"
                 }
-                key={index}
+                key={item._id}
                 onClick={() => active(item.userId)}
               >
                 <div className="avatar">
@@ -27,13 +25,12 @@ export default function Conversations({ active, participants, activeConversation
                 </div>
                 <div className="user-info">
                   <div className="name">{item.displayname}</div>
-                  {/* <div className="email">{item.email}</div> */}
-                 
                   {lastMessages && lastMessages.map((message) => {
+      
                     if ((message.senderId  === item.userId) || ((message.recipientId  === item.userId))) {
                       return (
-                        <div className="message-info">
-                          <div className="text">{message.content}</div>
+                        <div className="message-info" key={message._id}>
+                          <div className="text">{`${message.content}...`}</div>
                           <div className="date"> {moment(message.updatedAt).format("DD.MM HH:mm")}</div>
                         </div>
                        )
@@ -48,9 +45,11 @@ export default function Conversations({ active, participants, activeConversation
       </div>
     );
   } else {
-    return <div class="chats-loader">
-      <p>Загрузка</p>
-      <div class="custom-loader"></div>
-    </div>;
+    return (
+    <div className="chats-loader">
+      <span>Загрузка</span>
+      <div className="custom-loader"></div>
+    </div>
+    )
   }
 }
