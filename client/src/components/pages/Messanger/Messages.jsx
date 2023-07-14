@@ -155,7 +155,8 @@ function Messages({ conversationId, user, recipientId }) {
             required: formConstants.requiredText,
           })}
         />
-        <button className="send-btn">{updateStatus ? formConstants.update : formConstants.send}</button>
+        <i className="bi bi-paperclip"></i>
+        <button className="send-btn">{updateStatus ? <i className="bi bi-arrow-clockwise"/> : <i className="bi bi-send"/>}</button>
       </form>
     </div>
   );

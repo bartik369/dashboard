@@ -287,8 +287,8 @@
 }
 
 .bi-three-dots-vertical {
-    font-size: 24px;
-    color: #c2cdd8;
+    font-size: 19px;
+    color: #b3c3d2;
 }
 
 .bi-trash3 {
@@ -304,17 +304,17 @@
 .right-main__top {
     display: flex;
     position: relative;
+    align-items: center;
     display: flex;
-    height: 65px;
+    height: 64px;
     width: 100%;
-    padding: 20px 20px;
+    padding: 10px 20px;
     border-bottom: 1px solid #f2f3f7;
-    background-color: #ffffff;
 }
 
 .right-main__top .drop-menu {
     position: absolute;
-    top: 12px;
+    top: 20px;
     right: 20px;
 }
 
@@ -367,13 +367,23 @@
 }
 
 .messages .messages__form {
-    padding: 3px;
+    padding: 4px 20px 4px 10px;
     margin-right: 20%;
     margin-bottom: 10px;
     width: 50%;
     align-self: flex-end;
     display: flex;
     align-items: center;
+    background-color: #ebf1f7;
+    border-radius: 12px;
+}
+
+.messages .messages__form input {
+    right: 10%;
+    width: 100%;
+    background-color: transparent;
+    padding: 14px 30px 14px 20px;
+    height: auto;
 }
 
 .messages__from .message {
@@ -391,16 +401,6 @@
 .messages__from .edite {
     background-color: #6d279c;
     padding: 5px;
-}
-
-.messages .messages__form input {
-    right: 10%;
-    width: 100%;
-    background-color: #ebf1f7;
-    padding: 17px 20px;
-    margin-right: 10px;
-    height: auto;
-    border-radius: 12px;
 }
 
 .messages .messages__from {
@@ -531,11 +531,20 @@
     flex-direction: column;
 }
 
+.bi-send,
+.bi-arrow-clockwise {
+    font-size: 22px;
+    font-weight: bold;
+    color: #343434;
+}
+
+.bi-paperclip {
+    font-size: 19px;
+    color: #6b6b6b;
+}
+
 .messages .send-btn {
-    background-color: #2f8af2;
-    width: fit-content;
-    padding: 7px 12px;
-    color: aliceblue;
+    margin-left: 10px;
 }
 
 
