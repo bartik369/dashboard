@@ -168,7 +168,6 @@ class MessengerService {
             const conversationsData = await ParticipantsModel.find({
                 visible: { $all: user.id },
             });
-
             const idInfo = []
             conversationsData.map((item) => {
                 idInfo.push(item.conversationId)

@@ -9,6 +9,7 @@ import {
   useMarkMessageMutation,
   useGetActiveConversationUserQuery,
 } from "../../../store/features/messenger/messengerApi";
+import { useGetProfileQuery} from "../../../store/features/auth/authApi";
 import Conversations from "./Conversations";
 import Contacts from "./Contacts";
 import { useSelector } from "react-redux";
@@ -27,12 +28,12 @@ const Messenger = () => {
   const [createConversation] = useCreateConversationMutation();
   const [deleteConversation] = useDeleteConversationMutation()
   const [switchLeftInfo, setSwitchLeftInfo] = useState(false);
-  // const {data: recipientInfo} = useGetUserQuery(activeChat.emailTo)
   const [dropMenu, setDropMenu] = useState(false);
   const [activeConversation, setActiveConversation] = useState({
     recipientId: "",
     creatorId: "",
   });
+  const {data: recipientInfo} = useGetProfileQuery(activeConversation.recipientId)
 
   useEffect(() => {
 
@@ -56,7 +57,6 @@ const Messenger = () => {
   const newConversationHandler = () => {
     setSwitchLeftInfo(true);
   };
-
 
   // Create conversation 
 
@@ -136,8 +136,7 @@ const Messenger = () => {
       </div>
       <div className="right-main">
         <div className="right-main__top">
-            <RecipientInfo />
-            {/* <RecipientInfo recipientInfo={recipientInfo}/> */}
+            <RecipientInfo recipientInfo={recipientInfo}/>
           <div className="drop-menu">
           <div className="menu-btn" onClick={(e) => ConversationHandler(e)}>
             <i className="bi bi-three-dots-vertical" />
