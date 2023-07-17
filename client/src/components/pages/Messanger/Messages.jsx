@@ -8,7 +8,7 @@ import {
 } from "../../../store/features/messenger/messengerApi";
 import * as formConstants from "../../../utils/constants/form.constants";
 import { useForm } from "react-hook-form";
-import moment from "moment";
+import moment, { normalizeUnits } from "moment";
 
 function Messages({ conversationId, user, recipientId }) {
   const [messageMenu, setMessageMenu] = useState("");
@@ -29,6 +29,7 @@ function Messages({ conversationId, user, recipientId }) {
     mode: "onSubmit",
   }); 
   const messageMenuRef = useRef({});
+  const messageEl = useRef(null);
 
   useEffect(() => {
     messageInfo && setMessage({
@@ -54,7 +55,16 @@ function Messages({ conversationId, user, recipientId }) {
     } 
     document.addEventListener("click", outsideClickhandler);
   }, []);
+  
+  useEffect(() => {
 
+    if (messageEl) {
+      messageEl.current.addEventListener('DOMNodeInserted', e => {
+        const { currentTarget: target } = e;
+        target.scroll({ top: target.scrollHeight});
+      });
+    }
+  }, [])
 
   const onSubmit = async () => {
     const messageData = {
@@ -99,7 +109,7 @@ function Messages({ conversationId, user, recipientId }) {
 
   return (
     <div className="messages">
-      <div className="messages__items">
+      <div className="messages__items" ref={messageEl}>
         {!messages && "nothing"}
         {messages &&
           messages.map((item, index) => {
@@ -156,7 +166,9 @@ function Messages({ conversationId, user, recipientId }) {
           })}
         />
         <i className="bi bi-paperclip"></i>
-        <button className="send-btn">{updateStatus ? <i className="bi bi-arrow-clockwise"/> : <i className="bi bi-send"/>}</button>
+        <button className="send-btn">{updateStatus 
+        ? <i className="bi bi-arrow-clockwise" title="Обновить"/> 
+        : <i className="bi bi-send" title="Отправить" />}</button>
       </form>
     </div>
   );

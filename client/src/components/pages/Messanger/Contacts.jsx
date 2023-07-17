@@ -1,22 +1,28 @@
-import React from "react";
-import { useGetUsersQuery, useGetProfilesQuery } from "../../../store/features/auth/authApi";
+import React, {useEffect, useRef} from "react";
+import { useGetProfilesQuery } from "../../../store/features/auth/authApi";
 import defaultAvatar from "../../../assets/users/avatars/default-avatar.png"
 import "./messenger.css";
 
-function Contacts({recipientId}) {
-
-  const { data: contacts } = useGetUsersQuery();
+function Contacts({recipientId, setSwitchLeftInfo}) {
   const {data: profiles} = useGetProfilesQuery()
   const contactHandler = (id) => {
     recipientId(id)
   };
+  const contactsListRef = useRef()
 
-  console.log("contacts test mem")
+  useEffect(() => {
+    const outsideClickhandler = (e) => {
+       if (!contactsListRef.current.contains(e.target)) {
+        setSwitchLeftInfo(false)
+       }
+    }
+    document.addEventListener("mousedown", outsideClickhandler)
+  }, [])
  
   return (
     <div>
-      <h1>Contacts</h1>
-      <div className="contacts__items">
+      <div className="contacts__list">Ваши контакты</div>
+      <div className="contacts__items" ref={contactsListRef}>
         {profiles &&
           profiles.map((item, index) => {
             return (

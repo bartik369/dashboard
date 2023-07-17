@@ -123,12 +123,14 @@ const Messenger = () => {
             />
           </div>
           <div className={switchLeftInfo ? "contacts" : "switch-disable"}>
-            <Contacts recipientId={createConversationHandler} />
+            <Contacts
+            setSwitchLeftInfo={setSwitchLeftInfo}
+            recipientId={createConversationHandler} />
           </div>
         </div>
         <div className="left-main__bottom">
           <div className="create-chat">
-            <i className="bi bi-plus-square-fill" onClick={() => newConversationHandler()}/>
+            <i className="bi bi-plus-square-fill" title="Новый чат" onClick={() => newConversationHandler()}/>
           </div>
         </div>
       </div>

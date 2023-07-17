@@ -44,17 +44,30 @@
 }
 
 .left-main__middle .contacts {
-    background-color: lightsalmon;
+    overflow: auto;
+    width: 100%;
+    padding: 10px 10px;
+    height: calc(85vh - 100px);
+    background-color: #ffffff;
+}
+
+.contacts__list {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
 }
 
 .contacts .contacts__items {}
 
 .contacts .contacts__item {
-    padding: 10px;
+    padding: 6px 10px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+}
+
+.contacts .contacts__item:not(:last-child) {
+    border-bottom: 1px solid #ececec;
 }
 
 .contacts .contacts__item .avatar {
@@ -77,7 +90,7 @@
 }
 
 .contacts .contacts__item .info .name {
-    font-size: 18px;
+    font-size: 13px;
 }
 
 .contacts .contacts__item .info .email {
@@ -280,10 +293,12 @@
     color: #343333;
 }
 
+.create-chat {}
+
 .bi-plus-square-fill {
     color: #05c186;
     font-size: 25px;
-    padding: 10px;
+    cursor: pointer;
 }
 
 .bi-three-dots-vertical {
@@ -318,19 +333,25 @@
     right: 20px;
 }
 
+.right-main__top .drop-menu .bi-trash3 {
+    font-size: 16px;
+    color: #868686;
+}
+
 .right-main__top .menu__items {
     display: none;
 }
 
 .right-main__top .menu__item {
-    width: 100%;
-    height: fit-content;
-    background-color: #d366e1;
-    padding: 8px 10px;
+    padding: 4px 7px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
+}
+
+.right-main__top .menu__item span {
+    font-size: 11px;
 }
 
 .right-main__top .active {
@@ -339,10 +360,9 @@
     z-index: 3;
     position: absolute;
     right: 20px;
-    width: 150px;
-    min-height: 100px;
-    height: fit-content;
-    background-color: rgb(227, 227, 227);
+    width: 138px;
+    padding: 5px;
+    background-color: rgb(246, 246, 246);
 }
 
 .messages {
@@ -354,7 +374,9 @@
 
 .messages .messages__items {
     display: flex;
+    flex-direction: column-reverse;
     overflow: auto;
+    behavior: inherit;
     flex-direction: column;
     height: calc(80vh - 80px);
     padding: 20px 0 20px 40px;
@@ -531,8 +553,8 @@
     flex-direction: column;
 }
 
-.bi-send,
-.bi-arrow-clockwise {
+.messages__form .bi-send,
+.messages__form .bi-arrow-clockwise {
     font-size: 21px;
     font-weight: bold;
     color: #343434;
