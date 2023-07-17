@@ -433,6 +433,23 @@
     padding-right: 40px;
 }
 
+.messages .message__replay-menu {
+    display: flex;
+    padding: 1px;
+    left: 60px;
+    cursor: pointer;
+}
+
+.messages .message__replay-menu.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.messages .message__replay-menu.inactive {
+    opacity: 0;
+    visibility: hidden;
+}
+
 .messages .message-menu {
     display: flex;
     position: absolute;
@@ -454,6 +471,13 @@
 
 .hidden-message-menu {
     display: none;
+}
+
+.message__replay-menu .bi-reply {
+    color: #767d87;
+    padding: 2px;
+    font-size: 19px;
+    cursor: pointer;
 }
 
 .message-menu .bi-pencil {

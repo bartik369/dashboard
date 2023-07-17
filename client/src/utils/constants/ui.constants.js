@@ -1,5 +1,5 @@
-/* Todo */
 export const titleDelete = "Удалить";
+export const titleReplay = "Ответить";
 export const titleСomplete = "Завершить";
 export const titleAdd = "Добавить";
 export const titleUpdate = "Обновить";

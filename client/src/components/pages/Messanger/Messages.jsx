@@ -7,8 +7,9 @@ import {
   useGetMessageMutation,
 } from "../../../store/features/messenger/messengerApi";
 import * as formConstants from "../../../utils/constants/form.constants";
+import * as uiConstants from "../../../utils/constants/ui.constants";
 import { useForm } from "react-hook-form";
-import moment, { normalizeUnits } from "moment";
+import moment from "moment";
 
 function Messages({ conversationId, user, recipientId }) {
   const [messageMenu, setMessageMenu] = useState("");
@@ -55,6 +56,8 @@ function Messages({ conversationId, user, recipientId }) {
     } 
     document.addEventListener("click", outsideClickhandler);
   }, []);
+
+  console.log(messageMenu)
   
   useEffect(() => {
 
@@ -105,6 +108,11 @@ function Messages({ conversationId, user, recipientId }) {
     await getMessage({ id: id }).unwrap()
   }
 
+  const replayMessageHandler = (id) => {
+    console.log("replat id is:", id)
+  }
+
+
   console.log("message test mem")
 
   return (
@@ -115,11 +123,23 @@ function Messages({ conversationId, user, recipientId }) {
           messages.map((item, index) => {
             if (item.senderId !== user.id) {
               return (
-                <div className="messages__to" key={index}>
+                <div className="messages__to"
+                key={index} 
+                ref={elem => messageMenuRef.current[index] = elem} >
+                  <div className="message" onClick={e => e.stopPropagation()}>
+                  <div className={`message__replay-menu ${item._id === messageMenu 
+                    ? "active" 
+                    : "inactive"}`}>
+                      <i className="bi bi-reply" title={uiConstants.titleReplay}
+                      onClick={() => replayMessageHandler(item._id)}/>
+                  </div>
+                  <div className="message-info" onClick={() => messageMenuHandler(item._id)}>
                   <div className="sender">{item.senderName}</div>
                   <div className="text">{item.content}</div>
                   <div className="time">
                     {moment(item.updatedAt).format("DD.MM.YYYY HH:mm")}
+                  </div>
+                  </div>
                   </div>
                 </div>
               );
@@ -132,9 +152,9 @@ function Messages({ conversationId, user, recipientId }) {
                     <div className={`message-menu ${item._id === messageMenu 
                     ? "active" 
                     : "inactive"}`}>
-                      <i className="bi bi-trash3" 
+                      <i className="bi bi-trash3" title={uiConstants.titleDelete}
                       onClick={() => deleteMessageHandler(item._id)}/>
-                      <i className="bi bi-pencil"
+                      <i className="bi bi-pencil" title={uiConstants.titleUpdate}
                       onClick={() => editeMessageHandler(item._id)}/>
                   </div>
                   <div className="message-info" onClick={() => messageMenuHandler(item._id)}>
