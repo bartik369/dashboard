@@ -256,7 +256,7 @@ class MessengerService {
         } catch (error) {}
     }
 
-    async addMessage(conversationId, senderId, recipientId, content) {
+    async addMessage(conversationId, senderId, recipientId, content, replyTo) {
         try {
             const participants = await ParticipantsModel.findOne({
                 visible: { $all: [recipientId, senderId] },
@@ -274,6 +274,7 @@ class MessengerService {
                         conversationId: conversationId,
                         senderId: senderId,
                         content: content,
+                        replyTo: replyTo,
                     });
                     await message.save();
                     return message;
@@ -284,6 +285,7 @@ class MessengerService {
                     senderId: senderId,
                     recipientId: recipientId,
                     content: content,
+                    replyTo: replyTo,
                 });
                 await message.save();
                 return message;

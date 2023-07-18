@@ -31,7 +31,12 @@ const MessagesSchema = new Schema({
     read: {
         type: Boolean,
         default: false,
+    },
+    replyTo: {
+        type: String,
+        default: "",
     }
+
 });
 
 const Messages = mongoose.model('Messages', MessagesSchema);

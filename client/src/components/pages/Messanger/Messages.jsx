@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useGetProfileQuery } from "../../../store/features/auth/authApi";
 import {
   useAddMessageMutation,
   useGetMessagesQuery,
@@ -11,10 +12,11 @@ import * as uiConstants from "../../../utils/constants/ui.constants";
 import { useForm } from "react-hook-form";
 import moment from "moment";
 
-function Messages({ conversationId, user, recipientId }) {
+function Messages({ conversationId, user, recipientId, recipientInfo }) {
   const [messageMenu, setMessageMenu] = useState("");
   const [messageId, setMessageId] = useState("")
   const { data: messages } = useGetMessagesQuery(conversationId);
+  const { data: profile } = useGetProfileQuery(user.id);
   const [addMessage] = useAddMessageMutation();
   const [deleteMessage] = useDeleteMessageMutation()
   const [updateMessage] = useUpdateMessageMutation()
@@ -25,12 +27,15 @@ function Messages({ conversationId, user, recipientId }) {
     senderId: "",
     content: "",
   });
+  const [replyId, setReplyId] = useState("")
   const [updateStatus,  setUpdateStatus] = useState(false)
   const { register, handleSubmit } = useForm({
     mode: "onSubmit",
   }); 
   const messageMenuRef = useRef({});
   const messageEl = useRef(null);
+
+
 
   useEffect(() => {
     messageInfo && setMessage({
@@ -57,8 +62,8 @@ function Messages({ conversationId, user, recipientId }) {
     document.addEventListener("click", outsideClickhandler);
   }, []);
 
-  console.log(messageMenu)
-  
+  console.log(user)
+
   useEffect(() => {
 
     if (messageEl) {
@@ -77,7 +82,10 @@ function Messages({ conversationId, user, recipientId }) {
       senderId: user.id,
       recipientId: recipientId.recipientId,
       content: message.content,
+      replyTo: replyId,
     };
+
+    console.log(messageData)
 
     if (updateStatus) {
       await updateMessage(messageData).unwrap()
@@ -109,11 +117,12 @@ function Messages({ conversationId, user, recipientId }) {
   }
 
   const replayMessageHandler = (id) => {
-    console.log("replat id is:", id)
+    setReplyId(id);
   }
 
 
   console.log("message test mem")
+  console.log(recipientInfo)
 
   return (
     <div className="messages">
@@ -121,6 +130,7 @@ function Messages({ conversationId, user, recipientId }) {
         {!messages && "nothing"}
         {messages &&
           messages.map((item, index) => {
+            
             if (item.senderId !== user.id) {
               return (
                 <div className="messages__to"
@@ -135,31 +145,57 @@ function Messages({ conversationId, user, recipientId }) {
                   </div>
                   <div className="message-info" onClick={() => messageMenuHandler(item._id)}>
                   <div className="sender">{item.senderName}</div>
-                  <div className="text">{item.content}</div>
+                  <div className="text">
+                   
+                      {item.replyTo && messages.map((message) => {
+                        
+                        if (message._id === item.replyTo) {
+                        return ( 
+                        <div className="reply">
+                          <div className="name">{profile.displayname}</div>
+                          <div className="replay-text">{message.content}</div>
+                        </div>)
+                      } 
+                    }
+                    )}
+                    <div className="send">{item.content}</div>
+                  </div>
                   <div className="time">
                     {moment(item.updatedAt).format("DD.MM.YYYY HH:mm")}
                   </div>
                   </div>
                   </div>
                 </div>
-              );
+              ) 
             } else if (item.senderId === user.id) {
               return (
-                <div className="messages__from"
-                key={index} 
-                ref={elem => messageMenuRef.current[index] = elem}>
+                <div className="messages__from" key={index} ref={elem => messageMenuRef.current[index] = elem}>
                   <div className="message" onClick={e => e.stopPropagation()}>
-                    <div className={`message-menu ${item._id === messageMenu 
-                    ? "active" 
-                    : "inactive"}`}>
+                    <div className={`message-menu ${item._id === messageMenu ? "active" : "inactive"}`}>
                       <i className="bi bi-trash3" title={uiConstants.titleDelete}
                       onClick={() => deleteMessageHandler(item._id)}/>
                       <i className="bi bi-pencil" title={uiConstants.titleUpdate}
                       onClick={() => editeMessageHandler(item._id)}/>
                   </div>
+
                   <div className="message-info" onClick={() => messageMenuHandler(item._id)}>
+
                     <div className="sender">{item.senderName}</div>
-                    <div className="text">{item.content}</div>
+                    <div className="text">
+                   
+                   {item.replyTo && messages.map((message) => {
+                     
+                     if (message._id === item.replyTo) {
+                     return ( 
+                     <div className="reply">
+                       <div className="name">{recipientInfo.displayname}</div>
+                       <div className="replay-text">{message.content}</div>
+                     </div>)
+                   } 
+                 }
+                 )}
+                 <div className="send">{item.content}</div>
+               </div>
                     <div className="time">
                       {moment(item.updatedAt).format("DD.MM.YYYY HH:mm")}
                     </div>
@@ -195,3 +231,15 @@ function Messages({ conversationId, user, recipientId }) {
 }
 
 export default Messages;
+
+
+
+
+{/* <div className="reply">
+                  {item.replyTo && messages.map((message) => {
+                      
+                      if (message._id === item.replyTo) {
+                        return ( <div>{message.content}</div>)
+                      }
+                    })}
+                  </div> */}

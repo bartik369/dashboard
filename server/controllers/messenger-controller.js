@@ -123,12 +123,14 @@ class MessengerController {
 
     async addMessage(req, res, next) {
         try {
-            const { conversationId, senderId, recipientId, content } = req.body;
+            console.log(req.body)
+            const { conversationId, senderId, recipientId, content, replyTo } = req.body;
             const messageData = await messengerService.addMessage(
                 conversationId,
                 senderId,
                 recipientId,
-                content
+                content,
+                replyTo,
             );
             return res.json(messageData);
         } catch (error) {}

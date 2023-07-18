@@ -410,7 +410,7 @@
 
 .messages__from .message {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     margin-bottom: 5px;
 }
@@ -519,6 +519,19 @@
     box-shadow: rgba(86, 105, 165, 0.2) 0px 4px 12px;
 }
 
+.messages__from .reply {
+    color: #dbe8f7;
+    height: auto;
+    font-size: 11px;
+    margin-bottom: 5px;
+    padding-left: 5px;
+    border-left: 2px solid #ffffff;
+}
+
+.messages__from .send {
+    color: #fff;
+}
+
 .messages__from .sender {
     margin-bottom: 6px;
     font-size: 12px;
@@ -547,12 +560,33 @@
     margin-bottom: 15px;
 }
 
+.messages .messages__to .send {
+    color: #434d5c;
+}
+
+.messages .messages__to .reply {
+    color: #727c8b;
+    font-size: 11px;
+    margin-bottom: 5px;
+    padding-left: 5px;
+    border-left: 2px solid #727c8b;
+}
+
+.messages .messages__to .reply .name {
+    color: #727c8b;
+    font-size: 11px;
+}
+
+.messages .messages__to .reply .reply-text {
+    color: #727c8b;
+    font-size: 11px;
+}
+
 .messages__to .text {
     border-radius: 8px;
     max-width: 550px;
     padding: 18px 26px;
     margin-bottom: 10px;
-    color: #5f6c81;
     background-color: #f6f9fb;
     /* box-shadow: rgba(120, 131, 167, 0.2) 0px 4px 12px; */
     box-shadow: 0 8px 8px -8px rgba(120, 131, 167, 0.2);

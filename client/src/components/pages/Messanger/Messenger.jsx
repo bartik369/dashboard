@@ -145,7 +145,12 @@ const Messenger = () => {
           </div>
         </div>
         <div className="right-main__middle">
-          <Messages conversationId={conversationId} user={user} recipientId={activeConversation} />
+          <Messages 
+          conversationId={conversationId} 
+          user={user} 
+          recipientId={activeConversation} 
+          recipientInfo={recipientInfo}
+          />
         </div>
       </div>
     </div>
