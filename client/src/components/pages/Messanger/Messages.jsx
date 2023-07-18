@@ -144,10 +144,10 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
                   <div className="message-info" onClick={() => messageMenuHandler(item._id)}>
                   <div className="sender">{item.senderName}</div>
                   <div className="contents">
-                   
                       {item.replyTo && messages.map((message) => {
                         
                         if (message._id === item.replyTo) {
+
                         return ( 
                         <div className="reply">
                           <div className="name">{profile.displayname}</div>
@@ -233,15 +233,3 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
 }
 
 export default Messages;
-
-
-
-
-{/* <div className="reply">
-                  {item.replyTo && messages.map((message) => {
-                      
-                      if (message._id === item.replyTo) {
-                        return ( <div>{message.content}</div>)
-                      }
-                    })}
-                  </div> */}
