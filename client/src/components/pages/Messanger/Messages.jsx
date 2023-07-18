@@ -54,6 +54,7 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
            if (item !== e.target) {
             setMessageMenu("")
             setMessage({content: ""});
+            setReplyId("")
             setUpdateStatus(false)
            }
         })
@@ -61,8 +62,6 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
     } 
     document.addEventListener("click", outsideClickhandler);
   }, []);
-
-  console.log(user)
 
   useEffect(() => {
 
@@ -85,8 +84,6 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
       replyTo: replyId,
     };
 
-    console.log(messageData)
-
     if (updateStatus) {
       await updateMessage(messageData).unwrap()
     } else {
@@ -95,6 +92,7 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
     setMessage({content: ""});
     setUpdateStatus(false);
     setMessageMenu("")
+    setReplyId("")
   };
 
   const updateMessageHandler = (e) => {
@@ -145,7 +143,7 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
                   </div>
                   <div className="message-info" onClick={() => messageMenuHandler(item._id)}>
                   <div className="sender">{item.senderName}</div>
-                  <div className="text">
+                  <div className="contents">
                    
                       {item.replyTo && messages.map((message) => {
                         
@@ -181,21 +179,21 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
                   <div className="message-info" onClick={() => messageMenuHandler(item._id)}>
 
                     <div className="sender">{item.senderName}</div>
-                    <div className="text">
+                    <div className="contents">
                    
-                   {item.replyTo && messages.map((message) => {
-                     
-                     if (message._id === item.replyTo) {
-                     return ( 
-                     <div className="reply">
-                       <div className="name">{recipientInfo.displayname}</div>
-                       <div className="replay-text">{message.content}</div>
-                     </div>)
-                   } 
-                 }
-                 )}
-                 <div className="send">{item.content}</div>
-               </div>
+                      {item.replyTo && messages.map((message) => {
+                        
+                        if (message._id === item.replyTo) {
+                        return ( 
+                        <div className="reply">
+                          <div className="name">{recipientInfo.displayname}</div>
+                          <div className="replay-text">{message.content}</div>
+                        </div>)
+                      } 
+                    }
+                    )}
+                    <div className="send">{item.content}</div>
+                  </div>
                     <div className="time">
                       {moment(item.updatedAt).format("DD.MM.YYYY HH:mm")}
                     </div>
@@ -209,23 +207,27 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
             }
           })}
       </div>
-      <form className="messages__form" 
-      onSubmit={handleSubmit(onSubmit)}  onClick={(e) => e.stopPropagation()}>
-        <input
-          type="text"
-          name="content"
-          value={message.content}
-          {...register("content", {
-            onChange: (e) => { updateMessageHandler(e) },
-          }, {
-            required: formConstants.requiredText,
+        <form className="messages__form" onSubmit={handleSubmit(onSubmit)}  onClick={(e) => e.stopPropagation()}>
+          {replyId && messages.map((message) => {
+                          
+            if (replyId === message._id) {
+              return (<div className="reply-to">
+                <i className="bi bi-reply"/>
+                {message.content}
+                </div>)
+            }
           })}
-        />
-        <i className="bi bi-paperclip"></i>
-        <button className="send-btn">{updateStatus 
-        ? <i className="bi bi-arrow-clockwise" title="Обновить"/> 
-        : <i className="bi bi-send" title="Отправить" />}</button>
-      </form>
+          <input type="text" name="content" value={message.content}
+            {...register("content", {
+              onChange: (e) => { updateMessageHandler(e) },
+            }, {
+              required: formConstants.requiredText,
+            })} />
+            <i className="bi bi-paperclip" />
+            <button className="send-btn">{updateStatus 
+            ? <i className="bi bi-arrow-clockwise" title="Обновить"/> 
+            : <i className="bi bi-send" title="Отправить" />}</button>
+        </form>
     </div>
   );
 }

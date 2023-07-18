@@ -146,6 +146,7 @@
 
 .chats .chats__items {
     overflow: auto;
+    width: 100%;
     height: calc(85vh - 100px);
     padding-right: 17px;
 }
@@ -398,6 +399,18 @@
     align-items: center;
     background-color: #ebf1f7;
     border-radius: 8px;
+    position: relative;
+}
+
+.messages .reply-to {
+    width: fit-content;
+    align-items: center;
+    background-color: #f9fbfd;
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    top: -35px;
+    padding: 5px 12px;
 }
 
 .messages .messages__form input {
@@ -410,7 +423,7 @@
 
 .messages__from .message {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     margin-bottom: 5px;
 }
@@ -418,6 +431,11 @@
 .messages__from .delete {
     background-color: #d366e1;
     padding: 5px;
+}
+
+.bi-reply {
+    padding-right: 5px;
+    font-size: 20px;
 }
 
 .messages__from .edite {
@@ -509,7 +527,7 @@
     margin-right: 2px;
 }
 
-.messages__from .text {
+.messages__from .contents {
     border-radius: 8px;
     max-width: 550px;
     padding: 18px 26px;
@@ -520,12 +538,22 @@
 }
 
 .messages__from .reply {
-    color: #dbe8f7;
     height: auto;
     font-size: 11px;
     margin-bottom: 5px;
     padding-left: 5px;
     border-left: 2px solid #ffffff;
+}
+
+.messages .messages__from .reply .name {
+    color: #f1f4f7;
+    font-size: 12px;
+    margin-bottom: 3px;
+}
+
+.messages .messages__from .reply .reply-text {
+    color: #e4e8ed;
+    font-size: 11px;
 }
 
 .messages__from .send {
@@ -573,16 +601,17 @@
 }
 
 .messages .messages__to .reply .name {
+    color: #67717f;
+    font-size: 12px;
+    margin-bottom: 3px;
+}
+
+.messages .messages__to .reply .text {
     color: #727c8b;
     font-size: 11px;
 }
 
-.messages .messages__to .reply .reply-text {
-    color: #727c8b;
-    font-size: 11px;
-}
-
-.messages__to .text {
+.messages__to .contents {
     border-radius: 8px;
     max-width: 550px;
     padding: 18px 26px;
