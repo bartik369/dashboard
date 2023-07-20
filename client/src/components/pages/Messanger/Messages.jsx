@@ -3,6 +3,7 @@ import { useGetProfileQuery } from "../../../store/features/auth/authApi";
 import {
   useAddMessageMutation,
   useGetMessagesQuery,
+  useGetMessagesMediaQuery,
   useUpdateMessageMutation,
   useDeleteMessageMutation,
   useGetMessageMutation,
@@ -16,11 +17,13 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
   const [messageMenu, setMessageMenu] = useState("");
   const [messageId, setMessageId] = useState("")
   const { data: messages } = useGetMessagesQuery(conversationId);
+  const { data: medias } = useGetMessagesMediaQuery(conversationId);
   const { data: profile } = useGetProfileQuery(user.id);
   const [addMessage] = useAddMessageMutation();
   const [deleteMessage] = useDeleteMessageMutation()
   const [updateMessage] = useUpdateMessageMutation()
   const [getMessage, {data: messageInfo}] = useGetMessageMutation()
+  const [selectedFile, setSelectedFile] = useState("");
   const [message, setMessage] = useState({
     id: "",
     conversationId: "",
@@ -34,8 +37,7 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
   }); 
   const messageMenuRef = useRef({});
   const messageEl = useRef(null);
-
-
+  const messageFileRef = useRef()
 
   useEffect(() => {
     messageInfo && setMessage({
@@ -73,6 +75,29 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
     }
   }, [])
 
+
+  console.log(messages)
+  console.log(medias)
+
+
+  const pickMessageFile = () => {
+    messageFileRef.current.click();
+  };
+
+  const selectMessageFile = (e) => {
+    let file = e.target.files[0];
+    return new Promise((resolve) => {
+      let baseURL = "";
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        baseURL = reader.result;
+        resolve(baseURL);
+        setSelectedFile(baseURL);
+      };
+    });
+  };
+
   const onSubmit = async () => {
     const messageData = {
       ...message,
@@ -82,6 +107,7 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
       recipientId: recipientId.recipientId,
       content: message.content,
       replyTo: replyId,
+      media: selectedFile,
     };
 
     if (updateStatus) {
@@ -138,12 +164,17 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
                   <div className={`message__replay-menu ${item._id === messageMenu 
                     ? "active" 
                     : "inactive"}`}>
-                      <i className="bi bi-reply" title={uiConstants.titleReplay}
+                      <i className="bi bi-arrow-90deg-up" title={uiConstants.titleReplay}
                       onClick={() => replayMessageHandler(item._id)}/>
                   </div>
                   <div className="message-info" onClick={() => messageMenuHandler(item._id)}>
                   <div className="sender">{item.senderName}</div>
                   <div className="contents">
+                      {medias && medias.map((media) => {
+                        if (item.mediaId === media._id) {
+                          return <div>{media.file}</div>
+                        }              
+                      })}
                       {item.replyTo && messages.map((message) => {
                         
                         if (message._id === item.replyTo) {
@@ -192,6 +223,11 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
                       } 
                     }
                     )}
+                    {medias && medias.map((media) => {
+                        if (item.mediaId === media._id) {
+                          return <div>{media.file}</div>
+                        }              
+                      })}
                     <div className="send">{item.content}</div>
                   </div>
                     <div className="time">
@@ -211,10 +247,12 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
           {replyId && messages.map((message) => {
                           
             if (replyId === message._id) {
-              return (<div className="reply-to">
-                <i className="bi bi-reply"/>
+              return (
+              <div className="reply-to">
+                <i className="bi bi-arrow-90deg-up"/>
                 {message.content}
-                </div>)
+              </div>
+              )
             }
           })}
           <input type="text" name="content" value={message.content}
@@ -223,7 +261,14 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
             }, {
               required: formConstants.requiredText,
             })} />
-            <i className="bi bi-paperclip" />
+             <input
+                accept="file/.pdf, .txt, .xlsx, .docx, .jpg, .jpeg, .png, .mp3"
+                type="file"
+                onChange={selectMessageFile}
+                className="hidden-btn"
+                ref={messageFileRef}
+              />
+            <i className="bi bi-paperclip" onClick={pickMessageFile} />
             <button className="send-btn">{updateStatus 
             ? <i className="bi bi-arrow-clockwise" title="Обновить"/> 
             : <i className="bi bi-send" title="Отправить" />}</button>

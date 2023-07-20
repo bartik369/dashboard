@@ -17,22 +17,6 @@ class MessengerController {
             });
 
             const participantsData = await messengerService.getRecipientsInfo(recipients);
-            const newData = []
-
-
-
-            // var a1 = [6,3,5,1,2];
-            // var a2 = [1,2,4];
-            // var result = [];
-
-            // a2.forEach(function(item) {
-            //     var index = a1.indexOf(item);
-            //     if (index !== -1) {
-            //         result.push(index);
-            //     }
-            // });
-
-
             return res.json(participantsData);
         } catch (error) {}
     }
@@ -101,6 +85,15 @@ class MessengerController {
         } catch (error) {}
     }
 
+    async getMessagesMedia(req, res, next) {
+        try {
+            const id = req.params.id;
+            const mediaData = await messengerService.getMessagesMedia(id);
+            return res.json(mediaData);
+        } catch (error) {}
+    }
+
+
     async getMessage(req, res, next) {
         try {
             const { id } = req.body;
@@ -123,15 +116,16 @@ class MessengerController {
 
     async addMessage(req, res, next) {
         try {
-            console.log(req.body)
-            const { conversationId, senderId, recipientId, content, replyTo } = req.body;
+            const { conversationId, senderId, recipientId, content, replyTo, media } = req.body;
             const messageData = await messengerService.addMessage(
                 conversationId,
                 senderId,
                 recipientId,
                 content,
                 replyTo,
+                media,
             );
+            console.log("messageData", messageData)
             return res.json(messageData);
         } catch (error) {}
     }

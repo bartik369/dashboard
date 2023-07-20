@@ -1,6 +1,7 @@
 import ConversationModel from "../models/messenger/conversation.js";
 import ParticipantsModel from "../models/messenger/participants.js";
 import MessageModel from "../models/messenger/messages.js";
+import ConversationMediaModel from "../models/messenger/conversation-media.js";
 import UserModel from "../models/users/user.js";
 import ProfileModel from "../models/users/profile.js"
 
@@ -157,6 +158,13 @@ class MessengerService {
             return messages;
         } catch (error) {}
     }
+    async getMessagesMedia(id) {
+        try {
+            const mediaData = await ConversationMediaModel.find({ conversationId: id })
+            return mediaData
+
+        } catch (error) {}
+    }
 
     async getLastMessages(id) {
         try {
@@ -256,40 +264,92 @@ class MessengerService {
         } catch (error) {}
     }
 
-    async addMessage(conversationId, senderId, recipientId, content, replyTo) {
+    async addMessage(conversationId, senderId, recipientId, content, replyTo, media) {
         try {
-            const participants = await ParticipantsModel.findOne({
-                visible: { $all: [recipientId, senderId] },
-            })
-
-            if (!participants) {
-                const addVis = await ParticipantsModel.findOneAndUpdate({
-                    conversationId: conversationId
-                }, {
-                    $push: { visible: recipientId },
+            if (media) {
+                const mediaInfo = await new ConversationMediaModel({
+                    userId: senderId,
+                    conversationId: conversationId,
+                    file: media
                 });
+                await mediaInfo.save()
 
-                if (addVis) {
+                const participants = await ParticipantsModel.findOne({
+                    visible: { $all: [recipientId, senderId] },
+                })
+
+                if (!participants) {
+                    const makeVisible = await ParticipantsModel.findOneAndUpdate({
+                        conversationId: conversationId
+                    }, {
+                        $push: { visible: recipientId },
+                    });
+
+                    if (makeVisible) {
+                        const message = new MessageModel({
+                            conversationId: conversationId,
+                            senderId: senderId,
+                            recipientId: recipientId,
+                            content: content,
+                            mediaId: mediaInfo._id,
+                            replyTo: replyTo,
+
+                        });
+                        await message.save();
+                        return message;
+                    }
+                } else {
                     const message = new MessageModel({
-                        conversationId: conversationId,
+                        conversationId: participants.conversationId,
                         senderId: senderId,
+                        recipientId: recipientId,
+                        content: content,
+                        mediaId: mediaInfo._id,
+                        replyTo: replyTo,
+                    });
+                    await message.save()
+                    return message
+                }
+
+            } else if (!media) {
+                const participants = await ParticipantsModel.findOne({
+                    visible: { $all: [recipientId, senderId] },
+                })
+
+                if (!participants) {
+                    const makeVisible = await ParticipantsModel.findOneAndUpdate({
+                        conversationId: conversationId
+                    }, {
+                        $push: { visible: recipientId },
+                    });
+
+                    if (makeVisible) {
+                        const message = new MessageModel({
+                            conversationId: conversationId,
+                            senderId: senderId,
+                            recipientId: recipientId,
+                            content: content,
+                            replyTo: replyTo,
+
+                        });
+                        await message.save();
+                        return message;
+                    }
+                } else {
+                    const message = new MessageModel({
+                        conversationId: participants.conversationId,
+                        senderId: senderId,
+                        recipientId: recipientId,
                         content: content,
                         replyTo: replyTo,
+
                     });
                     await message.save();
                     return message;
                 }
-            } else {
-                const message = new MessageModel({
-                    conversationId: participants.conversationId,
-                    senderId: senderId,
-                    recipientId: recipientId,
-                    content: content,
-                    replyTo: replyTo,
-                });
-                await message.save();
-                return message;
             }
+
+
         } catch (error) {}
     }
     async deleteMessage(id) {

@@ -106,6 +106,20 @@ export const messengerApi = createApi({
             }),
         }),
 
+        //get messages media
+        getMessagesMedia: builder.query({
+            query: (id) => ({
+                url: `/api/media-messages/${id}`,
+                method: "GET",
+            }),
+            providesTags: (result) =>
+                result ? [
+                    result.map(({ id }) => ({ type: 'Messages', id })),
+                    { type: 'Messages', id: 'LIST' },
+                ] : [{ type: 'Messages', id: 'LIST' }],
+            invalidatesTags: [{ type: ['Messages'], id: 'LIST' }],
+        }),
+
 
 
         //add message
@@ -156,6 +170,7 @@ export const {
     useGetConversationMutation,
     useAddMessageMutation,
     useGetMessagesQuery,
+    useGetMessagesMediaQuery,
     useGetLastMessagesMutation,
     useUpdateMessageMutation,
     useDeleteConversationMutation,

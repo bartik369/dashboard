@@ -6,7 +6,7 @@ import * as formConstants from "../../../utils/constants/form.constants";
 import * as REGEX from "../../../utils/constants/regex.constants";
 import SubmitButton from "../../UI/buttons/SubmitButton";
 import { selectCurrentUser } from "../../../store/features/auth/authSlice";
-import { useUpdateProfileMutation, useUpdateUserPasswordMutation, useGetProfileQuery,
+import { useUpdateUserPasswordMutation, useGetProfileQuery,
 } from "../../../store/features/auth/authApi";
 import RequestRoles from "../../form/roles/RequestRoles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,7 +15,6 @@ import defaultAvatar from "../../../assets/users/avatars/default-avatar.png";
 import "../../form/forms.css";
 import "./profile.css";
 import ENV from "../../../env.config";
-import seven from "../../../assets/users/avatars/777.png"
 
 export default function Profile() {
   const user = useSelector(selectCurrentUser);

@@ -18,7 +18,13 @@ const MessagesSchema = new Schema({
     },
     content: {
         type: String,
-        required: true,
+        required: false,
+    },
+    mediaId: {
+        type: String,
+        unique: false,
+        required: false,
+        default: "",
     },
     createdAt: {
         type: Date,
