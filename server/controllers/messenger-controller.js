@@ -116,7 +116,10 @@ class MessengerController {
 
     async addMessage(req, res, next) {
         try {
-            const { conversationId, senderId, recipientId, content, replyTo, media } = req.body;
+            const media = req.files.file;
+            console.log(media.name)
+            console.log(req.body)
+            const { conversationId, senderId, recipientId, content, replyTo } = req.body;
             const messageData = await messengerService.addMessage(
                 conversationId,
                 senderId,

@@ -12,6 +12,7 @@ import * as formConstants from "../../../utils/constants/form.constants";
 import * as uiConstants from "../../../utils/constants/ui.constants";
 import { useForm } from "react-hook-form";
 import moment from "moment";
+import ENV from "../../../env.config";
 
 function Messages({ conversationId, user, recipientId, recipientInfo }) {
   const [messageMenu, setMessageMenu] = useState("");
@@ -86,17 +87,22 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
 
   const selectMessageFile = (e) => {
     let file = e.target.files[0];
-    return new Promise((resolve) => {
-      let baseURL = "";
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        baseURL = reader.result;
-        resolve(baseURL);
-        setSelectedFile(baseURL);
-      };
-    });
+    setSelectedFile(file);
+    //  const formData = new FormData();
+    //   formData.append("file", selectedFile) 
+    // return new Promise((resolve) => {
+    //   let baseURL = "";
+    //   let reader = new FileReader();
+    //   reader.readAsDataURL(file);
+    //   reader.onload = () => {
+    //     baseURL = reader.result;
+    //     resolve(baseURL);
+    //     setSelectedFile(baseURL);
+    //   };
+    // });
   };
+
+  console.log(selectedFile)
 
   const onSubmit = async () => {
     const messageData = {
@@ -107,13 +113,29 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
       recipientId: recipientId.recipientId,
       content: message.content,
       replyTo: replyId,
-      media: selectedFile,
+      // media: selectedFile,
     };
 
+    const formData = new FormData();
+    formData.append("file", selectedFile)
+
+    if (messageData) {
+     for ( let key in messageData) {
+       formData.append(key, messageData[key])
+     }
+    }
+
+    console.log(formData)
+
+
     if (updateStatus) {
-      await updateMessage(messageData).unwrap()
+      await updateMessage(formData).unwrap()
     } else {
-      await addMessage(messageData).unwrap();
+      // await addMessage(formData).unwrap();
+      const res = await fetch(`${ENV.HOSTNAME}api/add-message`, {
+        method: "POST",
+        body: formData,
+      });  
     }
     setMessage({content: ""});
     setUpdateStatus(false);
@@ -225,7 +247,7 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
                     )}
                     {medias && medias.map((media) => {
                         if (item.mediaId === media._id) {
-                          return <div>{media.file}</div>
+                          return <div><a href={media.file} download>Click to download</a></div>
                         }              
                       })}
                     <div className="send">{item.content}</div>

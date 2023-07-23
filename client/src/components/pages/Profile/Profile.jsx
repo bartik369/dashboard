@@ -131,7 +131,7 @@ export default function Profile() {
       const res = await fetch(`${ENV.HOSTNAME}api/update-profile`, {
         method: "POST",
         body: formData,
-      });
+      });  
      reset();
 }
 
