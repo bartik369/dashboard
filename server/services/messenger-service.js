@@ -270,7 +270,7 @@ class MessengerService {
                 const mediaInfo = await new ConversationMediaModel({
                     userId: senderId,
                     conversationId: conversationId,
-                    file: media
+                    file: media.filename
                 });
                 await mediaInfo.save()
 

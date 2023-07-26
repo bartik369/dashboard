@@ -24,12 +24,13 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
   const [deleteMessage] = useDeleteMessageMutation()
   const [updateMessage] = useUpdateMessageMutation()
   const [getMessage, {data: messageInfo}] = useGetMessageMutation()
-  const [selectedFile, setSelectedFile] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
   const [message, setMessage] = useState({
     id: "",
     conversationId: "",
     senderId: "",
     content: "",
+    replyTo: "",
   });
   const [replyId, setReplyId] = useState("")
   const [updateStatus,  setUpdateStatus] = useState(false)
@@ -39,6 +40,7 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
   const messageMenuRef = useRef({});
   const messageEl = useRef(null);
   const messageFileRef = useRef()
+  console.log(selectedFile)
 
   useEffect(() => {
     messageInfo && setMessage({
@@ -88,21 +90,7 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
   const selectMessageFile = (e) => {
     let file = e.target.files[0];
     setSelectedFile(file);
-    //  const formData = new FormData();
-    //   formData.append("file", selectedFile) 
-    // return new Promise((resolve) => {
-    //   let baseURL = "";
-    //   let reader = new FileReader();
-    //   reader.readAsDataURL(file);
-    //   reader.onload = () => {
-    //     baseURL = reader.result;
-    //     resolve(baseURL);
-    //     setSelectedFile(baseURL);
-    //   };
-    // });
   };
-
-  console.log(selectedFile)
 
   const onSubmit = async () => {
     const messageData = {
@@ -113,29 +101,24 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
       recipientId: recipientId.recipientId,
       content: message.content,
       replyTo: replyId,
-      // media: selectedFile,
     };
 
     const formData = new FormData();
-    formData.append("file", selectedFile)
+    formData.append('file', selectedFile)
 
-    if (messageData) {
-     for ( let key in messageData) {
-       formData.append(key, messageData[key])
-     }
+    for (let key in messageData) {
+      formData.append(key, messageData[key])
     }
-
-    console.log(formData)
-
-
+  
     if (updateStatus) {
       await updateMessage(formData).unwrap()
     } else {
-      // await addMessage(formData).unwrap();
-      const res = await fetch(`${ENV.HOSTNAME}api/add-message`, {
-        method: "POST",
-        body: formData,
-      });  
+      await addMessage(formData).unwrap();
+      // const res = await fetch(`${ENV.HOSTNAME}api/add-message`, {
+      //   method: "POST",
+      //   body: formData,
+      // });
+      // let result = await res.json()  
     }
     setMessage({content: ""});
     setUpdateStatus(false);
@@ -265,7 +248,7 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
             }
           })}
       </div>
-        <form className="messages__form" onSubmit={handleSubmit(onSubmit)}  onClick={(e) => e.stopPropagation()}>
+        <form className="messages__form" enctype="multipart/form-data" onSubmit={handleSubmit(onSubmit)}  onClick={(e) => e.stopPropagation()}>
           {replyId && messages.map((message) => {
                           
             if (replyId === message._id) {

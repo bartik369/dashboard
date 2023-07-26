@@ -1,5 +1,6 @@
 import express from "express";
 import messenderController from "../controllers/messenger-controller.js";
+import multerMidd from "../middlewares/file.js";
 
 const router = express.Router();
 
@@ -15,7 +16,7 @@ router.get('/messages/:id', messenderController.getMessages)
 router.get('/media-messages/:id', messenderController.getMessagesMedia)
 router.post('/last-messages/', messenderController.getLastMessages)
 router.post('/message/', messenderController.getMessage)
-router.post('/add-message/', messenderController.addMessage)
+router.post('/add-message/', multerMidd.single('file'), messenderController.addMessage)
 router.delete('/message/:id', messenderController.deleteMessage)
 router.put('/message/:id', messenderController.updateMessage)
 router.post('/mark-message/', messenderController.markMessage)

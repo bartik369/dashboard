@@ -1,5 +1,7 @@
 import messengerService from "../services/messenger-service.js";
-import userService from "../services/user-service.js";
+import { v4 as uuidv4 } from "uuid";
+import dotenv from "dotenv";
+import fs from "fs";
 
 class MessengerController {
     async getParticipants(req, res, next) {
@@ -116,10 +118,9 @@ class MessengerController {
 
     async addMessage(req, res, next) {
         try {
-            const media = req.files.file;
-            console.log(media.name)
-            console.log(req.body)
             const { conversationId, senderId, recipientId, content, replyTo } = req.body;
+            const media = req.file
+
             const messageData = await messengerService.addMessage(
                 conversationId,
                 senderId,
@@ -127,9 +128,8 @@ class MessengerController {
                 content,
                 replyTo,
                 media,
-            );
-            console.log("messageData", messageData)
-            return res.json(messageData);
+            )
+            return res.json(messageData)
         } catch (error) {}
     }
 
@@ -167,3 +167,28 @@ class MessengerController {
 }
 
 export default new MessengerController();
+
+
+
+
+// let media = req.file.filename
+
+// if (file) 
+//     const uploadPath = '../client/public/media/' + file.name
+//     let newName = uuidv4() + '.png'
+//     media = newName
+//     file.mv(uploadPath, function(err) {
+
+//         if (err) {
+//             console.log("something went wrong")
+//             return res.status(500).send(err);
+//         } else {
+//             fs.rename(`../client/public/media/${file.name}`,
+//                 `../client/public/media/${media}`, () => {
+//                     console.log("File uploaded and renamed")
+//                 });
+//         }
+//     })
+// } else {
+
+// }

@@ -9,7 +9,6 @@ import todoRoutes from './routes/todoRouter.js';
 import authRoutes from './routes/authRouter.js';
 import messengerRoutes from './routes/messengerRouter.js'
 import errorMiddleware from './middlewares/error-middleware.js'
-import fileUpload from 'express-fileupload'
 
 
 const app = express();
@@ -17,7 +16,7 @@ dotenv.config();
 const PORT = process.env.PORT || 5001
 
 app.use(express.json());
-app.use(fileUpload());
+
 app.use(cookieParser());
 app.use(cors({
     credentials: true,
