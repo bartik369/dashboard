@@ -18,7 +18,7 @@ router.post('/last-messages/', messenderController.getLastMessages)
 router.post('/message/', messenderController.getMessage)
 router.post('/add-message/', multerMidd.single('file'), messenderController.addMessage)
 router.delete('/message/:id', messenderController.deleteMessage)
-router.put('/message/:id', messenderController.updateMessage)
+router.put('/message/', multerMidd.single('file'), messenderController.updateMessage)
 router.post('/mark-message/', messenderController.markMessage)
 
 export default router;

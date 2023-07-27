@@ -40,7 +40,6 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
   const messageMenuRef = useRef({});
   const messageEl = useRef(null);
   const messageFileRef = useRef()
-  console.log(selectedFile)
 
   useEffect(() => {
     messageInfo && setMessage({
@@ -50,6 +49,8 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
       content: messageInfo.content,
     })
   }, [messageInfo]);
+
+  console.log(medias)
 
   useEffect(() => {
     const outsideClickhandler = (e) => {
@@ -77,11 +78,6 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
       });
     }
   }, [])
-
-
-  console.log(messages)
-  console.log(medias)
-
 
   const pickMessageFile = () => {
     messageFileRef.current.click();
@@ -111,6 +107,7 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
     }
   
     if (updateStatus) {
+      console.log(formData)
       await updateMessage(formData).unwrap()
     } else {
       await addMessage(formData).unwrap();
@@ -124,6 +121,7 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
     setUpdateStatus(false);
     setMessageMenu("")
     setReplyId("")
+    setSelectedFile(null)
   };
 
   const updateMessageHandler = (e) => {
@@ -230,7 +228,9 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
                     )}
                     {medias && medias.map((media) => {
                         if (item.mediaId === media._id) {
-                          return <div><a href={media.file} download>Click to download</a></div>
+                          // return <div><img src={`${ENV.HOSTNAME}media/messenger/${media.file}`}/>
+                          return <div> <a href={`${ENV.HOSTNAME}media/messenger/${media.file}`}>download</a>
+                          </div>
                         }              
                       })}
                     <div className="send">{item.content}</div>

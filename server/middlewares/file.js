@@ -3,12 +3,12 @@ import { v4 as uuidv4 } from "uuid";
 
 const storage = multer.diskStorage({
     destination(req, file, cb) {
-        cb(null, '../client/public/media/')
+        cb(null, `media/messenger`)
     },
     filename(req, file, cb) {
         const newName = uuidv4()
-        cb(null, newName + '-' + file.originalname)
-            // cb(null, file.originalname)
+            // cb(null, newName + '-' + file.originalname)
+        cb(null, file.originalname)
     }
 
 });

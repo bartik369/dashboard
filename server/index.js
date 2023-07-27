@@ -1,4 +1,6 @@
 import express from 'express';
+import * as path from 'path'
+import { fileURLToPath } from 'url';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
@@ -10,23 +12,27 @@ import authRoutes from './routes/authRouter.js';
 import messengerRoutes from './routes/messengerRouter.js'
 import errorMiddleware from './middlewares/error-middleware.js'
 
+const __filename = fileURLToPath(
+    import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
+
 dotenv.config();
 const PORT = process.env.PORT || 5001
-
 app.use(express.json());
-
 app.use(cookieParser());
 app.use(cors({
     credentials: true,
     origin: process.env.CLIENT_URL,
 
 }));
-// app.use(bodyParser.json({ limit: '50mb', extended: true }))
-app.use(bodyParser.urlencoded({ extended: true, parameterLimit: 100000, limit: "200mb" }))
 
-
+function isLoggedIn(req, res, next) {
+    console.log("function works")
+}
+app.use('/media/messenger', isLoggedIn, express.static(path.join(__dirname, 'media/messenger')))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use('/api', authRoutes, deviceRoutes, todoRoutes, messengerRoutes);
 app.use(errorMiddleware);
 

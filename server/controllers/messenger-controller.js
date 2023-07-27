@@ -133,6 +133,20 @@ class MessengerController {
         } catch (error) {}
     }
 
+    async updateMessage(req, res, next) {
+        try {
+            const { id, content } = req.body;
+            const media = req.file
+            console.log(media)
+            console.log(content)
+            const messageData = await messengerService.updateMessage(id, content, media)
+            return res.json(messageData)
+        } catch (error) {
+
+        }
+    }
+
+
     async deleteMessage(req, res, next) {
         try {
             const id = req.params.id
@@ -143,18 +157,6 @@ class MessengerController {
 
         }
     }
-
-    async updateMessage(req, res, next) {
-        try {
-            const id = req.params.id;
-            const { content } = req.body;
-            const messageData = await messengerService.updateMessage(id, content)
-            return res.json(messageData)
-        } catch (error) {
-
-        }
-    }
-
     async markMessage(req, res, next) {
         try {
             const { creatorId, recipientId } = req.body;
