@@ -100,11 +100,10 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
     };
 
     const formData = new FormData();
-    formData.append('file', selectedFile)
-
     for (let key in messageData) {
       formData.append(key, messageData[key])
     }
+    formData.append('file', selectedFile)
   
     if (updateStatus) {
       console.log(formData)

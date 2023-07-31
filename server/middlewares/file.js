@@ -2,8 +2,10 @@ import multer from "multer";
 import { v4 as uuidv4 } from "uuid";
 
 const storage = multer.diskStorage({
+
     destination(req, file, cb) {
-        cb(null, `media/messenger`)
+        const { conversationId } = req.body
+        cb(null, `media/messenger/${conversationId}`)
     },
     filename(req, file, cb) {
         const newName = uuidv4()

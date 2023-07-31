@@ -67,6 +67,15 @@ class MessengerController {
                 creatorId,
                 recipientId
             );
+            const folderName = `../server/media/messenger/${newChatData}`;
+            try {
+
+                if (!fs.existsSync(folderName)) {
+                    fs.mkdirSync(folderName);
+                }
+            } catch (error) {
+
+            }
             return res.json(newChatData);
         } catch (error) {}
     }
@@ -120,7 +129,6 @@ class MessengerController {
         try {
             const { conversationId, senderId, recipientId, content, replyTo } = req.body;
             const media = req.file
-
             const messageData = await messengerService.addMessage(
                 conversationId,
                 senderId,
