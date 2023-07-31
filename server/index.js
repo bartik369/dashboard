@@ -11,6 +11,7 @@ import todoRoutes from './routes/todoRouter.js';
 import authRoutes from './routes/authRouter.js';
 import messengerRoutes from './routes/messengerRouter.js'
 import errorMiddleware from './middlewares/error-middleware.js'
+import checkMediaAccess from './middlewares/checkMediaAccess.js';
 
 const __filename = fileURLToPath(
     import.meta.url);
@@ -28,10 +29,7 @@ app.use(cors({
 
 }));
 
-function isLoggedIn(req, res, next) {
-    console.log("function works")
-}
-app.use('/media/messenger', isLoggedIn, express.static(path.join(__dirname, 'media/messenger')))
+app.use('/media/messenger', checkMediaAccess, express.static(path.join(__dirname, 'media/messenger')))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use('/api', authRoutes, deviceRoutes, todoRoutes, messengerRoutes);
 app.use(errorMiddleware);
