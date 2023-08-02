@@ -3,7 +3,7 @@ import ParticipantsModel from "../models/messenger/participants.js";
 
 export default async function(req, res, next) {
 
-    const conversationId = req.url.split('/')[1];
+    const urlConversation = req.url.split('/')[1];
     const refreshToken = req.cookies.refreshToken;
 
     if (refreshToken) {
@@ -16,7 +16,7 @@ export default async function(req, res, next) {
             conversationsArray.push(item.conversationId)
         });
 
-        if (conversationsArray.includes(conversationId)) {
+        if (conversationsArray.includes(urlConversation)) {
             next()
         } else {
             res.redirect(`${process.env.CLIENT_URL}`);
