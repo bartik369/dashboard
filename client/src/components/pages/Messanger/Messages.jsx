@@ -12,6 +12,7 @@ import * as formConstants from "../../../utils/constants/form.constants";
 import * as uiConstants from "../../../utils/constants/ui.constants";
 import { useForm } from "react-hook-form";
 import moment from "moment";
+import { FileIcon, defaultStyles } from 'react-file-icon';
 import ENV from "../../../env.config";
 
 function Messages({ conversationId, user, recipientId, recipientInfo }) {
@@ -172,9 +173,14 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
                   <div className="message-info" onClick={() => messageMenuHandler(item._id)}>
                   <div className="sender">{item.senderName}</div>
                   <div className="contents">
-                      {medias && medias.map((media) => {
+                      {medias && medias.map((media, index) => {
+                        let fileType = media.file.split(".")[1]
                         if (item.mediaId === media._id) {
-                          return <div> <a href={`${ENV.HOSTNAME}media/messenger/${conversationId}/${media.file}`}>download</a>
+                          return <div key={index}> 
+                           <div className="icon">
+                              <FileIcon extension={fileType} {...defaultStyles.fileType} />
+                            </div>
+                            <a href={`${ENV.HOSTNAME}media/messenger/${conversationId}/${media.file}`}>{media.file}</a>
                           </div>
                         }              
                       })}
@@ -183,7 +189,7 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
                         if (message._id === item.replyTo) {
 
                         return ( 
-                        <div className="reply">
+                        <div className="reply" key={index}>
                           <div className="name">{profile.displayname}</div>
                           <div className="replay-text">{message.content}</div>
                         </div>)
@@ -215,22 +221,28 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
                     <div className="sender">{item.senderName}</div>
                     <div className="contents">
                    
-                      {item.replyTo && messages.map((message) => {
+                      {item.replyTo && messages.map((message, index) => {
                         
                         if (message._id === item.replyTo) {
                         return ( 
-                        <div className="reply">
+                        <div className="reply" key={index}>
                           <div className="name">{recipientInfo.displayname}</div>
                           <div className="replay-text">{message.content}</div>
                         </div>)
                       } 
                     }
                     )}
-                    {medias && medias.map((media) => {
+                     {/* // console.log(media.file.split(".")[1]) */}
+                    {medias && medias.map((media, index) => {
+                    
+                      const fileType = media.file.split(".")[1]
                         if (item.mediaId === media._id) {
-                          // return <div><img src={`${ENV.HOSTNAME}media/messenger/${media.file}`}/>
-                          return <div> <a href={`${ENV.HOSTNAME}media/messenger/${conversationId}/${media.file}`}>download</a>
-                          </div>
+                          return <div className="filename" key={index}>
+                            <div className="icon">
+                              <FileIcon extension={fileType} {...defaultStyles[fileType]} />
+                            </div>
+                            <a href={`${ENV.HOSTNAME}media/messenger/${conversationId}/${media.file}`}>{media.file}</a>
+                            </div>
                         }              
                       })}
                     <div className="send">{item.content}</div>
@@ -248,12 +260,12 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
             }
           })}
       </div>
-        <form className="messages__form" enctype="multipart/form-data" onSubmit={handleSubmit(onSubmit)}  onClick={(e) => e.stopPropagation()}>
-          {replyId && messages.map((message) => {
+        <form className="messages__form" encType="multipart/form-data" onSubmit={handleSubmit(onSubmit)}  onClick={(e) => e.stopPropagation()}>
+          {replyId && messages.map((message, index) => {
                           
             if (replyId === message._id) {
               return (
-              <div className="reply-to">
+              <div className="reply-to" key={index}>
                 <i className="bi bi-arrow-90deg-up"/>
                 {message.content}
               </div>
@@ -267,10 +279,10 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
               required: formConstants.requiredText,
             })} />
              <input
-                accept="file/.pdf, .txt, .xlsx, .docx, .jpg, .jpeg, .png, .mp3"
+                accept="file/.pdf, .txt, .xlsx, .docx, .jpg, .jpeg, .png, .mp3, .mov, .avi, .mp4, .mov, .mkv"
                 type="file"
                 onChange={selectMessageFile}
-                className="hidden-btn"
+                className="hidden-file-btn"
                 ref={messageFileRef}
               />
             <i className="bi bi-paperclip" onClick={pickMessageFile} />

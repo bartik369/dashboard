@@ -2,7 +2,6 @@ import TokenModel from "../models/users/token.js"
 import ParticipantsModel from "../models/messenger/participants.js";
 
 export default async function(req, res, next) {
-
     const urlConversation = req.url.split('/')[1];
     const refreshToken = req.cookies.refreshToken;
 

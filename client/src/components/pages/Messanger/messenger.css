@@ -404,6 +404,21 @@
     position: relative;
 }
 
+.messages__to.filename a {
+    font-size: 12px;
+    color: #05c186;
+}
+
+.messages__from .filename a {
+    font-size: 12px;
+    color: #eeeeee;
+}
+
+.icon {
+    width: 30px;
+    margin: 3px;
+}
+
 .messages .reply-to {
     width: fit-content;
     align-items: center;
@@ -417,10 +432,22 @@
 
 .messages .messages__form input {
     right: 10%;
+    background-color: #2e6cbd;
     width: 100%;
     background-color: transparent;
     padding: 11px 30px 11px 20px;
     height: auto;
+}
+
+.hidden-file-btn {
+    display: none;
+    opacity: 0;
+    width: 0 !important;
+    height: 0;
+    line-height: 0;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
 }
 
 .messages__from .message {
