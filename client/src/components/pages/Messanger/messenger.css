@@ -414,9 +414,25 @@
     color: #eeeeee;
 }
 
-.icon {
-    width: 30px;
-    margin: 3px;
+.messages .icon {
+    width: 33px;
+    margin-right: 8px
+}
+
+.messages .fileinfo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.messages .messages__to .fileinfo a {
+    font-size: 11px;
+    color: #3d3d3d;
+}
+
+.messages .messages__from .fileinfo a {
+    font-size: 11px;
+    color: #f2f2f2;
 }
 
 .messages .reply-to {
@@ -587,6 +603,7 @@
 
 .messages__from .send {
     color: #fff;
+    font-size: 13px;
 }
 
 .messages__from .sender {
@@ -619,6 +636,7 @@
 
 .messages .messages__to .send {
     color: #434d5c;
+    font-size: 13px;
 }
 
 .messages .messages__to .reply {

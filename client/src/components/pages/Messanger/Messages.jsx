@@ -149,7 +149,7 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
 
 
   console.log("message test mem")
-  console.log(recipientInfo)
+console.log(selectedFile)
 
   return (
     <div className="messages">
@@ -174,11 +174,16 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
                   <div className="sender">{item.senderName}</div>
                   <div className="contents">
                       {medias && medias.map((media, index) => {
-                        let fileType = media.file.split(".")[1]
+                        let fileType = media.file.split(".").pop()
                         if (item.mediaId === media._id) {
-                          return <div key={index}> 
-                           <div className="icon">
-                              <FileIcon extension={fileType} {...defaultStyles.fileType} />
+                          return <div className="fileinfo" key={index}>
+                            <div className="icon">
+                              <FileIcon 
+                              extension={fileType} 
+                              {...defaultStyles[fileType]}
+                              color='#c5ced9'
+                              glyphColor='white'
+                              />
                             </div>
                             <a href={`${ENV.HOSTNAME}media/messenger/${conversationId}/${media.file}`}>{media.file}</a>
                           </div>
@@ -235,11 +240,16 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
                      {/* // console.log(media.file.split(".")[1]) */}
                     {medias && medias.map((media, index) => {
                     
-                      const fileType = media.file.split(".")[1]
+                      const fileType = media.file.split(".").pop()
                         if (item.mediaId === media._id) {
-                          return <div className="filename" key={index}>
+                          return <div className="fileinfo" key={index}>
                             <div className="icon">
-                              <FileIcon extension={fileType} {...defaultStyles[fileType]} />
+                              <FileIcon 
+                              extension={fileType} 
+                              {...defaultStyles[fileType]}
+                              gradientColor='white'
+                              gradientOpacity={1}
+                              />
                             </div>
                             <a href={`${ENV.HOSTNAME}media/messenger/${conversationId}/${media.file}`}>{media.file}</a>
                             </div>
