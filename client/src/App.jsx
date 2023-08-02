@@ -17,12 +17,13 @@ import PrivateRoutes from "./routes/PrivateRoutes";
 import PublicRoutes from "./routes/PublicRoutes";
 import { useValidateAccessToken } from "./store/api/apiSlice";
 import { useSelector } from "react-redux";
-import { selectCurrentToken } from "./store/features/auth/authSlice";
+import { selectCurrentToken, selectCurrentUser } from "./store/features/auth/authSlice";
 import "./styles/App.css";
 
 function App() {
 
   const token = useSelector(selectCurrentToken);
+  const user = useSelector(selectCurrentUser)
   const validateAccessToken = useValidateAccessToken()
 
 

@@ -29,7 +29,7 @@ app.use(cors({
 
 }));
 
-app.use('/media/messenger', checkMediaAccess, express.static(path.join(__dirname, 'media/messenger')))
+app.use('/media/messenger/', checkMediaAccess, express.static(path.join(__dirname, 'media/messenger')))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use('/api', authRoutes, deviceRoutes, todoRoutes, messengerRoutes);
 app.use(errorMiddleware);

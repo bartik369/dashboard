@@ -98,6 +98,7 @@ class MessengerController {
 
     async getMessagesMedia(req, res, next) {
         try {
+            const accessToken = req.cookies.accessToken;
             const id = req.params.id;
             const mediaData = await messengerService.getMessagesMedia(id);
             return res.json(mediaData);

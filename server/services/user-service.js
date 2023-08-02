@@ -40,7 +40,7 @@ class UserService {
         })
         await ProfileModel.create({
             userId: user._id,
-            displayname,
+            displayname, 
             description,
             city,
             birthday,

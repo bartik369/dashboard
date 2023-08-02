@@ -174,7 +174,8 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
                   <div className="contents">
                       {medias && medias.map((media) => {
                         if (item.mediaId === media._id) {
-                          return <div>{media.file}</div>
+                          return <div> <a href={`${ENV.HOSTNAME}media/messenger/${conversationId}/${media.file}`}>download</a>
+                          </div>
                         }              
                       })}
                       {item.replyTo && messages.map((message) => {
@@ -228,7 +229,7 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
                     {medias && medias.map((media) => {
                         if (item.mediaId === media._id) {
                           // return <div><img src={`${ENV.HOSTNAME}media/messenger/${media.file}`}/>
-                          return <div> <a href={`${ENV.HOSTNAME}media/messenger/${media.file}`}>download</a>
+                          return <div> <a href={`${ENV.HOSTNAME}media/messenger/${conversationId}/${media.file}`}>download</a>
                           </div>
                         }              
                       })}
