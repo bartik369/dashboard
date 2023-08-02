@@ -95,12 +95,28 @@
 
 .menu .menu__list .menu__item .icon {
     font-size: 25px;
+    position: relative;
     color: #f1f1f4;
     font-family: bold;
     display: inline-block;
     padding: 10px;
     border-radius: 7px;
     cursor: pointer;
+    background-color: #1c3da1;
+}
+
+.unread-count {
+    border-radius: 50%;
+    background-color: rgb(202, 33, 33);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    color: #ffffff;
+    position: absolute;
+    z-index: 4;
+    top: -10px;
+    right: -15px;
 }
 
 .sidebar.inactive .menu .menu__list .menu__item .icon:hover {
@@ -156,4 +172,18 @@
 
 .hiden-li {
     display: none;
+}
+
+.unread-count {
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    background-color: rgb(202, 33, 33);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    color: #ffffff;
+    position: absolute;
+    z-index: 4;
 }

@@ -105,6 +105,12 @@ export const messengerApi = createApi({
                 body: body,
             }),
         }),
+        getUnreadMessages: builder.query({
+            query: (id) => ({
+                url: `/api/unread-messages/${id}`,
+                method: "GET",
+            }),
+        }),
 
         //get messages media
         getMessagesMedia: builder.query({
@@ -172,6 +178,7 @@ export const {
     useGetMessagesQuery,
     useGetMessagesMediaQuery,
     useGetLastMessagesMutation,
+    useGetUnreadMessagesQuery,
     useUpdateMessageMutation,
     useDeleteConversationMutation,
     useMarkMessageMutation,

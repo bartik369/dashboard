@@ -125,6 +125,17 @@ class MessengerController {
 
         }
     }
+    async getUnredMessages(req, res, next) {
+        try {
+            const id = req.params.id
+            console.log(id)
+            const unreadMessagesData = await messengerService.getUnreadMessages(id)
+            return res.json(unreadMessagesData)
+        } catch (error) {
+
+        }
+    }
+
 
     async addMessage(req, res, next) {
         try {

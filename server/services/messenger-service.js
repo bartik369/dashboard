@@ -165,6 +165,18 @@ class MessengerService {
 
         } catch (error) {}
     }
+    async getUnreadMessages(id) {
+        try {
+            const messagesData = await MessageModel.find({ recipientId: id })
+            const unreadArray = []
+            messagesData.map((item) => {
+                if (!item.read) {
+                    unreadArray.push(item)
+                }
+            })
+            return unreadArray
+        } catch (error) {}
+    }
 
     async getLastMessages(id) {
         try {
