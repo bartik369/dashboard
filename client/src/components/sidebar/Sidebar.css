@@ -160,6 +160,7 @@
 .sidebar.inactive .menu__item:hover .menu__link {
     opacity: 1;
     position: absolute;
+    z-index: 5;
     left: 30px;
     top: 5px;
     border-radius: 3px;

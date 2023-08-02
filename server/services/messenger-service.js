@@ -203,6 +203,7 @@ class MessengerService {
                         updatedAt: 1,
                         senderId: 1,
                         recipientId: 1,
+                        read: 1,
                     }
                 },
                 // intro: { $substr: [ "$fullText", 0, 100 ] },
@@ -233,6 +234,9 @@ class MessengerService {
                         "recipientId": {
                             "$first": "$recipientId"
                         },
+                        "read": {
+                            "$first": "$read"
+                        },
                     }
                 },
                 {
@@ -257,6 +261,9 @@ class MessengerService {
                         },
                         "recipientId": {
                             "$first": "$recipientId"
+                        },
+                        "read": {
+                            "$first": "$read"
                         },
                     }
                 }

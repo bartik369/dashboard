@@ -1,9 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../../store/features/auth/authSlice";
 import defaultAvatar from "../../../assets/users/avatars/default-avatar.png";
 import moment from "moment";
 import "./messenger.css";
 
 export default function Conversations({ active, participants, activeConversation, lastMessages}) {
+
+  const user = useSelector(selectCurrentUser)
 
   if (participants) {
     return (
@@ -28,9 +32,12 @@ export default function Conversations({ active, participants, activeConversation
                   {lastMessages && lastMessages.map((message) => {
       
                     if ((message.senderId  === item.userId) || ((message.recipientId  === item.userId))) {
+                     
+                      console.log(item.userId)
                       return (
                         <div className="message-info" key={message._id}>
-                          <div className="text">{`${message.content}...`}</div>
+                          {/* <div className="text">{`${message.content}...`}</div> */}
+                          <div className={(!message.read && message.recipientId === user.id) ? "bold-text" : "text"}>{`${message.content}...`}</div>
                           <div className="date"> {moment(message.updatedAt).format("DD.MM HH:mm")}</div>
                         </div>
                        )
