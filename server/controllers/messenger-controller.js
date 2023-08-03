@@ -84,7 +84,15 @@ class MessengerController {
         try {
             const { conversationId, initiatorEmail } = req.body;
             const participantsData = await messengerService.deleteConversation(conversationId, initiatorEmail);
-            if (!participantsData) {}
+
+            if (participantsData.deletedMediaFolder) {
+                let folderName = `../server/media/messenger/${participantsData.deletedMediaFolder}`;
+                fs.rmSync(folderName, { recursive: true, force: true }, (err) => {
+                    if (err) {
+                        return console.log("error occurred in deleting directory", err);
+                    }
+                });
+            }
             return res.json(participantsData);
         } catch (error) {}
     }

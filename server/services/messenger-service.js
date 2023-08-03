@@ -146,8 +146,9 @@ class MessengerService {
             } else if (participants.visible.length === 1) {
                 await MessageModel.deleteMany({ conversationId: conversation._id });
                 await ParticipantsModel.deleteOne({ conversationId: conversation._id })
-                await ConversationModel.findByIdAndDelete(conversation._id)
-                return deleteParticipants, deleteConversation, deleteMessages;
+                await ConversationMediaModel.deleteMany({ conversationId: conversation._id })
+                const conversationData = await ConversationModel.findByIdAndDelete(conversation._id)
+                return { deletedMediaFolder: conversationData._id };
             }
         } catch (error) {}
     }

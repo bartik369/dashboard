@@ -36,7 +36,6 @@ export default function Conversations({ active, participants, activeConversation
                       console.log(item.userId)
                       return (
                         <div className="message-info" key={message._id}>
-                          {/* <div className="text">{`${message.content}...`}</div> */}
                           <div className={(!message.read && message.recipientId === user.id) ? "bold-text" : "text"}>{`${message.content}...`}</div>
                           <div className="date"> {moment(message.updatedAt).format("DD.MM HH:mm")}</div>
                         </div>
