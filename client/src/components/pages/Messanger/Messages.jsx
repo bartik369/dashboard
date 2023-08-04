@@ -51,8 +51,6 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
     })
   }, [messageInfo]);
 
-  console.log("==========>>>", conversationId)
-
   useEffect(() => {
     const outsideClickhandler = (e) => {
 

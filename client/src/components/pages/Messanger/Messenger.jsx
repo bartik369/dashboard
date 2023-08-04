@@ -17,6 +17,7 @@ import Messages from "./Messages";
 import ConversationMenu from "./ConversationMenu";
 import "./messenger.css";
 import RecipientInfo from "./RecipientInfo";
+import CallMenu from "./CallMenu";
 
 const Messenger = () => {
   const user = useSelector(selectCurrentUser);
@@ -137,6 +138,7 @@ const Messenger = () => {
       <div className="right-main">
         <div className="right-main__top">
             <RecipientInfo recipientInfo={recipientInfo}/>
+            <CallMenu />
           <div className="drop-menu">
           <div className="menu-btn" onClick={(e) => ConversationHandler(e)}>
             <i className="bi bi-three-dots-vertical" />
