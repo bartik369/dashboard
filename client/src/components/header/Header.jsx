@@ -3,11 +3,10 @@ import SearchData from "../UI/search/SearchData";
 import {useSelector } from "react-redux";
 import ProfileMenu from "../profile-menu/ProfileMenu";
 import TodosAlert from "./notifications/TodosAlert";
-import ChatAlert from "./notifications/ChatAlert";
+import SystemAlert from "./notifications/SystemAlert";
 import { useGetTodosQuery } from "../../store/features/todos/todoApi";
 import { useGetProfileQuery } from "../../store/features/auth/authApi";
 import { selectCurrentUser, selectCurrentToken } from "../../store/features/auth/authSlice";
-
 import defaultA from "../../assets/users/avatars/default-avatar.png";
 import "./header.css";
 
@@ -15,7 +14,7 @@ const Header = ({ moveHeader }) => {
   const [searchData, setSearchData] = useState("");
   const [userMenu, setUserMenu] = useState(false);
   const [todosDropMenu, setTodosDropMenu] = useState(false);
-  const [messagesDropMenu, setMessagesDropMenu] = useState(false);
+  const [systemDropMenu, setSystemDropMenu] = useState(false);
   // const [profileDropMenu, setProfileDropMenu] = useState(false);
   const [countMessages, setCountMessages] = useState(5);
   const [countTodos, setCountTodos] = useState(0);
@@ -26,7 +25,7 @@ const Header = ({ moveHeader }) => {
   const {data: profile} = useGetProfileQuery(user.id)
   const { data = [] } = useGetTodosQuery();
   const todoMenuRef = useRef();
-  const messageMenuRef = useRef();
+  const systemMenuRef = useRef();
   const profileMenuRef = useRef();
 
   useEffect(() => {
@@ -49,8 +48,8 @@ const Header = ({ moveHeader }) => {
       if (!todoMenuRef.current.contains(e.target)) {
         setTodosDropMenu(false);
       }
-      if (!messageMenuRef.current.contains(e.target)) {
-        setMessagesDropMenu(false);
+      if (!systemMenuRef.current.contains(e.target)) {
+        setSystemDropMenu(false);
       } 
       if (!profileMenuRef.current.contains(e.target)) {
         setUserMenu(false);
@@ -66,8 +65,8 @@ const Header = ({ moveHeader }) => {
     todosDropMenu ? setTodosDropMenu(false) : setTodosDropMenu(true);
   }
 
-  const messagesNotificationHandler = () => {
-    messagesDropMenu ? setMessagesDropMenu(false) : setMessagesDropMenu(true);
+  const systemNotificationHandler = () => {
+    systemDropMenu ? setSystemDropMenu(false) : setSystemDropMenu(true);
   }
     
 
@@ -82,9 +81,12 @@ const Header = ({ moveHeader }) => {
               onChange={(e) => setSearchData(e.target.value)}
             />}
         </div>
-        <div className="header__menu"></div>
+
+        {/* <div className="header__menu"></div> */}
+
         <div className="header__user-panel" onClick={(e) => e.stopPropagation()}>
           <div className="header__user-panel--notification">
+
             <div className="todos-notification" onClick={todosNotificationHandler}>
               <div className="todos-notification_count">{countTodos}</div>
               <i className="bi bi-clipboard-check"/>
@@ -100,18 +102,19 @@ const Header = ({ moveHeader }) => {
                 />
               </div>
             </div>
-            <div className="chat-messagess" onClick={messagesNotificationHandler}>
-              <div className="chat-messagess__count">{countMessages}</div>
+
+            <div className="system-messagess" onClick={systemNotificationHandler}>
+              <div className="system-messagess__count">{countMessages}</div>
               <i className="bi bi-chat"/>
-              <div className={messagesDropMenu
+              <div className={systemDropMenu
                     ? "header-notification__dropmenu"
                     : "header-notification__dropmenu-disabled"
                 }
-                ref={messageMenuRef}
+                ref={systemMenuRef}
                 onClick={(e) => e.stopPropagation()}>
-                <ChatAlert
+                <SystemAlert
                   className={
-                    todosDropMenu
+                    systemDropMenu
                       ? "header-notification__dropmenu"
                       : "header-notification__dropmenu-disabled"
                   }
@@ -130,6 +133,7 @@ const Header = ({ moveHeader }) => {
           <ProfileMenu user={user} token={token} />
           </div>
         </div>
+
       </div>
     </header>
   );

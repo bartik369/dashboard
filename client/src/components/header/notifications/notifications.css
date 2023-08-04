@@ -3,7 +3,7 @@
 }
 
 .todo-alert,
-.messages-alert {
+.system-alert {
     width: fit-content;
     height: fit-content;
     display: flex;
@@ -68,23 +68,28 @@
     font-family: inherit;
 }
 
-.messages-alert__item {
+.system-alert {
+    height: 300px;
+    overflow: auto;
+}
+
+.system-alert__item {
     display: flex;
     margin-bottom: 10px;
 }
 
-.messages-alert__item .avatar {
+.system-alert__item .avatar {
     width: 30px;
     height: 30px;
     cursor: pointer;
     margin-right: 10px;
 }
 
-.messages-alert__item .avatar img {
+.system-alert__item .avatar img {
     object-fit: cover;
     border-radius: 50%;
     width: 30px;
     height: 100%;
 }
 
-.messages-alert__item .message {}
+.system-alert__item .message {}
