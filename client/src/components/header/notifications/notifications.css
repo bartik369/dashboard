@@ -2,7 +2,8 @@
     font-family: 'Roboto Condensed', sans-serif;
 }
 
-.todo-alert {
+.todo-alert,
+.messages-alert {
     width: fit-content;
     height: fit-content;
     display: flex;
@@ -66,3 +67,24 @@
     font-size: 11px;
     font-family: inherit;
 }
+
+.messages-alert__item {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.messages-alert__item .avatar {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.messages-alert__item .avatar img {
+    object-fit: cover;
+    border-radius: 50%;
+    width: 30px;
+    height: 100%;
+}
+
+.messages-alert__item .message {}

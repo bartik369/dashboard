@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import SearchData from "../UI/search/SearchData";
-// import { setSearchQuery } from "../../store/actions/searchDataAction";
-import { setSearchQuery } from "../../store/features/search/searchSlice";
 import {useSelector } from "react-redux";
 import ProfileMenu from "../profile-menu/ProfileMenu";
 import TodosAlert from "./notifications/TodosAlert";
+import ChatAlert from "./notifications/ChatAlert";
 import { useGetTodosQuery } from "../../store/features/todos/todoApi";
 import { useGetProfileQuery } from "../../store/features/auth/authApi";
 import { selectCurrentUser, selectCurrentToken } from "../../store/features/auth/authSlice";
@@ -16,6 +15,7 @@ const Header = ({ moveHeader }) => {
   const [searchData, setSearchData] = useState("");
   const [userMenu, setUserMenu] = useState(false);
   const [todosDropMenu, setTodosDropMenu] = useState(false);
+  const [messagesDropMenu, setMessagesDropMenu] = useState(false);
   // const [profileDropMenu, setProfileDropMenu] = useState(false);
   const [countMessages, setCountMessages] = useState(5);
   const [countTodos, setCountTodos] = useState(0);
@@ -26,6 +26,7 @@ const Header = ({ moveHeader }) => {
   const {data: profile} = useGetProfileQuery(user.id)
   const { data = [] } = useGetTodosQuery();
   const todoMenuRef = useRef();
+  const messageMenuRef = useRef();
   const profileMenuRef = useRef();
 
   useEffect(() => {
@@ -47,8 +48,10 @@ const Header = ({ moveHeader }) => {
 
       if (!todoMenuRef.current.contains(e.target)) {
         setTodosDropMenu(false);
+      }
+      if (!messageMenuRef.current.contains(e.target)) {
+        setMessagesDropMenu(false);
       } 
-
       if (!profileMenuRef.current.contains(e.target)) {
         setUserMenu(false);
       }
@@ -59,57 +62,61 @@ const Header = ({ moveHeader }) => {
   const userMenuHandler = () =>
     userMenu ? setUserMenu(false) : setUserMenu(true);
 
-  const todosNotificationHandler = () =>
+  const todosNotificationHandler = () => {
     todosDropMenu ? setTodosDropMenu(false) : setTodosDropMenu(true);
+  }
+
+  const messagesNotificationHandler = () => {
+    messagesDropMenu ? setMessagesDropMenu(false) : setMessagesDropMenu(true);
+  }
+    
 
   return (
     <header className="header">
       <div className={!moveHeader ? "header__inner" : "header__slided"}>
         <div className="header__search">
           {/* {location.pathname === "/devices" && ( */}
-          {
-            <SearchData
+          {<SearchData
               placeholder="Поиск..."
               value={searchData}
               onChange={(e) => setSearchData(e.target.value)}
-            />
-          }
+            />}
         </div>
         <div className="header__menu"></div>
-        <div
-          className="header__user-panel"
-          onClick={(e) => e.stopPropagation()}
-        >
+        <div className="header__user-panel" onClick={(e) => e.stopPropagation()}>
           <div className="header__user-panel--notification">
-            <div
-              className="todos-notification"
-              onClick={todosNotificationHandler}
-            >
+            <div className="todos-notification" onClick={todosNotificationHandler}>
               <div className="todos-notification_count">{countTodos}</div>
-              <i className="bi bi-clipboard-check"></i>
-              <div
-                className={
-                  todosDropMenu
-                    ? "todos-notification__dropmenu"
-                    : "todos-notification__dropmenu-disabled"
-                }
+              <i className="bi bi-clipboard-check"/>
+              <div className={todosDropMenu
+                    ? "header-notification__dropmenu"
+                    : "header-notification__dropmenu-disabled"}
                 ref={todoMenuRef}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <TodosAlert
-                  todos={overdueTodos}
-                  user={user}
-                  className={
-                    todosDropMenu
-                      ? "todos-notification__dropmenu"
-                      : "todos-notification__dropmenu-disabled"
+                onClick={(e) => e.stopPropagation()}>
+                <TodosAlert todos={overdueTodos} user={user} className={todosDropMenu
+                      ? "header-notification__dropmenu"
+                      : "header-notification__dropmenu-disabled"
                   }
                 />
               </div>
             </div>
-            <div className="chat-messagess">
+            <div className="chat-messagess" onClick={messagesNotificationHandler}>
               <div className="chat-messagess__count">{countMessages}</div>
-              <i className="bi bi-chat"></i>
+              <i className="bi bi-chat"/>
+              <div className={messagesDropMenu
+                    ? "header-notification__dropmenu"
+                    : "header-notification__dropmenu-disabled"
+                }
+                ref={messageMenuRef}
+                onClick={(e) => e.stopPropagation()}>
+                <ChatAlert
+                  className={
+                    todosDropMenu
+                      ? "header-notification__dropmenu"
+                      : "header-notification__dropmenu-disabled"
+                  }
+                />
+              </div>
             </div>
           </div>
           <div className="user-avatar" onClick={userMenuHandler}>
