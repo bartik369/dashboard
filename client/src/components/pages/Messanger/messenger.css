@@ -319,11 +319,15 @@
 }
 
 .call-menu .icon {
-    background-color: #e4eaf3;
-    margin-right: 5px;
+    background-color: #eaf0f8;
+    margin-right: 7px;
     padding: 6px;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.call-menu .icon:hover {
+    background-color: #f0f6ff;
 }
 
 .bi-camera-video,
@@ -360,7 +364,7 @@
 
 .right-main__top .drop-menu {
     position: absolute;
-    top: 20px;
+    top: 24px;
     right: 20px;
 }
 

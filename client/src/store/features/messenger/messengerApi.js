@@ -110,6 +110,7 @@ export const messengerApi = createApi({
                 url: `/api/unread-messages/${id}`,
                 method: "GET",
             }),
+            invalidatesTags: [{ type: ['Messages'], id: 'LIST' }],
         }),
 
         //get messages media
