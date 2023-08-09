@@ -262,3 +262,8 @@ h6 {
         /* background-color: rgb(129, 4, 71); */
     }
 }
+
+#videoplace {
+    width: 600px;
+    height: 400px;
+}
