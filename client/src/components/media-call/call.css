@@ -1,0 +1,13 @@
+.video-layer {
+    display: flex;
+}
+
+.myvideo {
+    padding: 5px;
+    background-color: blue;
+}
+
+.uservideo {
+    padding: 5px;
+    background-color: blueviolet;
+}

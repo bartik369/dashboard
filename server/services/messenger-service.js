@@ -1,6 +1,7 @@
 import ConversationModel from "../models/messenger/conversation.js";
 import ParticipantsModel from "../models/messenger/participants.js";
 import MessageModel from "../models/messenger/messages.js";
+import SocketModel from "../models/messenger/call.js"
 import ConversationMediaModel from "../models/messenger/conversation-media.js";
 import UserModel from "../models/users/user.js";
 import ProfileModel from "../models/users/profile.js"
@@ -150,6 +151,31 @@ class MessengerService {
                 const conversationData = await ConversationModel.findByIdAndDelete(conversation._id)
                 return { deletedMediaFolder: conversationData._id };
             }
+        } catch (error) {}
+    }
+    async setSocket(userId, socket) {
+        try {
+            const existSocket = await SocketModel.findOne({ userId: userId })
+
+            if (existSocket) {
+                let socketData = await SocketModel.findOneAndUpdate({ userId: userId }, {
+                    socket: socket
+                })
+                await socketData.save()
+                return socketData
+            } else {
+                let newSocket = await new SocketModel({
+                    userId: userId,
+                    socket: socket,
+                })
+                await newSocket.save()
+                return newSocket
+            }
+        } catch (error) {}
+    }
+    async getSocket() {
+        try {
+
         } catch (error) {}
     }
 

@@ -10,6 +10,8 @@ router.get('/active-conversation/:id', messenderController.getActiveConversation
 router.post('/conversation', messenderController.getConversation)
 router.post('/new-conversation', messenderController.createConversation)
 router.delete('/conversation/', messenderController.deleteConversation)
+router.post('/set-socket/', messenderController.setSocket)
+router.get('/get-socket/:id', messenderController.getSocket)
     // router.post('/set-active/', messenderController.setActiveConversation)
 
 router.get('/messages/:id', messenderController.getMessages)

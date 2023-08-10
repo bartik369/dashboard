@@ -73,6 +73,19 @@ export const messengerApi = createApi({
             }),
             invalidatesTags: [{ type: ['Conversations'], id: 'LIST' }],
         }),
+        setSocket: builder.mutation({
+            query: (body) => ({
+                url: `/api/set-socket`,
+                method: "POST",
+                body: {...body },
+            }),
+        }),
+        getSocket: builder.query({
+            query: (id) => ({
+                url: `/api/get-socket/${id}`,
+                method: "GET",
+            }),
+        }),
 
         //get message
         getMessage: builder.mutation({
@@ -175,6 +188,8 @@ export const {
     useGetConversationsQuery,
     useGetActiveConversationUserQuery,
     useGetConversationMutation,
+    useGetSocketQuery,
+    useSetSocketMutation,
     useAddMessageMutation,
     useGetMessagesQuery,
     useGetMessagesMediaQuery,

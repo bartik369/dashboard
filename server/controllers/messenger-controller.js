@@ -96,6 +96,22 @@ class MessengerController {
             return res.json(participantsData);
         } catch (error) {}
     }
+    async setSocket(req, res, next) {
+        try {
+            const { userId, socket } = req.body
+            console.log(req.body)
+            if (socket) {
+                const socketData = await messengerService.setSocket(userId, socket)
+                console.log(socketData)
+            }
+
+        } catch (error) {}
+    }
+    async getSocket(req, res, next) {
+        try {
+
+        } catch (error) {}
+    }
     async getMessages(req, res, next) {
         try {
             const id = req.params.id;

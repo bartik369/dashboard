@@ -36,16 +36,34 @@ app.use(cors({
 
 }));
 
-const io = new Server(server, {
-    cors: 'http://localhost:3000',
-    serveClient: false
-})
-io.on('connection', initSocket)
 
 app.use('/media/messenger/', checkMediaAccess, express.static(path.join(__dirname, 'media/messenger')))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use('/api', authRoutes, deviceRoutes, todoRoutes, messengerRoutes);
 app.use(errorMiddleware);
+
+const io = new Server(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+    }
+})
+io.on('connection', (socket) => {
+    socket.emit('me', socket.id);
+    console.log(socket.id)
+    socket.on('disconnect', () => {
+        socket.broadcast.emit('callended')
+    });
+    socket.on('calluser', ({ userToCall, signalData, from, name }) => {
+        io.to(userToCall).emit('calluser', { signal: signalData, from, name })
+    });
+    socket.on('answercall', (data) => {
+        io.to(data.to).emit('callaccepted', data.signal)
+    });
+})
+
+
+
 
 const start = async() => {
     try {
