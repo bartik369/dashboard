@@ -14,7 +14,7 @@ import errorMiddleware from './middlewares/error-middleware.js'
 import checkMediaAccess from './middlewares/checkMediaAccess.js';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-import initSocket from './utils/initSocket.js'
+// import initSocket from './utils/initSocket.js'
 
 const app = express();
 const server = createServer(app)
@@ -36,21 +36,22 @@ app.use(cors({
 
 }));
 
-
-app.use('/media/messenger/', checkMediaAccess, express.static(path.join(__dirname, 'media/messenger')))
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use('/api', authRoutes, deviceRoutes, todoRoutes, messengerRoutes);
-app.use(errorMiddleware);
-
 const io = new Server(server, {
     cors: {
         origin: "*",
         methods: ["GET", "POST"]
     }
 })
-io.on('connection', (socket) => {
-    socket.emit('me', socket.id);
-    console.log(socket.id)
+
+io.on('connect', (socket) => {
+    socket.on('getUserId', (data) => {
+        console.log(data)
+        let socketData = {
+            userId: data.userId,
+            socketId: socket.id
+        }
+        socket.emit('me', socketData)
+    });
     socket.on('disconnect', () => {
         socket.broadcast.emit('callended')
     });
@@ -63,7 +64,14 @@ io.on('connection', (socket) => {
 })
 
 
+app.use('/media/messenger/', checkMediaAccess, express.static(path.join(__dirname, 'media/messenger')))
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use('/api', authRoutes, deviceRoutes, todoRoutes, messengerRoutes);
+app.use(errorMiddleware);
 
+server.listen(PORT, () => {
+    console.log(`Server ready on port ${PORT} 🚀`)
+})
 
 const start = async() => {
     try {
@@ -72,10 +80,6 @@ const start = async() => {
             useUnifiedTopology: true,
         });
 
-        // app.listen(PORT, () => console.log(`The server is running on ${PORT} port`))
-        server.listen(PORT, () => {
-            console.log(`Server ready on port ${PORT} 🚀`)
-        })
     } catch (error) {
         console.log(error)
     }

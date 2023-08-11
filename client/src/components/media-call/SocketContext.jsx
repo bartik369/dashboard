@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/features/auth/authSlice";
 
 const SocketContext = createContext()
-const socket = io('http://localhost:5001');
 
 const ContextProvider = ({ children }) => {
 
@@ -21,16 +20,23 @@ const ContextProvider = ({ children }) => {
         const myVideo = useRef()
         const userVideo = useRef()
         const connectionRef = useRef()
+        const socket = io.connect('http://localhost:5001/');
 
-        const [setSocket] = useSetSocketMutation()
+        // const [setSocket] = useSetSocketMutation()
+
+        useEffect(() => {
+            socket.on('connect', function() {
+                socket.emit('getUserId', {userId: user.id})
+            })
+        }, [user])
 
         useEffect(() => {
             navigator.mediaDevices.getUserMedia({ video: true, audio: true })
             .then((currentStream) => {
                     setStream(currentStream)
                     myVideo.current.srcObject = currentStream;
-                })
-            socket.on('me', (id) => setMe(id))
+            })
+            socket.on('me', (socketData) => setMe(socketData.socketId))
             socket.on('calluser', ({ from, name: callerName, signal }) => {
                 setCall({ isReceivedCall: true, from, name: callerName, signal })
             })
