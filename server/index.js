@@ -45,7 +45,6 @@ const io = new Server(server, {
 
 io.on('connect', (socket) => {
     socket.on('getUserId', (data) => {
-        console.log(data)
         let socketData = {
             userId: data.userId,
             socketId: socket.id
@@ -70,7 +69,7 @@ app.use('/api', authRoutes, deviceRoutes, todoRoutes, messengerRoutes);
 app.use(errorMiddleware);
 
 server.listen(PORT, () => {
-    console.log(`Server ready on port ${PORT} 🚀`)
+    console.log(`Server ready on port ${PORT}`)
 })
 
 const start = async() => {

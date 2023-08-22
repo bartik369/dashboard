@@ -1,11 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { SocketContext } from './SocketContext';
 
-export default function Options({ children }) {
+export default function Options({ me, callAccepted, name, setName, leaveCall, callEnded,  callUser, socketId}) {
 
-  const {me, callAccepted, name, setName, leaveCall, callEnded,  callUser} = useContext(SocketContext)
   const [idToCall, setIdToCall] = useState('');
-  console.log("meeeeee", me)
   return (
   
     <div>
@@ -15,15 +13,14 @@ export default function Options({ children }) {
         <input type="text" value={me}/>
         <input type="text" 
         placeholder='Id to call' 
-        value={idToCall} onChange={(e) => setIdToCall(e.target.value)} />
+        value={socketId} />
         {callAccepted && !callEnded ? (
           <button onClick={leaveCall}> Hand Up</button>
         ) : (
-        <button onClick={callUser(idToCall)}>
+        <button onClick={callUser(socketId)}>
           Call
         </button>
         )}
-        {children}
     </div>
     
   )

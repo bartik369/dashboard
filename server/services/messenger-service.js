@@ -153,29 +153,33 @@ class MessengerService {
             }
         } catch (error) {}
     }
-    async setSocket(userId, socket) {
+    async setSocket(userId, socketId) {
         try {
             const existSocket = await SocketModel.findOne({ userId: userId })
 
             if (existSocket) {
                 let socketData = await SocketModel.findOneAndUpdate({ userId: userId }, {
-                    socket: socket
+                    socketId: socketId
                 })
                 await socketData.save()
                 return socketData
             } else {
                 let newSocket = await new SocketModel({
                     userId: userId,
-                    socket: socket,
+                    socketId: socketId,
                 })
                 await newSocket.save()
                 return newSocket
             }
         } catch (error) {}
     }
-    async getSocket() {
+    async getSocket(id) {
         try {
+            const socketInfo = await SocketModel.findOne({ userId: id })
 
+            if (socketInfo) {
+                return socketInfo.socketId
+            }
         } catch (error) {}
     }
 

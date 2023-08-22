@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { selectCurrentUser } from "../../../store/features/auth/authSlice";
+import { useSetSocketMutation } from "../../../store/features/messenger/messengerApi";
 import {
   useCreateConversationMutation,
   useGetConversationMutation,
@@ -18,6 +19,8 @@ import ConversationMenu from "./ConversationMenu";
 import "./messenger.css";
 import RecipientInfo from "./RecipientInfo";
 import CallMenu from "./CallMenu";
+import { io } from "socket.io-client";
+const socket = io.connect("http://localhost:5001/");
 
 const Messenger = () => {
   const user = useSelector(selectCurrentUser);
@@ -35,6 +38,14 @@ const Messenger = () => {
     creatorId: "",
   });
   const {data: recipientInfo} = useGetProfileQuery(activeConversation.recipientId)
+  const [setSocketInfo] = useSetSocketMutation()
+
+  useEffect(() => {
+    setSocketInfo({
+      userId: user.id,
+      socketId: socket.id,
+    })
+  }, [])
 
   useEffect(() => {
 
@@ -53,6 +64,7 @@ const Messenger = () => {
       if (user) {
         getLastMessages({id: user.id})
       }
+    
   }, [])
 
   const newConversationHandler = () => {
@@ -138,7 +150,7 @@ const Messenger = () => {
       <div className="right-main">
         <div className="right-main__top">
             <RecipientInfo recipientInfo={recipientInfo}/>
-            <CallMenu />
+            <CallMenu recipientId={activeConversationUserId}/>
           <div className="drop-menu">
           <div className="menu-btn" onClick={(e) => ConversationHandler(e)}>
             <i className="bi bi-three-dots-vertical" />

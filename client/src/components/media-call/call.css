@@ -11,3 +11,31 @@
     padding: 5px;
     background-color: blueviolet;
 }
+
+.call-window {
+    background-color: aquamarine;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+    position: relative;
+}
+
+.call-window__inner {
+    background-color: burlywood;
+}
+
+.call-menu {
+    position: relative;
+}
+
+.end-call {
+    display: none;
+}
+
+.call-notification {
+    background-color: rgb(48, 28, 137);
+}
+
+.call-notification-turnoff {
+    display: none;
+}

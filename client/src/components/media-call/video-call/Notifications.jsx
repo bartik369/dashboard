@@ -1,8 +1,6 @@
 import React, { useContext } from 'react';
-import { SocketContext } from './SocketContext';
 
-export default function Notifications() {
-  const {answerCall, call, callAccepted} = useContext(SocketContext)
+export default function Notifications({answerCall, call, callAccepted}) {
   return (
     <>
       {call.isReceivedCall && !callAccepted && (

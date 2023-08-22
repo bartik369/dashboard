@@ -1,14 +1,11 @@
-import React, { useContext } from 'react'
-import { SocketContext } from './SocketContext'
-import './call.css'
-
-export default function VideoPlayer() {
-  const {stream, name, callAccepted, myVideo, userVideo, call, callEnded} = useContext(SocketContext)
+import React from 'react'
 
 
-  console.log(stream)
+const VideoPlayer = ({stream, name, callAccepted, myVideo, userVideo, call, callEnded}) => {
+
   return (
     <div className="video-layer">
+      sdadsadasd
      { (
         <div className="myvideo">
           <p>{name || 'Name'}</p>
@@ -25,3 +22,5 @@ export default function VideoPlayer() {
     </div>
   )
 }
+
+export default VideoPlayer

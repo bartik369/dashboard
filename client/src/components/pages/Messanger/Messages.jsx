@@ -145,9 +145,7 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
     setReplyId(id);
   }
 
-
   console.log("message test mem")
-console.log(selectedFile)
 
   return (
     <div className="messages">

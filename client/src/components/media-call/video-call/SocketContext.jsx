@@ -1,11 +1,12 @@
 import React, { createContext, useState, useRef, useEffect } from "react";
 import { io } from 'socket.io-client';
 import Peer from 'simple-peer';
-import { useSetSocketMutation } from "../../store/features/messenger/messengerApi";
 import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../../store/features/auth/authSlice";
+import { selectCurrentUser } from "../../../store/features/auth/authSlice";
 
 const SocketContext = createContext()
+const socket = io.connect('http://localhost:5001/');
+
 
 const ContextProvider = ({ children }) => {
 
@@ -20,15 +21,9 @@ const ContextProvider = ({ children }) => {
         const myVideo = useRef()
         const userVideo = useRef()
         const connectionRef = useRef()
-        const socket = io.connect('http://localhost:5001/');
-
+    
         // const [setSocket] = useSetSocketMutation()
 
-        useEffect(() => {
-            socket.on('connect', function() {
-                socket.emit('getUserId', {userId: user.id})
-            })
-        }, [user])
 
         useEffect(() => {
             navigator.mediaDevices.getUserMedia({ video: true, audio: true })
@@ -36,10 +31,12 @@ const ContextProvider = ({ children }) => {
                     setStream(currentStream)
                     myVideo.current.srcObject = currentStream;
             })
+            socket.emit('getUserId', {userId: user.id})
             socket.on('me', (socketData) => setMe(socketData.socketId))
             socket.on('calluser', ({ from, name: callerName, signal }) => {
                 setCall({ isReceivedCall: true, from, name: callerName, signal })
             })
+            console.log("test camera")
         }, [])
 
         const answerCall = () => {
