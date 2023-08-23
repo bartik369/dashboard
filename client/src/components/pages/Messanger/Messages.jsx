@@ -145,8 +145,6 @@ function Messages({ conversationId, user, recipientId, recipientInfo }) {
     setReplyId(id);
   }
 
-  console.log("message test mem")
-
   return (
     <div className="messages">
       <div className="messages__items" ref={messageEl}>

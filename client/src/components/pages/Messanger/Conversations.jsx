@@ -32,8 +32,6 @@ export default function Conversations({ active, participants, activeConversation
                   {lastMessages && lastMessages.map((message) => {
       
                     if ((message.senderId  === item.userId) || ((message.recipientId  === item.userId))) {
-                     
-                      console.log(item.userId)
                       return (
                         <div className="message-info" key={message._id}>
                           <div className={(!message.read && message.recipientId === user.id) ? "bold-text" : "text"}>{`${message.content}...`}</div>

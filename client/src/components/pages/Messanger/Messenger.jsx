@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { selectCurrentUser } from "../../../store/features/auth/authSlice";
 import { useSetSocketMutation } from "../../../store/features/messenger/messengerApi";
 import {
@@ -19,6 +19,7 @@ import ConversationMenu from "./ConversationMenu";
 import "./messenger.css";
 import RecipientInfo from "./RecipientInfo";
 import CallMenu from "./CallMenu";
+import { CallContext } from "../../media-call/video-call/CallContext";
 import { io } from "socket.io-client";
 const socket = io.connect("http://localhost:5001/");
 
@@ -150,7 +151,11 @@ const Messenger = () => {
       <div className="right-main">
         <div className="right-main__top">
             <RecipientInfo recipientInfo={recipientInfo}/>
-            <CallMenu recipientId={activeConversationUserId}/>
+            <CallContext.Provider value={{
+              activeConversationUserId,
+            }}>
+            <CallMenu />
+            </CallContext.Provider>
           <div className="drop-menu">
           <div className="menu-btn" onClick={(e) => ConversationHandler(e)}>
             <i className="bi bi-three-dots-vertical" />

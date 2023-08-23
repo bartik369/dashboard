@@ -3,7 +3,7 @@ import VideoCall from '../../media-call/video-call/VideoCall'
 import './messenger.css'
 import '../../media-call/call.css'
 
-export default function CallMenu({recipientId}) {
+export default function CallMenu() {
   const callMenuRef = useRef() 
   const [callWindow, setCallWindow] = useState(false)
   return (
@@ -17,7 +17,7 @@ export default function CallMenu({recipientId}) {
         </div>
     </div>
     <div className={callWindow ? 'call-window' : 'end-call'}>
-      <VideoCall callWindow={callWindow} setCallWindow={setCallWindow} recipientId={recipientId}/>
+      <VideoCall callWindow={callWindow} setCallWindow={setCallWindow}/>
     </div>
     </>
   )

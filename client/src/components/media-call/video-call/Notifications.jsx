@@ -1,6 +1,9 @@
 import React, { useContext } from 'react';
 
 export default function Notifications({answerCall, call, callAccepted}) {
+
+
+  console.log(call && call.isReceivedCall)
   return (
     <>
       {call.isReceivedCall && !callAccepted && (

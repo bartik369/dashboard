@@ -4,7 +4,6 @@ import "../../../components/pages/Messanger/messenger.css"
 
 function RecipientInfo({recipientInfo}) {
 
-    console.log(recipientInfo)
     if (recipientInfo) {
         return (
            <div className="recipient-info">

@@ -14,7 +14,8 @@ import errorMiddleware from './middlewares/error-middleware.js'
 import checkMediaAccess from './middlewares/checkMediaAccess.js';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-// import initSocket from './utils/initSocket.js'
+import SocketModel from './models/messenger/call.js'
+// import iitSocket from './utils/initSocket.js'
 
 const app = express();
 const server = createServer(app)
@@ -36,6 +37,8 @@ app.use(cors({
 
 }));
 
+const users = []
+
 const io = new Server(server, {
     cors: {
         origin: "*",
@@ -44,17 +47,44 @@ const io = new Server(server, {
 })
 
 io.on('connect', (socket) => {
-    socket.on('getUserId', (data) => {
-        let socketData = {
-            userId: data.userId,
-            socketId: socket.id
+    socket.on('setMyId', (data) => {
+
+        if (users.length === 0) {
+            const userInfo = {
+                socketId: socket.id,
+                userId: data.userId
+            }
+            users.push(userInfo)
+
         }
+        users.map((item) => {
+
+            if (item.userId === data.userId) {
+                item.socketId = socket.id
+            } else {
+                const userInfo = {
+                    socketId: socket.id,
+                    userId: data.userId
+                }
+                users.push(userInfo)
+            }
+        })
+    })
+    socket.on('reqRecipentSocketId', (data) => {
+        users.map((item) => {
+            if (item.userId === data.recipientId) {
+                socket.emit('resRecipentSocketId', { socketData: item.socketId })
+            }
+        })
+    })
+    socket.on('getUserId', (data) => {
         socket.emit('me', socketData)
     });
     socket.on('disconnect', () => {
         socket.broadcast.emit('callended')
     });
     socket.on('calluser', ({ userToCall, signalData, from, name }) => {
+        console.log("userToCall", userToCall)
         io.to(userToCall).emit('calluser', { signal: signalData, from, name })
     });
     socket.on('answercall', (data) => {

@@ -101,7 +101,6 @@ class MessengerController {
             const { userId, socketId } = req.body;
             if (socketId) {
                 const socketData = await messengerService.setSocket(userId, socketId)
-                console.log(socketData)
             }
 
         } catch (error) {}
@@ -109,9 +108,7 @@ class MessengerController {
     async getSocket(req, res, next) {
         try {
             const id = req.params.id
-            console.log("get socket")
             const socketInfo = await messengerService.getSocket(id)
-            console.log("socket Info", socketInfo)
             return res.json(socketInfo)
         } catch (error) {}
     }
