@@ -39,3 +39,9 @@
 .call-notification-turnoff {
     display: none;
 }
+
+.videocall_btn {
+    background-color: blueviolet;
+    color: aliceblue;
+    padding: 5px 12px;
+}

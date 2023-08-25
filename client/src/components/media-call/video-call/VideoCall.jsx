@@ -14,9 +14,6 @@ const socket = io.connect("http://localhost:5001/");
 export default function VideoCall({ callWindow, setCallWindow }) {
 
   const {activeConversationUserId} = useContext(CallContext)
-
-  console.log("check activeConversationUserId", activeConversationUserId)
-
   const user = useSelector(selectCurrentUser);
   const [stream, setStream] = useState(null);
   const [me, setMe] = useState("");
@@ -27,15 +24,10 @@ export default function VideoCall({ callWindow, setCallWindow }) {
   const myVideo = useRef();
   const userVideo = useRef();
   const connectionRef = useRef();
-  const [testId, setTestId] = useState('')
 
   useEffect(() => {
-    if (activeConversationUserId) {
       socket.emit("setMyId", { userId: user.id });
-      socket.on("me", (socketData) => setMe(socketData))
-      socket.emit("reqRecipentSocketId", {recipientId: activeConversationUserId});
-    }
-  }, [activeConversationUserId])
+  }, [user])
  
   useEffect(() => {
     if (callWindow) {
@@ -54,7 +46,6 @@ export default function VideoCall({ callWindow, setCallWindow }) {
   const answerCall = () => {
     setCallAccepted(true);
     const peer = new Peer({ initiator: false, trickle: false, stream });
-
     peer.on("signal", (data) => {
       socket.emit("answercall", { signal: data, to: call.from });
     });
@@ -66,18 +57,21 @@ export default function VideoCall({ callWindow, setCallWindow }) {
   };
 
   const callUser = () => {
-    console.log("calllllllllll")
     const peer = new Peer({ initiator: true, trickle: false, stream });
-    if (testId) {
-      socket.on('resRecipentSocketId', (socketId) => setTestId(socketId))
-      peer.on("signal", (data) => {
-        socket.emit("calluser", {
-          userToCall: testId,
-          signalData: data,
-          from: me,
-          name,
-        });
-      });
+    if (activeConversationUserId) {
+      socket.emit("reqRecipentSocketId", {recipientId: activeConversationUserId});
+      socket.on('resRecipentSocketId', (socketId) => {
+         if (socketId) {
+          peer.on("signal", (data) => {
+            socket.emit("calluser", {
+              userToCall: socketId.socketData,
+              signalData: data,
+              from: "from user",
+              name,
+            });
+          });
+         }
+      })
     }
     peer.on("stream", (currentStream) => {
       userVideo.current.srcObject = currentStream;
@@ -122,6 +116,7 @@ export default function VideoCall({ callWindow, setCallWindow }) {
         answerCall={answerCall}
         call={call}
         callAccepted={callAccepted}
+        setCallWindow={setCallWindow}
       />
       {/* </div> */}
     </div>

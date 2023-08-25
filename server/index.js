@@ -14,8 +14,7 @@ import errorMiddleware from './middlewares/error-middleware.js'
 import checkMediaAccess from './middlewares/checkMediaAccess.js';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-import SocketModel from './models/messenger/call.js'
-// import iitSocket from './utils/initSocket.js'
+
 
 const app = express();
 const server = createServer(app)
@@ -55,11 +54,11 @@ io.on('connect', (socket) => {
                 userId: data.userId
             }
             users.push(userInfo)
-
         }
         users.map((item) => {
 
             if (item.userId === data.userId) {
+                console.log("already exist")
                 item.socketId = socket.id
             } else {
                 const userInfo = {
@@ -70,6 +69,7 @@ io.on('connect', (socket) => {
             }
         })
     })
+    console.log("users ======>>>>", users)
     socket.on('reqRecipentSocketId', (data) => {
         users.map((item) => {
             if (item.userId === data.recipientId) {
@@ -77,9 +77,6 @@ io.on('connect', (socket) => {
             }
         })
     })
-    socket.on('getUserId', (data) => {
-        socket.emit('me', socketData)
-    });
     socket.on('disconnect', () => {
         socket.broadcast.emit('callended')
     });

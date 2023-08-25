@@ -3,6 +3,10 @@ import React from 'react'
 
 const VideoPlayer = ({stream, name, callAccepted, myVideo, userVideo, call, callEnded}) => {
 
+
+  console.log(myVideo)
+  console.log(userVideo)
+
   return (
     <div className="video-layer">
       sdadsadasd
@@ -15,6 +19,7 @@ const VideoPlayer = ({stream, name, callAccepted, myVideo, userVideo, call, call
      )}
      {callAccepted && !callEnded && (
        <div className="uservideo">
+         user video here
         <p>{call.name }</p>
         <video playsInline ref={userVideo} autoPlay ></video>
        </div>
