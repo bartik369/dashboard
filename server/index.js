@@ -47,27 +47,20 @@ const io = new Server(server, {
 
 io.on('connect', (socket) => {
     socket.on('setMyId', (data) => {
-
-        if (users.length === 0) {
-            const userInfo = {
-                socketId: socket.id,
-                userId: data.userId
-            }
-            users.push(userInfo)
+        const userInfo = {
+            socketId: socket.id,
+            userId: data.userId
         }
-        users.map((item) => {
-
-            if (item.userId === data.userId) {
-                console.log("already exist")
-                item.socketId = socket.id
+        if (users.length === 0) {
+            users.push(userInfo)
+        } else {
+            const result = users.find(item => item.userId === data.userId)
+            if (result) {
+                result.socketId = socket.id
             } else {
-                const userInfo = {
-                    socketId: socket.id,
-                    userId: data.userId
-                }
                 users.push(userInfo)
             }
-        })
+        }
     })
     console.log("users ======>>>>", users)
     socket.on('reqRecipentSocketId', (data) => {
