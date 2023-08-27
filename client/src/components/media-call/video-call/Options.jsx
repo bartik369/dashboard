@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import '../../media-call/call.css'
 
-export default function Options({ me, callAccepted, name, setName, leaveCall, callEnded,  callUser, socketId}) {
+export default function Options({ callAccepted, name, setName, leaveCall, callEnded,  callUser, socketId}) {
 
   return (
   

@@ -24,11 +24,7 @@ export default function VideoCall({ callWindow, setCallWindow }) {
   const myVideo = useRef();
   const userVideo = useRef();
   const connectionRef = useRef();
-
-  useEffect(() => {
-      socket.emit("setMyId", { userId: user.id });
-  }, [user])
- 
+  
   useEffect(() => {
     if (callWindow) {
       navigator.mediaDevices
@@ -38,6 +34,7 @@ export default function VideoCall({ callWindow, setCallWindow }) {
         myVideo.current.srcObject = currentStream;
       });
     }
+    socket.emit("setMyId", { userId: user.id });
     socket.on("calluser", ({ from, name: callerName, signal }) => {
       setCall({ isReceivedCall: true, from, name: callerName, signal });
     });
@@ -46,27 +43,32 @@ export default function VideoCall({ callWindow, setCallWindow }) {
   const answerCall = () => {
     setCallAccepted(true);
     const peer = new Peer({ initiator: false, trickle: false, stream });
+
     peer.on("signal", (data) => {
       socket.emit("answercall", { signal: data, to: call.from });
     });
+
     peer.on("stream", (currentStream) => {
       userVideo.current.srcObject = currentStream;
     });
+
     peer.signal(call.signal);
     connectionRef.current = peer;
   };
 
   const callUser = () => {
     const peer = new Peer({ initiator: true, trickle: false, stream });
+
     if (activeConversationUserId) {
       socket.emit("reqRecipentSocketId", {recipientId: activeConversationUserId});
       socket.on('resRecipentSocketId', (socketId) => {
+        
          if (socketId) {
           peer.on("signal", (data) => {
             socket.emit("calluser", {
               userToCall: socketId.socketData,
               signalData: data,
-              from: "from user",
+              from: socket.id,
               name,
             });
           });
@@ -103,7 +105,6 @@ export default function VideoCall({ callWindow, setCallWindow }) {
         callEnded={callEnded}
       />
       <Options
-        me={me}
         callAccepted={callAccepted}
         name={name}
         setName={setName}
