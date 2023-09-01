@@ -1,19 +1,17 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import '../../media-call/call.css'
 
-export default function Notifications({answerCall, call, callAccepted, setCallWindow}) {
 
-  if (call.isReceivedCall)  {
-    setCallWindow(true)
-  }
+export default function Notifications({answerCall, rejectCall, call}) {
+  
   return (
-    <>
-      {call.isReceivedCall && !callAccepted && (
-        <div className="call-notification">
+    <div>
+        <div className="call-notification__inner">
           <h2>{call.name}: is caling</h2>
           <button onClick={answerCall}>answer call</button>
+         <p></p>
+          <button onClick={rejectCall}>reject call</button>
         </div>
-      )}
-    </>
+    </div>
   )
 }

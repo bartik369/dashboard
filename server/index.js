@@ -62,7 +62,6 @@ io.on('connect', (socket) => {
             }
         }
     })
-    console.log("users ======>>>>", users)
     socket.on('reqRecipentSocketId', (data) => {
         users.map((item) => {
             if (item.userId === data.recipientId) {

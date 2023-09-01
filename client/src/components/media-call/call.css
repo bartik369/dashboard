@@ -13,15 +13,25 @@
 }
 
 .call-window {
-    background-color: aquamarine;
+    background-color: rgb(230, 12, 117);
     width: 100%;
     height: 100%;
     z-index: 99;
-    position: relative;
+    position: absolute;
+    display: flex;
+    left: 0 !important;
+    top: 0 !important;
+    flex-direction: column;
 }
 
 .call-window__inner {
     background-color: burlywood;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: 90%;
+    height: 80%;
 }
 
 .call-menu {
@@ -33,7 +43,22 @@
 }
 
 .call-notification {
-    background-color: rgb(48, 28, 137);
+    z-index: 999;
+    position: absolute;
+    width: 100%;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.call-notification__inner {
+    background-color: rgb(109, 86, 211);
+    height: 200px;
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .call-notification-turnoff {

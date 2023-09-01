@@ -11,21 +11,26 @@ import { CallContext } from "./CallContext";
 
 const socket = io.connect("http://localhost:5001/");
 
-export default function VideoCall({ callWindow, setCallWindow }) {
+export default function VideoCall() {
 
-  const {activeConversationUserId} = useContext(CallContext)
+  const {
+    activeConversationUserId, 
+    callWindow, 
+    setCallWindow, 
+    callNotification, 
+    setCallNotification} = useContext(CallContext)
   const user = useSelector(selectCurrentUser);
   const [stream, setStream] = useState(null);
-  const [me, setMe] = useState("");
   const [call, setCall] = useState({});
   const [callAccepted, setCallAccepted] = useState(false);
   const [callEnded, setCallEnded] = useState(false);
   const [name, setName] = useState("");
   const myVideo = useRef();
   const userVideo = useRef();
-  const connectionRef = useRef();
-  
+  const connectionRef = useRef()
+
   useEffect(() => {
+
     if (callWindow) {
       navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
@@ -39,24 +44,47 @@ export default function VideoCall({ callWindow, setCallWindow }) {
       setCall({ isReceivedCall: true, from, name: callerName, signal });
     });
   }, [callWindow]);
+  
+  useEffect(() => {
+
+    if ( call.isReceivedCall && !callAccepted) {
+      setCallNotification(true)
+    }
+  }, [call])
+
+  useEffect(() => {
+      if (callAccepted) {
+      navigator.mediaDevices
+      .getUserMedia({ video: true, audio: true })
+      .then((stream) => {
+        console.log(stream)
+        setStream(stream);
+        if (myVideo.current) {
+          myVideo.current.srcObject = stream
+          const peer = new Peer({ initiator: false, trickle: false, stream });
+        peer.on("signal", (data) => {
+          socket.emit("answercall", { signal: data, to: call.from });
+        }); 
+        peer.on("stream", () => {
+
+          if (userVideo.current) {
+            userVideo.current.srcObject = stream;
+          }
+        });
+        peer.signal(call.signal);
+        connectionRef.current = peer;
+        }
+      })
+      }
+  }, [callAccepted, call])
 
   const answerCall = () => {
-    setCallAccepted(true);
-    const peer = new Peer({ initiator: false, trickle: false, stream });
-
-    peer.on("signal", (data) => {
-      socket.emit("answercall", { signal: data, to: call.from });
-    });
-
-    peer.on("stream", (currentStream) => {
-      userVideo.current.srcObject = currentStream;
-    });
-
-    peer.signal(call.signal);
-    connectionRef.current = peer;
+    setCallWindow(true)
+    setCallAccepted(true)
+    setCallNotification(false)
   };
 
-  const callUser = () => {
+  const callUser = () => {  
     const peer = new Peer({ initiator: true, trickle: false, stream });
 
     if (activeConversationUserId) {
@@ -85,7 +113,9 @@ export default function VideoCall({ callWindow, setCallWindow }) {
     connectionRef.current = peer;
   };
 
+
   const leaveCall = () => {
+    console.log("leeeeeave")
     setCallWindow(false)
     setCallEnded(true);
     connectionRef.current.destroy();
@@ -93,8 +123,8 @@ export default function VideoCall({ callWindow, setCallWindow }) {
   };
 
   return (
-    <div className="call-window__inner">
-      <h5>Video chat</h5>
+    <>
+   { callWindow && <div className="call-window__inner">
       <VideoPlayer
         stream={stream}
         name={name}
@@ -112,14 +142,15 @@ export default function VideoCall({ callWindow, setCallWindow }) {
         callEnded={callEnded}
         callUser={callUser}
       />
-      {/* <div className={inCall ? "call-notification" : "all-notification-turnoff"}> */}
-      <Notifications
-        answerCall={answerCall}
-        call={call}
-        callAccepted={callAccepted}
-        setCallWindow={setCallWindow}
-      />
-      {/* </div> */}
-    </div>
+    </div>}
+      <div  className={callNotification ? "call-notification" : "call-notification-turnoff"}>
+        {
+         <Notifications
+         answerCall={answerCall}
+         call={call}
+       />}
+      </div>
+   
+    </>
   );
 }

@@ -7,13 +7,6 @@ export default function Options({ callAccepted, name, setName, leaveCall, callEn
   
     <div>
         <p>Optiond</p>
-        {/* <input type="text" placeholder='Name' defaultValue={name} onChange={(e) => setName(e.target.value)} />
-        <p>me</p>
-        <input type="text" defaultValue={me}/>
-        <p>you</p>
-        <input type="text" 
-        placeholder='Id to call' 
-        defaultValue={socketId} /> */}
         {callAccepted && !callEnded ? (
           <button className='videocall_btn' onClick={leaveCall}> Hand Up</button>
         ) : (

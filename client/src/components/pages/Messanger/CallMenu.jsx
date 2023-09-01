@@ -1,23 +1,17 @@
-import React, {useEffect, useState, useRef} from 'react'
-import VideoCall from '../../media-call/video-call/VideoCall'
+import React from 'react'
 import './messenger.css'
 import '../../media-call/call.css'
 
-export default function CallMenu() {
-  const callMenuRef = useRef() 
-  const [callWindow, setCallWindow] = useState(false)
+export default function CallMenu({setCallWindow, callWindow}) {
   return (
     <>
     <div className="call-menu">
         <div className="icon">
-        <i ref={callMenuRef} onClick={() => setCallWindow(!callWindow)} className="bi bi-camera-video"/>
+        <i onClick={() => setCallWindow(!callWindow)} className="bi bi-camera-video"/>
         </div>
         <div className="icon">
         <i className="bi bi-telephone"/>
         </div>
-    </div>
-    <div className={callWindow ? 'call-window' : 'end-call'}>
-      <VideoCall callWindow={callWindow} setCallWindow={setCallWindow}/>
     </div>
     </>
   )

@@ -1,15 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 
 const VideoPlayer = ({stream, name, callAccepted, myVideo, userVideo, call, callEnded}) => {
 
-
-  console.log(myVideo)
-  console.log(userVideo)
-
   return (
     <div className="video-layer">
-      sdadsadasd
      { (
         <div className="myvideo">
           <p>{name || 'Name'}</p>

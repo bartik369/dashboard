@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { selectCurrentUser } from "../../../store/features/auth/authSlice";
 import { useSetSocketMutation } from "../../../store/features/messenger/messengerApi";
 import {
@@ -16,6 +16,7 @@ import Contacts from "./Contacts";
 import { useSelector } from "react-redux";
 import Messages from "./Messages";
 import ConversationMenu from "./ConversationMenu";
+import VideoCall from "../../media-call/video-call/VideoCall";
 import "./messenger.css";
 import RecipientInfo from "./RecipientInfo";
 import CallMenu from "./CallMenu";
@@ -40,6 +41,8 @@ const Messenger = () => {
   });
   const {data: recipientInfo} = useGetProfileQuery(activeConversation.recipientId)
   const [setSocketInfo] = useSetSocketMutation()
+  const [callWindow, setCallWindow] = useState(false)
+  const [callNotification, setCallNotification] = useState(false)
 
   useEffect(() => {
     setSocketInfo({
@@ -151,11 +154,7 @@ const Messenger = () => {
       <div className="right-main">
         <div className="right-main__top">
             <RecipientInfo recipientInfo={recipientInfo}/>
-            <CallContext.Provider value={{
-              activeConversationUserId,
-            }}>
-            <CallMenu />
-            </CallContext.Provider>
+            <CallMenu setCallWindow={setCallWindow} callWindow={callWindow}  />
           <div className="drop-menu">
           <div className="menu-btn" onClick={(e) => ConversationHandler(e)}>
             <i className="bi bi-three-dots-vertical" />
@@ -172,6 +171,15 @@ const Messenger = () => {
           />
         </div>
       </div>
+      <CallContext.Provider value={{
+            activeConversationUserId,
+            callWindow,
+            setCallWindow,
+            callNotification,
+            setCallNotification,
+          }}>
+      <VideoCall/>
+    </CallContext.Provider>
     </div>
   );
 };
