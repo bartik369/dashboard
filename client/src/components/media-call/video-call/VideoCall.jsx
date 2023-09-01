@@ -53,12 +53,13 @@ export default function VideoCall() {
   }, [call])
 
   useEffect(() => {
+
       if (callAccepted) {
       navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
-        console.log(stream)
         setStream(stream);
+
         if (myVideo.current) {
           myVideo.current.srcObject = stream
           const peer = new Peer({ initiator: false, trickle: false, stream });
@@ -76,7 +77,7 @@ export default function VideoCall() {
         }
       })
       }
-  }, [callAccepted, call])
+  }, [callAccepted])
 
   const answerCall = () => {
     setCallWindow(true)
