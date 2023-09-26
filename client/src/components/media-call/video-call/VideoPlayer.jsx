@@ -1,14 +1,24 @@
 import React, { useEffect } from 'react'
 
 
-const VideoPlayer = ({stream, name, callAccepted, myVideo, userVideo, call, callEnded}) => {
+const VideoPlayer = ({name, callAccepted, myVideo, userVideo, call,
+   callEnded, videoHandler, audioHandler }) => {
 
   return (
     <div className="video-layer">
      { (
         <div className="myvideo">
           <p>{name || 'Name'}</p>
-          <video playsInline muted ref={myVideo} autoPlay ></video>
+          <video className="video-stream" playsInline muted ref={myVideo} autoPlay >
+          </video>
+          <div className="media-options">
+          <button onClick={videoHandler} className="video-call-btn">
+          <i className="bi bi-camera-video-off"></i>
+          </button>
+          <button onClick={audioHandler} className="audio-call-btn">
+          <i className="bi bi-mic-mute"></i>
+          </button>
+          </div>
         </div>
         
      )}

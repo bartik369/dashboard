@@ -6,20 +6,21 @@ import Peer from "simple-peer";
 import VideoPlayer from "./VideoPlayer";
 import Options from "./Options";
 import Notifications from "./Notifications";
-import '../../media-call/call.css'
+import "../../media-call/call.css";
 import { CallContext } from "./CallContext";
 
 const socket = io.connect("http://localhost:5001/");
 
 export default function VideoCall() {
-
   const {
-    activeConversationUserId, 
-    callWindow, 
-    setCallWindow, 
-    callNotification, 
-    setCallNotification} = useContext(CallContext)
+    activeConversationUserId,
+    callWindow,
+    setCallWindow,
+    callNotification,
+    setCallNotification,
+  } = useContext(CallContext);
   const user = useSelector(selectCurrentUser);
+  const [userStream, setUserStream] = useState(null)
   const [stream, setStream] = useState(null);
   const [call, setCall] = useState({});
   const [callAccepted, setCallAccepted] = useState(false);
@@ -27,72 +28,47 @@ export default function VideoCall() {
   const [name, setName] = useState("");
   const myVideo = useRef();
   const userVideo = useRef();
-  const connectionRef = useRef()
+  const connectionRef = useRef();
+
+
+
+  useEffect(() => {
+    socket.emit("setMyId", { userId: user.id });
+    socket.on("calluser", ({ from, name: callerName, signal }) => {
+      setCall({ isReceivedCall: true, from, name: callerName, signal });
+    });
+  
+  }, []);
 
   useEffect(() => {
 
     if (callWindow) {
       navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
-      .then((currentStream) => {
-        setStream(currentStream);
-        myVideo.current.srcObject = currentStream;
-      });
-    }
-    socket.emit("setMyId", { userId: user.id });
-    socket.on("calluser", ({ from, name: callerName, signal }) => {
-      setCall({ isReceivedCall: true, from, name: callerName, signal });
-    });
-  }, [callWindow]);
-  
-  useEffect(() => {
-
-    if ( call.isReceivedCall && !callAccepted) {
-      setCallNotification(true)
-    }
-  }, [call])
-
-  useEffect(() => {
-
-      if (callAccepted) {
-      navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
       .then((stream) => {
         setStream(stream);
+          myVideo.current.srcObject = stream;
+      });
+    }
+  }, [callWindow])
 
-        if (myVideo.current) {
-          myVideo.current.srcObject = stream
-          const peer = new Peer({ initiator: false, trickle: false, stream });
-        peer.on("signal", (data) => {
-          socket.emit("answercall", { signal: data, to: call.from });
-        }); 
-        peer.on("stream", () => {
-
-          if (userVideo.current) {
-            userVideo.current.srcObject = stream;
-          }
-        });
-        peer.signal(call.signal);
-        connectionRef.current = peer;
-        }
-      })
-      }
-  }, [callAccepted])
-
-  const answerCall = () => {
-    setCallWindow(true)
-    setCallAccepted(true)
-    setCallNotification(false)
-  };
-
-  const callUser = () => {  
+  useEffect(() => {
+    if (call.isReceivedCall && !callAccepted) {
+      setCallWindow(true)
+      setCallNotification(true);
+    }
+  }, [call]);
+  
+  const callUser = () => {
     const peer = new Peer({ initiator: true, trickle: false, stream });
 
     if (activeConversationUserId) {
-      socket.emit("reqRecipentSocketId", {recipientId: activeConversationUserId});
-      socket.on('resRecipentSocketId', (socketId) => {
+      socket.emit("reqRecipentSocketId", {
+        recipientId: activeConversationUserId,
+      });
+      socket.on("resRecipentSocketId", (socketId) => {
         
-         if (socketId) {
+        if (socketId) {
           peer.on("signal", (data) => {
             socket.emit("calluser", {
               userToCall: socketId.socketData,
@@ -101,12 +77,13 @@ export default function VideoCall() {
               name,
             });
           });
-         }
-      })
+        }
+
+        peer.on('stream', (stream) => {
+          userVideo.current.srcObject = stream;
+        });
+      });
     }
-    peer.on("stream", (currentStream) => {
-      userVideo.current.srcObject = currentStream;
-    });
     socket.on("callaccepted", (signal) => {
       setCallAccepted(true);
       peer.signal(signal);
@@ -114,44 +91,71 @@ export default function VideoCall() {
     connectionRef.current = peer;
   };
 
+  const answerCall = () => {
+    setCallAccepted(true)
+    setCallNotification(false);
+    setCallWindow(true);
+
+    const peer = new Peer({ initiator: false, trickle: false, stream})
+
+    peer.on("signal", (data) => {
+      socket.emit("answercall", { signal: data, to: call.from });
+    });
+    peer.on("stream", (stream) => {
+        userVideo.current.srcObject = stream
+    });
+  
+    peer.signal(call.signal);
+    connectionRef.current = peer;
+      
+  }
 
   const leaveCall = () => {
-    console.log("leeeeeave")
-    setCallWindow(false)
+    setCallWindow(false);
     setCallEnded(true);
     connectionRef.current.destroy();
     window.location.reload();
   };
 
+  const videoHandler = () => {
+    stream.getVideoTracks()[0].enabled = !stream.getVideoTracks()[0].enabled;
+  };
+  const audioHandler = () => {
+    stream.getAudioTracks()[0].enabled = !stream.getAudioTracks()[0].enabled;
+  };
+
   return (
     <>
-   { callWindow && <div className="call-window__inner">
-      <VideoPlayer
-        stream={stream}
-        name={name}
-        callAccepted={callAccepted}
-        myVideo={myVideo}
-        userVideo={userVideo}
-        call={call}
-        callEnded={callEnded}
-      />
-      <Options
-        callAccepted={callAccepted}
-        name={name}
-        setName={setName}
-        leaveCall={leaveCall}
-        callEnded={callEnded}
-        callUser={callUser}
-      />
-    </div>}
-      <div  className={callNotification ? "call-notification" : "call-notification-turnoff"}>
-        {
-         <Notifications
-         answerCall={answerCall}
-         call={call}
-       />}
+      {callWindow && (
+        <div className="call-window__inner">
+          <div className="video-layer">
+            <VideoPlayer
+              name={name}
+              callAccepted={callAccepted}
+              myVideo={myVideo}
+              userVideo={userVideo}
+              call={call}
+              callEnded={callEnded}
+              videoHandler={videoHandler}
+              audioHandler={audioHandler}
+            />
+          </div>
+          <div className="video-options">
+            <Options
+              callAccepted={callAccepted}
+              name={name}
+              setName={setName}
+              leaveCall={leaveCall}
+              callEnded={callEnded}
+              callUser={callUser}
+            />
+          </div>
+        </div>
+      )}
+      <div
+        className={callNotification ? "call-notification" : "call-notification-turnoff"}>
+        {<Notifications answerCall={answerCall} call={call} />}
       </div>
-   
     </>
   );
 }

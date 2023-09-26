@@ -1,14 +1,24 @@
 .video-layer {
     display: flex;
+    width: 100%;
+    background-color: cornflowerblue;
+    padding: 10px;
+}
+
+.video-stream {
+    position: relative;
+    padding: 10px;
+    width: 100%;
 }
 
 .myvideo {
-    padding: 5px;
-    background-color: blue;
+    padding: 10px;
+    background-color: rgb(37, 215, 78);
+    position: relative;
 }
 
 .uservideo {
-    padding: 5px;
+    padding: 10px;
     background-color: blueviolet;
 }
 
@@ -69,4 +79,21 @@
     background-color: blueviolet;
     color: aliceblue;
     padding: 5px 12px;
+}
+
+.media-options {
+    background-color: cadetblue;
+    padding: 20px;
+    position: absolute;
+    z-index: 99;
+    bottom: 0;
+    left: 50%;
+}
+
+.video-call-btn {
+    padding: 10px;
+}
+
+.audio-call-btn {
+    padding: 10px;
 }
