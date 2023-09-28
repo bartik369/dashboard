@@ -20,8 +20,9 @@ export default function VideoCall() {
     setCallNotification,
   } = useContext(CallContext);
   const user = useSelector(selectCurrentUser);
-  const [userStream, setUserStream] = useState(null)
   const [stream, setStream] = useState(null);
+  const [audioMute, setAudioMute] = useState(false)
+  const [videoMute, setVideoMute] = useState(false)
   const [call, setCall] = useState({});
   const [callAccepted, setCallAccepted] = useState(false);
   const [callEnded, setCallEnded] = useState(false);
@@ -119,10 +120,16 @@ export default function VideoCall() {
 
   const videoHandler = () => {
     stream.getVideoTracks()[0].enabled = !stream.getVideoTracks()[0].enabled;
+    setVideoMute(!videoMute)
   };
   const audioHandler = () => {
     stream.getAudioTracks()[0].enabled = !stream.getAudioTracks()[0].enabled;
+    setAudioMute(!audioMute)
   };
+
+  console.log(videoMute)
+  console.log(audioMute)
+
 
   return (
     <>
@@ -136,18 +143,21 @@ export default function VideoCall() {
               userVideo={userVideo}
               call={call}
               callEnded={callEnded}
-              videoHandler={videoHandler}
-              audioHandler={audioHandler}
+
             />
           </div>
           <div className="video-options">
-            <Options
+          <Options
+              videoHandler={videoHandler}
+              audioHandler={audioHandler}
               callAccepted={callAccepted}
               name={name}
               setName={setName}
               leaveCall={leaveCall}
               callEnded={callEnded}
               callUser={callUser}
+              audioMute={audioMute}
+              videoMute={videoMute}
             />
           </div>
         </div>

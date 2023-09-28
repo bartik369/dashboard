@@ -177,7 +177,7 @@ const Messenger = () => {
             setCallWindow,
             callNotification,
             setCallNotification,
-          }}>
+          }}> 
       <VideoCall/>
     </CallContext.Provider>
     </div>
