@@ -26,6 +26,7 @@ const socket = io.connect("http://localhost:5001/");
 
 const Messenger = () => {
   const user = useSelector(selectCurrentUser);
+  const {data: userProfile} = useGetProfileQuery(user.id)
   const { data: participants} = useGetParticipantsQuery(user.id);
   const{ data: activeConversationUserId } = useGetActiveConversationUserQuery(user.id)
   const [getConversation, {data: conversationId, isLoading}] = useGetConversationMutation();
@@ -177,6 +178,7 @@ const Messenger = () => {
             setCallWindow,
             callNotification,
             setCallNotification,
+            userProfile,
           }}> 
       <VideoCall/>
     </CallContext.Provider>

@@ -10,6 +10,7 @@ export default function Options({
   audioHandler,
   audioMute,
   videoMute,
+  callStarted,
 }) {
 
   return (
@@ -19,7 +20,7 @@ export default function Options({
           <i className={videoMute ? "bi bi-camera-video-off" : "bi bi-camera-video"} onClick={videoHandler}/>
           <i className={audioMute ? "bi bi-mic-mute" : "bi bi-mic"} onClick={audioHandler}/>
         </div>
-        {callAccepted && !callEnded ? (
+        {callAccepted && !callEnded || callStarted ? (
           <i className="bi bi-telephone-x" onClick={leaveCall}/>
         ) : (
           <i className="bi bi-telephone" onClick={callUser}/>

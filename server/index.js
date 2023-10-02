@@ -45,6 +45,8 @@ const io = new Server(server, {
     }
 })
 
+console.log(users)
+
 io.on('connect', (socket) => {
     socket.on('setMyId', (data) => {
         const userInfo = {

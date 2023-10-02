@@ -47,7 +47,6 @@
 
 .call-window__inner {
     background-color: rgb(28, 28, 30);
-    border-radius: 5px;
     padding: 20px;
     position: absolute;
     display: flex;
@@ -87,13 +86,17 @@
 }
 
 .call-notification__inner {
-    background-color: rgb(109, 86, 211);
+    background-color: rgb(47, 47, 48);
     height: 200px;
     width: 500px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.call-notification__inner .call-btns {
+    display: flex;
 }
 
 .call-notification-turnoff {
@@ -157,10 +160,26 @@
     color: rgb(203, 203, 203);
 }
 
+.call-btns .bi-telephone {
+    font-size: 30px;
+    color: darkgreen;
+    background-color: rgb(32, 32, 32);
+    padding: 9px;
+    margin: 7px;
+}
+
+.call-btns .bi-telephone-x {
+    font-size: 30px;
+    color: brown;
+    background-color: rgb(32, 32, 32);
+    padding: 9px;
+    margin: 7px;
+}
+
 .call-window__inner .bi-x-circle {
     font-size: 30px;
     position: absolute;
-    top: -10px;
-    right: -35px;
+    top: -17px;
+    right: -38px;
     cursor: pointer;
 }

@@ -1,17 +1,16 @@
-import React from 'react';
-import '../../media-call/call.css'
+import React from "react";
+import "../../media-call/call.css";
 
-
-export default function Notifications({answerCall, rejectCall, call}) {
-  
+export default function Notifications({ answerCall, rejectCall, call }) {
   return (
     <div>
-        <div className="call-notification__inner">
-          <h2>{call.name}: is caling</h2>
-          <button onClick={answerCall}>answer call</button>
-         <p></p>
-          <button onClick={rejectCall}>reject call</button>
+      <div className="call-notification__inner">
+        <h2>Входящий вызов от: {call.name}</h2>
+        <div className="call-btns">
+          <i className="bi bi-telephone" onClick={answerCall} />
+          <i className="bi bi-telephone-x" onClick={rejectCall} />
         </div>
+      </div>
     </div>
-  )
+  );
 }

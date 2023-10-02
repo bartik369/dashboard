@@ -18,6 +18,7 @@ export default function VideoCall() {
     setCallWindow,
     callNotification,
     setCallNotification,
+    userProfile,
   } = useContext(CallContext);
   const user = useSelector(selectCurrentUser);
   const [stream, setStream] = useState(null);
@@ -26,19 +27,17 @@ export default function VideoCall() {
   const [call, setCall] = useState({});
   const [callAccepted, setCallAccepted] = useState(false);
   const [callEnded, setCallEnded] = useState(false);
+  const [callStarted, setCallStarted] = useState(false);
   const [name, setName] = useState("");
   const myVideo = useRef();
   const userVideo = useRef();
   const connectionRef = useRef();
-
-
 
   useEffect(() => {
     socket.emit("setMyId", { userId: user.id });
     socket.on("calluser", ({ from, name: callerName, signal }) => {
       setCall({ isReceivedCall: true, from, name: callerName, signal });
     });
-  
   }, []);
 
   useEffect(() => {
@@ -59,8 +58,17 @@ export default function VideoCall() {
       setCallNotification(true);
     }
   }, [call]);
+
+  useEffect(() => {
+    
+    if (callEnded) {
+      console.log("Call ended")
+      leaveCall()
+    }
+  }, [callEnded])
   
   const callUser = () => {
+    setCallStarted(true)
     const peer = new Peer({ initiator: true, trickle: false, stream });
 
     if (activeConversationUserId) {
@@ -75,7 +83,7 @@ export default function VideoCall() {
               userToCall: socketId.socketData,
               signalData: data,
               from: socket.id,
-              name,
+              name: userProfile.displayname,
             });
           });
         }
@@ -114,7 +122,7 @@ export default function VideoCall() {
   const leaveCall = () => {
     setCallWindow(false);
     setCallEnded(true);
-    
+
     if (connectionRef.current) {
       connectionRef.current.destroy();
       window.location.reload();
@@ -160,6 +168,7 @@ export default function VideoCall() {
               callUser={callUser}
               audioMute={audioMute}
               videoMute={videoMute}
+              callStarted={callStarted}
             />
           </div>
         </div>
