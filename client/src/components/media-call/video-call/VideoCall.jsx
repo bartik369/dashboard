@@ -114,8 +114,13 @@ export default function VideoCall() {
   const leaveCall = () => {
     setCallWindow(false);
     setCallEnded(true);
-    connectionRef.current.destroy();
-    window.location.reload();
+    
+    if (connectionRef.current) {
+      connectionRef.current.destroy();
+      window.location.reload();
+    } else {
+      window.location.reload();
+    }
   };
 
   const videoHandler = () => {
@@ -127,14 +132,11 @@ export default function VideoCall() {
     setAudioMute(!audioMute)
   };
 
-  console.log(videoMute)
-  console.log(audioMute)
-
-
   return (
     <>
       {callWindow && (
         <div className="call-window__inner">
+          <i className="bi bi-x-circle" onClick={leaveCall}/>
           <div className="video-layer">
             <VideoPlayer
               name={name}

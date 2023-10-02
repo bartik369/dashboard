@@ -3,34 +3,34 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    background-color: cornflowerblue;
-    padding: 10px;
+    margin-bottom: 5px;
 }
 
 .video-stream {
     position: relative;
     padding: 10px;
+    min-width: 500px;
     width: 100%;
     height: auto;
 }
 
 .myvideo {
-    padding: 10px;
-    background-color: rgb(37, 215, 78);
     position: relative;
 }
 
 .resize-video {
-    background-color: darkolivegreen;
-    width: 100px;
-    height: 100px;
+    width: 220px;
+    height: auto;
 }
 
 .uservideo {
-    padding: 10px;
-    width: 100% !important;
-    height: 100% !important;
-    background-color: blueviolet;
+    margin-left: 20px;
+}
+
+.test-video {
+    min-width: 600px;
+    max-width: 800px;
+    width: 100%;
 }
 
 .call-window {
@@ -46,17 +46,30 @@
 }
 
 .call-window__inner {
-    background-color: burlywood;
+    background-color: rgb(28, 28, 30);
+    border-radius: 5px;
+    padding: 20px;
     position: absolute;
     display: flex;
     justify-content: center;
     align-content: center;
-    width: 90%;
-    height: 80%;
+    flex-direction: column;
+    width: fit-content;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .call-menu {
     position: relative;
+}
+
+.call-menu .bi-camera-video,
+.call-menu .bi-telephone {
+    color: rgb(37, 37, 37);
+    font-size: 15px;
+    padding: 2px 5px;
+    margin: 0;
 }
 
 .end-call {
@@ -78,6 +91,7 @@
     height: 200px;
     width: 500px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -92,50 +106,61 @@
     padding: 5px 12px;
 }
 
+.video-options {
+    display: flex;
+    position: relative;
+    justify-content: center;
+}
+
 .media-options {
     display: flex;
     align-items: center;
-    background-color: cadetblue;
-    padding: 20px;
-    position: absolute;
-    z-index: 99;
-    bottom: 0;
-    left: 50%;
+    padding: 6px 10px;
+    border: 1px solid rgb(118, 120, 127);
+    border-radius: 10px;
 }
 
-.media-options .bi-telephone {
+.bi-camera-video-off,
+.bi-mic-mute,
+.bi-camera-video,
+.bi-mic {
+    margin-right: 10px;
+}
+
+.bi-telephone,
+.bi-telephone-x,
+.bi-camera-video-off,
+.bi-mic-mute,
+.bi-camera-video,
+.bi-mic {
     padding: 10px;
     cursor: pointer;
-    background-color: darkgreen;
     color: aliceblue;
+    font-size: 20px;
 }
 
-.media-options .bi-telephone-x {
-    padding: 10px;
-    background-color: brown;
-    color: aliceblue;
-}
-
-.media-options .bi-camera-video-off {
-    padding: 10px;
-    background-color: rgb(202, 25, 52);
-    color: aliceblue;
-}
-
-.media-options .bi-mic-mute {
-    padding: 10px;
-    background-color: rgb(195, 64, 24);
-    color: aliceblue;
-}
-
-.media-options .bi-camera-video {
-    padding: 10px;
-    background-color: rgb(152, 202, 25);
-    color: aliceblue;
-}
-
+.media-options .bi-telephone,
+.media-options .bi-telephone-x,
+.media-options .bi-camera-video-off,
+.media-options .bi-mic-mute,
+.media-options .bi-camera-video,
 .media-options .bi-mic {
-    padding: 10px;
-    background-color: rgb(30, 193, 130);
-    color: aliceblue;
+    color: rgb(118, 120, 127);
+}
+
+.media-options .bi-telephone:hover,
+.media-options .bi-telephone-x:hover,
+.media-options .bi-camera-video-off:hover,
+.media-options .bi-mic-mute:hover,
+.media-options .bi-camera-video:hover,
+.media-options .bi-mic:hover {
+    color: rgb(203, 203, 203);
+}
+
+.call-window__inner .bi-x-circle {
+    font-size: 30px;
+    position: absolute;
+    top: -10px;
+    right: -35px;
+    cursor: pointer;
 }

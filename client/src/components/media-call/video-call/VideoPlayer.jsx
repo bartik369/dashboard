@@ -7,18 +7,16 @@ const VideoPlayer = ({name, callAccepted, myVideo, userVideo, call,
   return (
     <div className="video-layer">
      { (
-        <div className={callAccepted ? "  " : "myvideo" }>
-          <p>{name || 'Name'}</p>
-          <video className="video-stream" playsInline muted ref={myVideo} autoPlay >
+        <div className="myvideo">
+          <video className={callAccepted ? "resize-video" : "video-stream"} playsInline muted ref={myVideo} autoPlay >
           </video>
         </div>
         
      )}
      {callAccepted && !callEnded && (
        <div className="uservideo">
-         user video here
         <p>{call.name }</p>
-        <video playsInline ref={userVideo} autoPlay ></video>
+        <video className="test-video" playsInline ref={userVideo} autoPlay ></video>
        </div>
      )}
     </div>
