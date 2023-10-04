@@ -147,6 +147,7 @@ export default function VideoCall() {
         <div className="call-window__inner">
           <i className="bi bi-x-circle" onClick={leaveCall}/>
           <div className="video-layer">
+            <div className="stream">
             <VideoPlayer
               name={name}
               callAccepted={callAccepted}
@@ -154,9 +155,8 @@ export default function VideoCall() {
               userVideo={userVideo}
               call={call}
               callEnded={callEnded}
-
             />
-          </div>
+            </div>
           <div className="video-options">
           <Options
               videoHandler={videoHandler}
@@ -170,10 +170,13 @@ export default function VideoCall() {
               audioMute={audioMute}
               videoMute={videoMute}
               callStarted={callStarted}
+              call={call}
             />
+          </div>
           </div>
         </div>
       )}
+
       <div
         className={callNotification ? "call-notification" : "call-notification-turnoff"}>
         {<Notifications answerCall={answerCall} call={call} />}

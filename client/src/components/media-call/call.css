@@ -1,57 +1,6 @@
-.video-layer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 90%;
-    margin-bottom: 5px;
-}
-
-.video-stream {
-    position: relative;
-    min-width: 500px;
-    width: 100%;
-}
-
-.myvideo {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-}
-
-.resize-video {
-    width: 220px;
-    height: auto;
-}
-
-.user-stream {
-    min-width: 600px;
-    max-width: 900px;
-    width: 100%;
-}
-
-.uservideo {
-    margin-left: 20px;
-    border-radius: 20px;
-    min-width: 500px;
-    width: 100%;
-}
-
-.call-window {
-    background-color: rgb(230, 12, 117);
-    width: 100%;
-    height: 100%;
-    z-index: 99;
-    position: absolute;
-    display: flex;
-    left: 0 !important;
-    top: 0 !important;
-    flex-direction: column;
-}
-
 .call-window__inner {
     background-color: #0a0f18;
-    padding: 25px;
+    padding: 20px;
     border-radius: 14px;
     position: absolute;
     display: flex;
@@ -66,6 +15,64 @@
     transform: translate(-50%, -50%);
     z-index: 999;
 }
+
+.video-layer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.stream {
+    width: 100%;
+    height: 100%;
+}
+
+.video-stream {
+    width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+
+/* .myvideo {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+} */
+
+.resize-video {
+    width: 170px;
+    height: auto;
+    position: absolute;
+    z-index: 99;
+    bottom: 10px;
+    right: 10px;
+}
+
+.uservideo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-stream {
+    width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+
+/* .call-window {
+    background-color: rgb(230, 12, 117);
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+    position: absolute;
+    display: flex;
+    left: 0 !important;
+    top: 0 !important;
+    flex-direction: column;
+} */
 
 .call-menu {
     position: relative;
@@ -96,25 +103,25 @@
 .call-notification__inner {
     background-color: #21242b;
     height: fit-content;
-    width: 500px;
+    width: fit-content;
+    padding: 12px 15px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     position: relative;
     overflow: hidden;
+    border-radius: 25px;
 }
 
 .call-notification__inner .caller-info {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
 .call-notification__inner .caller-info .avatar {
-    width: 150px;
-    height: 150px;
+    width: 55px;
+    height: 55px;
 }
 
 .call-notification__inner .caller-info .avatar img {
@@ -140,8 +147,12 @@
 
 .video-options {
     display: flex;
-    position: relative;
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translate(-50%);
     justify-content: center;
+    position: absolute;
 }
 
 .media-options {
@@ -156,7 +167,6 @@
     margin-right: 10px;
 }
 
-.bi-telephone,
 .bi-camera-video-off,
 .bi-mic-mute,
 .bi-camera-video,
@@ -167,19 +177,10 @@
     font-size: 17px;
 }
 
-.bi-telephone-x {
-    background-color: #e44545;
-    color: rgb(205, 205, 205);
-    font-size: 18px;
-    border-radius: 50%;
-    padding: 12px 13px;
+.hide-btn {
+    display: none;
 }
 
-.bi-telephone-x:hover {
-    background-color: #f35151;
-}
-
-.media-options .bi-telephone,
 .media-options .bi-camera-video-off,
 .media-options .bi-mic-mute,
 .media-options .bi-camera-video,
@@ -190,7 +191,44 @@
     padding: 12px 13px;
 }
 
-.media-options .bi-telephone:hover,
+.drop-call {
+    background-color: #e44545;
+    border-radius: 8px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+}
+
+.drop-call span {
+    color: #fefdff;
+    font-size: 11px;
+}
+
+.drop-call .bi-telephone {
+    color: #fefdff;
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+.make-call {
+    background-color: #41bb7a;
+    border-radius: 8px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+}
+
+.make-call span {
+    color: #fefdff;
+    font-size: 11px;
+}
+
+.make-call .bi-telephone {
+    color: #fefdff;
+    font-size: 20px;
+    margin-right: 5px;
+}
+
 .media-options .bi-camera-video-off:hover,
 .media-options .bi-mic-mute:hover,
 .media-options .bi-camera-video:hover,

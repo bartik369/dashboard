@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import '../../media-call/call.css'
 
 export default function Options({ 
@@ -11,6 +11,7 @@ export default function Options({
   audioMute,
   videoMute,
   callStarted,
+  call,
 }) {
 
   return (
@@ -21,9 +22,15 @@ export default function Options({
           <i className={audioMute ? "bi bi-mic-mute" : "bi bi-mic"} onClick={audioHandler}/>
         </div>
         {callAccepted && !callEnded || callStarted ? (
-          <i className="bi bi-telephone-x" onClick={leaveCall}/>
+          <div className="drop-call" onClick={leaveCall}>
+             <i className="bi bi-telephone"/>
+             <span>Завершить</span>
+          </div>
         ) : (
-          <i className="bi bi-telephone" onClick={callUser}/>
+          !call.isReceivedCall && <div className="make-call" onClick={callUser}>
+          <i className="bi bi-telephone"/>
+          <span>Позвонить</span>
+       </div>
         )}
     </div>
     
