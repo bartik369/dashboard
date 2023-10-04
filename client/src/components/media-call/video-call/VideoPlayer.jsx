@@ -16,7 +16,7 @@ const VideoPlayer = ({name, callAccepted, myVideo, userVideo, call,
      {callAccepted && !callEnded && (
        <div className="uservideo">
         <p>{call.name }</p>
-        <video className="test-video" playsInline ref={userVideo} autoPlay ></video>
+        <video className="user-stream" playsInline ref={userVideo} autoPlay ></video>
        </div>
      )}
     </div>

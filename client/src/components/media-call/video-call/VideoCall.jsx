@@ -35,8 +35,8 @@ export default function VideoCall() {
 
   useEffect(() => {
     socket.emit("setMyId", { userId: user.id });
-    socket.on("calluser", ({ from, name: callerName, signal }) => {
-      setCall({ isReceivedCall: true, from, name: callerName, signal });
+    socket.on("calluser", ({ from, name: callerName, avatar, signal }) => {
+      setCall({ isReceivedCall: true, from, name: callerName, avatar, signal });
     });
   }, []);
 
@@ -84,6 +84,7 @@ export default function VideoCall() {
               signalData: data,
               from: socket.id,
               name: userProfile.displayname,
+              avatar: userProfile.avatar,
             });
           });
         }

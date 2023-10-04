@@ -74,8 +74,8 @@ io.on('connect', (socket) => {
     socket.on('disconnect', () => {
         socket.broadcast.emit('callended')
     });
-    socket.on('calluser', ({ userToCall, signalData, from, name }) => {
-        io.to(userToCall).emit('calluser', { signal: signalData, from, name })
+    socket.on('calluser', ({ userToCall, signalData, from, name, avatar }) => {
+        io.to(userToCall).emit('calluser', { signal: signalData, from, name, avatar })
     });
     socket.on('answercall', (data) => {
         io.to(data.to).emit('callaccepted', data.signal)

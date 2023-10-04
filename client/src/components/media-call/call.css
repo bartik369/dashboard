@@ -3,19 +3,20 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    height: 90%;
     margin-bottom: 5px;
 }
 
 .video-stream {
     position: relative;
-    padding: 10px;
     min-width: 500px;
     width: 100%;
-    height: auto;
 }
 
 .myvideo {
     position: relative;
+    overflow: hidden;
+    width: 100%;
 }
 
 .resize-video {
@@ -23,13 +24,16 @@
     height: auto;
 }
 
-.uservideo {
-    margin-left: 20px;
+.user-stream {
+    min-width: 600px;
+    max-width: 900px;
+    width: 100%;
 }
 
-.test-video {
-    min-width: 600px;
-    max-width: 800px;
+.uservideo {
+    margin-left: 20px;
+    border-radius: 20px;
+    min-width: 500px;
     width: 100%;
 }
 
@@ -46,17 +50,21 @@
 }
 
 .call-window__inner {
-    background-color: rgb(28, 28, 30);
-    padding: 20px;
+    background-color: #0a0f18;
+    padding: 25px;
+    border-radius: 14px;
     position: absolute;
     display: flex;
     justify-content: center;
     align-content: center;
     flex-direction: column;
-    width: fit-content;
+    width: 90%;
+    height: 90%;
     top: 50%;
     left: 50%;
+    overflow: hidden;
     transform: translate(-50%, -50%);
+    z-index: 999;
 }
 
 .call-menu {
@@ -86,13 +94,34 @@
 }
 
 .call-notification__inner {
-    background-color: rgb(47, 47, 48);
-    height: 200px;
+    background-color: #21242b;
+    height: fit-content;
     width: 500px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.call-notification__inner .caller-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.call-notification__inner .caller-info .avatar {
+    width: 150px;
+    height: 150px;
+}
+
+.call-notification__inner .caller-info .avatar img {
+    object-fit: cover;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
 }
 
 .call-notification__inner .call-btns {
@@ -118,9 +147,6 @@
 .media-options {
     display: flex;
     align-items: center;
-    padding: 6px 10px;
-    border: 1px solid rgb(118, 120, 127);
-    border-radius: 10px;
 }
 
 .bi-camera-video-off,
@@ -131,28 +157,40 @@
 }
 
 .bi-telephone,
-.bi-telephone-x,
 .bi-camera-video-off,
 .bi-mic-mute,
 .bi-camera-video,
 .bi-mic {
     padding: 10px;
     cursor: pointer;
-    color: aliceblue;
-    font-size: 20px;
+    color: #fefdff;
+    font-size: 17px;
+}
+
+.bi-telephone-x {
+    background-color: #e44545;
+    color: rgb(205, 205, 205);
+    font-size: 18px;
+    border-radius: 50%;
+    padding: 12px 13px;
+}
+
+.bi-telephone-x:hover {
+    background-color: #f35151;
 }
 
 .media-options .bi-telephone,
-.media-options .bi-telephone-x,
 .media-options .bi-camera-video-off,
 .media-options .bi-mic-mute,
 .media-options .bi-camera-video,
 .media-options .bi-mic {
-    color: rgb(118, 120, 127);
+    color: rgb(205, 205, 205);
+    background-color: #1a1c22;
+    border-radius: 50%;
+    padding: 12px 13px;
 }
 
 .media-options .bi-telephone:hover,
-.media-options .bi-telephone-x:hover,
 .media-options .bi-camera-video-off:hover,
 .media-options .bi-mic-mute:hover,
 .media-options .bi-camera-video:hover,
@@ -161,19 +199,20 @@
 }
 
 .call-btns .bi-telephone {
-    font-size: 30px;
-    color: darkgreen;
-    background-color: rgb(32, 32, 32);
-    padding: 9px;
-    margin: 7px;
+    font-size: 20px;
+    color: #ffffff;
+    background-color: #41bb7a;
+    padding: 10px 12px;
+    margin-right: 10px;
+    border-radius: 8px !important;
 }
 
 .call-btns .bi-telephone-x {
-    font-size: 30px;
-    color: brown;
-    background-color: rgb(32, 32, 32);
-    padding: 9px;
-    margin: 7px;
+    font-size: 20px;
+    color: #ffffff;
+    background-color: #e44545;
+    border-radius: 50%;
+    padding: 12px 13px;
 }
 
 .call-window__inner .bi-x-circle {
