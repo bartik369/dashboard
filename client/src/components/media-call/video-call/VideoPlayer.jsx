@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 
 
-const VideoPlayer = ({name, callAccepted, myVideo, userVideo, call,
-   callEnded}) => {
+const VideoPlayer = ({name, callAccepted, myVideo, userVideo, call, callEnded}) => {
+
 
   return (
     <div className="video-layer">
