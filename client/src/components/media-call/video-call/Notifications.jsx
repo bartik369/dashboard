@@ -9,7 +9,10 @@ export default function Notifications({ answerCall, rejectCall, call }) {
           <div className="avatar">
           <img src={call.avatar} alt="" />
           </div>
-          <h2>Входящий вызов от: {call.name}</h2>
+          <div className="name">
+          <div className="dispayname">{call.name}</div>
+          <span>Вызывает...</span>
+          </div>
         </div>
         <div className="call-btns">
           <i className="bi bi-telephone" onClick={answerCall} />

@@ -45,8 +45,6 @@ const io = new Server(server, {
     }
 })
 
-console.log(users)
-
 io.on('connect', (socket) => {
     socket.on('setMyId', (data) => {
         const userInfo = {
@@ -71,8 +69,8 @@ io.on('connect', (socket) => {
             }
         })
     })
-    socket.on('disconnect', () => {
-        socket.broadcast.emit('callended')
+    socket.on("dropcall", () => {
+        socket.broadcast.emit("callended")
     });
     socket.on('calluser', ({ userToCall, signalData, from, name, avatar }) => {
         io.to(userToCall).emit('calluser', { signal: signalData, from, name, avatar })

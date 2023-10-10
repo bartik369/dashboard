@@ -38,6 +38,10 @@ export default function VideoCall() {
     socket.on("calluser", ({ from, name: callerName, avatar, signal }) => {
       setCall({ isReceivedCall: true, from, name: callerName, avatar, signal });
     });
+    socket.on("callended", () => {
+      connectionRef.current.destroy();
+      window.location.reload();
+    })
   }, []);
 
   useEffect(() => {
@@ -60,7 +64,6 @@ export default function VideoCall() {
 
   useEffect(() => {
     if (callEnded) {
-      console.log("Call ended");
       leaveCall();
     }
   }, [callEnded]);
@@ -117,6 +120,7 @@ export default function VideoCall() {
   };
 
   const leaveCall = () => {
+    socket.emit("dropcall");
     setCallWindow(false);
     setCallEnded(true);
 
@@ -174,7 +178,7 @@ export default function VideoCall() {
       )}
 
       <div className={ callNotification ? "call-notification" : "call-notification-turnoff"}>
-        {<Notifications answerCall={answerCall} call={call} />}
+        {<Notifications answerCall={answerCall} rejectCall={leaveCall} call={call} />}
       </div>
     </>
   );
