@@ -41,7 +41,7 @@ export default function VideoCall() {
     socket.on("callended", () => {
       connectionRef.current.destroy();
       window.location.reload();
-    })
+    });
   }, []);
 
   useEffect(() => {
@@ -146,40 +146,49 @@ export default function VideoCall() {
       {callWindow && (
         <div className={callAccepted ? "call-window__inner" : "call-window__before"}>
           {/* <i className="bi bi-x-circle" onClick={leaveCall} /> */}
-            <div className="video-layer">
-              <div className="stream">
-                <VideoPlayer
-                  name={name}
-                  callAccepted={callAccepted}
-                  myVideo={myVideo}
-                  userVideo={userVideo}
-                  call={call}
-                  callEnded={callEnded}
-                />
-              </div>
-              <div className="video-options">
-                <Options
-                  videoHandler={videoHandler}
-                  audioHandler={audioHandler}
-                  callAccepted={callAccepted}
-                  name={name}
-                  setName={setName}
-                  leaveCall={leaveCall}
-                  callEnded={callEnded}
-                  callUser={callUser}
-                  audioMute={audioMute}
-                  videoMute={videoMute}
-                  callStarted={callStarted}
+          <div className="video-layer">
+            <div className={ callNotification
+                ? "call-notification"
+                : "call-notification-turnoff"
+              }
+            >
+              {
+                <Notifications
+                  answerCall={answerCall}
+                  rejectCall={leaveCall}
                   call={call}
                 />
-              </div>
+              }
             </div>
+            <div className="stream">
+              <VideoPlayer
+                name={name}
+                callAccepted={callAccepted}
+                myVideo={myVideo}
+                userVideo={userVideo}
+                call={call}
+                callEnded={callEnded}
+              />
+            </div>
+            <div className="video-options">
+              <Options
+                videoHandler={videoHandler}
+                audioHandler={audioHandler}
+                callAccepted={callAccepted}
+                name={name}
+                setName={setName}
+                leaveCall={leaveCall}
+                callEnded={callEnded}
+                callUser={callUser}
+                audioMute={audioMute}
+                videoMute={videoMute}
+                callStarted={callStarted}
+                call={call}
+              />
+            </div>
+          </div>
         </div>
       )}
-
-      <div className={ callNotification ? "call-notification" : "call-notification-turnoff"}>
-        {<Notifications answerCall={answerCall} rejectCall={leaveCall} call={call} />}
-      </div>
     </>
   );
 }
