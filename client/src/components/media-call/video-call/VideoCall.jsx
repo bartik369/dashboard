@@ -8,6 +8,7 @@ import Options from "./Options";
 import Notifications from "./Notifications";
 import "../../media-call/call.css";
 import { CallContext } from "./CallContext";
+import DestinationInfo from "./DestinationInfo";
 
 const socket = io.connect("http://localhost:5001/");
 
@@ -19,6 +20,7 @@ export default function VideoCall() {
     callNotification,
     setCallNotification,
     userProfile,
+    recipientInfo,
   } = useContext(CallContext);
   const user = useSelector(selectCurrentUser);
   const [stream, setStream] = useState(null);
@@ -39,7 +41,10 @@ export default function VideoCall() {
       setCall({ isReceivedCall: true, from, name: callerName, avatar, signal });
     });
     socket.on("callended", () => {
-      connectionRef.current.destroy();
+
+      if (connectionRef.current) {
+        connectionRef.current.destroy();
+      }
       window.location.reload();
     });
   }, []);
@@ -144,19 +149,26 @@ export default function VideoCall() {
   return (
     <>
       {callWindow && (
+        <div className="call-wrap">
         <div className={callAccepted ? "call-window__inner" : "call-window__before"}>
           {/* <i className="bi bi-x-circle" onClick={leaveCall} /> */}
           <div className="video-layer">
+            <DestinationInfo
+            callStarted={callStarted} 
+            callAccepted={callAccepted} 
+            recipientInfo={recipientInfo} 
+            />
             <div className={ callNotification
                 ? "call-notification"
                 : "call-notification-turnoff"
-              }
-            >
-              {
-                <Notifications
+              }>
+              {<Notifications
                   answerCall={answerCall}
                   rejectCall={leaveCall}
                   call={call}
+                  callAccepted={callAccepted}
+                  callStarted={callStarted}
+                  userProfile={userProfile}
                 />
               }
             </div>
@@ -168,6 +180,8 @@ export default function VideoCall() {
                 userVideo={userVideo}
                 call={call}
                 callEnded={callEnded}
+                audioMute={audioMute}
+                videoMute={videoMute}
               />
             </div>
             <div className="video-options">
@@ -187,6 +201,7 @@ export default function VideoCall() {
               />
             </div>
           </div>
+        </div>
         </div>
       )}
     </>

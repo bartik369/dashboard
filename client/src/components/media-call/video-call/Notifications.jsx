@@ -3,7 +3,7 @@ import "../../media-call/call.css";
 
 export default function Notifications({ answerCall, rejectCall, call }) {
   return (
-    <div>
+    <>
       <div className="call-notification__inner">
         <div className="caller-info">
           <div className="avatar">
@@ -19,6 +19,6 @@ export default function Notifications({ answerCall, rejectCall, call }) {
           <i className="bi bi-telephone-x" onClick={rejectCall} />
         </div>
       </div>
-    </div>
+    </>
   );
 }

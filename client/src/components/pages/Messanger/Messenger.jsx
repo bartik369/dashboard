@@ -179,6 +179,7 @@ const Messenger = () => {
             callNotification,
             setCallNotification,
             userProfile,
+            recipientInfo,
           }}> 
       <VideoCall/>
     </CallContext.Provider>
