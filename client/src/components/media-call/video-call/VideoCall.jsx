@@ -31,6 +31,7 @@ export default function VideoCall() {
   const [callEnded, setCallEnded] = useState(false);
   const [callStarted, setCallStarted] = useState(false);
   const [name, setName] = useState("");
+  const [videoFullScreen, setVideoFullScreen] = useState(false);
   const myVideo = useRef();
   const userVideo = useRef();
   const connectionRef = useRef();
@@ -72,6 +73,11 @@ export default function VideoCall() {
       leaveCall();
     }
   }, [callEnded]);
+
+  const fullScreenHandler = () => {
+    console.log("fuuuul")
+    setVideoFullScreen(!videoFullScreen)
+  }
 
   const callUser = () => {
     setCallStarted(true);
@@ -150,8 +156,10 @@ export default function VideoCall() {
     <>
       {callWindow && (
         <div className="call-wrap">
-        <div className={callAccepted ? "call-window__inner" : "call-window__before"}>
-          {/* <i className="bi bi-x-circle" onClick={leaveCall} /> */}
+        <div className={(callAccepted  && videoFullScreen)
+          ? "call-window__fullscreen" 
+          :(callAccepted ? "call-window__inner" : "call-window__before")
+         }>
           <div className="video-layer">
             <DestinationInfo
             callStarted={callStarted} 
@@ -182,6 +190,8 @@ export default function VideoCall() {
                 callEnded={callEnded}
                 audioMute={audioMute}
                 videoMute={videoMute}
+                videoFullScreen={videoFullScreen}
+                fullScreenHandler={fullScreenHandler}
               />
             </div>
             <div className="video-options">
