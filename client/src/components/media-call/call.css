@@ -209,7 +209,7 @@
 .bi-mic-mute,
 .bi-camera-video,
 .bi-mic {
-    margin-right: 10px;
+    margin-right: 7px;
 }
 
 .bi-camera-video-off,
@@ -256,8 +256,15 @@
     margin-right: 5px;
 }
 
+.drop-call .bi-telephone-x {
+    color: #fefdff;
+    font-size: 20px;
+    margin-right: 5px;
+}
+
 .make-call {
     background-color: #41bb7a;
+    margin-right: 7px;
     border-radius: 8px;
     padding: 10px 12px;
     display: flex;
@@ -322,6 +329,22 @@
     display: none;
 }
 
+.callin-info {
+    display: flex;
+    align-items: center;
+}
+
+.callin-info span {
+    color: #b2b2b2;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.callin-info .recipientinfo {
+    color: #f0f0f0;
+    font-size: 21px;
+}
+
 .fullscreen_btn {
     position: absolute;
     padding: 10px;
@@ -333,16 +356,106 @@
     z-index: 999999;
 }
 
-.bi-arrows-angle-expand {
-    font-size: 20px;
-    color: #747474;
-}
-
+.bi-arrows-angle-expand,
 .bi-arrows-angle-contract {
     font-size: 20px;
-    color: #747474;
+    color: #f0f0f0;
+    cursor: pointer;
 }
 
-.bi-arrows-angle-expand:hover {
-    color: antiquewhite;
+.bi-arrows-angle-expand:hover,
+.bi-arrows-angle-contract:hover {
+    color: #ffffff;
+}
+
+.leave_btn {
+    color: #ffffff;
+}
+
+.lds-facebook {
+    display: inline-block;
+    position: relative;
+    width: 40px;
+    height: 40px;
+}
+
+.lds-facebook div {
+    display: inline-block;
+    position: absolute;
+    left: 8px;
+    width: 6px;
+    background: rgb(10, 161, 96);
+    animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+
+.lds-facebook div:nth-child(1) {
+    left: 8px;
+    animation-delay: -0.24s;
+}
+
+.lds-facebook div:nth-child(2) {
+    left: 17px;
+    animation-delay: -0.12s;
+}
+
+.lds-facebook div:nth-child(3) {
+    left: 26px;
+    animation-delay: 0;
+}
+
+@keyframes lds-facebook {
+    0% {
+        top: 1px;
+        height: 34px;
+    }
+    50%,
+    100% {
+        top: 7px;
+        height: 25px;
+    }
+}
+
+.arrows-body {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrow {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    border-top: 3px solid rgb(71, 145, 99);
+    border-left: 3px solid rgb(71, 145, 99);
+    opacity: .6;
+    transform: rotate(135deg);
+    animation: arrow-load 2s infinite;
+}
+
+.arrow:nth-child(1) {
+    left: 7px;
+    animation-delay: -0.4s;
+}
+
+.arrow:nth-child(2) {
+    animation-delay: -0.2s;
+}
+
+.arrow:nth-child(3) {
+    right: 2px;
+}
+
+@keyframes arrow-load {
+    0% {
+        opacity: 0;
+        transform: rotate(135deg) translate(60px, 60px)
+    }
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: rotate(135deg) translate(-60px, -60px)
+    }
 }

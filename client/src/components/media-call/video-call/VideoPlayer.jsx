@@ -1,7 +1,18 @@
 import React  from 'react'
 import "../../media-call/call.css";
 
-const VideoPlayer = ({name, callAccepted, myVideo, userVideo, callEnded, fullScreenHandler, videoMute, audioMute, videoFullScreen}) => {
+const VideoPlayer = ({
+  name, 
+  callAccepted, 
+  myVideo, 
+  userVideo, 
+  callEnded, 
+  fullScreenHandler, 
+  videoMute, 
+  audioMute, 
+  videoFullScreen,
+  clickFullScreenHandler,
+}) => {
 
   return (
     <div className="video-layer">
@@ -14,7 +25,7 @@ const VideoPlayer = ({name, callAccepted, myVideo, userVideo, callEnded, fullScr
           : <i className="bi bi-arrows-angle-contract"/>
           }
         </div>
-        <video className="user-stream" playsInline ref={userVideo} autoPlay />
+        <video className="user-stream" onClick={(e) => clickFullScreenHandler(e) } playsInline ref={userVideo} autoPlay />
        </div>
      )}
     </div>

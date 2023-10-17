@@ -4,7 +4,17 @@ import "../../media-call/call.css";
 export default function DestinationInfo({callStarted, callAccepted, recipientInfo}) {
   return (
     <div className={(callStarted && !callAccepted) ? "outcall" : "outcall-hide"}>
-    {`calling to: ${recipientInfo.displayname}`}
+      <div className="callin-info">
+        <span>Звоним:</span>
+        <div className="recipientinfo">
+        {recipientInfo.displayname}
+        </div>
+      </div>
+      <div className="arrows-body">
+        <div className="arrow"></div>
+        <div className="arrow"></div>
+        <div className="arrow"></div>
+      </div>
   </div>
   )
 }

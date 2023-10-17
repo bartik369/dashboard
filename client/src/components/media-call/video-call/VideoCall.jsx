@@ -74,8 +74,11 @@ export default function VideoCall() {
     }
   }, [callEnded]);
 
+  const clickFullScreenHandler = (e) => {
+    e.detail === 2 && setVideoFullScreen(!videoFullScreen)
+  }
+
   const fullScreenHandler = () => {
-    console.log("fuuuul")
     setVideoFullScreen(!videoFullScreen)
   }
 
@@ -192,6 +195,7 @@ export default function VideoCall() {
                 videoMute={videoMute}
                 videoFullScreen={videoFullScreen}
                 fullScreenHandler={fullScreenHandler}
+                clickFullScreenHandler={clickFullScreenHandler}
               />
             </div>
             <div className="video-options">
