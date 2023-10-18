@@ -252,6 +252,10 @@
     align-items: center;
 }
 
+.drop-call:hover {
+    background-color: #e42b2b;
+}
+
 .drop-call span {
     color: #fefdff;
     font-size: 11px;
@@ -276,6 +280,10 @@
     padding: 10px 12px;
     display: flex;
     align-items: center;
+}
+
+.make-call:hover {
+    background-color: #49c985;
 }
 
 .make-call span {
@@ -305,12 +313,20 @@
     margin-right: 5px;
 }
 
+.call-btns .bi-telephone:hover {
+    background-color: #4bc885;
+}
+
 .call-btns .bi-telephone-x {
     font-size: 20px;
     color: #ffffff;
     background-color: #dc2626;
     border-radius: 50%;
     padding: 12px 13px;
+}
+
+.call-btns .bi-telephone-x:hover {
+    background-color: #e53030;
 }
 
 .videoicon-mute {
