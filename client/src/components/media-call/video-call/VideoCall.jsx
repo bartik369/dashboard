@@ -158,20 +158,20 @@ export default function VideoCall() {
   return (
     <>
       {callWindow && (
-        <div className="call-wrap">
+        <div className="call-wrapper">
         <div className={(callAccepted  && videoFullScreen)
-          ? "call-window__fullscreen" 
-          :(callAccepted ? "call-window__inner" : "call-window__before")
+          ? "call-fullscreen" 
+          :(callAccepted ? "call-inner" : "precall-inner")
          }>
-          <div className="video-layer">
+          <div className="call-components">
             <DestinationInfo
             callStarted={callStarted} 
             callAccepted={callAccepted} 
             recipientInfo={recipientInfo} 
             />
             <div className={ callNotification
-                ? "call-notification"
-                : "call-notification-turnoff"
+                ? "notifications"
+                : "notification-off"
               }>
               {<Notifications
                   answerCall={answerCall}
@@ -198,7 +198,7 @@ export default function VideoCall() {
                 clickFullScreenHandler={clickFullScreenHandler}
               />
             </div>
-            <div className="video-options">
+            <div className="options">
               <Options
                 videoHandler={videoHandler}
                 audioHandler={audioHandler}

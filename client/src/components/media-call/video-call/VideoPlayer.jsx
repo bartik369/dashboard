@@ -15,7 +15,7 @@ const VideoPlayer = ({
 }) => {
 
   return (
-    <div className="video-layer">
+    <>
      {<video className={callAccepted ? "resize-video" : "video-stream"} playsInline muted ref={myVideo} autoPlay />}
      {callAccepted && !callEnded && (
        <div className="uservideo">
@@ -28,7 +28,7 @@ const VideoPlayer = ({
         <video className="user-stream" onClick={(e) => clickFullScreenHandler(e) } playsInline ref={userVideo} autoPlay />
        </div>
      )}
-    </div>
+    </>
   )
 }
 

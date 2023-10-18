@@ -1,4 +1,4 @@
-.call-wrap {
+.call-wrapper {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.9);
@@ -11,7 +11,7 @@
     z-index: 99 !important;
 }
 
-.call-window__before {
+.precall-inner {
     background-color: #070708;
     padding: 10px;
     border-radius: 16px;
@@ -29,7 +29,7 @@
     z-index: 101;
 }
 
-.call-window__inner {
+.call-inner {
     background-color: #070708;
     padding: 10px;
     border-radius: 16px;
@@ -47,7 +47,7 @@
     z-index: 101;
 }
 
-.call-window__fullscreen {
+.call-fullscreen {
     width: 100vw;
     height: 100vh;
     object-fit: cover;
@@ -58,13 +58,13 @@
     border-radius: 0;
 }
 
-.video-layer {
+.call-components {
     width: 100%;
     height: 100%;
     position: relative;
 }
 
-.stream {
+.call-components .stream {
     width: 100%;
     height: 100%;
     position: relative;
@@ -118,12 +118,16 @@
     display: none;
 }
 
-.call-notification {
+.call-components .notifications {
     z-index: 99;
     width: 97%;
     height: fit-content;
     display: flex;
     justify-content: center;
+}
+
+.call-components .notification-off {
+    display: none;
 }
 
 .call-notification__inner {
@@ -179,17 +183,13 @@
     display: flex;
 }
 
-.call-notification-turnoff {
-    display: none;
-}
-
 .videocall_btn {
     background-color: blueviolet;
     color: aliceblue;
     padding: 5px 12px;
 }
 
-.video-options {
+.call-components .options {
     display: flex;
     bottom: 15px;
     height: 47px;
