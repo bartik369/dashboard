@@ -16,16 +16,16 @@ const VideoPlayer = ({
 
   return (
     <>
-     {<video className={callAccepted ? "resize-video" : "video-stream"} playsInline muted ref={myVideo} autoPlay />}
+     {<video className={callAccepted ? "resized-local-stream" : "local-stream"} playsInline muted ref={myVideo} autoPlay />}
      {callAccepted && !callEnded && (
-       <div className="uservideo">
+       <div className="video-wrapper">
         <div className="fullscreen_btn" onClick={fullScreenHandler}>
           {!videoFullScreen 
           ? <i className="bi bi-arrows-angle-expand" />
           : <i className="bi bi-arrows-angle-contract"/>
           }
         </div>
-        <video className="user-stream" onClick={(e) => clickFullScreenHandler(e) } playsInline ref={userVideo} autoPlay />
+        <video className={videoFullScreen ? "user-stream-full" : "user-stream"} onClick={(e) => clickFullScreenHandler(e) } playsInline ref={userVideo} autoPlay />
        </div>
      )}
     </>

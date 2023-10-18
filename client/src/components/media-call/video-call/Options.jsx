@@ -34,8 +34,8 @@ export default function Options({
         )}
         {(!callAccepted && !call.isReceivedCall && !callStarted) && 
         <div className="drop-call" onClick={leaveCall}>
-           <i className="bi bi-telephone-x" />
-           <span>Отмена</span>
+           <i className="bi bi-box-arrow-right" />
+           <span>Выйти</span>
         </div>
         }
     </div>

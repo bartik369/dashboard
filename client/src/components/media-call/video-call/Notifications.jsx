@@ -4,8 +4,8 @@ import "../../media-call/call.css";
 export default function Notifications({ answerCall, rejectCall, call }) {
   return (
     <>
-      <div className="call-notification__inner">
-        <div className="caller-info">
+      <div className="caller-info">
+        <div className="caller">
           <div className="avatar">
           <img src={call.avatar} alt="" />
           </div>
