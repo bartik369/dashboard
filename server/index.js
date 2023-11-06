@@ -51,10 +51,12 @@ io.on('connect', (socket) => {
             socketId: socket.id,
             userId: data.userId
         }
+
         if (users.length === 0) {
             users.push(userInfo)
         } else {
             const result = users.find(item => item.userId === data.userId)
+
             if (result) {
                 result.socketId = socket.id
             } else {
@@ -64,6 +66,7 @@ io.on('connect', (socket) => {
     })
     socket.on('reqRecipentSocketId', (data) => {
         users.map((item) => {
+
             if (item.userId === data.recipientId) {
                 socket.emit('resRecipentSocketId', { socketData: item.socketId })
             }

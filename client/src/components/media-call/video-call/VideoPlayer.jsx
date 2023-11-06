@@ -7,18 +7,26 @@ const VideoPlayer = ({
   myVideo, 
   userVideo, 
   callEnded, 
-  fullScreenHandler, 
-  videoMute, 
-  audioMute, 
+  fullScreenHandler,
   videoFullScreen,
   clickFullScreenHandler,
+  call,
 }) => {
+
 
   return (
     <>
-     {<video className={callAccepted ? "resized-local-stream" : "local-stream"} playsInline muted ref={myVideo} autoPlay />}
+     {<video className={
+       callAccepted ? "resized-local-stream" : call.isReceivedCall ? "test-hide" : "local-stream"}
+       playsInline 
+       muted 
+       ref={myVideo} 
+       autoPlay 
+       />
+    }
      {callAccepted && !callEnded && (
        <div className="video-wrapper">
+      {/* {<div className="test-icon2">erererdsdsdsdsd</div>} */}
         <div className="fullscreen_btn" onClick={fullScreenHandler}>
           {!videoFullScreen 
           ? <i className="bi bi-arrows-angle-expand" />

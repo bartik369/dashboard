@@ -11,6 +11,27 @@
     z-index: 99 !important;
 }
 
+.left-move {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 99 !important;
+}
+
+.left-move-position {
+    position: absolute;
+    bottom: 30px;
+    width: 350px;
+    right: 12px;
+    background-color: #070708;
+    padding: 10px;
+    overflow: hidden;
+    border-radius: 16px;
+}
+
 .precall-inner {
     background-color: #070708;
     padding: 10px;
@@ -92,7 +113,19 @@
 .video-wrapper {
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     object-fit: cover;
+}
+
+.test-icon2 {
+    width: 120px;
+    height: 120px;
+    background-color: #49c985;
+    color: #ccccce;
+    z-index: 99999;
+    position: absolute;
 }
 
 .user-stream {
@@ -159,16 +192,56 @@
 }
 
 .caller-info .caller .avatar {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
     margin-right: 20px;
+    position: relative;
+    background-color: orange;
+    margin: 20px;
 }
 
 .caller-info .caller .avatar img {
     object-fit: cover;
-    border-radius: 50%;
     width: 100%;
     height: 100%;
+    border-radius: 50%;
+}
+
+.caller-info .caller .avatar::before {
+    content: "";
+    position: absolute;
+    border: 1px solid orange;
+    width: calc(100% + 40px);
+    height: calc(100% + 40px);
+    border-radius: 50%;
+    animation: pulse 1s linear infinite
+}
+
+.caller-info .caller .avatar::after {
+    content: "";
+    position: absolute;
+    border: 1px solid ORANGE;
+    width: calc(100% + 40px);
+    height: calc(100% + 40px);
+    border-radius: 50%;
+    animation: pulse 1s linear infinite;
+    animation-delay: 0.3s
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.5);
+        opacity: 0
+    }
+    50% {
+        transform: scale(1);
+        opacity: 1
+    }
+    100% {
+        transform: scale(1.3);
+        opacity: 0
+    }
 }
 
 .caller-info .caller .name {
@@ -178,12 +251,12 @@
 
 .caller .name .dispayname {
     color: #ccccce;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .caller .name span {
     color: #787986;
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .caller-info .call-btns {
@@ -481,4 +554,8 @@
         opacity: 0;
         transform: rotate(135deg) translate(-60px, -60px)
     }
+}
+
+.test-hide {
+    display: none;
 }

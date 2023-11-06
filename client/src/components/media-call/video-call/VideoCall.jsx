@@ -32,6 +32,7 @@ export default function VideoCall() {
   const [callStarted, setCallStarted] = useState(false);
   const [name, setName] = useState("");
   const [videoFullScreen, setVideoFullScreen] = useState(false);
+  const [iconMute, setIconMute] = useState(false)
   const myVideo = useRef();
   const userVideo = useRef();
   const connectionRef = useRef();
@@ -51,6 +52,7 @@ export default function VideoCall() {
   }, []);
 
   useEffect(() => {
+
     if (callWindow) {
       navigator.mediaDevices
         .getUserMedia({ video: true, audio: true })
@@ -62,6 +64,7 @@ export default function VideoCall() {
   }, [callWindow]);
 
   useEffect(() => {
+
     if (call.isReceivedCall && !callAccepted) {
       setCallWindow(true);
       setCallNotification(true);
@@ -69,6 +72,7 @@ export default function VideoCall() {
   }, [call]);
 
   useEffect(() => {
+
     if (callEnded) {
       leaveCall();
     }
@@ -83,6 +87,7 @@ export default function VideoCall() {
   }
 
   const callUser = () => {
+    
     setCallStarted(true);
     const peer = new Peer({ initiator: true, trickle: false, stream });
 
@@ -133,6 +138,7 @@ export default function VideoCall() {
     connectionRef.current = peer;
   };
 
+
   const leaveCall = () => {
     socket.emit("dropcall");
     setCallWindow(false);
@@ -148,20 +154,27 @@ export default function VideoCall() {
 
   const videoHandler = () => {
     stream.getVideoTracks()[0].enabled = !stream.getVideoTracks()[0].enabled;
-    setVideoMute(!videoMute);
+    setVideoMute(!videoMute); 
   };
+  
   const audioHandler = () => {
     stream.getAudioTracks()[0].enabled = !stream.getAudioTracks()[0].enabled;
     setAudioMute(!audioMute);
   };
 
+
+
   return (
     <>
       {callWindow && (
-        <div className="call-wrapper">
+        <div className={(callStarted || callAccepted) && "call-wrapper"}>
         <div className={(callAccepted  && videoFullScreen)
           ? "call-fullscreen" 
-          :(callAccepted ? "call-inner" : "precall-inner")
+          : callAccepted 
+            ? "call-inner" 
+            : call.isReceivedCall 
+              ? "left-move-position" 
+              : "precall-inner"
          }>
           <div className="call-components">
             <DestinationInfo
@@ -184,19 +197,21 @@ export default function VideoCall() {
               }
             </div>
             <div className="stream">
-              <VideoPlayer
-                name={name}
-                callAccepted={callAccepted}
-                myVideo={myVideo}
-                userVideo={userVideo}
-                call={call}
-                callEnded={callEnded}
-                audioMute={audioMute}
-                videoMute={videoMute}
-                videoFullScreen={videoFullScreen}
-                fullScreenHandler={fullScreenHandler}
-                clickFullScreenHandler={clickFullScreenHandler}
-              />
+             {<VideoPlayer
+              name={name}
+              callAccepted={callAccepted}
+              myVideo={myVideo}
+              userVideo={userVideo}
+              call={call}
+              callEnded={callEnded}
+              audioMute={audioMute}
+              videoMute={videoMute}
+              videoFullScreen={videoFullScreen}
+              fullScreenHandler={fullScreenHandler}
+              clickFullScreenHandler={clickFullScreenHandler}
+              iconMute={iconMute}
+            /> 
+             }
             </div>
             <div className="options">
               <Options
