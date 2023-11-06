@@ -17,7 +17,7 @@ const VideoPlayer = ({
   return (
     <>
      {<video className={
-       callAccepted ? "resized-local-stream" : call.isReceivedCall ? "test-hide" : "local-stream"}
+       callAccepted ? "resized-local-stream" : call.isReceivedCall ? "stream-hide" : "local-stream"}
        playsInline 
        muted 
        ref={myVideo} 

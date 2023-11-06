@@ -226,6 +226,7 @@ export default function VideoCall() {
                 audioMute={audioMute}
                 videoMute={videoMute}
                 callStarted={callStarted}
+                callWindow={callWindow}
                 call={call}
               />
             </div>

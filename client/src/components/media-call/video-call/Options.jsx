@@ -11,12 +11,13 @@ export default function Options({
   audioMute,
   videoMute,
   callStarted,
+  callWindow,
   call,
 }) {
 
   return (
   
-    <div className="media-options">
+    <div className={(!call.isReceivedCall || callAccepted) ? "media-options" : "options-hide"}>
        <div className="media-options__btn">
           <i className={videoMute ? "bi bi-camera-video-off" : "bi bi-camera-video"} onClick={videoHandler}/>
           <i className={audioMute ? "bi bi-mic-mute" : "bi bi-mic"} onClick={audioHandler}/>
