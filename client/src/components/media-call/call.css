@@ -23,12 +23,14 @@
 
 .left-move-position {
     position: absolute;
-    bottom: 30px;
-    width: 300px;
-    right: 12px;
-    background-color: #070708;
+    bottom: 70px;
+    width: fit-content;
+    left: 12px;
+    background-color: #1e1e25;
     overflow: hidden;
     border-radius: 16px;
+    padding-right: 20px;
+    box-shadow: 0 4px 4px 0 rgba(81, 83, 130, 0.2), 0 8px 8px 0 rgba(81, 83, 130, .2), 0 16px 16px 0 rgba(81, 83, 130, .2), 0 32px 32px 0 rgba(81, 83, 130, .2), 0 64px 64px 0 rgba(81, 83, 130, .2), 0 128px 128px 0 rgba(81, 83, 130, .2);
 }
 
 .precall-inner {
@@ -47,6 +49,7 @@
     overflow: hidden;
     transform: translate(-50%, -50%);
     z-index: 101;
+    box-shadow: 0 4px 4px 0 rgba(81, 83, 130, 0.2), 0 8px 8px 0 rgba(81, 83, 130, .2), 0 16px 16px 0 rgba(81, 83, 130, .2), 0 32px 32px 0 rgba(81, 83, 130, .2), 0 64px 64px 0 rgba(81, 83, 130, .2), 0 128px 128px 0 rgba(81, 83, 130, .2);
 }
 
 .call-inner {
@@ -169,7 +172,6 @@
 
 .caller-info {
     height: fit-content;
-    width: fit-content;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -207,19 +209,20 @@
 
 @keyframes call {
     15% {
-        box-shadow: 0 0 0 2px rgba(4, 210, 49, 0.5);
+        box-shadow: 0 0 0 2px rgba(54, 161, 104, 0.5);
     }
     25% {
-        box-shadow: 0 0 0 4px rgba(4, 210, 49, 0.5), 0 0 0 16px rgba(4, 210, 49, 0.3);
+        box-shadow: 0 0 0 4px rgba(54, 161, 104, 0.5), 0 0 0 16px rgba(54, 161, 104, 0.3);
     }
     30% {
-        box-shadow: 0 0 0 8px rgba(4, 210, 49, 0.5), 0 0 0 24px rgba(4, 210, 49, 0.3);
+        box-shadow: 0 0 0 8px rgba(54, 161, 104, 0.5), 0 0 0 24px rgba(54, 161, 104, 0.3);
     }
 }
 
 .caller-info .caller .name {
     display: flex;
     flex-direction: column;
+    margin-left: 5px;
 }
 
 .caller .name .dispayname {
