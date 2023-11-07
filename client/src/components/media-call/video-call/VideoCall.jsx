@@ -174,7 +174,9 @@ export default function VideoCall() {
             ? "call-inner" 
             : call.isReceivedCall 
               ? "left-move-position" 
-              : "precall-inner"
+              : callStarted 
+                ? "precall-inner2"
+                : "precall-inner"
          }>
           <div className="call-components">
             <DestinationInfo

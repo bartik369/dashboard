@@ -52,6 +52,27 @@
     box-shadow: 0 4px 4px 0 rgba(81, 83, 130, 0.2), 0 8px 8px 0 rgba(81, 83, 130, .2), 0 16px 16px 0 rgba(81, 83, 130, .2), 0 32px 32px 0 rgba(81, 83, 130, .2), 0 64px 64px 0 rgba(81, 83, 130, .2), 0 128px 128px 0 rgba(81, 83, 130, .2);
 }
 
+.precall-inner2 {
+    background-color: #070708;
+    padding: 10px;
+    border-radius: 16px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    width: 45%;
+    height: fit-content;
+    top: 50%;
+    left: 50%;
+    overflow: hidden;
+    transform: translate(-50%, -50%);
+    z-index: 101;
+    -webkit-box-shadow: 4px 22px 32px 1px rgba(7, 8, 9, 0.76);
+    -moz-box-shadow: 4px 22px 32px 1px rgba(7, 8, 9, 0.76);
+    box-shadow: 4px 22px 32px 1px rgba(7, 8, 9, 0.76);
+}
+
 .call-inner {
     background-color: #070708;
     padding: 10px;
